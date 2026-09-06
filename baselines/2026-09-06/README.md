@@ -85,11 +85,10 @@ print('Archive, members, and all six contract comparisons passed.')
 PY
 ```
 
-## Next bounded task
+## Relational import
 
-Implement the disposable relational baseline importer against this frozen
-workbook. Reconcile all source rows, conservative legacy identities and constrained
-relationships against the Checkpoint A mapping, preserving intentional values and
-source evidence. Physical schema choices and concrete mapping ambiguities must be
-resolved from the specification and consumers before implementation. Full form
-parity remains D; manufacturer intake remains separately authorized C work.
+The [Checkpoint B importer](../../catalog/README.md) now imports this frozen
+workbook into a disposable SQLite candidate, with source-row accounting,
+model-qualified identities, constrained relationships and value reconciliation.
+The archive and manifest above remain unchanged. Full form parity remains D;
+manufacturer intake remains separately authorized C work.
