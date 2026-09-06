@@ -19,6 +19,10 @@
 - Proceed with requested, reversible work when the intended outcome is clear.
   Ask only for unresolved business decisions, consequential architectural
   choices, destructive actions, or scope expansion that evidence cannot settle.
+- Within an authorized task, continue diagnosed, recoverable failures while
+  evidence supports a concrete next fix. Do not stop solely at a fixed retry
+  count or review-round limit. Stop when the same failure repeats without new
+  evidence, progress is blocked, or the next step exceeds the authorized scope.
 - Use validation proportional to affected behavior. Explain what was checked
   and any material gaps. Do not add duplicate gates, ceremonial receipts,
   documentation-only checks, or enforcement scripts without demonstrated need.
@@ -35,6 +39,14 @@
 - Deliver requested changes through a PR to `main`; opening it needs no second
   approval. Merging requires an explicit user request. Do not push changes
   directly to `main` after the initial repository bootstrap.
+- The owner authorizes routine commits, task-branch pushes and PRs to this
+  repository, including its public remote, for catalog pricing, option/rule
+  data, source-derived code, tests, documentation and review/staging evidence
+  produced within the requested task. Pricing or manufacturer provenance alone
+  is not a reason to request publication approval again. Keep raw originals
+  Git-ignored as agreed; credentials, customer records and explicitly private
+  material are outside this authorization. Publishing review evidence does not
+  accept it as canonical data or authorize a merge, deployment or cutover.
 - Analysis-only discussions with no tracked changes need no commit or PR.
   If no remote is configured, leave a verified local commit and report that
   limitation rather than inventing a remote or claiming PR delivery.
@@ -64,9 +76,9 @@
   budgeting targets, not permission to skip necessary checks or call a timeout
   a pass. Reserve full parity/recovery checks for relevant milestones and
   releases, unless the current change directly affects those guarantees.
-- Default to one worker inline, one focused review and one fix round. Concrete
-  unresolved defects block merge; report them at a clean checkpoint rather
-  than starting an unbounded review loop. Re-run affected checks after fixes;
+- Default to one worker inline and a focused review. Continue necessary fixes
+  within the authorized task under the recovery guidance above. Concrete
+  unresolved defects block merge. Re-run affected checks after fixes;
   repeat broader checks only when changed assumptions or failures justify it.
 - Add executable checks as implementation risks appear. Each new check must
   catch a specific failure existing checks miss. Do not add validation
