@@ -133,7 +133,7 @@ Use a closed **CatalogEntity** identity registry for referenceable rows (model/y
 | GroupRule / P; label E | One Rule; `rule_id` | `display_label?` authored group name; `source_entity_id`, `effect=requires/excludes/includes`, `member_logic=any/all`. Baseline types observed are requires_any/excludes_any; do not enable other semantics without supporting facts |
 | RuleMember / P | One group target; `(rule_id, target_entity_id)` | `sequence`, `active`; member target subtype and scope must be valid |
 | ExclusiveGroup / P; label E | One group in model/year; `id` | `model_year_id`, `display_label?`, `selection_mode=at_most_one/exactly_one`, `active`; ExclusiveMember key `(group_id, offering_id)`, fields `sequence`, `active` |
-| ConditionalPriceRule / P | One Rule; `rule_id` | `condition_offering_id`, `target_offering_id`, `price_context_id`, `amount`, `effect=override`. Explicit sequence retains first matching rule precedence |
+| ConditionalPriceRule / P | One Rule; `rule_id` | `condition_entity_id` constrained to Offering or ModelInterior, `target_offering_id`, `price_context_id`, `amount`, `effect=override`. Explicit sequence retains first matching rule precedence. B confirmed interior-triggered seatbelt prices in the frozen workbook and `inspection.py:build_draft_price_rules`; the earlier offering-only condition was too narrow |
 | DefaultRule / E+P | One Rule; `rule_id` | `target_offering_id`, `condition_kind`, typed condition relation, `display_behavior?`, `priority`. Kinds: always, unless selected code, unless selected section, when selected offering unless user choice in target section. Code predicate retains code-matching behavior; never selects an arbitrary offering for a nonunique RPO |
 | Default condition subtypes / E+P | Exactly the matching subtype for each default rule | Always has no operand; code has `code`; section has `section_id`; when-selected has `condition_offering_id`, `target_section_id`. Resolve current target section behavior per variant before replacing runtime derivation |
 | ColorRule / P | One Rule; `rule_id` | `model_interior_id`, `condition_offering_id`, `added_offering_id`, `effect=requires`. Source `adds_rpo` actually names an option ID. Keep a distinct interior + option condition |
@@ -212,6 +212,13 @@ Common mapping rules: IDs/FKs go to typed identity/membership or LegacyMapping; 
 | runtime_rule_exceptions (0 rows) | `model_key`, `exception_id`, `source_option_id`, `target_option_id`, `exception_type`, `body_style_scope`, `trim_level_scope`, `variant_scope`, `disabled_reason`, `active`, `notes` → retained empty-schema evidence, no new executable rule family. Future populated input needs explicit classification |
 
 Compatibility facts found in code also need provenance: the five Z06 derived replacement permissions in `rule_derivation.py`, R6X/seat-code inference in `pricing.py` and `interiors.py`, and package-component pricing in `form-app/app.js`. Record their revision/symbol locations and classification as baseline behavior; do not attribute them to the manufacturer or quietly omit them because they are outside the workbook.
+
+September 6 B implementation: the [disposable candidate mapping](../catalog/README.md)
+preserves those policies with pinned code evidence. It also distinguishes the
+code-owned, nonnavigable `standard_equipment` bucket from authored runtime steps,
+and retains wildcard asset scope separately from model overrides. The candidate
+is a single frozen model-year import, not the final authoring/release schema.
+See its report for complete row accounting; full runtime equivalence remains D.
 
 ## 6. Intake, discrepancy and acceptance contract
 

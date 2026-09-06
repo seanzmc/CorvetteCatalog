@@ -1,0 +1,589 @@
+{
+  "provenance": {
+    "workbook_sha256": "3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c",
+    "reference_commit": "4fe92a4f078370c478f18484cad31bdafe58ad43",
+    "schema_version": "1",
+    "authority": "disposable_candidate",
+    "importer_sha256": "575babb7111c577dd79b50056795a2f4beb900815403c55c6c404d884cc10c35",
+    "schema_sha256": "f184346cc533d7113982d459cfc16b028e53064bb33764c205d5f45bff84ff0e"
+  },
+  "source_sheets": [
+    {
+      "sheet": "model_master",
+      "source_rows": 6,
+      "accounted_rows": 6
+    },
+    {
+      "sheet": "model_registry_promotion",
+      "source_rows": 6,
+      "accounted_rows": 6
+    },
+    {
+      "sheet": "model_workbook_sources",
+      "source_rows": 66,
+      "accounted_rows": 66
+    },
+    {
+      "sheet": "model_variants",
+      "source_rows": 32,
+      "accounted_rows": 32
+    },
+    {
+      "sheet": "variant_master",
+      "source_rows": 32,
+      "accounted_rows": 32
+    },
+    {
+      "sheet": "section_master",
+      "source_rows": 48,
+      "accounted_rows": 48
+    },
+    {
+      "sheet": "context_section_master",
+      "source_rows": 12,
+      "accounted_rows": 12
+    },
+    {
+      "sheet": "section_presentation",
+      "source_rows": 59,
+      "accounted_rows": 59
+    },
+    {
+      "sheet": "runtime_steps",
+      "source_rows": 84,
+      "accounted_rows": 84
+    },
+    {
+      "sheet": "context_choice_copy",
+      "source_rows": 6,
+      "accounted_rows": 6
+    },
+    {
+      "sheet": "order_summary_sections",
+      "source_rows": 69,
+      "accounted_rows": 69
+    },
+    {
+      "sheet": "step_order_summary_map",
+      "source_rows": 81,
+      "accounted_rows": 81
+    },
+    {
+      "sheet": "default_selection_rules",
+      "source_rows": 28,
+      "accounted_rows": 28
+    },
+    {
+      "sheet": "runtime_rule_exceptions",
+      "source_rows": 0,
+      "accounted_rows": 0
+    },
+    {
+      "sheet": "stingray_variant_overrides",
+      "source_rows": 4,
+      "accounted_rows": 4
+    },
+    {
+      "sheet": "asset_map",
+      "source_rows": 383,
+      "accounted_rows": 383
+    },
+    {
+      "sheet": "PriceRef",
+      "source_rows": 21,
+      "accounted_rows": 21
+    },
+    {
+      "sheet": "lt_interiors",
+      "source_rows": 132,
+      "accounted_rows": 132
+    },
+    {
+      "sheet": "LZ_Interiors",
+      "source_rows": 130,
+      "accounted_rows": 130
+    },
+    {
+      "sheet": "model_interior_scope",
+      "source_rows": 704,
+      "accounted_rows": 704
+    },
+    {
+      "sheet": "interior_components",
+      "source_rows": 1044,
+      "accounted_rows": 1044
+    },
+    {
+      "sheet": "color_overrides",
+      "source_rows": 550,
+      "accounted_rows": 550
+    },
+    {
+      "sheet": "stingray_options",
+      "source_rows": 242,
+      "accounted_rows": 242
+    },
+    {
+      "sheet": "stingray_ovs",
+      "source_rows": 1452,
+      "accounted_rows": 1452
+    },
+    {
+      "sheet": "rule_mapping",
+      "source_rows": 178,
+      "accounted_rows": 178
+    },
+    {
+      "sheet": "rule_groups",
+      "source_rows": 27,
+      "accounted_rows": 27
+    },
+    {
+      "sheet": "rule_group_members",
+      "source_rows": 155,
+      "accounted_rows": 155
+    },
+    {
+      "sheet": "exclusive_groups",
+      "source_rows": 10,
+      "accounted_rows": 10
+    },
+    {
+      "sheet": "exclusive_group_members",
+      "source_rows": 36,
+      "accounted_rows": 36
+    },
+    {
+      "sheet": "price_rules",
+      "source_rows": 52,
+      "accounted_rows": 52
+    },
+    {
+      "sheet": "grandSport_options",
+      "source_rows": 241,
+      "accounted_rows": 241
+    },
+    {
+      "sheet": "grandSport_ovs",
+      "source_rows": 1446,
+      "accounted_rows": 1446
+    },
+    {
+      "sheet": "grandSport_rule_mapping",
+      "source_rows": 157,
+      "accounted_rows": 157
+    },
+    {
+      "sheet": "grandSport_price_rules",
+      "source_rows": 55,
+      "accounted_rows": 55
+    },
+    {
+      "sheet": "grandSport_rule_groups",
+      "source_rows": 49,
+      "accounted_rows": 49
+    },
+    {
+      "sheet": "grandSport_rule_group_members",
+      "source_rows": 324,
+      "accounted_rows": 324
+    },
+    {
+      "sheet": "grandSport_exclusive_groups",
+      "source_rows": 12,
+      "accounted_rows": 12
+    },
+    {
+      "sheet": "grandSport_exclusive_members",
+      "source_rows": 37,
+      "accounted_rows": 37
+    },
+    {
+      "sheet": "grandSport_variant_overrides",
+      "source_rows": 4,
+      "accounted_rows": 4
+    },
+    {
+      "sheet": "z06_options",
+      "source_rows": 244,
+      "accounted_rows": 244
+    },
+    {
+      "sheet": "z06_ovs",
+      "source_rows": 1464,
+      "accounted_rows": 1464
+    },
+    {
+      "sheet": "z06_rule_mapping",
+      "source_rows": 110,
+      "accounted_rows": 110
+    },
+    {
+      "sheet": "z06_price_rules",
+      "source_rows": 72,
+      "accounted_rows": 72
+    },
+    {
+      "sheet": "z06_rule_groups",
+      "source_rows": 35,
+      "accounted_rows": 35
+    },
+    {
+      "sheet": "z06_rule_group_members",
+      "source_rows": 178,
+      "accounted_rows": 178
+    },
+    {
+      "sheet": "z06_exclusive_groups",
+      "source_rows": 13,
+      "accounted_rows": 13
+    },
+    {
+      "sheet": "z06_exclusive_members",
+      "source_rows": 48,
+      "accounted_rows": 48
+    },
+    {
+      "sheet": "z06_variant_overrides",
+      "source_rows": 4,
+      "accounted_rows": 4
+    },
+    {
+      "sheet": "zr1_options",
+      "source_rows": 207,
+      "accounted_rows": 207
+    },
+    {
+      "sheet": "zr1_ovs",
+      "source_rows": 828,
+      "accounted_rows": 828
+    },
+    {
+      "sheet": "zr1_price_rules",
+      "source_rows": 34,
+      "accounted_rows": 34
+    },
+    {
+      "sheet": "zr1_rule_groups",
+      "source_rows": 5,
+      "accounted_rows": 5
+    },
+    {
+      "sheet": "zr1_rule_group_members",
+      "source_rows": 44,
+      "accounted_rows": 44
+    },
+    {
+      "sheet": "zr1_exclusive_groups",
+      "source_rows": 9,
+      "accounted_rows": 9
+    },
+    {
+      "sheet": "zr1_exclusive_members",
+      "source_rows": 24,
+      "accounted_rows": 24
+    },
+    {
+      "sheet": "zr1_variant_overrides",
+      "source_rows": 0,
+      "accounted_rows": 0
+    },
+    {
+      "sheet": "zr1x_options",
+      "source_rows": 206,
+      "accounted_rows": 206
+    },
+    {
+      "sheet": "zr1x_ovs",
+      "source_rows": 824,
+      "accounted_rows": 824
+    },
+    {
+      "sheet": "zr1x_price_rules",
+      "source_rows": 33,
+      "accounted_rows": 33
+    },
+    {
+      "sheet": "zr1x_rule_groups",
+      "source_rows": 4,
+      "accounted_rows": 4
+    },
+    {
+      "sheet": "zr1x_rule_group_members",
+      "source_rows": 43,
+      "accounted_rows": 43
+    },
+    {
+      "sheet": "zr1x_exclusive_groups",
+      "source_rows": 8,
+      "accounted_rows": 8
+    },
+    {
+      "sheet": "zr1x_exclusive_members",
+      "source_rows": 22,
+      "accounted_rows": 22
+    },
+    {
+      "sheet": "zr1x_variant_overrides",
+      "source_rows": 0,
+      "accounted_rows": 0
+    },
+    {
+      "sheet": "rule_phrase_map",
+      "source_rows": 6,
+      "accounted_rows": 6
+    },
+    {
+      "sheet": "grand_sport_x_color_overrides",
+      "source_rows": 281,
+      "accounted_rows": 281
+    },
+    {
+      "sheet": "grand_sport_x_exclusive_groups",
+      "source_rows": 9,
+      "accounted_rows": 9
+    },
+    {
+      "sheet": "grand_sport_x_exclusive_members",
+      "source_rows": 28,
+      "accounted_rows": 28
+    },
+    {
+      "sheet": "grand_sport_x_options",
+      "source_rows": 239,
+      "accounted_rows": 239
+    },
+    {
+      "sheet": "grand_sport_x_ovs",
+      "source_rows": 1434,
+      "accounted_rows": 1434
+    },
+    {
+      "sheet": "grand_sport_x_price_rules",
+      "source_rows": 51,
+      "accounted_rows": 51
+    },
+    {
+      "sheet": "grand_sport_x_rule_groups",
+      "source_rows": 43,
+      "accounted_rows": 43
+    },
+    {
+      "sheet": "grand_sport_x_rule_mapping",
+      "source_rows": 144,
+      "accounted_rows": 144
+    },
+    {
+      "sheet": "grand_sport_x_rule_members",
+      "source_rows": 268,
+      "accounted_rows": 268
+    },
+    {
+      "sheet": "grand_sport_x_variant_overrides",
+      "source_rows": 4,
+      "accounted_rows": 4
+    },
+    {
+      "sheet": "zr1_rule_mapping",
+      "source_rows": 98,
+      "accounted_rows": 98
+    },
+    {
+      "sheet": "zr1x_rule_mapping",
+      "source_rows": 96,
+      "accounted_rows": 96
+    }
+  ],
+  "models": {
+    "stingray": {
+      "variant": 6,
+      "offering": 242,
+      "availability": 1452,
+      "model_interior": 130,
+      "direct_rule": 178,
+      "group_rule": 27,
+      "price_rule": 52
+    },
+    "grand_sport": {
+      "variant": 6,
+      "offering": 241,
+      "availability": 1446,
+      "model_interior": 132,
+      "direct_rule": 157,
+      "group_rule": 49,
+      "price_rule": 55
+    },
+    "z06": {
+      "variant": 6,
+      "offering": 244,
+      "availability": 1464,
+      "model_interior": 130,
+      "direct_rule": 110,
+      "group_rule": 35,
+      "price_rule": 72
+    },
+    "zr1": {
+      "variant": 4,
+      "offering": 207,
+      "availability": 828,
+      "model_interior": 90,
+      "direct_rule": 98,
+      "group_rule": 5,
+      "price_rule": 34
+    },
+    "zr1x": {
+      "variant": 4,
+      "offering": 206,
+      "availability": 824,
+      "model_interior": 90,
+      "direct_rule": 96,
+      "group_rule": 4,
+      "price_rule": 33
+    },
+    "grand_sport_x": {
+      "variant": 6,
+      "offering": 239,
+      "availability": 1434,
+      "model_interior": 132,
+      "direct_rule": 144,
+      "group_rule": 43,
+      "price_rule": 51
+    }
+  },
+  "typed_rows": {
+    "model": 6,
+    "model_presentation": 6,
+    "model_fact": 18,
+    "publication": 6,
+    "section": 48,
+    "variant": 32,
+    "option_definition": 1379,
+    "offering": 1379,
+    "offering_code": 1224,
+    "offering_policy": 1379,
+    "offering_presentation": 1379,
+    "offering_price": 1379,
+    "availability": 7448,
+    "variant_override": 16,
+    "interior_definition": 262,
+    "model_interior": 704,
+    "interior_presentation": 704,
+    "hierarchy_node": 1329,
+    "interior_hierarchy_member": 3471,
+    "component_rate": 21,
+    "interior_component": 1044,
+    "direct_rule": 783,
+    "group_rule": 163,
+    "group_member": 1012,
+    "exclusive_group": 61,
+    "exclusive_member": 195,
+    "price_rule": 297,
+    "default_rule": 28,
+    "color_rule": 1528,
+    "scope_axis": 1950,
+    "scope_member": 193,
+    "context_section": 12,
+    "section_presentation": 59,
+    "runtime_step": 87,
+    "context_copy": 21,
+    "context_choice": 28,
+    "summary_section": 69,
+    "step_summary": 81,
+    "asset_assignment": 522,
+    "derivation_permission": 5
+  },
+  "reconciled_fields": 214588,
+  "source_dispositions": [
+    {
+      "model_key": "",
+      "disposition": "evidence",
+      "reason": "Historical parser phrase map; no executable authority",
+      "rows": 6
+    },
+    {
+      "model_key": "grand_sport",
+      "disposition": "evidence",
+      "reason": "Legacy workbook routing retained only as import evidence",
+      "rows": 11
+    },
+    {
+      "model_key": "grand_sport",
+      "disposition": "not_applicable",
+      "reason": "Interior absent from this model's explicit interior membership; inspection.py:build_color_overrides",
+      "rows": 269
+    },
+    {
+      "model_key": "grand_sport_x",
+      "disposition": "evidence",
+      "reason": "Legacy workbook routing retained only as import evidence",
+      "rows": 11
+    },
+    {
+      "model_key": "grand_sport_x",
+      "disposition": "not_applicable",
+      "reason": "Shared asset target absent from model offerings",
+      "rows": 1
+    },
+    {
+      "model_key": "stingray",
+      "disposition": "evidence",
+      "reason": "Legacy workbook routing retained only as import evidence",
+      "rows": 11
+    },
+    {
+      "model_key": "stingray",
+      "disposition": "not_applicable",
+      "reason": "Interior absent from this model's explicit interior membership; inspection.py:build_color_overrides",
+      "rows": 281
+    },
+    {
+      "model_key": "z06",
+      "disposition": "evidence",
+      "reason": "Legacy workbook routing retained only as import evidence",
+      "rows": 11
+    },
+    {
+      "model_key": "z06",
+      "disposition": "not_applicable",
+      "reason": "Interior absent from this model's explicit interior membership; inspection.py:build_color_overrides",
+      "rows": 281
+    },
+    {
+      "model_key": "zr1",
+      "disposition": "evidence",
+      "reason": "Legacy workbook routing retained only as import evidence",
+      "rows": 11
+    },
+    {
+      "model_key": "zr1",
+      "disposition": "not_applicable",
+      "reason": "Interior absent from this model's explicit interior membership; inspection.py:build_color_overrides",
+      "rows": 336
+    },
+    {
+      "model_key": "zr1x",
+      "disposition": "evidence",
+      "reason": "Legacy workbook routing retained only as import evidence",
+      "rows": 11
+    },
+    {
+      "model_key": "zr1x",
+      "disposition": "not_applicable",
+      "reason": "Interior absent from this model's explicit interior membership; inspection.py:build_color_overrides",
+      "rows": 336
+    }
+  ],
+  "added_business_facts": [],
+  "changed_business_facts": [],
+  "removed_business_facts": [],
+  "normalizations": {
+    "hierarchy_arrays_to_members": 704,
+    "code_owned_nonnavigable_bucket": 3
+  },
+  "unresolved": [],
+  "limitations": [
+    "Currency remains unknown; exact source amounts retained",
+    "Runtime policies recorded with pinned code provenance; execution and six-model contract parity belong to D",
+    "Disposable candidate schema; authoring/revision/release operations are not implemented"
+  ]
+}
