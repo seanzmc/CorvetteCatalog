@@ -17,6 +17,7 @@ When a guide and workbook disagree, record the discrepancy and its evidence. Nei
 
 - [Working principles and lightweight PR policy](AGENTS.md)
 - [Migration and intake plan](docs/migration-plan.md)
+- [Workbook translation blueprint: actual rules, ownership and proposed consolidation](docs/workbook-translation-blueprint.md)
 - [Checkpoint A source and schema specification](docs/source-schema-specification.md)
 - [Current disposable candidate schema in drawDB](docs/drawdb.md)
 - [Earlier workbook structure audit](docs/workbook-structure-audit.md)
