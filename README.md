@@ -25,4 +25,4 @@ Reference workbook: `/Users/seandm/Projects/27vette/stingray_master.xlsx`.
 
 ## Status
 
-Checkpoint A specification completed September 5, 2026. Checkpoint B has started with a [frozen workbook and matching six-model runtime baseline](baselines/2026-09-06/README.md), verified by isolated regeneration. The relational importer remains the next bounded task; no application, database, manufacturer parser, or deployment has been created. No changes were made to 27vette. The lightweight PR policy is defined in `AGENTS.md`; executable checks will be added with implementation as specific risks appear.
+Checkpoint A specification completed September 5, 2026. Checkpoint B has a [frozen workbook and matching six-model runtime baseline](baselines/2026-09-06/README.md); its relational importer remains unfinished. The owner separately authorized Checkpoint C with a new export. [Source placement and the draft intake blocker](sources/README.md) are recorded: the raw file is preserved locally, but the extractor has not completed staging or idempotence verification. No application, database, canonical-data change or deployment has been made. No changes were made to 27vette.

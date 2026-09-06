@@ -1,6 +1,6 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-Status: Checkpoint A specification completed September 5, 2026. The owner authorized starting the next checkpoint on September 5. Checkpoint B is in progress: its first bounded slice freezes the workbook and matching runtime baseline. Relational import remains unfinished; Checkpoints C–H remain unauthorized. See [source and schema specification](source-schema-specification.md) for inspected evidence, logical field mappings and unresolved decisions.
+Status: Checkpoint A specification completed September 5, 2026. Checkpoint B has a frozen workbook/runtime baseline; relational import remains unfinished. The owner separately authorized C after supplying a new export. C is in progress, with an unfinished extractor and a documented variant-mapping blocker. Checkpoints D–H remain unauthorized. See [source and schema specification](source-schema-specification.md) for logical field mappings and [source intake status](../sources/README.md) for current evidence.
 
 ## 1. Clean project boundary
 
@@ -59,14 +59,14 @@ One option may affect multiple layers; an asset may serve several configurations
 |---|---|---|
 | A — Source and schema specification — completed 2026-09-05 | [Specification](source-schema-specification.md): 28-sheet raw guide inventory, canonical workbook field mapping, logical entities/keys/ownership, intake/discrepancy contract and future visualizer requirements | Read-only hashes, all 77 workbook sheets mapped by family, 11-role header parity, complete 7,448 availability pairs, precise brake-family/price/footnote examples; remaining source and implementation decisions explicit |
 | B — Disposable baseline import — in progress | [Workbook/runtime baseline frozen](../baselines/2026-09-06/README.md); next import frozen workbook facts into a new relational candidate | Six contracts match regeneration except generation timestamps; browser registry matches byte for byte. Relational row accounting, constraints and identity reconciliation remain pending |
-| C — Manufacturer intake pilot | Extract one bounded guide family into review staging | Precise citations, coverage accounting, idempotent import, explained differences; no automatic canonical updates |
+| C — Manufacturer intake pilot — in progress | New export preserved locally; draft Stingray brake extractor stops at variant mapping | Source hash, rich-text footnotes and price-layout ambiguity inspected. Staging, coverage accounting, idempotence and comparison verification remain unfinished |
 | D — Form parity | Generate all six model contracts directly from the candidate catalog | Exact business behavior and meaningful output ordering preserved |
 | E — Authoring pilot | Edit an offering, shared definition, and relationship through the new UI | Transactional changes, persistence, shared impact, stale-edit refusal, readable history |
 | F — Complete operations | Remaining editors, reviewed intake acceptance, release creation, export, backup/restore | No Excel write dependency; repeatable recovery and release rollback |
 | G — Canonical cutover | Final source freeze/reconciliation and explicit authority switch | No lost edits, unresolved drafts, or unclassified behavior changes |
 | H — Visualizer delivery | Art-supported exterior/interior pilot, then expanded coverage | Correct resolved-build images and release identity; unchanged pricing/submission |
 
-Checkpoint A is complete as a specification. Checkpoint B has started with the frozen baseline prerequisite; no importer, database, parser or application has been implemented. The inspected raw export defines the first candidate format, with Stingray JL9/J55 brakes and their Z51 relationship proposed as the bounded intake pilot. The existing workbook remains canonical for the form. Stop at the completed baseline slice; the next bounded B task is the disposable relational importer. Checkpoint C requires its own intake authorization. Do not migrate production or automatically continue across checkpoints.
+Checkpoint A is complete as a specification. B's baseline is frozen, but its relational importer is unfinished. The owner authorized C independently against that baseline: Stingray JL9/J55 brakes and their Z51 relationship remain the bounded pilot. C currently has draft extraction code, with no successful staged output. Resume at the documented model-membership mapping fix and complete focused verification before claiming C complete. The existing workbook remains canonical. Do not migrate production or automatically continue across checkpoints.
 
 ## 8. Owner clarifications and remaining decisions
 
@@ -74,7 +74,7 @@ September 5, 2026: authoring is local and single-user, with Sean as sole develop
 
 Pay particular attention in B/D to non-LPO options, standard-feature listings and trim-equipment display across all six models. Trace any code-owned business policies in 27vette so the future catalog can own them explicitly as data. Present concrete ambiguities after inspecting the workbook format and runtime consumers; do not normalize intentional differences or modify the reference project.
 
-Sean will supply refreshed manufacturer input: the July 26 price schedule and order guide for the week of September 7, 2026. Verify exact edition labels, acquisition history and currency when received; the existing inspected source remains historical evidence. For the proposed C pilot, JL9 is standard on Stingray; J55 is included with and only available with Z51, replacing JL9. Intake implementation still requires separate authorization.
+Sean supplied a refreshed export and authorized C. The new file's price schedule actually reads July 06, 2026; a July 26 revision or September 7 whole-guide edition has not been established. Its option-price headers appear shifted relative to data, and currency remains unknown. Preserve those ambiguities and the earlier source evidence. Owner-confirmed brake interpretation remains: JL9 is standard; J55 is included with and only available with Z51, replacing JL9. No source correction or acceptance is authorized by intake execution.
 
 Visualizer assets are unprocessed `.psb` files in a local folder, as reported by the owner. Inspection and processing will be part of a later task; inventory, rights and the first scene remain to be established in H. UI interactions to retain or redesign remain a decision for authoring UI work.
 

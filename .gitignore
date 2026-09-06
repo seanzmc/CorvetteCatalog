@@ -9,3 +9,5 @@ node_modules/
 var/
 local-data/
 .local/
+# Original manufacturer exports remain local; provenance and pilot results are tracked.
+sources/raw/
