@@ -10,8 +10,9 @@ edits and SQL exported back from drawDB must not be applied to the application.
 
 1. Open the [drawDB editor](https://www.drawdb.app/editor) and choose **SQLite**
    for a new diagram.
-2. Use **File → Import from SQL**, choose `schema-candidate.drawdb.sql` from this
-   directory, and import. Name it **CorvetteCatalog — current disposable candidate**.
+2. Use **File → Import from SQL → Upload file**, choose
+   `schema-candidate.drawdb.sql` from this directory, and import. Name it
+   **CorvetteCatalog — current disposable candidate**.
 3. Arrange tables as useful. Save a drawDB project locally if you want to retain
    that layout; it is a disposable viewing artifact.
 
@@ -56,5 +57,7 @@ does not represent those algorithms or establish business-data correctness.
 The generated SQL is deliberately unsuitable as a replacement schema or migration.
 
 These checks cover the pinned upstream importer; the hosted editor may run a
-different revision. See the [drawDB guide](https://drawdb-io.github.io/docs/create-diagram)
+different revision. Hosted menu controls were checked, but the browser file chooser
+timed out, so hosted import/rendering remains unverified.
+See the [drawDB guide](https://drawdb-io.github.io/docs/create-diagram)
 for editor controls.
