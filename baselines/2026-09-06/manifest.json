@@ -1,0 +1,245 @@
+{
+  "baseline_id": "2026-09-06",
+  "captured_at_utc": "2026-09-06T01:59:18.115545+00:00",
+  "reference_repository": "https://github.com/seanzmc/27vette.git",
+  "reference_commit": "4fe92a4f078370c478f18484cad31bdafe58ad43",
+  "reference_checkout_clean": true,
+  "archive": {
+    "path": "workbook-runtime.tar.gz",
+    "bytes": 1252378,
+    "sha256": "528f6fc0410cf8657b20e855fa84606176ea5b08cbcc7bddeb13f6a7a9d6041f"
+  },
+  "files": [
+    {
+      "path": "stingray_master.xlsx",
+      "bytes": 581513,
+      "sha256": "3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 34,
+      "sha256": "1909fe0ab92f1979a84bd4687089e592a22137f862c32dc4c26d630de552f292"
+    },
+    {
+      "path": "form-output/runtime/grand-sport-runtime-contract.json",
+      "bytes": 1940720,
+      "sha256": "3dc136f4ac007ea1b581463402faaee9dc0d055c7e1705bd5c8099d74a3c3365"
+    },
+    {
+      "path": "form-output/runtime/grand-sport-x-runtime-contract.json",
+      "bytes": 1909049,
+      "sha256": "109eb1323195aa0dd439fc3a2711e7223da4949647d29cda56b14979e40e21c2"
+    },
+    {
+      "path": "form-output/runtime/stingray-runtime-contract.json",
+      "bytes": 1868174,
+      "sha256": "e6d288fdd6941d3538c35dbe39a232e123f19e9ff38a53e4606bd19df9d40750"
+    },
+    {
+      "path": "form-output/runtime/z06-runtime-contract.json",
+      "bytes": 1887176,
+      "sha256": "1afb1f16f5230b9e4a9a9e5f5a1ec661c0eab3db5cd3690f4ddd6961cf1dab1f"
+    },
+    {
+      "path": "form-output/runtime/zr1-runtime-contract.json",
+      "bytes": 1130070,
+      "sha256": "dfb77bcc35dc96c00903c99f9626068f794867022cc8ca9bc0db606d612da827"
+    },
+    {
+      "path": "form-output/runtime/zr1x-runtime-contract.json",
+      "bytes": 1147379,
+      "sha256": "51df7a92ecb71c78c4acf2e6a5afa5657ec8ac0c2d4c8ca38e6c4451f2946129"
+    },
+    {
+      "path": "form-app/index.html",
+      "bytes": 9074,
+      "sha256": "370de0008c65d4c0cef74e33eac05905cdd4c4f843e08f2aa0ed8ebc955273c4"
+    },
+    {
+      "path": "form-app/app.js",
+      "bytes": 139005,
+      "sha256": "f607658b3aad5d312dcdad9601f9d5a0e451220f54f60a33f762c4eea6151a7e"
+    },
+    {
+      "path": "form-app/styles.css",
+      "bytes": 53106,
+      "sha256": "8802a2a9c836a879fcfe47f8a23b01ef87e4f228249895966ed9a0346a07299d"
+    },
+    {
+      "path": "form-app/data.js",
+      "bytes": 11566471,
+      "sha256": "3794c9cd6cef03b9a7c3312de3fb3d230d2224abf2a4b60417364493535e8315"
+    }
+  ],
+  "verification": {
+    "python_version": "Python 3.14.7",
+    "dependencies": "requirements.txt in archive; existing reference virtual environment",
+    "contracts": [
+      {
+        "model": "stingray",
+        "validation_errors": 0,
+        "validation_warnings": 0,
+        "differences": [
+          "/dataset/generated_at"
+        ],
+        "counts": {
+          "variants": 6,
+          "steps": 14,
+          "sections": 32,
+          "contextChoices": 8,
+          "choices": 1416,
+          "standardEquipment": 467,
+          "ruleGroups": 27,
+          "exclusiveGroups": 10,
+          "rules": 147,
+          "priceRules": 52,
+          "interiors": 130,
+          "colorOverrides": 269,
+          "defaultSelectionRules": 4,
+          "validation": 6
+        },
+        "captured_generated_at": "2026-08-27T22:54:48+00:00",
+        "regenerated_generated_at": "2026-09-06T01:58:18+00:00",
+        "business_content_sha256": "0322d0172faa7b8390f4b86aa8a41a2b80aa2b23b32dea68e1960dfb78e17fdb"
+      },
+      {
+        "model": "grand_sport",
+        "validation_errors": 0,
+        "validation_warnings": 0,
+        "differences": [
+          "/dataset/generated_at"
+        ],
+        "counts": {
+          "variants": 6,
+          "steps": 14,
+          "sections": 37,
+          "contextChoices": 8,
+          "choices": 1428,
+          "standardEquipment": 455,
+          "ruleGroups": 49,
+          "exclusiveGroups": 12,
+          "rules": 157,
+          "priceRules": 55,
+          "interiors": 132,
+          "colorOverrides": 281,
+          "defaultSelectionRules": 4,
+          "validation": 6
+        },
+        "captured_generated_at": "2026-08-23T07:05:23+00:00",
+        "regenerated_generated_at": "2026-09-06T01:58:19+00:00",
+        "business_content_sha256": "7ad808343b529969ab08dd0dae9ffcfdf1ea3c9c38ecdb846ff0191a040a3ba5"
+      },
+      {
+        "model": "grand_sport_x",
+        "validation_errors": 0,
+        "validation_warnings": 0,
+        "differences": [
+          "/dataset/generated_at"
+        ],
+        "counts": {
+          "variants": 6,
+          "steps": 14,
+          "sections": 37,
+          "contextChoices": 8,
+          "choices": 1416,
+          "standardEquipment": 487,
+          "ruleGroups": 43,
+          "exclusiveGroups": 9,
+          "rules": 141,
+          "priceRules": 51,
+          "interiors": 132,
+          "colorOverrides": 281,
+          "defaultSelectionRules": 3,
+          "validation": 6
+        },
+        "captured_generated_at": "2026-08-27T22:54:47+00:00",
+        "regenerated_generated_at": "2026-09-06T01:58:20+00:00",
+        "business_content_sha256": "7d49d48f2c8393e1028e1131c0d1181993337ba6e76015debf74e093f89197bc"
+      },
+      {
+        "model": "z06",
+        "validation_errors": 0,
+        "validation_warnings": 0,
+        "differences": [
+          "/dataset/generated_at"
+        ],
+        "counts": {
+          "variants": 6,
+          "steps": 14,
+          "sections": 36,
+          "contextChoices": 8,
+          "choices": 1434,
+          "standardEquipment": 488,
+          "ruleGroups": 35,
+          "exclusiveGroups": 13,
+          "rules": 115,
+          "priceRules": 72,
+          "interiors": 130,
+          "colorOverrides": 269,
+          "defaultSelectionRules": 5,
+          "validation": 6
+        },
+        "captured_generated_at": "2026-08-27T22:54:48+00:00",
+        "regenerated_generated_at": "2026-09-06T01:58:21+00:00",
+        "business_content_sha256": "0b12ff10c4cfcdca83659d960aa33182daf139b88ea6fe8560f542308fafc97f"
+      },
+      {
+        "model": "zr1",
+        "validation_errors": 0,
+        "validation_warnings": 0,
+        "differences": [
+          "/dataset/generated_at"
+        ],
+        "counts": {
+          "variants": 4,
+          "steps": 14,
+          "sections": 30,
+          "contextChoices": 6,
+          "choices": 800,
+          "standardEquipment": 318,
+          "ruleGroups": 5,
+          "exclusiveGroups": 9,
+          "rules": 97,
+          "priceRules": 34,
+          "interiors": 90,
+          "colorOverrides": 214,
+          "defaultSelectionRules": 6,
+          "validation": 6
+        },
+        "captured_generated_at": "2026-08-23T07:05:26+00:00",
+        "regenerated_generated_at": "2026-09-06T01:58:22+00:00",
+        "business_content_sha256": "c15f017dc872666430df688d344e0e8d1d3528714a527f07e2108318ee216b34"
+      },
+      {
+        "model": "zr1x",
+        "validation_errors": 0,
+        "validation_warnings": 0,
+        "differences": [
+          "/dataset/generated_at"
+        ],
+        "counts": {
+          "variants": 4,
+          "steps": 14,
+          "sections": 30,
+          "contextChoices": 6,
+          "choices": 812,
+          "standardEquipment": 336,
+          "ruleGroups": 4,
+          "exclusiveGroups": 8,
+          "rules": 96,
+          "priceRules": 33,
+          "interiors": 90,
+          "colorOverrides": 214,
+          "defaultSelectionRules": 6,
+          "validation": 6
+        },
+        "captured_generated_at": "2026-08-23T07:05:27+00:00",
+        "regenerated_generated_at": "2026-09-06T01:58:23+00:00",
+        "business_content_sha256": "109f9551767a79d61178c99a20a4772611ec5c455895020efd4f195733f68ffe"
+      }
+    ],
+    "contract_comparison": "Recursive JSON equality with types and list ordering preserved; only /dataset/generated_at differs. Original bytes retained.",
+    "registry_comparison": "Byte-for-byte equality rebuilding from original captured contracts.",
+    "reference_preservation": "Captured members equal live reference files after regeneration; checkout remains clean."
+  }
+}
