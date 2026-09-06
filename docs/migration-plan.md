@@ -68,12 +68,14 @@ One option may affect multiple layers; an asset may serve several configurations
 
 Checkpoint A is complete as a specification; no importer, database, parser or application was implemented. The inspected raw export defines the first candidate format, with Stingray JL9/J55 brakes and their Z51 relationship proposed as the bounded intake pilot. The existing workbook remains canonical for the form. Stop here. Checkpoint B requires a separate authorized task and a frozen workbook plus matching runtime baseline; Checkpoint C requires its own intake authorization. Do not migrate production or automatically continue across checkpoints.
 
-## 8. Decisions to resolve
+## 8. Owner clarifications and remaining decisions
 
-- The root manufacturer Excel export is the inspected raw format. Confirm its acquisition history, currency and any later update documents before accepting manufacturer changes; its price-schedule revision does not establish a whole-document revision.
-- Which differences are manufacturer corrections, intentional dealer decisions, extraction errors, or unresolved conflicts?
-- Is local single-user authoring sufficient, or is hosted multi-user editing a near-term requirement?
-- Which current UI interactions are worth reusing, and which should be designed afresh?
-- What art exists for the first visualizer scene?
+September 5, 2026: authoring is local and single-user, with Sean as sole developer. Existing workbook pricing, availability-condition and rule conflicts are intentional; trace them through the sheets and preserve their behavior. The owner expects the workbook to capture the raw guide's rules despite inconsistent and abstract manufacturer wording. Verify that expectation rather than treating it as completed parity evidence.
 
-Checkpoint A records these unresolved decisions and when they become necessary. Resolve them at the affected implementation or acceptance boundary, rather than concealing assumptions in a parser or schema.
+Pay particular attention in B/D to non-LPO options, standard-feature listings and trim-equipment display across all six models. Trace any code-owned business policies in 27vette so the future catalog can own them explicitly as data. Present concrete ambiguities after inspecting the workbook format and runtime consumers; do not normalize intentional differences or modify the reference project.
+
+Sean will supply refreshed manufacturer input: the July 26 price schedule and order guide for the week of September 7, 2026. Verify exact edition labels, acquisition history and currency when received; the existing inspected source remains historical evidence. For the proposed C pilot, JL9 is standard on Stingray; J55 is included with and only available with Z51, replacing JL9. Intake implementation still requires separate authorization.
+
+Visualizer assets are unprocessed `.psb` files in a local folder, as reported by the owner. Inspection and processing will be part of a later task; inventory, rights and the first scene remain to be established in H. UI interactions to retain or redesign remain a decision for authoring UI work.
+
+Checkpoint B still requires separate authorization and a frozen workbook plus matching runtime baseline. These clarifications do not start B, authorize source corrections or change canonical authority.
