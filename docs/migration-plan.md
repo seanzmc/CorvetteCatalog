@@ -30,6 +30,8 @@ Initially support one real supplied guide format and one bounded family, chosen 
 
 ## 4. Relational design
 
+The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior, and proposes consolidating the candidate's six option tables. Workbook meaning and existing behavior are the migration requirements; candidate table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema.
+
 Define model years/models, variants, option definitions, model offerings, availability, interiors/components, typed rules, price contexts, presentation, assets, and source evidence as explicit entities and relationships. Specify row grain, candidate keys, functional dependencies, null/zero/all-scope semantics, and reference constraints before DDL.
 
 Preserve existing runtime IDs through explicit mappings; do not merge on RPO or matching labels alone. Shared definitions must represent shared meaning. Model-specific price, applicability, copy, and lifecycle differences remain explicit where legitimate.
