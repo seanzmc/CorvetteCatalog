@@ -266,15 +266,24 @@ First form parity covers all six legacy model contracts: exact identifiers and m
 
 ## 8. Decisions and implementation boundaries
 
-| Decision still open | Consequence / when required |
+Owner clarifications received September 5, 2026 (business direction, not a new source inspection or implementation authorization):
+
+- **Authoring:** local, single-user; Sean is the sole developer. Hosted multi-user editing is not a current requirement. Technology choices remain open.
+- **Workbook behavior:** existing pricing, availability-condition and rule conflicts are intentional and should be traceable through `stingray_master.xlsx`. Preserve them rather than normalizing away differences. The owner expects the raw export to express the same rules, often through inference and inconsistent or abstract language, and is confident the workbook represents them. This is owner direction, not completed rule-coverage proof.
+- **Coverage concern:** specifically reconcile non-LPO options and the listing/display of standard features and trim-level equipment consistently across all six models. Distinguish legitimate model differences from omissions or presentation gaps; present concrete ambiguities after tracing the workbook format and consumers.
+- **Policy ownership:** some business policies may still reside in 27vette runtime code. Trace those during B/D so they can become explicit data-owned rules in the future catalog. The stated goal of complete workbook ownership does not authorize modifying the reference workbook or runtime here, or change the planned relational-catalog destination. Preserve current behavior and surface any policy that cannot be traced to workbook data.
+- **Manufacturer refresh:** Sean plans to supply an updated raw export with the July 26 price schedule and the order guide for the week of September 7, 2026. These are forthcoming source editions, not files inspected by this specification; retain the existing evidence and hashes. Verify exact document date labels, acquisition metadata and currency on receipt.
+- **Stingray brakes:** owner confirms JL9 is standard; J55 is included with and only available with Z51, and replaces JL9. Use this interpretation in the proposed bounded intake pilot, with source citations and workbook/runtime tracing still required.
+- **Visualizer:** the owner reports unprocessed `.psb` files in a local folder. Asset inspection and processing will be part of a later task; the files have not been inspected in this clarification task.
+
+| Remaining decision or evidence | Consequence / when required |
 |---|---|
-| Confirm guide acquisition history, price currency, whether May 26 schedule plus later distribution updates is the intended source set | The inspected export is suitable to define a first format. No claim of latest source; monetary acceptance and any broader revision precedence wait for evidence or owner decision in C |
-| Confirm the proposed Stingray brake-family pilot | C can use these exact bounded ranges after authorization; expanding to all Z51 or all guides is separate scope |
-| Shared option/interior/component identity and conflicting copy/default/pricing semantics | B keeps conservative identities; merges or behavior changes require P/E decisions. No majority-value normalization |
-| Local single-user versus hosted multi-user authoring | Required before database/concurrency/auth design. SQLite/React/FastAPI remain candidates; no technology or security boundary selected here |
-| Meaning of previously unrepresented edition/variant dimensions, unknown price bases and unresolved source restrictions | Stop the affected mapping before DDL/import assumes a false key or accepted value; retain original evidence |
-| Code-owned policies and exact field override precedence | Preserve current behavior as baseline evidence; confirm with targeted fixtures in B/D before replacing inference with explicit policy |
-| Available art, rights and first exterior/interior scene | Art inventory and selection in H; no assumption that card images provide compositing coverage |
+| Updated guide delivery, exact revision labels, acquisition history and price currency | Verify in C before monetary acceptance or revision-precedence decisions; the promised update does not overwrite inspected source evidence |
+| Authorization for the proposed Stingray brake-family intake pilot | Brake semantics are clarified; C still requires its own authorized task and bounded coverage |
+| Shared option/interior/component identity and any unresolved copy/default/pricing interpretation | B keeps conservative identities and intentional behavior. Trace workbook sheets before presenting specific ambiguities; merges or behavior changes require P/E decisions. No majority-value normalization |
+| Previously unrepresented edition/variant dimensions, unknown price bases or unresolved source restrictions | Investigate the format and related sheets first; stop only the affected mapping and present evidence if ambiguity remains |
+| Code-owned policies and exact field override precedence | Trace 27vette read-only and confirm current behavior with targeted fixtures in B/D; identify data-ownership gaps without silently changing business behavior |
+| Available art, rights and first exterior/interior scene | Unprocessed local `.psb` files reported; inspection, processing, rights and scene selection remain for a later task in H. No assumption that existing images provide compositing coverage |
 
 These decisions do not prevent completing the specification. They prevent particular acceptance/implementation choices, as stated. No new approval mechanism, enforcement script, standalone progress PR or application framework is proposed.
 
