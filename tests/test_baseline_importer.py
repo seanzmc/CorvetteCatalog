@@ -101,6 +101,14 @@ class BaselineImporterTests(unittest.TestCase):
             WHERE c.rate_trim IS NOT NULL AND r.trim_scope=''""").fetchone()[0],0)
 
     def test_bucket_steps_and_shared_asset_scope_preserved(self):
+        # Source labels newly exposed by D retain their actual routing-row provenance.
+        for r in self.rows("model_workbook_sources"):
+            if r["source_role"] not in {"source_option_sheet", "rule_mapping_sheet", "price_rules_sheet", "color_overrides_sheet", "interior_source_sheet"}:
+                continue
+            link=self.db.execute("""SELECT count(*) FROM evidence_link e JOIN source_row s ON s.id=e.source_id
+                JOIN model_presentation p ON p.id=e.entity_id JOIN model m ON m.id=p.model_id
+                WHERE m.model_key=? AND s.sheet='model_workbook_sources'""",(r["model_key"],)).fetchone()[0]
+            self.assertEqual(link,5)
         self.assertEqual(self.db.execute("SELECT count(*) FROM runtime_step WHERE navigable=0 AND step_key='standard_equipment' AND runtime_order IS NULL").fetchone()[0],3)
         offered={(r[0],r[1]) for r in self.db.execute("SELECT model_id,legacy_id FROM offering")}
         expected={(mid,r["target_id"],r["image_url"]) for r in self.rows("asset_map") if r["model_key"]=="*"
