@@ -188,17 +188,17 @@ class Importer:
             if table == "direct_rule":
                 require(not tokens or tokens in (["coupe"], ["convertible"]), f"Uncharacterized direct scope at {row.id}")
             all_scope = not tokens or "*" in tokens
-            sid = self.add("scope_axis", model, [owner, axis], row, owner_id=owner, axis=axis, mode="all" if all_scope else "members")
+            sid = self.add("scope_axis", model, [owner, axis], row, owner_id=owner, axis=axis, mode="all" if all_scope else "members", all_token="*" if raw == "*" else None)
             if not all_scope:
                 require(len(tokens) == len(set(tokens)), f"Duplicate scope member: {row.id}")
-                for token in tokens:
+                for position, token in enumerate(tokens):
                     variant = self.ref("variant", model, token) if axis == "variant" else None
                     if axis == "body":
                         require(token in {"coupe", "convertible"}, f"Unknown body: {token}")
                     if axis == "trim":
                         allowed = {r[0] for r in self.db.execute("SELECT trim_level FROM variant WHERE model_id=?", (model,))}
                         require(token.lower() in {t.lower() for t in allowed}, f"Unknown trim: {token}")
-                    self.add("scope_member", model, [sid, token], row, scope_id=sid, token=token, variant_id=variant)
+                    self.add("scope_member", model, [sid, token], row, scope_id=sid, token=token, variant_id=variant, position=position)
 
     def load_models(self):
         for row in self.rows["model_master"]:
@@ -206,7 +206,9 @@ class Importer:
             uid = self.add("model", "", [key, year], row, model_key=key, registry_key=row.get("registry_key"), label=row.get("model_label"), year=year,
                            active=row.get("active"), expected_variant_count=row.get("expected_variant_count"), default_model=row.get("default_model"))
             self.models[key], self.model_keys[uid] = uid, key
-            self.add("model_presentation", uid, key, row, **self.take(row, {f: f for f in ["dataset_name", "export_slug", "setup_card_subtitle", "setup_eyebrow", "setup_title", "setup_description"]}))
+            source_roles = {r.get("source_role"):r.get("sheet_name") for r in self.rows["model_workbook_sources"] if r.get("model_key")==key}
+            self.add("model_presentation", uid, key, row, source_workbook="stingray_master.xlsx",
+                     **{f:source_roles[f] for f in ["source_option_sheet","rule_mapping_sheet","price_rules_sheet","color_overrides_sheet","interior_source_sheet"]}, **self.take(row, {f: f for f in ["dataset_name", "export_slug", "setup_card_subtitle", "setup_eyebrow", "setup_title", "setup_description"]}))
             for i in range(1, 4):
                 self.add("model_fact", uid, i, row, position=i, text=row.get(f"setup_fact_{i}"))
         for row in self.rows["model_workbook_sources"]:
@@ -214,6 +216,8 @@ class Importer:
             require(role in ROLES and boolean(row.get("active")) == 1, f"Uncharacterized source assignment: {row.id}")
             require(role not in self.roles.setdefault(model, {}), f"Duplicate source assignment: {row.id}")
             self.roles[model][role] = row.get("sheet_name")
+            if role in {"source_option_sheet", "rule_mapping_sheet", "price_rules_sheet", "color_overrides_sheet", "interior_source_sheet"}:
+                self.link(row, self.ref("model_presentation", model, self.model_keys[model]))
             self.disposition(row, self.model_keys[model], "evidence", "Legacy workbook routing retained only as import evidence")
         require(all(set(r) == ROLES for r in self.roles.values()) and len(self.roles) == len(self.models), "Incomplete source-role registry")
         for row in self.rows["model_registry_promotion"]:
@@ -258,7 +262,7 @@ class Importer:
         for sheet in dict.fromkeys(r["interior_source_sheet"] for r in self.roles.values()):
             for row in self.rows[sheet]:
                 key = row.get("interior_id")
-                uid = self.add("interior_definition", "", key, row, legacy_id=key, section_id=self.ref("section", "", row.get("section_id")),
+                uid = self.add("interior_definition", "", key, row, legacy_id=key, source_note=row.get("Detail from Disclosure"), color_overrides_raw=row.get("Color Overrides"), section_id=self.ref("section", "", row.get("section_id")),
                     **self.take(row, {"name":"Interior Name", "material":"Material", "stored_price":"Price", "price_trim":"Trim", "seat":"Seat", "interior_code":"Interior Code", "suede":"Suede", "stitch":"Stitch", "two_tone":"Two Tone", "active_for_stingray":"active_for_stingray", "requires_r6x":"requires_r6x", "included_legacy_id":"included_option_id"}))
                 definitions[key] = (uid, row)
         for row in self.rows["model_interior_scope"]:
@@ -306,12 +310,12 @@ class Importer:
         for model in self.roles:
             for row in self.by_role(model, "rule_mapping_sheet"):
                 key = row.get("rule_id")
-                uid = self.add("direct_rule", model, key, row, legacy_id=key, source_id=self.product(model,row.get("source_id")), target_id=self.product(model,row.get("target_id")), effect=row.get("rule_type"), runtime_action=row.get("runtime_action"), explanation=row.get("disabled_reason"))
+                uid = self.add("direct_rule", model, key, row, legacy_id=key, source_id=self.product(model,row.get("source_id")), target_id=self.product(model,row.get("target_id")), effect=row.get("rule_type"), runtime_action=row.get("runtime_action"), explanation=row.get("disabled_reason"), source_note=row.get("original_detail_raw"))
                 self.legacy("direct_rule", model, key, uid)
                 self.scope("direct_rule", model, uid, row, {"body_style_scope":"body"})
             for row in self.by_role(model, "rule_groups_sheet"):
                 key = row.get("group_id")
-                uid = self.add("group_rule", model, key, row, legacy_id=key, display_label=row.get("display_label"), effect=row.get("group_type"), source_id=self.product(model,row.get("source_id")), explanation=row.get("disabled_reason"), active=row.get("active"))
+                uid = self.add("group_rule", model, key, row, legacy_id=key, display_label=row.get("display_label"), effect=row.get("group_type"), source_id=self.product(model,row.get("source_id")), explanation=row.get("disabled_reason"), notes=row.get("notes"), active=row.get("active"))
                 self.legacy("group_rule", model, key, uid)
                 self.scope("group_rule", model, uid, row, scopes)
             for row in self.by_role(model, "rule_group_members_sheet"):
@@ -321,14 +325,14 @@ class Importer:
                 key, mode = row.get("group_id"), row.get("selection_mode")
                 modes = {"single_within_group":"at_most_one", "required_single_within_group":"exactly_one"}
                 require(mode in modes, f"Unknown exclusive selection mode: {mode}")
-                uid = self.add("exclusive_group", model, key, row, legacy_id=key, display_label=row.get("display_label"), selection_mode=modes[mode], active=row.get("active"))
+                uid = self.add("exclusive_group", model, key, row, legacy_id=key, display_label=row.get("display_label"), selection_mode=modes[mode], notes=row.get("notes"), active=row.get("active"))
                 self.legacy("exclusive_group", model, key, uid)
             for row in self.by_role(model, "exclusive_group_members_sheet"):
                 group, option = row.get("group_id"), row.get("option_id")
                 self.add("exclusive_member", model, [group,option], row, group_id=self.ref("exclusive_group",model,group), offering_id=self.ref("offering",model,option), display_order=row.get("display_order"), active=row.get("active"))
             for row in self.by_role(model, "price_rules_sheet"):
                 key = row.get("price_rule_id")
-                uid = self.add("price_rule", model, key, row, legacy_id=key, condition_id=self.product(model,row.get("condition_option_id")), target_id=self.ref("offering",model,row.get("target_option_id")), effect=row.get("price_rule_type"), amount=row.get("price_value"), basis="conditional_total", currency=None)
+                uid = self.add("price_rule", model, key, row, legacy_id=key, condition_id=self.product(model,row.get("condition_option_id")), target_id=self.ref("offering",model,row.get("target_option_id")), effect=row.get("price_rule_type"), amount=row.get("price_value"), basis="conditional_total", currency=None, notes=row.get("notes"))
                 self.legacy("price_rule", model, key, uid)
                 self.scope("price_rule", model, uid, row, {k:v for k,v in scopes.items() if k != "variant_scope"})
             for row in self.by_role(model, "color_overrides_sheet"):
@@ -348,7 +352,7 @@ class Importer:
                 condition_section_id=self.ref("section","",operand) if kind == "unless_selected_section" else None,
                 condition_offering_id=self.ref("offering",model,operand) if kind == "when_selected_unless_selected_section" else None,
                 target_section_mode="resolved_target_section" if kind == "when_selected_unless_selected_section" else None,
-                priority=row.get("priority"), display_behavior=row.get("display_behavior"), active=row.get("active"))
+                notes=row.get("notes"), priority=row.get("priority"), display_behavior=row.get("display_behavior"), active=row.get("active"))
             self.legacy("default_rule", model, key, uid)
             self.scope("default_rule", model, uid, row, scopes)
 
@@ -361,15 +365,15 @@ class Importer:
             self.add("section_presentation",model,key,row,section_id=self.ref("section","",key), **self.take(row,{"display_order":"section_display_order",**{f:f for f in ["display_label","step_key","display_behavior","standard_equipment_bucket","standard_equipment_group_type","auto_added_bucket","active"]}}))
         for row in self.rows["runtime_steps"]:
             model, key = self.model_for(row), row.get("step_key")
-            self.add("runtime_step",model,key,row,step_key=key,label=row.get("step_label"),runtime_order=row.get("runtime_order"),active=row.get("active"),navigable=True)
+            self.add("runtime_step",model,key,row,step_key=key,label=row.get("step_label"),runtime_order=row.get("runtime_order"),active=row.get("active"),navigable=True,source=row.get("source"))
         for row in self.rows["order_summary_sections"]:
             model, key = self.model_for(row), row.get("section_key")
-            self.add("summary_section",model,key,row,section_key=key,label=row.get("section_label"),display_order=row.get("display_order"),active=row.get("active"))
+            self.add("summary_section",model,key,row,section_key=key,notes=row.get("notes"),label=row.get("section_label"),display_order=row.get("display_order"),active=row.get("active"))
         for row in self.rows["step_order_summary_map"]:
             model, step = self.model_for(row), row.get("step_key")
             if ("runtime_step", model, encoded(step)) not in self.ids:
                 require(step == "standard_equipment", f"Unknown summary step: {row.id}")
-                self.add("runtime_step",model,step,row,step_key=step,label="Standard Equipment",runtime_order=None,active=True,navigable=False)
+                self.add("runtime_step",model,step,row,step_key=step,label="Standard Equipment",runtime_order=None,active=True,navigable=False,source=None)
                 self.normalizations["code_owned_nonnavigable_bucket"] += 1
             self.add("step_summary",model,step,row,step_id=self.ref("runtime_step",model,step),section_id=self.ref("summary_section",model,row.get("section_key")),active=row.get("active"))
         # Context cards are explicit combinations derived only from imported variants.
@@ -518,7 +522,7 @@ def build(output, baseline=BASELINE):
         wb=load_workbook(io.BytesIO(data),data_only=False)
         create(db)
         with db:
-            db.executemany("INSERT INTO import_metadata VALUES (?,?)",[("workbook_sha256",WORKBOOK_HASH),("reference_commit",REFERENCE),("schema_version","1"),("authority","disposable_candidate"),
+            db.executemany("INSERT INTO import_metadata VALUES (?,?)",[("workbook_sha256",WORKBOOK_HASH),("reference_commit",REFERENCE),("schema_version","2"),("authority","disposable_candidate"),
                 ("importer_sha256",digest(Path(__file__).read_bytes())),("schema_sha256",digest((ROOT/"catalog/schema.py").read_bytes()))])
             report=Importer(db,wb).run()
             db.execute("INSERT INTO import_metadata VALUES (?,?)",("reconciliation",encoded(report)))

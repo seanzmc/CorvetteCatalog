@@ -2,10 +2,10 @@
   "provenance": {
     "workbook_sha256": "3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c",
     "reference_commit": "4fe92a4f078370c478f18484cad31bdafe58ad43",
-    "schema_version": "1",
+    "schema_version": "2",
     "authority": "disposable_candidate",
-    "importer_sha256": "575babb7111c577dd79b50056795a2f4beb900815403c55c6c404d884cc10c35",
-    "schema_sha256": "f184346cc533d7113982d459cfc16b028e53064bb33764c205d5f45bff84ff0e"
+    "importer_sha256": "c7b0f8735d00ef44bd461587549d5c606d0293cdb4a528d167f4d771f92e6404",
+    "schema_sha256": "4dff2bad57d5e01f33c9ec5c7fc09b92d29d247f4e3a2c66aa4bd312ceaf7382"
   },
   "source_sheets": [
     {
@@ -492,7 +492,7 @@
     "asset_assignment": 522,
     "derivation_permission": 5
   },
-  "reconciled_fields": 214588,
+  "reconciled_fields": 218779,
   "source_dispositions": [
     {
       "model_key": "",
