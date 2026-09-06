@@ -83,8 +83,9 @@ the tests rather than silently skipping them. Parser/config changes create a new
 run; workbook/runtime baseline changes create a new comparison. Existing staged
 files are never replaced.
 
-Local implementation and validation are complete. Public push/PR delivery is
-pending explicit approval: automatic approval review previously rejected publishing
-source-derived details even with the raw workbook ignored. Nothing has been
-merged, deployed or accepted into canonical data. Do not start another checkpoint
-or resolve the seven ambiguous assertions automatically.
+Local implementation and validation are complete. The owner authorized public
+publication of the source-derived code and review evidence, with raw originals
+remaining Git-ignored. Routine catalog pricing and intake evidence follow the
+repository commit/PR authorization in `AGENTS.md`. Publishing these pending-review
+assertions does not accept them into canonical data. Do not start another
+checkpoint or resolve the seven ambiguous assertions automatically.
