@@ -158,9 +158,10 @@ The [parity report](form-parity-report.json) compares every business value, type
 and array position. All six baseline business hashes match; the only excluded
 contract path is `/dataset/generated_at`. The registry comparison also checks
 model order, aliases and every setup/asset field. There are zero added, removed
-or changed output facts. Eight generator tests additionally deny evidence-table
+or changed output facts. Eleven generator tests additionally deny evidence-table
 reads, mutate typed values, check model isolation, reject missing availability
-and stale derivation permissions, and verify deterministic/failed publication.
+and stale or unsupported derivation permissions, and verify deterministic/failed
+publication including refusal of dangling symlinks at both output checks.
 
 The runtime test reads the frozen browser files and obtains only the DOM/fetch
 stub harness from the pinned reference Git revision (optional third argument:
@@ -170,8 +171,12 @@ summary, selections, interior components, reset, model switching, Markdown
 content and dealer payloads. Submission time is fixed for that comparison;
 network sends are never invoked. It is a differential parity test, not proof
 that the original business policies are correct or exhaustive configuration
-coverage. The final run passed 32 variant baseline states, 126 option transitions and 32
-interior transitions in about 18 seconds. All 29 Python tests passed in 33 seconds.
+coverage. The initial implementation (`3a42fe9`) passed 32 variant baseline states, 126
+option transitions and 32 interior transitions in about 18 seconds, plus all 29
+Python tests in 33 seconds. After the review fixes, all 11 contract tests pass
+in 5.3 seconds, including exact six-model/registry parity and the new permission
+and symlink regressions. The unchanged importer/intake, runtime and browser
+checks were not repeated; the report retains their original commit attribution.
 The local Chromium check covered setup, coupe-to-convertible, 1LT-to-3LT,
 standard-equipment counts and a priced paint selection. Missing logo/vehicle
 artwork in the frozen archive produced four 404s; full artwork fidelity and live

@@ -130,11 +130,11 @@
   "registry_differences": [],
   "passed": true,
   "implementation_sha256": {
-    "catalog/contracts.py": "3cdf97831d0bb7dfa3934a1b83bd8533ecaf5c06cfb8166f10c030b2059dcc5b",
+    "catalog/contracts.py": "3acd250892b059c9f6381493d5fc92f655b53c1ebf754dd7f01e17156bf8ad23",
     "catalog/parity.py": "257450707d4da1521148996ccfaac06a6ee3928da614565deba9a42d6baa3e70",
     "catalog/importer.py": "c7b0f8735d00ef44bd461587549d5c606d0293cdb4a528d167f4d771f92e6404",
     "catalog/schema.py": "4dff2bad57d5e01f33c9ec5c7fc09b92d29d247f4e3a2c66aa4bd312ceaf7382",
-    "tests/test_contracts.py": "d8be8bf2ab6faf57e1ab2061c1b504aaf65dc6990f31b0c8eaa92b8832f7effd",
+    "tests/test_contracts.py": "65c952ee4834daf7a1ae43c1cb1d606cbcc330fef97201ee23de9d393ea2c91f",
     "tests/runtime_parity.mjs": "51de4bd984bf48d66044a417ab25b2654e31a279fb3ca542e6e11d5859cbac2e",
     "tests/test_baseline_importer.py": "0632af3c90bf9e3db4907c7265d40655d40355fc4822bfa4b4a697a5195a2902"
   },
@@ -142,7 +142,8 @@
     "passed": 29,
     "failed": 0,
     "elapsed_seconds": 33.227,
-    "command": "python -m unittest discover -s tests -v"
+    "command": "python -m unittest discover -s tests -v",
+    "validated_commit": "3a42fe971bc6faff8de2bd9c350c9cde56e7b52e"
   },
   "runtime": {
     "reference_commit": "4fe92a4f078370c478f18484cad31bdafe58ad43",
@@ -186,7 +187,8 @@
     "live_requests": 0,
     "command": "node tests/runtime_parity.mjs <candidate>/form-app/data.js [reference_repository]",
     "harness_instrumentation": "Expose handleInterior, disableReasonForInterior, validInteriorsForSelectedSeat and buildMarkdown from the pinned consumer through the test harness only.",
-    "scope": "All 32 variant default states and interior selections; representative option transitions on the first variant of each model; reset and model switches; order, prices, disabled reasons, equipment summary, Markdown and dealer payload comparisons. Fixed submission time; no network calls."
+    "scope": "All 32 variant default states and interior selections; representative option transitions on the first variant of each model; reset and model switches; order, prices, disabled reasons, equipment summary, Markdown and dealer payload comparisons. Fixed submission time; no network calls.",
+    "validated_commit": "3a42fe971bc6faff8de2bd9c350c9cde56e7b52e"
   },
   "browser": {
     "tool": "Playwright Chromium",
@@ -201,7 +203,8 @@
     "limitations": [
       "Frozen archive omits local logos and vehicle artwork: four observed 404s (two logos, GKZ and GPH vehicle renders). Full artwork fidelity is not claimed.",
       "No dealer request, production verification, canonical acceptance or cutover."
-    ]
+    ],
+    "validated_commit": "3a42fe971bc6faff8de2bd9c350c9cde56e7b52e"
   },
   "business_changes": {
     "added": [],
@@ -210,5 +213,17 @@
     "unresolved": [
       "Workbook policies intentionally preserved; manufacturer discrepancies and unknown currency remain unresolved."
     ]
+  },
+  "review_validation": {
+    "command": "python -m unittest discover -s tests -p test_contracts.py -v",
+    "passed": 11,
+    "failed": 0,
+    "elapsed_seconds": 5.252,
+    "fixes": [
+      "Reject derivation permissions unless method is includes_closure_approved_replace; null, blank, mistyped and future methods fail closed.",
+      "Refuse existing files, directories and valid/dangling symlinks, including a dangling link created before the final publication check."
+    ],
+    "parity": "All six business-content hashes and browser registry rechecked by the focused suite; no baseline output changes.",
+    "not_rerun": "Importer/intake, runtime transitions and browser checks retain their original commit attribution above. No schema/import or valid-baseline browser output changed."
   }
 }

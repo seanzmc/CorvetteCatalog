@@ -1,5 +1,6 @@
 """Full frozen parity plus mutations proving typed facts drive the live surface."""
 import json
+import os
 from pathlib import Path
 import sqlite3
 import tempfile
@@ -90,6 +91,37 @@ class ContractTests(unittest.TestCase):
         finally:
             db.rollback();db.close()
 
+    def test_unsupported_derivation_methods_refuse_publication(self):
+        with tempfile.TemporaryDirectory(dir=self.temp.name) as scratch:
+            database=Path(scratch)/'invalid.sqlite'
+            source=connect(self.database)
+            db=connect(database)
+            try:
+                source.backup(db)
+                permission=db.execute('SELECT id FROM derivation_permission LIMIT 1').fetchone()[0]
+                for index,method in enumerate(('', 'includes_closure_approved_repalce', 'future_algorithm')):
+                    with self.subTest(method=method):
+                        db.execute('UPDATE derivation_permission SET method=? WHERE id=?',(method,permission))
+                        db.commit()
+                        output=Path(scratch)/f'output-{index}'
+                        with self.assertRaisesRegex(ValueError,'Unsupported derivation permission method'):
+                            write_bundle(database,output)
+                        self.assertFalse(output.exists())
+                        self.assertFalse(list(Path(scratch).glob('.contracts-*')))
+                db.execute('UPDATE derivation_permission SET method=? WHERE id=?',('includes_closure_approved_replace',permission))
+                db.commit()
+                # SQLite already rejects NULL, and the generator also refuses a
+                # malformed in-memory permission before collecting emission pairs.
+                with self.assertRaises(sqlite3.IntegrityError):
+                    db.execute('UPDATE derivation_permission SET method=NULL WHERE id=?',(permission,))
+                catalog=Catalog(db)
+                row=catalog.tables['derivation_permission'][0]
+                row['method']=None
+                with self.assertRaisesRegex(ValueError,'Unsupported derivation permission method'):
+                    catalog.generate(catalog.by_id[row['model_id']],'fixed-test-time')
+            finally:
+                source.close();db.close()
+
     def test_missing_availability_and_stale_permissions_fail(self):
         db=connect(self.database)
         try:
@@ -115,6 +147,39 @@ class ContractTests(unittest.TestCase):
             if path.is_file():self.assertEqual(path.read_bytes(),(two/path.relative_to(one)).read_bytes())
         with self.assertRaises(FileExistsError):write_bundle(self.database,one)
         self.assertEqual(self.database.read_bytes(),before)
+
+    def test_all_existing_output_entry_types_are_preserved(self):
+        with tempfile.TemporaryDirectory(dir=self.temp.name) as scratch:
+            root=Path(scratch)
+            file=root/'file'
+            file.write_text('preserve me')
+            directory=root/'directory'
+            directory.mkdir()
+            valid_link=root/'valid-link'
+            valid_link.symlink_to(file)
+            dangling_link=root/'dangling-link'
+            dangling_link.symlink_to(root/'absent')
+            for output in (file,directory,valid_link,dangling_link):
+                with self.subTest(output=output.name):
+                    before=output.lstat()
+                    with patch('catalog.contracts.generate_bundle',side_effect=AssertionError('must refuse before generation')):
+                        with self.assertRaises(FileExistsError):write_bundle(self.database,output)
+                    self.assertEqual(output.lstat(),before)
+            self.assertEqual(file.read_text(),'preserve me')
+            self.assertEqual(os.readlink(valid_link),str(file))
+            self.assertEqual(os.readlink(dangling_link),str(root/'absent'))
+
+    def test_dangling_symlink_created_during_generation_is_preserved(self):
+        with tempfile.TemporaryDirectory(dir=self.temp.name) as scratch:
+            output=Path(scratch)/'output'
+            def concurrent_entry(registry, aliases):
+                output.symlink_to('missing-target')
+                return 'unused candidate script'
+            with patch('catalog.contracts.registry_script',side_effect=concurrent_entry):
+                with self.assertRaises(FileExistsError):write_bundle(self.database,output)
+            self.assertTrue(output.is_symlink())
+            self.assertEqual(os.readlink(output),'missing-target')
+            self.assertFalse(list(output.parent.glob('.contracts-*')))
 
     def test_failed_generation_leaves_no_output(self):
         target=Path(self.temp.name)/'failed'

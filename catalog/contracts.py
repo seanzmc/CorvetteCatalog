@@ -380,7 +380,11 @@ class Catalog:
             for r in primitives:
                 if r['target_id'] in seen-{source} and source not in (r['source_id'],r['target_id']):
                     candidates.append((source,r['source_id'],r['target_id']))
-        permissions={(self.legacy[r['source_id']],self.legacy[r['target_id']]) for r in self.rows('derivation_permission',mid)}
+        permissions=set()
+        for permission in self.rows('derivation_permission',mid):
+            if permission['method']!='includes_closure_approved_replace':
+                raise ValueError(f"Unsupported derivation permission method: {permission['method']!r}")
+            permissions.add((self.legacy[permission['source_id']],self.legacy[permission['target_id']]))
         if permissions-{(s,t) for s,t,_ in candidates}:
             raise ValueError('Stale derivation permission; no includes-closure candidate')
         emitted=set()
@@ -456,7 +460,7 @@ def registry_script(registry, aliases):
 def write_bundle(database, output, generated_at=None):
     """Publish a complete disposable directory; never overwrite an existing one."""
     output=Path(output)
-    if output.exists():
+    if os.path.lexists(output):
         raise FileExistsError(f'Choose a new output directory; refusing to overwrite {output}')
     contracts,registry,aliases=generate_bundle(database,generated_at)
     output.parent.mkdir(parents=True,exist_ok=True)
@@ -471,7 +475,7 @@ def write_bundle(database, output, generated_at=None):
         (temporary/'form-app').mkdir()
         (temporary/'form-app/data.js').write_text(registry_script(registry,aliases))
         # rename is atomic on this filesystem; the output is a disposable path.
-        if output.exists():
+        if os.path.lexists(output):
             raise FileExistsError(f'Output appeared during generation: {output}')
         os.rename(temporary,output)
     finally:
