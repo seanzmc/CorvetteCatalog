@@ -144,8 +144,21 @@ def extract(guide, workbook, runtime, baseline_hash, runtime_hash):
                          "target_legacy_id": legacy, "status": "proposed",
                          "basis": f"Inspected Checkpoint A mapping; verified stingray_options!A{row}:K{row}; no shared identity inferred."})
     statuses = records(workbook["stingray_ovs"])
-    variants = records(workbook["variant_master"])
-    all_variants = []
+    variant_rows = records(workbook["variant_master"])
+    memberships = [(i, r) for i, r in records(workbook["model_variants"])
+                   if r["model_key"] == "stingray" and r["active"] is True]
+    member_ids = [r["variant_id"] for _, r in memberships]
+    require(len(member_ids) == len(set(member_ids)), "Duplicate active Stingray membership")
+    variants, membership_refs = [], {}
+    for membership_row, membership in memberships:
+        variant_id = membership["variant_id"]
+        row, variant = only([(i, r) for i, r in variant_rows if r["variant_id"] == variant_id],
+                            f"variant identity {variant_id}")
+        require(variant["active"] is True, f"Inactive variant in active membership: {variant_id}")
+        if variant["model_year"] == 2027:
+            variants.append((row, variant))
+            membership_refs[variant_id] = f"model_variants!A{membership_row}:E{membership_row}"
+    all_variants, variant_mappings = [], []
 
     def candidate(kind, value, current, source_refs, baseline_refs, issues=(), scope=None, reason=""):
         ordinal = len(candidates)
@@ -170,6 +183,12 @@ def extract(guide, workbook, runtime, baseline_hash, runtime_hash):
         variant_id = variant["variant_id"]
         require(variant_id not in all_variants, "Duplicate variant identity")
         all_variants.append(variant_id)
+        variant_refs = [f"variant_master!A{row}:H{row}", membership_refs[variant_id]]
+        variant_mappings.append({"source_heading": f"Mechanical 1!{column}3",
+                                 "model": "stingray", "year": 2027, "trim": trim,
+                                 "body": body.lower(), "manufacturer_model_code": model_code,
+                                 "target_variant_id": variant_id, "status": "proposed",
+                                 "baseline_evidence": variant_refs})
         for code, source_row in [("JL9", 6), ("J55", 7), ("Z51", 53)]:
             source_cell = mechanical[f"{column}{source_row}"]
             status, notes, issues = availability(source_cell)
@@ -182,9 +201,12 @@ def extract(guide, workbook, runtime, baseline_hash, runtime_hash):
                                                   r["option_id"] == legacy and r["variant_id"] == variant_id], "availability pair")
             candidate("availability", status, baseline_record["status"],
                       [f"Mechanical 1!{column}{source_row}", f"Mechanical 1!{column}3", "Mechanical 1!C2"] +
-                      (["Mechanical 1!C7"] if notes else []), [f"stingray_ovs!A{baseline_row}:C{baseline_row}"], issues,
+                      (["Mechanical 1!C7"] if notes else []),
+                      [f"stingray_ovs!A{baseline_row}:C{baseline_row}"] + variant_refs, issues,
                       {"model": "stingray", "year": 2027, "variant_id": variant_id, "legacy_option_id": legacy,
                        "manufacturer_model_code": model_code, "trim": trim, "body": body.lower()})
+    require(set(all_variants) == {r["variant_id"] for _, r in variants},
+            "Guide headings do not cover all active MY2027 Stingray variants")
     rules = records(workbook["rule_mapping"])
     include_rows = [(i, r) for i, r in rules if r["source_id"] == "opt_z51_001" and
                     r["target_id"] == "opt_j55_001" and r["rule_type"] == "includes"]
@@ -197,11 +219,13 @@ def extract(guide, workbook, runtime, baseline_hash, runtime_hash):
               [] if included and len(include_rows) == 1 else ["Unresolved inclusion wording or baseline mapping"])
     candidate("requires", {"source": "J55", "target": "Z51"} if note_valid else None,
               {"explicit_rule_count": len(require_rows), "selectable": options["J55"][1]["selectable"]},
-              ["Mechanical 1!C7"], ["stingray_options!A62:K62", "rule_mapping!A1:H127"],
+              ["Mechanical 1!C7"], [f"stingray_options!A{options['J55'][0]}:K{options['J55'][0]}",
+                                      f"rule_mapping!A1:H{workbook['rule_mapping'].max_row}"],
               ["No direct prerequisite rule in baseline; nonselectability plus inclusion may enforce it. Behavioral equivalence remains unverified."],
               reason="Representation gap, not an accepted added rule.")
     candidate("replaces", {"selected": "Z51", "removed": "JL9", "included": "J55"}, None,
-              ["Mechanical 1!C6", "Mechanical 1!C7", "Mechanical 1!C53"], ["rule_mapping!A1:H127"],
+              ["Mechanical 1!C6", "Mechanical 1!C7", "Mechanical 1!C53"],
+              [f"rule_mapping!A1:H{workbook['rule_mapping'].max_row}"],
               ["Owner-confirmed interpretation in docs/source-schema-specification.md section 8; guide cells do not explicitly state removal of JL9. No matching rule in inspected baseline."],
               reason="Keep owner interpretation separate from extracted manufacturer wording; no automatic correction.")
     for code, ref, role in [("JL9", "B6", "reference"), ("J55", "B7", "reference"), ("Z51", "A53", "orderable")]:
@@ -213,14 +237,16 @@ def extract(guide, workbook, runtime, baseline_hash, runtime_hash):
                                "apparent_shifted_amount": str(price["G229"].value), "currency": None},
               {"amount": str(options["Z51"][1]["price"]), "basis": "option"},
               ["Price Schedule!F44", "Price Schedule!G44", "Price Schedule!D229", "Price Schedule!F229", "Price Schedule!G229"],
-              ["stingray_options!C128"], ["Option headers appear shifted: F header says MSRP but F229=0; G229=5395. Currency is not established."],
+              [f"stingray_options!C{options['Z51'][0]}"], ["Option headers appear shifted: F header says MSRP but F229=0; G229=5395. Currency is not established."],
               reason="5395 numerically matches the workbook, but header/basis ambiguity prevents price equality or a proposed zero-price correction.")
     total = Decimal(str(price["F10"].value)) + Decimal(str(price["J10"].value))
     row, base = only([(i, r) for i, r in variants if r["variant_id"] == "1lt_c07"], "base variant")
     candidate("base_price_context", {"amount": str(total), "basis": "baseline_total", "currency": None},
               {"amount": str(base["base_price"]), "basis": "baseline_total", "currency": None},
               ["Price Schedule!B10", "Price Schedule!C10", "Price Schedule!F7", "Price Schedule!J7", "Price Schedule!F10", "Price Schedule!J10", "Price Schedule!A304"],
-              [f"variant_master!A{row}:H{row}"], ["Currency remains unconfirmed; numeric MSRP plus destination comparison only."])
+              [f"variant_master!A{row}:H{row}", membership_refs[base["variant_id"]]],
+              ["Currency remains unconfirmed; numeric MSRP plus destination comparison only."],
+              scope={"model": "stingray", "year": 2027, "variant_id": base["variant_id"]})
     package_refs = sorted(set(re.findall(r"\(([A-Z0-9]{3})\)", str(mechanical["C53"].value))) - {"J55"})
     revision = str(price["A308"].value)
     require("Revised July 06, 2026" in revision, "Unexpected revision label")
@@ -233,6 +259,7 @@ def extract(guide, workbook, runtime, baseline_hash, runtime_hash):
                                 "revision_locator": "Price Schedule!A308", "whole_guide_revision": None,
                                 "currency": None},
             "inventory": inventory, "coverage": coverage, "evidence": evidence, "mappings": mappings,
+            "variant_mappings": variant_mappings,
             "candidates": candidates, "comparison_counts": dict(sorted(Counter(c["comparison_class"] for c in candidates).items())),
             "unresolved": {"external_package_codes": package_refs,
                            "unparsed_text": "Descriptions, dimensional claims, legend symbols outside S/A/-- and unrelated price notes retained without full interpretation.",

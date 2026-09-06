@@ -30,34 +30,61 @@ The move was byte-preserving and the hash was rechecked afterward. The original
 is not included in Git or the PR. This placement follows the owner's explicit
 permission to keep the raw export Git-ignored.
 
-## Checkpoint C work in progress
+## Checkpoint C local completion
 
-`scripts/intake_brakes.py` is an unfinished extractor for the exact source hash
-above and the frozen B workbook/runtime archive. It is intended to preserve cells
-and rich text, stage typed assertions, and reuse immutable comparison results.
-None of those end-to-end results has yet passed verification. No staging JSON
-has been published and no canonical operation has been performed.
+[`scripts/intake_brakes.py`](../scripts/intake_brakes.py) extracts only this exact
+source revision against the frozen B workbook/runtime archive. The owner resumed
+the stopped task, and the mapping now joins active `model_key=stingray` membership
+in `model_variants!A14:E19` to active `variant_master` identities before matching
+year, trim and body. This excludes the Grand Sport and Grand Sport X rows that
+caused the earlier ambiguous matches. Missing, duplicate, dangling and inactive
+identities fail before staging. Each proposed variant mapping retains its cells.
 
-Two execution attempts failed at variant identity mapping. The first compared
-guide trim `1LT` with workbook `1lt`. Correcting casing then found three records:
-`variant_master!A2:H2` (Stingray), `A8:H8` (Grand Sport), and `A14:H14`
-(Grand Sport X). The missing model-membership join is explicitly available in
-`model_variants!A14:E19`. The next bounded fix must restrict candidates through
-active `model_key=stingray` membership before matching trim/body/year. Do not
-choose the first match or infer identity from labels.
+The [immutable comparison](../intake/stingray-brakes/6d649f46323c0be53dd49be125c49c4073eb872397c41ff3ed4da3a82e440364.json)
+contains 26 pending-review assertions, with no accepted operations:
 
-Work stopped at the repository's two-failure limit. The extractor remains draft
-code, not a completed Checkpoint C deliverable. After the mapping fix, exercise
-the actual source, unknown/flattened footnotes, missing/duplicate identities,
-price ambiguity, source preservation and repeated-run idempotence. Review the
-remaining extraction/comparison paths before treating their results as evidence.
+| Result | Evidence and limits |
+|---|---|
+| 18 unchanged availability pairs | `Mechanical 1!D6:I7` and `D53:I53`: JL9 standard, J55 available with footnote 1, Z51 available across six Stingray variants; exact workbook pair locations retained |
+| 1 unchanged inclusion | `Mechanical 1!C7/C53` and `rule_mapping!A109:H109`: Z51 includes J55. Frozen runtime rule evidence also records active auto-add into a display-only section |
+| 2 ambiguous relationships | J55 requires Z51 has no direct prerequisite row; J55 is nonselectable and included. Owner-confirmed replacement of JL9 is not explicit removal wording in these guide cells. Behavioral equivalence is not established |
+| 3 ambiguous code roles | JL9/J55 are reference-only; Z51 is orderable. The baseline's RPO field does not represent that distinction |
+| 2 ambiguous price assertions | Z51 option headers/amounts remain unresolved; sampled base MSRP plus destination equals 73495 but currency is unknown. Base-price scope is only `1lt_c07`, not all six variants |
 
-To resume with Python and `openpyxl==3.1.5` (available in the bundled workspace
-runtime):
+There are no asserted additions, changes, removals or conflicts. Ambiguous facts
+remain unresolved rather than being counted as accepted differences. Exact
+selected cells, rich-text runs, fonts, formats and headings are retained. The
+28-sheet inventory marks two sheets partial and 26 out of scope. Selected ranges
+are explicitly partial because descriptions and unrelated notes are not fully
+interpreted. Z51 members FE3, G0K, G96, M1N, QTU, T0A and V08 remain external
+references. This is brake-family coverage, not whole-guide or full-package parity.
+
+Eleven focused tests passed on September 6, 2026 UTC in 9.6 seconds. They cover the
+18 exact availability pairs, six model-qualified mappings, selected-cell coverage,
+rich footnotes, unresolved/flattened markers, missing notes, invalid identities,
+price scope/ambiguity, source/archive integrity, stable candidate identities across
+new comparisons, identical repeated builds, reuse and refusal to overwrite
+conflicting staging. An initial test-fixture failure was corrected by reloading
+original bytes instead of deep-copying openpyxl's custom-format tables. Two actual
+CLI runs returned `created` then `reused` for the same comparison. Source/archive
+bytes are unchanged; 27vette remains clean. No browser behavior or acceptance
+transaction was implemented or tested.
+
+To reproduce with Python and `openpyxl==3.1.5` (available in the bundled workspace
+runtime; supply the matching ignored original first):
 
 ```sh
 python3 scripts/intake_brakes.py
+python3 -m unittest discover -s tests -v
 ```
 
-The current command fails at the known mapping defect. It writes only review
-staging after a successful build; it has no canonical acceptance path.
+Repeat the extractor command to verify `reused`. Missing source evidence fails
+the tests rather than silently skipping them. Parser/config changes create a new
+run; workbook/runtime baseline changes create a new comparison. Existing staged
+files are never replaced.
+
+Local implementation and validation are complete. Public push/PR delivery is
+pending explicit approval: automatic approval review previously rejected publishing
+source-derived details even with the raw workbook ignored. Nothing has been
+merged, deployed or accepted into canonical data. Do not start another checkpoint
+or resolve the seven ambiguous assertions automatically.

@@ -1,0 +1,2774 @@
+{
+  "run_id": "18f81c07d00a343c9cfe251efabeefa994053a2b63f2ec7a3ca8a7f39df118af",
+  "comparison_id": "6d649f46323c0be53dd49be125c49c4073eb872397c41ff3ed4da3a82e440364",
+  "parser_sha256": "f3cec9b0dca81feacb9134358336d532bc25e0cf8955700e49b560593db686be",
+  "config": {
+    "family": "MY2027 Stingray JL9/J55 and Z51",
+    "version": 1,
+    "mechanical_ranges": [
+      "A1:I3",
+      "A6:I7",
+      "A53:I53"
+    ],
+    "price_ranges": [
+      "A2:J4",
+      "B7:J10",
+      "B44:J46",
+      "B229:J229",
+      "A298:A308"
+    ],
+    "normalization": "S/A/-- with separately resolved superscript 1; no price acceptance"
+  },
+  "source_sha256": "d3ca7d3a09c9fb89210b4ce584493b3ad8fb65ca35087c49d816d1cbf1a333d1",
+  "baseline_workbook_sha256": "3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c",
+  "baseline_runtime_sha256": "e6d288fdd6941d3538c35dbe39a232e123f19e9ff38a53e4606bd19df9d40750",
+  "status": "pending_review",
+  "accepted_operations": [],
+  "source_metadata": {
+    "received_date": "2026-09-06",
+    "received_date_timezone": "UTC",
+    "acquisition_history": "User supplied local file; earlier download history unknown",
+    "price_schedule_revision": "2026-07-06",
+    "revision_raw": "¨Revised July 06, 20262027 CHEVROLET CORVETTE",
+    "revision_locator": "Price Schedule!A308",
+    "whole_guide_revision": null,
+    "currency": null
+  },
+  "inventory": [
+    {
+      "sheet": "Price Schedule",
+      "status": "partial",
+      "populated_rows": 301,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A44:A46",
+        "A7:A9",
+        "B44:B46",
+        "B7:B9",
+        "C44:C46",
+        "C7:C9",
+        "F44:F46",
+        "F7:F9",
+        "J44:J46",
+        "J7:J9",
+        "K7:K9"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Standard Equipment 1",
+      "status": "out_of_scope",
+      "populated_rows": 82,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Standard Equipment 2",
+      "status": "out_of_scope",
+      "populated_rows": 86,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Standard Equipment 3",
+      "status": "out_of_scope",
+      "populated_rows": 83,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Standard Equipment 4",
+      "status": "out_of_scope",
+      "populated_rows": 86,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Standard Equipment 5",
+      "status": "out_of_scope",
+      "populated_rows": 88,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:K1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Equipment Groups 1",
+      "status": "out_of_scope",
+      "populated_rows": 176,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A176:I176",
+        "A1:I1",
+        "A28:I28",
+        "A4:I4"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Equipment Groups 2",
+      "status": "out_of_scope",
+      "populated_rows": 182,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A182:I182",
+        "A1:I1",
+        "A28:I28",
+        "A4:I4"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Equipment Groups 3",
+      "status": "out_of_scope",
+      "populated_rows": 178,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A178:I178",
+        "A1:I1",
+        "A28:I28",
+        "A4:I4"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Equipment Groups 4",
+      "status": "out_of_scope",
+      "populated_rows": 182,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A182:I182",
+        "A1:I1",
+        "A28:I28",
+        "A4:I4"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Equipment Groups 5",
+      "status": "out_of_scope",
+      "populated_rows": 146,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A146:K146",
+        "A1:K1",
+        "A28:K28",
+        "A4:K4"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Interior 1",
+      "status": "out_of_scope",
+      "populated_rows": 101,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Interior 2",
+      "status": "out_of_scope",
+      "populated_rows": 101,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Interior 3",
+      "status": "out_of_scope",
+      "populated_rows": 101,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Interior 4",
+      "status": "out_of_scope",
+      "populated_rows": 105,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Interior 5",
+      "status": "out_of_scope",
+      "populated_rows": 105,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:K1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Exterior 1",
+      "status": "out_of_scope",
+      "populated_rows": 105,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Exterior 2",
+      "status": "out_of_scope",
+      "populated_rows": 111,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Exterior 3",
+      "status": "out_of_scope",
+      "populated_rows": 107,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Exterior 4",
+      "status": "out_of_scope",
+      "populated_rows": 108,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Exterior 5",
+      "status": "out_of_scope",
+      "populated_rows": 75,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:K1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Mechanical 1",
+      "status": "partial",
+      "populated_rows": 53,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Mechanical 2",
+      "status": "out_of_scope",
+      "populated_rows": 51,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Mechanical 3",
+      "status": "out_of_scope",
+      "populated_rows": 47,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Mechanical 4",
+      "status": "out_of_scope",
+      "populated_rows": 49,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Mechanical 5",
+      "status": "out_of_scope",
+      "populated_rows": 50,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A1:K1"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Color and Trim 1",
+      "status": "out_of_scope",
+      "populated_rows": 26,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A14:D14",
+        "A15:B15",
+        "A16:B16",
+        "A17:B17",
+        "A18:B18",
+        "A19:B19",
+        "A1:Q1",
+        "A20:B20",
+        "A21:B21",
+        "A22:B22",
+        "A23:B23",
+        "A24:B24",
+        "A25:B25",
+        "A27:Q27",
+        "A2:Q2",
+        "A3:D3",
+        "E14:Q14",
+        "E3:Q3"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    },
+    {
+      "sheet": "Color and Trim 2",
+      "status": "out_of_scope",
+      "populated_rows": 21,
+      "sheet_state": "visible",
+      "merged_ranges": [
+        "A10:B10",
+        "A11:B11",
+        "A12:B12",
+        "A13:B13",
+        "A14:B14",
+        "A15:B15",
+        "A16:B16",
+        "A17:B17",
+        "A18:B18",
+        "A19:B19",
+        "A1:H1",
+        "A20:B20",
+        "A22:H22",
+        "A2:H2",
+        "A3:D3",
+        "A9:D9",
+        "E3:H3",
+        "E9:H9"
+      ],
+      "hidden_rows": [],
+      "hidden_columns": []
+    }
+  ],
+  "coverage": [
+    {
+      "locator": "Mechanical 1!A1:I3",
+      "status": "partial",
+      "cells": 27,
+      "nonblank_cells": 11,
+      "reason": "Exact cells/runs retained; only listed candidate assertions interpreted. Prose and unrelated package members remain context."
+    },
+    {
+      "locator": "Mechanical 1!A6:I7",
+      "status": "partial",
+      "cells": 18,
+      "nonblank_cells": 16,
+      "reason": "Exact cells/runs retained; only listed candidate assertions interpreted. Prose and unrelated package members remain context."
+    },
+    {
+      "locator": "Mechanical 1!A53:I53",
+      "status": "partial",
+      "cells": 9,
+      "nonblank_cells": 8,
+      "reason": "Exact cells/runs retained; only listed candidate assertions interpreted. Prose and unrelated package members remain context."
+    },
+    {
+      "locator": "Price Schedule!A2:J4",
+      "status": "partial",
+      "cells": 30,
+      "nonblank_cells": 3,
+      "reason": "Exact cells/runs retained; only listed candidate assertions interpreted. Prose and unrelated package members remain context."
+    },
+    {
+      "locator": "Price Schedule!B7:J10",
+      "status": "partial",
+      "cells": 36,
+      "nonblank_cells": 24,
+      "reason": "Exact cells/runs retained; only listed candidate assertions interpreted. Prose and unrelated package members remain context."
+    },
+    {
+      "locator": "Price Schedule!B44:J46",
+      "status": "partial",
+      "cells": 27,
+      "nonblank_cells": 14,
+      "reason": "Exact cells/runs retained; only listed candidate assertions interpreted. Prose and unrelated package members remain context."
+    },
+    {
+      "locator": "Price Schedule!B229:J229",
+      "status": "partial",
+      "cells": 9,
+      "nonblank_cells": 9,
+      "reason": "Exact cells/runs retained; only listed candidate assertions interpreted. Prose and unrelated package members remain context."
+    },
+    {
+      "locator": "Price Schedule!A298:A308",
+      "status": "partial",
+      "cells": 11,
+      "nonblank_cells": 6,
+      "reason": "Exact cells/runs retained; only listed candidate assertions interpreted. Prose and unrelated package members remain context."
+    }
+  ],
+  "evidence": {
+    "Mechanical 1!A1": {
+      "value": "Stingray",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!B1": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!C1": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!D1": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!E1": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!F1": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!G1": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!H1": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!I1": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!A2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!B2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!C2": {
+      "value": "S = Standard Equipment  A = Available  -- (dashes) = Not Available  D = ADI Available  ■ = Included in Equipment Group  □ = Included in Equipment Group but upgradeable  * = Indicates availability of feature on multiple models.  ",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "S = Standard Equipment  ",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"9\" /></RPrElt>"
+        },
+        {
+          "text": "A = Available  ",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"9\" /></RPrElt>"
+        },
+        {
+          "text": "-- (dashes) = Not Available  ",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"9\" /></RPrElt>"
+        },
+        {
+          "text": "D = ADI Available  ",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"9\" /></RPrElt>"
+        },
+        {
+          "text": "■ = Included in Equipment Group  ",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"9\" /></RPrElt>"
+        },
+        {
+          "text": "□ = Included in Equipment Group but upgradeable  ",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"9\" /></RPrElt>"
+        },
+        {
+          "text": "* = Indicates availability of feature on multiple models.  ",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"9\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!D2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!E2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!F2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!G2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!H2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!I2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!A3": {
+      "value": "Orderable RPO Code",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!B3": {
+      "value": "Ref. Only RPO Code",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!C3": {
+      "value": "Description",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!D3": {
+      "value": "Stingray Coupe\n1YC07\n1LT",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "Stingray Coupe",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1YC07",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1LT",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!E3": {
+      "value": "Stingray Coupe\n1YC07\n2LT",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "Stingray Coupe",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1YC07",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "2LT",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!F3": {
+      "value": "Stingray Coupe\n1YC07\n3LT",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "Stingray Coupe",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1YC07",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "3LT",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!G3": {
+      "value": "Stingray Convertible\n1YC67\n1LT",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "Stingray Convertible",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1YC67",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1LT",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!H3": {
+      "value": "Stingray Convertible\n1YC67\n2LT",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "Stingray Convertible",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1YC67",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "2LT",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!I3": {
+      "value": "Stingray Convertible\n1YC67\n3LT",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "Stingray Convertible",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1YC67",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "3LT",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FFFFFFFF\" /><sz val=\"11\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!A6": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!B6": {
+      "value": "JL9",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!C6": {
+      "value": "Brakes, 4-wheel antilock, 4-wheel disc, 12.6\" (321 mm) front and 13.3\" (339 mm) rear brake rotors",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "Brakes",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": ", 4-wheel antilock, 4-wheel disc",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": ", 12.6\" (321 mm) front and 13.3\" (339 mm) rear brake rotors",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!D6": {
+      "value": "S",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!E6": {
+      "value": "S",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!F6": {
+      "value": "S",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!G6": {
+      "value": "S",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!H6": {
+      "value": "S",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!I6": {
+      "value": "S",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!A7": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!B7": {
+      "value": "J55",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!C7": {
+      "value": "Brakes, Z51 performance, larger brake rotors with Z51 logo on calipers; 13.6\" (345 mm) front and 13.8\" (350 mm) rear\n1. Included and only available with (Z51) Z51 Performance Package.",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "Brakes",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": ", Z51 performance",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": ", larger brake rotors with Z51 logo on calipers; 13.6\" (345 mm) front and 13.8\" (350 mm) rear",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "\n",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1. Included and only available with (Z51) Z51 Performance Package.",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FF000000\" /><sz val=\"9\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!D7": {
+      "value": "A1",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "A",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1",
+          "vertical_align": "superscript",
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /><vertAlign val=\"superscript\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!E7": {
+      "value": "A1",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "A",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1",
+          "vertical_align": "superscript",
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /><vertAlign val=\"superscript\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!F7": {
+      "value": "A1",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "A",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1",
+          "vertical_align": "superscript",
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /><vertAlign val=\"superscript\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!G7": {
+      "value": "A1",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "A",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1",
+          "vertical_align": "superscript",
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /><vertAlign val=\"superscript\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!H7": {
+      "value": "A1",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "A",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1",
+          "vertical_align": "superscript",
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /><vertAlign val=\"superscript\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!I7": {
+      "value": "A1",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "A",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": "1",
+          "vertical_align": "superscript",
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /><vertAlign val=\"superscript\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!A53": {
+      "value": "Z51",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!B53": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!C53": {
+      "value": "Z51 Performance Package, includes (J55) Z51 performance brakes, (FE3) Z51 performance suspension, (G0K) 5.56 rear axle ratio, (G96) Electronic Limited Slip Differential (eLSD), (M1N) 8-speed dual clutch transmission, (T0A) Z51 rear spoiler, front splitter, (QTU) 245/35ZR19 XL front and 305/30ZR20 XL rear, blackwall, high performance tires and (V08) heavy-duty cooling system",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "Z51 Performance Package",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><b val=\"1\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        },
+        {
+          "text": ", includes (J55) Z51 performance brakes, (FE3) Z51 performance suspension, (G0K) 5.56 rear axle ratio, (G96) Electronic Limited Slip Differential (eLSD), (M1N) 8-speed dual clutch transmission, (T0A) Z51 rear spoiler, front splitter, (QTU) 245/35ZR19 XL front and 305/30ZR20 XL rear, blackwall, high performance tires and (V08) heavy-duty cooling system",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Calibri\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"11\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    },
+    "Mechanical 1!D53": {
+      "value": "A",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!E53": {
+      "value": "A",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!F53": {
+      "value": "A",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!G53": {
+      "value": "A",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!H53": {
+      "value": "A",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Mechanical 1!I53": {
+      "value": "A",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A2": {
+      "value": "2027 CHEVROLET CORVETTE",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!F2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!G2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!H2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!I2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!J2": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A3": {
+      "value": "2027 MODEL YEAR VEHICLE PRICE SCHEDULE",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B3": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C3": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D3": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E3": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!F3": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!G3": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!H3": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!I3": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!J3": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A4": {
+      "value": "EFFECTIVE WITH START OF 2027 MODEL YEAR PRODUCTION",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B4": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C4": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D4": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E4": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!F4": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!G4": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!H4": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!I4": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!J4": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B7": {
+      "value": "Model",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C7": {
+      "value": "Model Description",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D7": {
+      "value": "List",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E7": {
+      "value": "Factory",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!F7": {
+      "value": "MSRP(c)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!G7": {
+      "value": "Dealer",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!H7": {
+      "value": "Dealer",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!I7": {
+      "value": "Employee",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!J7": {
+      "value": "DFC",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B8": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C8": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D8": {
+      "value": "Price",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E8": {
+      "value": "D/H(b)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!F8": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!G8": {
+      "value": "Invoice",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!H8": {
+      "value": "Price(c)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!I8": {
+      "value": "Price(c)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!J8": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B9": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C9": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D9": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E9": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!F9": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!G9": {
+      "value": "Price(a)&(c)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!H9": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!I9": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!J9": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B10": {
+      "value": "1YC07",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C10": {
+      "value": "Corvette Stingray Coupe 1LT",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D10": {
+      "value": 71000,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!E10": {
+      "value": 0,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!F10": {
+      "value": 71000,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!G10": {
+      "value": 66314,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!H10": {
+      "value": 64184,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!I10": {
+      "value": 0,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!J10": {
+      "value": 2495,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!B44": {
+      "value": "Option Code",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C44": {
+      "value": "Description",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D44": {
+      "value": "List",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E44": {
+      "value": "Factory",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!F44": {
+      "value": "MSRP(c)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!G44": {
+      "value": "Dealer",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!H44": {
+      "value": "Dealer",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!I44": {
+      "value": "Employee",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!J44": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B45": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C45": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D45": {
+      "value": "Price",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E45": {
+      "value": "D/H(b)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!F45": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!G45": {
+      "value": "Invoice",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!H45": {
+      "value": "Price(c)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!I45": {
+      "value": "Price(c)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!J45": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B46": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C46": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D46": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E46": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!F46": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!G46": {
+      "value": "Price(a)",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!H46": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!I46": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!J46": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!B229": {
+      "value": "Z51",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!C229": {
+      "value": "Z51 Performance Package",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!D229": {
+      "value": "Stingray",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!E229": {
+      "value": 5395,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!F229": {
+      "value": 0,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!G229": {
+      "value": 5395,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!H229": {
+      "value": 4909.45,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!I229": {
+      "value": 4747.6,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!J229": {
+      "value": 0,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)"
+    },
+    "Price Schedule!A298": {
+      "value": "**REFER TO DEALER ORDER GUIDE/DATA BOOK FOR MODEL AND OPTION AVAILABILITY AND APPLICATION**",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A299": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A300": {
+      "value": "(a) Dealer invoice includes Holdback amount retained for dealer's account in accordance with applicable vehicle terms of sale bulletin.",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A301": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A302": {
+      "value": "(b) D/H Charges on vehicle and optional equipment include reimbursement to ordering division for any tax that it has paid, incurred or agreed to pay thereon.",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A303": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A304": {
+      "value": "(c) Manufacturer's Suggested Retail Prices, Employee Prices do not include applicable destination charges (DFC), state and local taxes, and license and registration fees.",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A305": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A306": {
+      "value": "GM PRICING AND DISCOUNTS ARE SUBJECT TO CHANGE AT THE DISCRETION OF GENERAL MOTORS",
+      "data_type": "s",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A307": {
+      "value": null,
+      "data_type": "n",
+      "runs": [],
+      "number_format": "General"
+    },
+    "Price Schedule!A308": {
+      "value": "¨Revised July 06, 20262027 CHEVROLET CORVETTE",
+      "data_type": "s",
+      "runs": [
+        {
+          "text": "¨",
+          "vertical_align": null,
+          "font_xml": null
+        },
+        {
+          "text": "Revised July 06, 20262027 CHEVROLET CORVETTE",
+          "vertical_align": null,
+          "font_xml": "<RPrElt><rFont val=\"Arial\" /><family val=\"2\" /><color rgb=\"FF000000\" /><sz val=\"8.800000000000001\" /></RPrElt>"
+        }
+      ],
+      "number_format": "General"
+    }
+  },
+  "mappings": [
+    {
+      "model": "stingray",
+      "year": 2027,
+      "source_code": "JL9",
+      "target_legacy_id": "opt_jl9_001",
+      "status": "proposed",
+      "basis": "Inspected Checkpoint A mapping; verified stingray_options!A168:K168; no shared identity inferred."
+    },
+    {
+      "model": "stingray",
+      "year": 2027,
+      "source_code": "J55",
+      "target_legacy_id": "opt_j55_001",
+      "status": "proposed",
+      "basis": "Inspected Checkpoint A mapping; verified stingray_options!A62:K62; no shared identity inferred."
+    },
+    {
+      "model": "stingray",
+      "year": 2027,
+      "source_code": "Z51",
+      "target_legacy_id": "opt_z51_001",
+      "status": "proposed",
+      "basis": "Inspected Checkpoint A mapping; verified stingray_options!A128:K128; no shared identity inferred."
+    }
+  ],
+  "variant_mappings": [
+    {
+      "source_heading": "Mechanical 1!D3",
+      "model": "stingray",
+      "year": 2027,
+      "trim": "1LT",
+      "body": "coupe",
+      "manufacturer_model_code": "1YC07",
+      "target_variant_id": "1lt_c07",
+      "status": "proposed",
+      "baseline_evidence": [
+        "variant_master!A2:H2",
+        "model_variants!A14:E14"
+      ]
+    },
+    {
+      "source_heading": "Mechanical 1!E3",
+      "model": "stingray",
+      "year": 2027,
+      "trim": "2LT",
+      "body": "coupe",
+      "manufacturer_model_code": "1YC07",
+      "target_variant_id": "2lt_c07",
+      "status": "proposed",
+      "baseline_evidence": [
+        "variant_master!A3:H3",
+        "model_variants!A15:E15"
+      ]
+    },
+    {
+      "source_heading": "Mechanical 1!F3",
+      "model": "stingray",
+      "year": 2027,
+      "trim": "3LT",
+      "body": "coupe",
+      "manufacturer_model_code": "1YC07",
+      "target_variant_id": "3lt_c07",
+      "status": "proposed",
+      "baseline_evidence": [
+        "variant_master!A4:H4",
+        "model_variants!A16:E16"
+      ]
+    },
+    {
+      "source_heading": "Mechanical 1!G3",
+      "model": "stingray",
+      "year": 2027,
+      "trim": "1LT",
+      "body": "convertible",
+      "manufacturer_model_code": "1YC67",
+      "target_variant_id": "1lt_c67",
+      "status": "proposed",
+      "baseline_evidence": [
+        "variant_master!A5:H5",
+        "model_variants!A17:E17"
+      ]
+    },
+    {
+      "source_heading": "Mechanical 1!H3",
+      "model": "stingray",
+      "year": 2027,
+      "trim": "2LT",
+      "body": "convertible",
+      "manufacturer_model_code": "1YC67",
+      "target_variant_id": "2lt_c67",
+      "status": "proposed",
+      "baseline_evidence": [
+        "variant_master!A6:H6",
+        "model_variants!A18:E18"
+      ]
+    },
+    {
+      "source_heading": "Mechanical 1!I3",
+      "model": "stingray",
+      "year": 2027,
+      "trim": "3LT",
+      "body": "convertible",
+      "manufacturer_model_code": "1YC67",
+      "target_variant_id": "3lt_c67",
+      "status": "proposed",
+      "baseline_evidence": [
+        "variant_master!A7:H7",
+        "model_variants!A19:E19"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "id": "2cdba0d12430670e518503cf99120a78029fe6b58e619ac26c3b2fed97e4c7a4",
+      "kind": "availability",
+      "typed_value": "standard",
+      "baseline_value": "standard",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "1lt_c07",
+        "legacy_option_id": "opt_jl9_001",
+        "manufacturer_model_code": "1YC07",
+        "trim": "1LT",
+        "body": "coupe"
+      },
+      "source_evidence": [
+        "Mechanical 1!D6",
+        "Mechanical 1!D3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A596:C596",
+        "variant_master!A2:H2",
+        "model_variants!A14:E14"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "cd791f4a10223096df3eff0146b18e8f14fb4b268fbe88639fb32751541879a4",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "1lt_c07",
+        "legacy_option_id": "opt_j55_001",
+        "manufacturer_model_code": "1YC07",
+        "trim": "1LT",
+        "body": "coupe"
+      },
+      "source_evidence": [
+        "Mechanical 1!D7",
+        "Mechanical 1!D3",
+        "Mechanical 1!C2",
+        "Mechanical 1!C7"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A560:C560",
+        "variant_master!A2:H2",
+        "model_variants!A14:E14"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "376fbc898984196f274cccb0aaf493201adf4fc550185be9e8e38edc1dc76fa4",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "1lt_c07",
+        "legacy_option_id": "opt_z51_001",
+        "manufacturer_model_code": "1YC07",
+        "trim": "1LT",
+        "body": "coupe"
+      },
+      "source_evidence": [
+        "Mechanical 1!D53",
+        "Mechanical 1!D3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A1250:C1250",
+        "variant_master!A2:H2",
+        "model_variants!A14:E14"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "896593bfd7417d530e8c3635a3d112ef6b809a716b3744012073e9f7dc567b89",
+      "kind": "availability",
+      "typed_value": "standard",
+      "baseline_value": "standard",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "2lt_c07",
+        "legacy_option_id": "opt_jl9_001",
+        "manufacturer_model_code": "1YC07",
+        "trim": "2LT",
+        "body": "coupe"
+      },
+      "source_evidence": [
+        "Mechanical 1!E6",
+        "Mechanical 1!E3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A597:C597",
+        "variant_master!A3:H3",
+        "model_variants!A15:E15"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "b287681aca2c6754e242e4d71a78402ebd083681ba32c804a7d271f0724a29a8",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "2lt_c07",
+        "legacy_option_id": "opt_j55_001",
+        "manufacturer_model_code": "1YC07",
+        "trim": "2LT",
+        "body": "coupe"
+      },
+      "source_evidence": [
+        "Mechanical 1!E7",
+        "Mechanical 1!E3",
+        "Mechanical 1!C2",
+        "Mechanical 1!C7"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A561:C561",
+        "variant_master!A3:H3",
+        "model_variants!A15:E15"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "7fc6103c196ed44bcbf6f61c6ed552dd9908e9d4dd3d54bd0ccf3573430f4cfe",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "2lt_c07",
+        "legacy_option_id": "opt_z51_001",
+        "manufacturer_model_code": "1YC07",
+        "trim": "2LT",
+        "body": "coupe"
+      },
+      "source_evidence": [
+        "Mechanical 1!E53",
+        "Mechanical 1!E3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A1251:C1251",
+        "variant_master!A3:H3",
+        "model_variants!A15:E15"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "ce260f7a35b08d1658bee9191050e721a860199f101d3dc0d6e5aa0662bdd44c",
+      "kind": "availability",
+      "typed_value": "standard",
+      "baseline_value": "standard",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "3lt_c07",
+        "legacy_option_id": "opt_jl9_001",
+        "manufacturer_model_code": "1YC07",
+        "trim": "3LT",
+        "body": "coupe"
+      },
+      "source_evidence": [
+        "Mechanical 1!F6",
+        "Mechanical 1!F3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A598:C598",
+        "variant_master!A4:H4",
+        "model_variants!A16:E16"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "df53e5b0eae10b3839a7abe19beec0a5938b214add53a8d3a0e5302a10357c64",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "3lt_c07",
+        "legacy_option_id": "opt_j55_001",
+        "manufacturer_model_code": "1YC07",
+        "trim": "3LT",
+        "body": "coupe"
+      },
+      "source_evidence": [
+        "Mechanical 1!F7",
+        "Mechanical 1!F3",
+        "Mechanical 1!C2",
+        "Mechanical 1!C7"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A562:C562",
+        "variant_master!A4:H4",
+        "model_variants!A16:E16"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "77f65f2416ce0167f083feb54bee96d0d06ea06b6ac2d96814f32b776c53cc86",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "3lt_c07",
+        "legacy_option_id": "opt_z51_001",
+        "manufacturer_model_code": "1YC07",
+        "trim": "3LT",
+        "body": "coupe"
+      },
+      "source_evidence": [
+        "Mechanical 1!F53",
+        "Mechanical 1!F3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A1252:C1252",
+        "variant_master!A4:H4",
+        "model_variants!A16:E16"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "c578d7f43661c09b1b64eff4a82b43f8033217b20e08c3f12272806bd8ed757d",
+      "kind": "availability",
+      "typed_value": "standard",
+      "baseline_value": "standard",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "1lt_c67",
+        "legacy_option_id": "opt_jl9_001",
+        "manufacturer_model_code": "1YC67",
+        "trim": "1LT",
+        "body": "convertible"
+      },
+      "source_evidence": [
+        "Mechanical 1!G6",
+        "Mechanical 1!G3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A599:C599",
+        "variant_master!A5:H5",
+        "model_variants!A17:E17"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "e9697e1ac6eb89a11f459717fe118709a2c6f6770e42cf4d042dc28a4a218cdc",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "1lt_c67",
+        "legacy_option_id": "opt_j55_001",
+        "manufacturer_model_code": "1YC67",
+        "trim": "1LT",
+        "body": "convertible"
+      },
+      "source_evidence": [
+        "Mechanical 1!G7",
+        "Mechanical 1!G3",
+        "Mechanical 1!C2",
+        "Mechanical 1!C7"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A563:C563",
+        "variant_master!A5:H5",
+        "model_variants!A17:E17"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "c59faa8ac669eb8d3f8cce29b73ae2168799771b1dccd6b7b2c007665626673d",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "1lt_c67",
+        "legacy_option_id": "opt_z51_001",
+        "manufacturer_model_code": "1YC67",
+        "trim": "1LT",
+        "body": "convertible"
+      },
+      "source_evidence": [
+        "Mechanical 1!G53",
+        "Mechanical 1!G3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A1253:C1253",
+        "variant_master!A5:H5",
+        "model_variants!A17:E17"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "1e779d785be9e4c95b8147c110b133e23ad9ce375e1c18975b059c5b6f2a28da",
+      "kind": "availability",
+      "typed_value": "standard",
+      "baseline_value": "standard",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "2lt_c67",
+        "legacy_option_id": "opt_jl9_001",
+        "manufacturer_model_code": "1YC67",
+        "trim": "2LT",
+        "body": "convertible"
+      },
+      "source_evidence": [
+        "Mechanical 1!H6",
+        "Mechanical 1!H3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A600:C600",
+        "variant_master!A6:H6",
+        "model_variants!A18:E18"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "eb6f03d542c7bf2d236cd2270d2e02079f96364d1645a6d48f851c5d21891c39",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "2lt_c67",
+        "legacy_option_id": "opt_j55_001",
+        "manufacturer_model_code": "1YC67",
+        "trim": "2LT",
+        "body": "convertible"
+      },
+      "source_evidence": [
+        "Mechanical 1!H7",
+        "Mechanical 1!H3",
+        "Mechanical 1!C2",
+        "Mechanical 1!C7"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A564:C564",
+        "variant_master!A6:H6",
+        "model_variants!A18:E18"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "1101a11277fe27efef90e0d7b99fd86266c32bef5f953568d6d4e3251ae9aed0",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "2lt_c67",
+        "legacy_option_id": "opt_z51_001",
+        "manufacturer_model_code": "1YC67",
+        "trim": "2LT",
+        "body": "convertible"
+      },
+      "source_evidence": [
+        "Mechanical 1!H53",
+        "Mechanical 1!H3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A1254:C1254",
+        "variant_master!A6:H6",
+        "model_variants!A18:E18"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "790836183d059a13874b2d1faa5509a49808ffb105c9d05d9fa59ac1f17b5ff9",
+      "kind": "availability",
+      "typed_value": "standard",
+      "baseline_value": "standard",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "3lt_c67",
+        "legacy_option_id": "opt_jl9_001",
+        "manufacturer_model_code": "1YC67",
+        "trim": "3LT",
+        "body": "convertible"
+      },
+      "source_evidence": [
+        "Mechanical 1!I6",
+        "Mechanical 1!I3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A601:C601",
+        "variant_master!A7:H7",
+        "model_variants!A19:E19"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "6d562f318aab43bb4b9cec2b6d20d3eb67d526b16e1a18a89dc194ac0a35e8af",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "3lt_c67",
+        "legacy_option_id": "opt_j55_001",
+        "manufacturer_model_code": "1YC67",
+        "trim": "3LT",
+        "body": "convertible"
+      },
+      "source_evidence": [
+        "Mechanical 1!I7",
+        "Mechanical 1!I3",
+        "Mechanical 1!C2",
+        "Mechanical 1!C7"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A565:C565",
+        "variant_master!A7:H7",
+        "model_variants!A19:E19"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "6b8824f40cce4eab6abed4cfd37b309adc909786f881f42d845885679a146747",
+      "kind": "availability",
+      "typed_value": "available",
+      "baseline_value": "available",
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "3lt_c67",
+        "legacy_option_id": "opt_z51_001",
+        "manufacturer_model_code": "1YC67",
+        "trim": "3LT",
+        "body": "convertible"
+      },
+      "source_evidence": [
+        "Mechanical 1!I53",
+        "Mechanical 1!I3",
+        "Mechanical 1!C2"
+      ],
+      "baseline_evidence": [
+        "stingray_ovs!A1255:C1255",
+        "variant_master!A7:H7",
+        "model_variants!A19:E19"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "f07c205732739194809dd7ce74ee78be2974001b680eb6e82fba52eca1d694e5",
+      "kind": "includes",
+      "typed_value": {
+        "source": "Z51",
+        "target": "J55"
+      },
+      "baseline_value": {
+        "source": "Z51",
+        "target": "J55"
+      },
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_ids": [
+          "1lt_c07",
+          "2lt_c07",
+          "3lt_c07",
+          "1lt_c67",
+          "2lt_c67",
+          "3lt_c67"
+        ]
+      },
+      "source_evidence": [
+        "Mechanical 1!C53",
+        "Mechanical 1!C7"
+      ],
+      "baseline_evidence": [
+        "rule_mapping!A109:H109"
+      ],
+      "parse_issues": [],
+      "comparison_class": "unchanged",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "0c7d74d9318ba6ac05e26c817900799cbe1d7b00748cc525ee981c4a7e062db2",
+      "kind": "requires",
+      "typed_value": {
+        "source": "J55",
+        "target": "Z51"
+      },
+      "baseline_value": {
+        "explicit_rule_count": 0,
+        "selectable": false
+      },
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_ids": [
+          "1lt_c07",
+          "2lt_c07",
+          "3lt_c07",
+          "1lt_c67",
+          "2lt_c67",
+          "3lt_c67"
+        ]
+      },
+      "source_evidence": [
+        "Mechanical 1!C7"
+      ],
+      "baseline_evidence": [
+        "stingray_options!A62:K62",
+        "rule_mapping!A1:H179"
+      ],
+      "parse_issues": [
+        "No direct prerequisite rule in baseline; nonselectability plus inclusion may enforce it. Behavioral equivalence remains unverified."
+      ],
+      "comparison_class": "ambiguous",
+      "reason": "Representation gap, not an accepted added rule.",
+      "status": "pending_review"
+    },
+    {
+      "id": "d6ae2734ce110b53354529370fd42590ca9893e62ea4f26c652430d4ac6bf7e6",
+      "kind": "replaces",
+      "typed_value": {
+        "selected": "Z51",
+        "removed": "JL9",
+        "included": "J55"
+      },
+      "baseline_value": null,
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_ids": [
+          "1lt_c07",
+          "2lt_c07",
+          "3lt_c07",
+          "1lt_c67",
+          "2lt_c67",
+          "3lt_c67"
+        ]
+      },
+      "source_evidence": [
+        "Mechanical 1!C6",
+        "Mechanical 1!C7",
+        "Mechanical 1!C53"
+      ],
+      "baseline_evidence": [
+        "rule_mapping!A1:H179"
+      ],
+      "parse_issues": [
+        "Owner-confirmed interpretation in docs/source-schema-specification.md section 8; guide cells do not explicitly state removal of JL9. No matching rule in inspected baseline."
+      ],
+      "comparison_class": "ambiguous",
+      "reason": "Keep owner interpretation separate from extracted manufacturer wording; no automatic correction.",
+      "status": "pending_review"
+    },
+    {
+      "id": "ab375900a23ec02599d4e50223949ac9754b7dba0db76b63256a2ba88f4327c6",
+      "kind": "code_role",
+      "typed_value": {
+        "code": "JL9",
+        "role": "reference"
+      },
+      "baseline_value": {
+        "rpo": "JL9",
+        "role": null
+      },
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_ids": [
+          "1lt_c07",
+          "2lt_c07",
+          "3lt_c07",
+          "1lt_c67",
+          "2lt_c67",
+          "3lt_c67"
+        ]
+      },
+      "source_evidence": [
+        "Mechanical 1!B6",
+        "Mechanical 1!A3",
+        "Mechanical 1!B3"
+      ],
+      "baseline_evidence": [
+        "stingray_options!B168"
+      ],
+      "parse_issues": [
+        "Baseline RPO field does not encode orderable versus reference-only role."
+      ],
+      "comparison_class": "ambiguous",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "5deced7708bfdc6763e95e8b717febda57426dab75ac8114cd7bbde3625b170e",
+      "kind": "code_role",
+      "typed_value": {
+        "code": "J55",
+        "role": "reference"
+      },
+      "baseline_value": {
+        "rpo": "J55",
+        "role": null
+      },
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_ids": [
+          "1lt_c07",
+          "2lt_c07",
+          "3lt_c07",
+          "1lt_c67",
+          "2lt_c67",
+          "3lt_c67"
+        ]
+      },
+      "source_evidence": [
+        "Mechanical 1!B7",
+        "Mechanical 1!A3",
+        "Mechanical 1!B3"
+      ],
+      "baseline_evidence": [
+        "stingray_options!B62"
+      ],
+      "parse_issues": [
+        "Baseline RPO field does not encode orderable versus reference-only role."
+      ],
+      "comparison_class": "ambiguous",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "afeed1d3bca9887fe64f177535b02a37ccbf011c3743c90b5c4dbac92529d30f",
+      "kind": "code_role",
+      "typed_value": {
+        "code": "Z51",
+        "role": "orderable"
+      },
+      "baseline_value": {
+        "rpo": "Z51",
+        "role": null
+      },
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_ids": [
+          "1lt_c07",
+          "2lt_c07",
+          "3lt_c07",
+          "1lt_c67",
+          "2lt_c67",
+          "3lt_c67"
+        ]
+      },
+      "source_evidence": [
+        "Mechanical 1!A53",
+        "Mechanical 1!A3",
+        "Mechanical 1!B3"
+      ],
+      "baseline_evidence": [
+        "stingray_options!B128"
+      ],
+      "parse_issues": [
+        "Baseline RPO field does not encode orderable versus reference-only role."
+      ],
+      "comparison_class": "ambiguous",
+      "reason": "",
+      "status": "pending_review"
+    },
+    {
+      "id": "33b13de68221585e69796de6b0b3a33c70713783d62f7743021b432935080876",
+      "kind": "option_price",
+      "typed_value": {
+        "header_labeled_msrp": "0",
+        "apparent_shifted_amount": "5395",
+        "currency": null
+      },
+      "baseline_value": {
+        "amount": "5395",
+        "basis": "option"
+      },
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_ids": [
+          "1lt_c07",
+          "2lt_c07",
+          "3lt_c07",
+          "1lt_c67",
+          "2lt_c67",
+          "3lt_c67"
+        ]
+      },
+      "source_evidence": [
+        "Price Schedule!F44",
+        "Price Schedule!G44",
+        "Price Schedule!D229",
+        "Price Schedule!F229",
+        "Price Schedule!G229"
+      ],
+      "baseline_evidence": [
+        "stingray_options!C128"
+      ],
+      "parse_issues": [
+        "Option headers appear shifted: F header says MSRP but F229=0; G229=5395. Currency is not established."
+      ],
+      "comparison_class": "ambiguous",
+      "reason": "5395 numerically matches the workbook, but header/basis ambiguity prevents price equality or a proposed zero-price correction.",
+      "status": "pending_review"
+    },
+    {
+      "id": "e27a65c16d9bca53681be80aa39f10422fb3d8c5a5dceff7b6a36b99909363cc",
+      "kind": "base_price_context",
+      "typed_value": {
+        "amount": "73495",
+        "basis": "baseline_total",
+        "currency": null
+      },
+      "baseline_value": {
+        "amount": "73495",
+        "basis": "baseline_total",
+        "currency": null
+      },
+      "applicability": {
+        "model": "stingray",
+        "year": 2027,
+        "variant_id": "1lt_c07"
+      },
+      "source_evidence": [
+        "Price Schedule!B10",
+        "Price Schedule!C10",
+        "Price Schedule!F7",
+        "Price Schedule!J7",
+        "Price Schedule!F10",
+        "Price Schedule!J10",
+        "Price Schedule!A304"
+      ],
+      "baseline_evidence": [
+        "variant_master!A2:H2",
+        "model_variants!A14:E14"
+      ],
+      "parse_issues": [
+        "Currency remains unconfirmed; numeric MSRP plus destination comparison only."
+      ],
+      "comparison_class": "ambiguous",
+      "reason": "",
+      "status": "pending_review"
+    }
+  ],
+  "comparison_counts": {
+    "ambiguous": 7,
+    "unchanged": 19
+  },
+  "unresolved": {
+    "external_package_codes": [
+      "FE3",
+      "G0K",
+      "G96",
+      "M1N",
+      "QTU",
+      "T0A",
+      "V08"
+    ],
+    "unparsed_text": "Descriptions, dimensional claims, legend symbols outside S/A/-- and unrelated price notes retained without full interpretation.",
+    "removal_authority": false,
+    "whole_guide_coverage": false
+  },
+  "runtime_evidence": [
+    {
+      "locator": "/rules/79",
+      "value": {
+        "rule_id": "rule_opt_z51_001_includes_opt_j55_001",
+        "source_id": "opt_z51_001",
+        "rule_type": "includes",
+        "target_id": "opt_j55_001",
+        "target_type": "option",
+        "source_type": "option",
+        "source_section": "sec_perf_001",
+        "target_section": "sec_incl_001",
+        "source_selection_mode": "multi_select_opt",
+        "target_selection_mode": "display_only",
+        "body_style_scope": "",
+        "disabled_reason": "Included with Z51 Z51 Performance Package.",
+        "auto_add": "True",
+        "active": "True",
+        "runtime_action": "active",
+        "source_note": "includes (J55) Z51 performance brakes, (FE3) Z51 performance suspension, (G0K) 5.56 rear axle ratio, (G96) Electronic Limited Slip Differential (eLSD), (M1N) 8-speed dual clutch transmission, (T0A) Z51 rear spoiler, front splitter, (QTU) 245/35ZR19 XL front and 305/30ZR20 XL rear, blackwall, high performance tires and (V08) heavy-duty cooling system"
+      }
+    }
+  ]
+}
