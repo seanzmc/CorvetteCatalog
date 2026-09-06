@@ -1,6 +1,6 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-Status: Checkpoint A specification completed September 5, 2026. Application implementation and Checkpoints B–H remain unauthorized. See [source and schema specification](source-schema-specification.md) for inspected evidence, logical field mappings and unresolved decisions.
+Status: Checkpoint A specification completed September 5, 2026. The owner authorized starting the next checkpoint on September 5. Checkpoint B is in progress: its first bounded slice freezes the workbook and matching runtime baseline. Relational import remains unfinished; Checkpoints C–H remain unauthorized. See [source and schema specification](source-schema-specification.md) for inspected evidence, logical field mappings and unresolved decisions.
 
 ## 1. Clean project boundary
 
@@ -58,7 +58,7 @@ One option may affect multiple layers; an asset may serve several configurations
 | Checkpoint | Deliverable | Required evidence |
 |---|---|---|
 | A — Source and schema specification — completed 2026-09-05 | [Specification](source-schema-specification.md): 28-sheet raw guide inventory, canonical workbook field mapping, logical entities/keys/ownership, intake/discrepancy contract and future visualizer requirements | Read-only hashes, all 77 workbook sheets mapped by family, 11-role header parity, complete 7,448 availability pairs, precise brake-family/price/footnote examples; remaining source and implementation decisions explicit |
-| B — Disposable baseline import | Import frozen workbook facts into a new relational candidate | All rows accounted for; constraints and identities reconcile |
+| B — Disposable baseline import — in progress | [Workbook/runtime baseline frozen](../baselines/2026-09-06/README.md); next import frozen workbook facts into a new relational candidate | Six contracts match regeneration except generation timestamps; browser registry matches byte for byte. Relational row accounting, constraints and identity reconciliation remain pending |
 | C — Manufacturer intake pilot | Extract one bounded guide family into review staging | Precise citations, coverage accounting, idempotent import, explained differences; no automatic canonical updates |
 | D — Form parity | Generate all six model contracts directly from the candidate catalog | Exact business behavior and meaningful output ordering preserved |
 | E — Authoring pilot | Edit an offering, shared definition, and relationship through the new UI | Transactional changes, persistence, shared impact, stale-edit refusal, readable history |
@@ -66,7 +66,7 @@ One option may affect multiple layers; an asset may serve several configurations
 | G — Canonical cutover | Final source freeze/reconciliation and explicit authority switch | No lost edits, unresolved drafts, or unclassified behavior changes |
 | H — Visualizer delivery | Art-supported exterior/interior pilot, then expanded coverage | Correct resolved-build images and release identity; unchanged pricing/submission |
 
-Checkpoint A is complete as a specification; no importer, database, parser or application was implemented. The inspected raw export defines the first candidate format, with Stingray JL9/J55 brakes and their Z51 relationship proposed as the bounded intake pilot. The existing workbook remains canonical for the form. Stop here. Checkpoint B requires a separate authorized task and a frozen workbook plus matching runtime baseline; Checkpoint C requires its own intake authorization. Do not migrate production or automatically continue across checkpoints.
+Checkpoint A is complete as a specification. Checkpoint B has started with the frozen baseline prerequisite; no importer, database, parser or application has been implemented. The inspected raw export defines the first candidate format, with Stingray JL9/J55 brakes and their Z51 relationship proposed as the bounded intake pilot. The existing workbook remains canonical for the form. Stop at the completed baseline slice; the next bounded B task is the disposable relational importer. Checkpoint C requires its own intake authorization. Do not migrate production or automatically continue across checkpoints.
 
 ## 8. Owner clarifications and remaining decisions
 
@@ -78,4 +78,4 @@ Sean will supply refreshed manufacturer input: the July 26 price schedule and or
 
 Visualizer assets are unprocessed `.psb` files in a local folder, as reported by the owner. Inspection and processing will be part of a later task; inventory, rights and the first scene remain to be established in H. UI interactions to retain or redesign remain a decision for authoring UI work.
 
-Checkpoint B still requires separate authorization and a frozen workbook plus matching runtime baseline. These clarifications do not start B, authorize source corrections or change canonical authority.
+The owner clarifications above did not authorize source corrections or change canonical authority. The subsequent request to start the next checkpoint authorized beginning B; its workbook/runtime baseline is now frozen as described above.
