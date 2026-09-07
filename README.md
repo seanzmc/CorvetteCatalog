@@ -17,6 +17,7 @@ When a guide and workbook disagree, record the discrepancy and its evidence. Nei
 
 - [Working principles and lightweight PR policy](AGENTS.md)
 - [Migration and intake plan](docs/migration-plan.md)
+- [Stingray behavior: foundations and connected choices, first analysis slice](docs/stingray-behavior.md)
 - [All six models: complete form relationship map and shared-rule analysis](docs/form-relationship-map.md)
 - [Workbook translation blueprint: actual rules, ownership and proposed consolidation](docs/workbook-translation-blueprint.md)
 - [Checkpoint A source and schema specification](docs/source-schema-specification.md)

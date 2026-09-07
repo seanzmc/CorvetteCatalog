@@ -30,16 +30,22 @@ Initially support one real supplied guide format and one bounded family, chosen 
 
 ## 4. Relational design
 
-September 7 design reset: the owner requires all model relationships, including
-shared stripes, accessories and color combinations, to be mapped before further
-schema work. The [complete form relationship map](form-relationship-map.md) now
-covers all source families, all six models, cross-model comparison candidates and
-runtime interactions. The review export covers every typed record, reference and
-availability pair. This completes the relationship inventory/analysis deliverable;
-it does not approve table ownership or exhaustively validate selection scenarios.
-The next deliverable is a coherent ownership proposal from that map, not another
-isolated table consolidation. No further DDL or authoring implementation is
-authorized by this analysis.
+September 7 behavior-analysis reset: the relationship inventory did not demonstrate
+comprehension of complete model behavior. The subsequent ownership proposal
+(PR #12) is unvalidated and is not a basis for implementation. Schema work is
+paused. Analyze each model in its own lane with the same structure, following
+model/body/trim foundations through connected selections, equipment and prices.
+Use full raw-guide disclosures with the workbook and inspect runtime behavior
+where needed; do not inherit the old architecture or consolidate models from
+matching codes/signatures.
+
+The [first Stingray analysis slice](stingray-behavior.md) now documents foundations
+and selected roof/accent, engine-appearance, paint/interior and spoiler/package
+paths. It reconciles 198 selected status pairs, compares 39 duplicate source
+occurrences and records 57 frozen-runtime states. It explicitly leaves the full
+Stingray model, other models and unresolved source/behavior differences unfinished.
+The [earlier relationship map](form-relationship-map.md) remains inventory evidence,
+not completed behavioral analysis or schema approval.
 
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
