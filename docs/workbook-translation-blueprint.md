@@ -1,6 +1,6 @@
 # Workbook-to-database translation blueprint
 
-September 7, 2026. **Option consolidation implemented in candidate schema 3; remaining ownership design is still under review.** The SQLite schema is disposable, not the final authoring or release design.
+September 7, 2026. **Design reset: map all six models and shared relationships before further schema changes.** The [complete form relationship map](form-relationship-map.md) is the starting point for this review. Option consolidation is implemented in candidate schema 3, but its remaining fields and ownership are not an approved final design. The SQLite schema is disposable, not the final authoring or release design.
 
 The workbook data and intended form logic define this migration. The database structure must represent them correctly. Existing code is behavioral evidence, not authority to override an owner clarification. Changing table boundaries, names, or relationships is allowed in the design; a discrepancy between intended behavior and existing output must be recorded explicitly. There is no production catalog database to preserve at this stage.
 
@@ -25,7 +25,7 @@ This document brings together the source families, implemented destinations, run
 
 The previous candidate spread this row across `option_definition`, `offering`, `offering_code`, `offering_price`, `offering_policy`, and `offering_presentation`, storing the name and description twice.
 
-**Implemented: one model-owned `option` table replaces that six-table split.** Its unique key is `(model_id, legacy_id)`, preserving the workbook's `(model, option_id)` identity. `name`, `description`, `rpo`, `base_price`, `section_id`, `selectable`, `display_behavior`, `display_order` and `active` own the fields above. `sequence` preserves workbook order. `price_basis='option'`, unknown `currency`, and `rpo_role='legacy-unspecified'` retain previous price/code semantics; an absent RPO and its role remain null. RPO is nullable and nonunique. Availability, overrides, rules, assets and evidence now reference this owner. Conditional price changes remain rules.
+**Implemented: one model-owned `option` table replaces that six-table split.** Its unique key is `(model_id, legacy_id)`, preserving the workbook's `(model, option_id)` identity. `name`, `description`, `rpo`, `base_price`, `section_id`, `selectable`, `display_behavior`, `display_order` and `active` own the fields above. The current implementation also retains workbook `sequence`, constant `price_basis='option'`, unknown `currency`, and placeholder `rpo_role='legacy-unspecified'`; an absent RPO and its role remain null. These are descriptions of migration storage, not established business reasons for keeping those columns in the redesigned catalog. RPO is nullable and nonunique. Availability, overrides, rules, assets and evidence now reference this owner. Conditional price changes remain rules.
 
 Evidence from the previous candidate: all 1,379 offerings had separate definitions; none shared a definition. All presentation names/descriptions equaled their definition copies. Each offering had one base-price row and one policy row. There were 1,224 code rows, with at most one per offering; 155 options had no RPO. The 8,119 rows across those six tables are now 1,379 option rows, with all values reconciled and no business facts added, changed or removed.
 
