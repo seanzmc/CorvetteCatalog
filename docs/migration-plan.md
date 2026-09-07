@@ -31,7 +31,7 @@ Initially support one real supplied guide format and one bounded family, chosen 
 ## 4. Relational design
 
 September 7 behavior-analysis reset: the relationship inventory did not demonstrate
-comprehension of complete model behavior. The subsequent ownership proposal
+comprehension of complete model behavior. The subsequent [ownership proposal](proposed-database-design.md)
 (PR #12) is unvalidated and is not a basis for implementation. Schema work is
 paused. Analyze each model in its own lane with the same structure, following
 model/body/trim foundations through connected selections, equipment and prices.
@@ -46,6 +46,12 @@ occurrences and records 57 frozen-runtime states. It explicitly leaves the full
 Stingray model, other models and unresolved source/behavior differences unfinished.
 The [earlier relationship map](form-relationship-map.md) remains inventory evidence,
 not completed behavioral analysis or schema approval.
+
+The proposal records table grains, keys, typed shared definitions with model
+applications, price ownership, presentation and compatibility boundaries. Package
+classification, interior charge reconciliation and consumer ordering remain
+explicit prerequisites to migration. No DDL or authoring implementation is
+authorized by the proposal.
 
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
