@@ -144,7 +144,7 @@ class Importer:
         return uid
 
     def product(self, model, key):
-        found = [self.ids[(kind, model, encoded(key))] for kind in ("offering", "model_interior")
+        found = [self.ids[(kind, model, encoded(key))] for kind in ("option", "model_interior")
                  if (kind, model, encoded(key)) in self.ids]
         require(len(found) == 1, f"Ambiguous or missing product identity: {model}/{key}")
         return found[0]
@@ -241,21 +241,21 @@ class Importer:
         for model in self.roles:
             for row in self.by_role(model, "source_option_sheet"):
                 key = row.get("option_id")
-                definition = self.add("option_definition", model, key, row, intrinsic_name=row.get("option_name"), description=row.get("description"))
-                offering = self.add("offering", model, key, row, legacy_id=key, definition_id=definition, active=row.get("active"))
-                self.legacy("offering", model, key, offering)
                 rpo = row.get("rpo")
-                if rpo is not None:
-                    self.add("offering_code", model, key, row, offering_id=offering, code=rpo, role="legacy-unspecified")
-                self.add("offering_price", model, key, row, offering_id=offering, amount=row.get("price"), basis="option", currency=None)
-                self.add("offering_policy", model, key, row, offering_id=offering, selectable=row.get("selectable"), display_behavior=row.get("display_behavior"))
-                self.add("offering_presentation", model, key, row, offering_id=offering, section_id=self.ref("section", "", row.get("section_id")), label=row.get("option_name"), description=row.get("description"), display_order=row.get("display_order"))
+                option = self.add("option", model, key, row, legacy_id=key, rpo=rpo,
+                    rpo_role="legacy-unspecified" if rpo is not None else None,
+                    name=row.get("option_name"), description=row.get("description"),
+                    base_price=row.get("price"), price_basis="option", currency=None,
+                    section_id=self.ref("section", "", row.get("section_id")),
+                    selectable=row.get("selectable"), display_behavior=row.get("display_behavior"),
+                    display_order=row.get("display_order"), active=row.get("active"))
+                self.legacy("option", model, key, option)
             for row in self.by_role(model, "status_sheet"):
                 opt, var = row.get("option_id"), row.get("variant_id")
-                self.add("availability", model, [opt, var], row, offering_id=self.ref("offering", model, opt), variant_id=self.ref("variant", model, var), status=row.get("status"))
+                self.add("availability", model, [opt, var], row, option_id=self.ref("option", model, opt), variant_id=self.ref("variant", model, var), status=row.get("status"))
             for row in self.by_role(model, "variant_option_overrides_sheet"):
                 opt, var = row.get("option_id"), row.get("variant_id")
-                self.add("variant_override", model, [opt, var], row, offering_id=self.ref("offering", model, opt), variant_id=self.ref("variant", model, var), section_id=self.ref("section", "", row.get("section_id"), True), **self.take(row, {f:f for f in ["selectable", "display_behavior", "active"]}))
+                self.add("variant_override", model, [opt, var], row, option_id=self.ref("option", model, opt), variant_id=self.ref("variant", model, var), section_id=self.ref("section", "", row.get("section_id"), True), **self.take(row, {f:f for f in ["selectable", "display_behavior", "active"]}))
 
     def load_interiors(self):
         definitions = {}
@@ -271,7 +271,7 @@ class Importer:
             definition, source = definitions[key]
             require(source.sheet == self.roles[model]["interior_source_sheet"], f"Interior source ownership mismatch: {row.id}")
             uid = self.add("model_interior", model, key, row, legacy_id=key, definition_id=definition, trim_level=row.get("trim_level"), active=row.get("active"),
-                           requires_offering_id=self.ref("offering", model, row.get("requires_option_id"), True), included_offering_id=self.ref("offering", model, source.get("included_option_id"), True))
+                           requires_option_id=self.ref("option", model, row.get("requires_option_id"), True), included_option_id=self.ref("option", model, source.get("included_option_id"), True))
             self.link(source, uid)
             self.legacy("model_interior", model, key, uid)
             fields = ["seat_label", "color_family", "material_family", "variant_label", "group_display_order", "material_display_order", "choice_display_order", "parent_group_label", "leaf_label", "reference_order"]
@@ -329,10 +329,10 @@ class Importer:
                 self.legacy("exclusive_group", model, key, uid)
             for row in self.by_role(model, "exclusive_group_members_sheet"):
                 group, option = row.get("group_id"), row.get("option_id")
-                self.add("exclusive_member", model, [group,option], row, group_id=self.ref("exclusive_group",model,group), offering_id=self.ref("offering",model,option), display_order=row.get("display_order"), active=row.get("active"))
+                self.add("exclusive_member", model, [group,option], row, group_id=self.ref("exclusive_group",model,group), option_id=self.ref("option",model,option), display_order=row.get("display_order"), active=row.get("active"))
             for row in self.by_role(model, "price_rules_sheet"):
                 key = row.get("price_rule_id")
-                uid = self.add("price_rule", model, key, row, legacy_id=key, condition_id=self.product(model,row.get("condition_option_id")), target_id=self.ref("offering",model,row.get("target_option_id")), effect=row.get("price_rule_type"), amount=row.get("price_value"), basis="conditional_total", currency=None, notes=row.get("notes"))
+                uid = self.add("price_rule", model, key, row, legacy_id=key, condition_id=self.product(model,row.get("condition_option_id")), target_id=self.ref("option",model,row.get("target_option_id")), effect=row.get("price_rule_type"), amount=row.get("price_value"), basis="conditional_total", currency=None, notes=row.get("notes"))
                 self.legacy("price_rule", model, key, uid)
                 self.scope("price_rule", model, uid, row, {k:v for k,v in scopes.items() if k != "variant_scope"})
             for row in self.by_role(model, "color_overrides_sheet"):
@@ -341,16 +341,16 @@ class Importer:
                     self.disposition(row, self.model_keys[model], "not_applicable", "Interior absent from this model's explicit interior membership; inspection.py:build_color_overrides")
                     continue
                 condition, added = row.get("option_id"), row.get("adds_rpo")
-                self.add("color_rule", model, [key,condition,added], row, interior_id=self.ref("model_interior",model,key), condition_id=self.ref("offering",model,condition), added_id=self.ref("offering",model,added), effect=row.get("rule_type"))
+                self.add("color_rule", model, [key,condition,added], row, interior_id=self.ref("model_interior",model,key), condition_id=self.ref("option",model,condition), added_id=self.ref("option",model,added), effect=row.get("rule_type"))
         for row in self.rows["default_selection_rules"]:
             model, key = self.model_for(row), row.get("rule_id")
             kind, operand = row.get("condition_type"), row.get("condition_id")
             require(kind in {"always","unless_selected_rpo","unless_selected_section","when_selected_unless_selected_section"}, f"Unknown default condition: {kind}")
             require(kind != "always" or operand is None, f"Unexpected always operand: {row.id}")
-            uid = self.add("default_rule", model, key, row, legacy_id=key, target_id=self.ref("offering",model,row.get("target_option_id")), condition_kind=kind,
+            uid = self.add("default_rule", model, key, row, legacy_id=key, target_id=self.ref("option",model,row.get("target_option_id")), condition_kind=kind,
                 condition_code=operand if kind == "unless_selected_rpo" else None,
                 condition_section_id=self.ref("section","",operand) if kind == "unless_selected_section" else None,
-                condition_offering_id=self.ref("offering",model,operand) if kind == "when_selected_unless_selected_section" else None,
+                condition_option_id=self.ref("option",model,operand) if kind == "when_selected_unless_selected_section" else None,
                 target_section_mode="resolved_target_section" if kind == "when_selected_unless_selected_section" else None,
                 notes=row.get("notes"), priority=row.get("priority"), display_behavior=row.get("display_behavior"), active=row.get("active"))
             self.legacy("default_rule", model, key, uid)
@@ -394,7 +394,7 @@ class Importer:
             for name, model in self.models.items():
                 if model_key not in ("*",name):
                     continue
-                if model_key == "*" and kind == "option" and ("offering",model,encoded(key)) not in self.ids:
+                if model_key == "*" and kind == "option" and ("option",model,encoded(key)) not in self.ids:
                     self.disposition(row,name,"not_applicable","Shared asset target absent from model offerings")
                     continue
                 self.load_asset(row, model, model_key, kind, key)
@@ -402,7 +402,7 @@ class Importer:
     def load_asset(self, row, model, model_key, kind, key):
         require(model_key != "*" or kind == "option", f"Unsupported shared asset type: {kind}")
         if kind == "option":
-            target = self.ref("offering",model,key)
+            target = self.ref("option",model,key)
         elif kind == "context_choice":
             target = self.ref("context_choice",model,key.split("__",1))
         elif kind == "model":
@@ -432,7 +432,7 @@ class Importer:
         model = self.models["z06"]
         for code in ["t0f","t0g","z07","pdd","pdf"]:
             source, target = f"opt_{code}_001", "opt_cbf_001"
-            self.add("derivation_permission",model,[source,target],source_id=self.ref("offering",model,source),target_id=self.ref("offering",model,target),method="includes_closure_approved_replace")
+            self.add("derivation_permission",model,[source,target],source_id=self.ref("option",model,source),target_id=self.ref("option",model,target),method="includes_closure_approved_replace")
 
     def reconcile(self):
         # Independently read back every typed row/field and its order. The expected
@@ -453,8 +453,8 @@ class Importer:
             require(not self.db.execute("""SELECT trim_level,body_style FROM variant WHERE model_id=?
                 GROUP BY trim_level,body_style HAVING count(*)>1""",(model,)).fetchall(), f"Variant natural key collision: {key}")
             # Cartesian equality catches missing memberships, not only total counts.
-            missing = self.db.execute("""SELECT o.id,v.id FROM offering o JOIN variant v ON o.model_id=v.model_id
-                LEFT JOIN availability a ON a.offering_id=o.id AND a.variant_id=v.id
+            missing = self.db.execute("""SELECT o.id,v.id FROM option o JOIN variant v ON o.model_id=v.model_id
+                LEFT JOIN availability a ON a.option_id=o.id AND a.variant_id=v.id
                 WHERE o.model_id=? AND a.id IS NULL""",(model,)).fetchall()
             require(not missing, f"Missing availability pairs: {key}")
         require(self.db.execute("SELECT count(*) FROM publication WHERE active=1 AND promoted_to_runtime=1 AND default_model=1").fetchone()[0] == 1, "Publication must have one default")
@@ -475,7 +475,7 @@ class Importer:
                 require(linked or explained, f"Unaccounted source row: {row.id}")
             accounting.append({"sheet":sheet,"source_rows":len(rows),"accounted_rows":len(rows)})
         models = {key:{table:self.db.execute(f"SELECT count(*) FROM {table} WHERE model_id=?",(model,)).fetchone()[0]
-                       for table in ("variant","offering","availability","model_interior","direct_rule","group_rule","price_rule")}
+                       for table in ("variant","option","availability","model_interior","direct_rule","group_rule","price_rule")}
                   for model,key in self.model_keys.items()}
         dispositions = [dict(r) for r in self.db.execute("SELECT model_key,disposition,reason,count(*) AS rows FROM source_disposition GROUP BY model_key,disposition,reason ORDER BY model_key,disposition,reason")]
         return {"source_sheets":accounting,"models":models,"typed_rows":counts,"reconciled_fields":sum(len(v) for _,v in self.expected.values()),
@@ -522,7 +522,7 @@ def build(output, baseline=BASELINE):
         wb=load_workbook(io.BytesIO(data),data_only=False)
         create(db)
         with db:
-            db.executemany("INSERT INTO import_metadata VALUES (?,?)",[("workbook_sha256",WORKBOOK_HASH),("reference_commit",REFERENCE),("schema_version","2"),("authority","disposable_candidate"),
+            db.executemany("INSERT INTO import_metadata VALUES (?,?)",[("workbook_sha256",WORKBOOK_HASH),("reference_commit",REFERENCE),("schema_version","3"),("authority","disposable_candidate"),
                 ("importer_sha256",digest(Path(__file__).read_bytes())),("schema_sha256",digest((ROOT/"catalog/schema.py").read_bytes()))])
             report=Importer(db,wb).run()
             db.execute("INSERT INTO import_metadata VALUES (?,?)",("reconciliation",encoded(report)))

@@ -113,7 +113,7 @@ class Catalog:
                 continue
             members = sorted(self.children['exclusive_member'][row['id']], key=lambda r:r['display_order'] or 0)
             exclusive.append(dict(group_id=row['legacy_id'], display_label=text(row['display_label']),
-                option_ids=[self.legacy[r['offering_id']] for r in members if r['active']],
+                option_ids=[self.legacy[r['option_id']] for r in members if r['active']],
                 selection_mode={'at_most_one':'single_within_group','exactly_one':'required_single_within_group'}[row['selection_mode']],
                 active=flag(row['active']), notes=text(row['notes'])))
         return groups, exclusive
@@ -126,8 +126,8 @@ class Catalog:
             condition = row['condition_code']
             if row['condition_section_id']:
                 condition = self.sections[row['condition_section_id']]['section_key']
-            if row['condition_offering_id']:
-                condition = self.legacy[row['condition_offering_id']]
+            if row['condition_option_id']:
+                condition = self.legacy[row['condition_option_id']]
             result.append(dict(rule_id=row['legacy_id'], target_option_id=self.legacy[row['target_id']],
                 condition_type=row['condition_kind'], condition_id=text(condition), **self.scopes(row['id']),
                 priority=row['priority'] or 0, notes=text(row['notes'])))
@@ -161,7 +161,7 @@ class Catalog:
             levels = [self.by_id[h['node_id']]['label'] for h in sorted(self.children['interior_hierarchy_member'][row['id']],key=lambda r:r['position'])]
             item = dict(interior_id=key, source_sheet=presentation['interior_source_sheet'],
                 active_for_stingray=model=='stingray', **({f'active_for_{model}':True} if model!='stingray' else {}),
-                requires_z25=flag(self.legacy.get(row['requires_offering_id'])=='opt_z25_001'),
+                requires_z25=flag(self.legacy.get(row['requires_option_id'])=='opt_z25_001'),
                 trim_level=text(row['trim_level']), requires_r6x=flag('_R6X' in trim or key.endswith('_R6X')),
                 seat_code=text(definition['seat']), interior_code=text(definition['interior_code']),
                 interior_name=text(definition['name']),material=text(definition['material']),price=price,
@@ -194,37 +194,32 @@ class Catalog:
             raise ValueError(f"Incomplete variants for {model['model_key']}")
         var_ids = {r['legacy_id']:r['id'] for r in self.rows('variant',mid)}
         section_views = {r['section_id']:r for r in self.rows('section_presentation',mid) if r['active']}
-        policies = self.indexed('offering_policy',mid,'offering_id')
-        prices = self.indexed('offering_price',mid,'offering_id')
-        views = self.indexed('offering_presentation',mid,'offering_id')
-        codes = self.indexed('offering_code',mid,'offering_id')
-        availability = {(r['offering_id'],r['variant_id']):r['status'] for r in self.rows('availability',mid)}
-        overrides = {(r['offering_id'],r['variant_id']):r for r in self.rows('variant_override',mid) if r['active']}
+        availability = {(r['option_id'],r['variant_id']):r['status'] for r in self.rows('availability',mid)}
+        overrides = {(r['option_id'],r['variant_id']):r for r in self.rows('variant_override',mid) if r['active']}
         default_views = {r['legacy_id']:r for r in self.rows('default_rule',mid) if r['active']}
         exclusive_ids = {i for g in exclusive if len(g['option_ids'])>=2 for i in g['option_ids']}
         section_ids, options, choices = set(), {}, []
         preview_count = 0
-        for offering in self.rows('offering',mid):
-            if not offering['active']:
+        for option in self.rows('option',mid):
+            if not option['active']:
                 continue
-            oid, key = offering['id'],offering['legacy_id']
-            policy, view = policies[oid],views[oid]
+            oid, key = option['id'],option['legacy_id']
             preview = {}
             for variant in variants:
                 override = overrides.get((oid,var_ids[variant['variant_id']]),{})
-                sid = override.get('section_id') or view['section_id']
+                sid = override.get('section_id') or option['section_id']
                 section, sv = self.sections[sid],section_views.get(sid,{})
-                behavior = text(override.get('display_behavior') or policy['display_behavior'])
-                selectable = flag(override['selectable'] if override.get('selectable') is not None else policy['selectable'])
-                active = flag(override.get('active',offering['active']))
+                behavior = text(override.get('display_behavior') or option['display_behavior'])
+                selectable = flag(override['selectable'] if override.get('selectable') is not None else option['selectable'])
+                active = flag(override.get('active',option['active']))
                 status,selectable,active = display(availability[(oid,var_ids[variant['variant_id']])],selectable,active,behavior)
                 if status not in ('standard','available') and behavior!='auto_only':
                     continue
-                item = dict(option_id=key,rpo=text(codes.get(oid,{}).get('code')),label=text(view['label']),description=text(view['description']),
+                item = dict(option_id=key,rpo=text(option['rpo']),label=text(option['name']),description=text(option['description']),
                     section_id=section['section_key'],section_name=text(sv.get('display_label') or section['name']),
                     standard_equipment_group_type=text(sv.get('standard_equipment_group_type')),auto_added_summary_required=bool(sv.get('auto_added_bucket')),
                     step_key=text(sv.get('step_key') or section['step_key']),status=status,selectable=selectable,active=active,
-                    base_price=money(prices[oid]['amount']),display_order=view['display_order'] or 0)
+                    base_price=money(option['base_price']),display_order=option['display_order'] or 0)
                 if not behavior and status=='standard' and selectable==active=='True' and key in exclusive_ids:
                     for rule in defaults:
                         if (rule['target_option_id']==key and default_views[rule['rule_id']]['display_behavior']=='default_selected'
@@ -433,8 +428,8 @@ def generate_bundle(database, generated_at=None):
     try:
         db.execute('BEGIN')
         metadata=dict(db.execute('SELECT key,value FROM import_metadata'))
-        if metadata.get('schema_version')!='2' or metadata.get('authority')!='disposable_candidate':
-            raise ValueError('Rebuild the disposable candidate with the current importer (schema 2)')
+        if metadata.get('schema_version')!='3' or metadata.get('authority')!='disposable_candidate':
+            raise ValueError('Rebuild the disposable candidate with the current importer (schema 3)')
         if db.execute('PRAGMA foreign_key_check').fetchone():
             raise ValueError('Candidate contains invalid references')
         catalog=Catalog(db)

@@ -28,14 +28,15 @@ has model/year grain in this candidate, and deliberately rejects another year
 under the same model key; this importer accepts only the inspected workbook hash.
 Global interior definitions preserve the source combination and stored price;
 model applicability, prerequisites, presentation and components are separate.
-No cross-model offering definitions are merged on matching labels or RPOs.
+Options are owned by their model; matching labels or RPOs do not merge identities.
 
 - UUID identities derive from the legacy namespace and natural identity, never
   sheet positions, source hashes, or RPO alone. `legacy_mapping` keeps consumer
   identifiers. Every entity has a checked typed subtype. Typed foreign keys and
   composite model keys constrain relationships and prevent cross-model joins.
-- Offering definitions, codes, policy, presentation, price and availability are
-  separate tables. All option/variant pairs survive, including unavailable ones.
+- One `option` row owns identity, RPO, name/description, base price, placement and
+  selection flags. Availability and variant overrides remain separate relations.
+  All option/variant pairs survive, including unavailable ones.
   `sequence` preserves source order; authored display orders remain separate.
   Variant membership and master lifecycle/order are both retained.
 - Prices are exact decimal TEXT, with null for unpriced and `"0"` for authored
@@ -63,9 +64,9 @@ No cross-model offering definitions are merged on matching labels or RPOs.
 ## Reconciliation and inspected differences
 
 The [import report](baseline-import-report.json) records all 77 sheets, 15,134
-source rows, model counts, dispositions and code/source provenance. All 30,328
-typed rows and 218,779 stored fields were compared with the values prepared from
-the workbook. Independent tests additionally rejoin all six models' options,
+source rows, model counts, dispositions and code/source provenance. All 23,588
+typed rows and 189,371 stored fields were compared with the values prepared from
+the workbook. Independent tests additionally compare all six models' options,
 prices, presentation, availability and direct/price-rule endpoints to the frozen
 source, and compare source cells and interior hierarchy paths. SQLite integrity
 and foreign-key checks pass; the full offering × variant relation has no gaps.
@@ -99,7 +100,7 @@ The two Grand Sport offerings carrying `T0E` remain distinct. All 1,044 interior
 component rate references resolve, including explicit universal-trim fallback.
 No business corrections, removals or manufacturer acceptances were made.
 
-Ten importer tests pass, including corrupt identities, missing availability,
+Twelve importer tests pass, including corrupt identities, missing availability,
 wrong endpoint types, cross-model references, unmapped columns, repeat imports
 and failed-import cleanup. The existing eleven brake-intake tests also pass.
 Currency remains unconfirmed. Checkpoint D evidence follows below.
@@ -123,16 +124,16 @@ node tests/runtime_parity.mjs .local/checkpoint-d/generated/form-app/data.js
 Use a new output directory for each generation; completed directories are never
 intentionally overwritten. `--generated-at` optionally fixes the timestamp for
 repeatable output. Generation opens the database read-only. The output is a
-local candidate, not a deployment or a release-management API. Schema version 2
-requires rebuilding B's disposable database at a new path; existing version 1
-candidates are refused, not migrated in place.
+local candidate, not a deployment or a release-management API. Current schema
+version 3 requires a fresh database path; version 1/2 candidates are refused,
+not migrated in place. The schema-3 example below uses a separate path.
 
-The schema refinement retains contract-facing notes on interiors, direct/group/
+The original schema-2 refinement retained contract-facing notes on interiors, direct/group/
 price/default rules and summary sections, runtime-step source text and model
 source labels. `scope_axis.all_token` preserves authored blank versus `*`, while
 `scope_member.position` preserves token order. These are source-preserving
-columns, not business corrections. All 77 sheets, 15,134 source rows, 30,328 typed
-rows and 218,779 stored fields reconcile. No source row or product identity was
+columns, not business corrections. At that checkpoint, all 77 sheets, 15,134 source rows, 30,328 typed
+rows and 218,779 stored fields reconciled. No source row or product identity was
 added, removed, merged or accepted from the manufacturer pilot.
 
 The independently implemented algorithms were traced to reference commit
@@ -181,3 +182,45 @@ The local Chromium check covered setup, coupe-to-convertible, 1LT-to-3LT,
 standard-equipment counts and a priced paint selection. Missing logo/vehicle
 artwork in the frozen archive produced four 404s; full artwork fidelity and live
 dealer submission are outside this check. Details are in the parity report.
+
+## Option consolidation (schema 3)
+
+The implemented [blueprint option slice](../docs/workbook-translation-blueprint.md)
+replaces six tables with `option`, unique on `(model_id, legacy_id)`. The former
+8,119 option-related rows become 1,379 rows; the candidate now has 43 tables.
+`rpo` remains nullable/nonunique. `base_price` is exact decimal text, with null
+distinct from zero; `price_basis`, unknown `currency` and `rpo_role` preserve
+the old price/code semantics. Nullable display fields retain their original values.
+
+All typed option references now target `option` with composite model constraints;
+reference columns formerly named `offering_id` are named `option_id`, including
+the corresponding interior/default-rule columns. Rule endpoint guards accept
+`option` or `model_interior`. The rule inventory emits an `option` family with
+the full row instead of `offering_policy`. Consumer-facing workbook IDs remain
+unchanged; internal UUIDs and legacy-mapping kinds change from `offering` to
+`option`. Rebuild disposable databases and inventories; no compatibility views
+or in-place migration are provided.
+
+```sh
+python -m catalog.importer --output .local/options-v3/catalog.sqlite
+python -m catalog.contracts --database .local/options-v3/catalog.sqlite --output .local/options-v3/generated
+python -m catalog.parity --database .local/options-v3/catalog.sqlite
+node tests/runtime_parity.mjs .local/options-v3/generated/form-app/data.js
+```
+
+Validation: all 1,379 options reconciled field by field with the previous six-table
+representation, including identical definition/presentation copy. Every other
+table reconciled after translating internal option references and consolidating
+duplicate evidence links. All 15,134 original source rows, 7,448 availability
+pairs, 16 variant overrides, rule memberships, price amounts/bases, nulls, order,
+assets, source dispositions and code provenance remain intact. There are no added,
+changed or removed business facts; currency remains unresolved.
+
+All 41 Python tests pass, including source reconciliation, identity/reference
+constraints, direct six-model contract/registry parity, inventory names and
+schema-derived diagram comparison. Runtime parity passes all 32 variants,
+126 option transitions and 32 interior transitions against the frozen browser.
+This preserves the known R6X/AE4 undercharge; structural parity does not repair
+or approve that pricing behavior. The earlier visual-browser check was not rerun:
+the browser code and generated business content are unchanged. No production
+system or reference-project files were modified.

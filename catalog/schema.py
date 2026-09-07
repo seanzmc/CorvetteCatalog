@@ -14,16 +14,11 @@ TABLES = {
     "publication": ("registry_key:t promoted_to_runtime:b default_model:b artifact_path:t artifact_type:t legacy_alias:t active:b display_order:i", "model_id"),
     "section": ("section_key:t name:t selection_mode:t is_required:b display_order:i standard_behavior:t step_key:t", "section_key"),
     "variant": ("legacy_id:t trim_level:t body_style:t display_name:t base_price:d display_order:i active:b membership_order:i membership_active:b", "model_id,legacy_id"),
-    "option_definition": ("intrinsic_name:t description:t", ""),
-    "offering": ("legacy_id:t definition_id:@option_definition active:b", "model_id,legacy_id"),
-    "offering_code": ("offering_id:@offering code:t role:t", "offering_id,code,role"),
-    "offering_policy": ("offering_id:@offering selectable:b display_behavior:t", "offering_id"),
-    "offering_presentation": ("offering_id:@offering section_id:@section label:t description:t display_order:i", "offering_id"),
-    "offering_price": ("offering_id:@offering amount:d basis:t currency:t", "offering_id"),
-    "availability": ("offering_id:@offering variant_id:@variant status:t", "offering_id,variant_id"),
-    "variant_override": ("offering_id:@offering variant_id:@variant selectable:b display_behavior:t section_id:@section active:b", "offering_id,variant_id"),
+    "option": ("legacy_id:t rpo:t rpo_role:t name:t description:t base_price:d price_basis:t currency:t section_id:@section selectable:b display_behavior:t display_order:i active:b", "model_id,legacy_id"),
+    "availability": ("option_id:@option variant_id:@variant status:t", "option_id,variant_id"),
+    "variant_override": ("option_id:@option variant_id:@variant selectable:b display_behavior:t section_id:@section active:b", "option_id,variant_id"),
     "interior_definition": ("source_note:t color_overrides_raw:t legacy_id:t name:t material:t stored_price:d price_trim:t seat:t interior_code:t suede:t stitch:t two_tone:t section_id:@section active_for_stingray:b requires_r6x:b included_legacy_id:t", "legacy_id"),
-    "model_interior": ("legacy_id:t definition_id:@interior_definition trim_level:t active:b requires_offering_id:@offering included_offering_id:@offering", "model_id,legacy_id,trim_level"),
+    "model_interior": ("legacy_id:t definition_id:@interior_definition trim_level:t active:b requires_option_id:@option included_option_id:@option", "model_id,legacy_id,trim_level"),
     "interior_presentation": ("interior_id:@model_interior seat_label:t color_family:t material_family:t variant_label:t group_display_order:i material_display_order:i choice_display_order:i parent_group_label:t leaf_label:t reference_order:i", "interior_id"),
     "hierarchy_node": ("parent_id:@hierarchy_node label:t position:i", ""),
     "interior_hierarchy_member": ("interior_id:@model_interior node_id:@hierarchy_node position:i", "interior_id,position"),
@@ -33,10 +28,10 @@ TABLES = {
     "group_rule": ("notes:t legacy_id:t display_label:t effect:t source_id:@entity explanation:t active:b", "model_id,legacy_id"),
     "group_member": ("group_id:@group_rule target_id:@entity display_order:i active:b", "group_id,target_id"),
     "exclusive_group": ("notes:t legacy_id:t display_label:t selection_mode:t active:b", "model_id,legacy_id"),
-    "exclusive_member": ("group_id:@exclusive_group offering_id:@offering display_order:i active:b", "group_id,offering_id"),
-    "price_rule": ("notes:t legacy_id:t condition_id:@entity target_id:@offering effect:t amount:d basis:t currency:t", "model_id,legacy_id"),
-    "default_rule": ("notes:t legacy_id:t target_id:@offering condition_kind:t condition_code:t condition_section_id:@section condition_offering_id:@offering target_section_mode:t priority:i display_behavior:t active:b", "model_id,legacy_id"),
-    "color_rule": ("interior_id:@model_interior condition_id:@offering added_id:@offering effect:t", "model_id,interior_id,condition_id,added_id"),
+    "exclusive_member": ("group_id:@exclusive_group option_id:@option display_order:i active:b", "group_id,option_id"),
+    "price_rule": ("notes:t legacy_id:t condition_id:@entity target_id:@option effect:t amount:d basis:t currency:t", "model_id,legacy_id"),
+    "default_rule": ("notes:t legacy_id:t target_id:@option condition_kind:t condition_code:t condition_section_id:@section condition_option_id:@option target_section_mode:t priority:i display_behavior:t active:b", "model_id,legacy_id"),
+    "color_rule": ("interior_id:@model_interior condition_id:@option added_id:@option effect:t", "model_id,interior_id,condition_id,added_id"),
     "scope_axis": ("all_token:t owner_id:@entity axis:t mode:t", "owner_id,axis"),
     "scope_member": ("position:i scope_id:@scope_axis token:t variant_id:@variant", "scope_id,token"),
     "context_section": ("context_type:t section_key:t name:t selection_mode:t choice_mode:t is_required:b standard_behavior:t display_order:i step_key:t step_label:t active:b", "model_id,context_type"),
@@ -47,7 +42,7 @@ TABLES = {
     "summary_section": ("notes:t section_key:t label:t display_order:i active:b", "model_id,section_key"),
     "step_summary": ("step_id:@runtime_step section_id:@summary_section active:b", "step_id"),
     "asset_assignment": ("target_id:@entity source_scope:t image_url:t image_alt:t image_fit:t image_position:t hover_image_url:t hover_image_alt:t hover_image_position:t active:b", "model_id,target_id,source_scope"),
-    "derivation_permission": ("source_id:@offering target_id:@offering method:t", "source_id,target_id,method"),
+    "derivation_permission": ("source_id:@option target_id:@option method:t", "source_id,target_id,method"),
 }
 
 GLOBAL = {"model", "section", "interior_definition", "component_rate"}
@@ -59,16 +54,16 @@ CHECKS = {
     "price_rule": "effect='override'",
     "color_rule": "effect='requires'",
     "scope_axis": "axis IN ('body','trim','variant') AND mode IN ('all','members')",
-    "default_rule": """(condition_kind='always' AND condition_code IS NULL AND condition_section_id IS NULL AND condition_offering_id IS NULL)
-        OR (condition_kind='unless_selected_rpo' AND condition_code IS NOT NULL AND condition_section_id IS NULL AND condition_offering_id IS NULL)
-        OR (condition_kind='unless_selected_section' AND condition_code IS NULL AND condition_section_id IS NOT NULL AND condition_offering_id IS NULL)
-        OR (condition_kind='when_selected_unless_selected_section' AND condition_code IS NULL AND condition_section_id IS NULL AND condition_offering_id IS NOT NULL AND target_section_mode='resolved_target_section')""",
+    "default_rule": """(condition_kind='always' AND condition_code IS NULL AND condition_section_id IS NULL AND condition_option_id IS NULL)
+        OR (condition_kind='unless_selected_rpo' AND condition_code IS NOT NULL AND condition_section_id IS NULL AND condition_option_id IS NULL)
+        OR (condition_kind='unless_selected_section' AND condition_code IS NULL AND condition_section_id IS NOT NULL AND condition_option_id IS NULL)
+        OR (condition_kind='when_selected_unless_selected_section' AND condition_code IS NULL AND condition_section_id IS NULL AND condition_option_id IS NOT NULL AND target_section_mode='resolved_target_section')""",
 }
 
-OPTIONAL_REFS = {("variant_override", "section_id"), ("model_interior", "requires_offering_id"),
-                 ("model_interior", "included_offering_id"), ("hierarchy_node", "parent_id"),
+OPTIONAL_REFS = {("variant_override", "section_id"), ("model_interior", "requires_option_id"),
+                 ("model_interior", "included_option_id"), ("hierarchy_node", "parent_id"),
                  ("interior_component", "rate_id"), ("default_rule", "condition_section_id"),
-                 ("default_rule", "condition_offering_id"), ("scope_member", "variant_id")}
+                 ("default_rule", "condition_option_id"), ("scope_member", "variant_id")}
 
 
 def connect(path):
@@ -137,12 +132,12 @@ def create(db):
                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
                   WHERE id=NEW.id AND kind='{table}' AND model_id=NEW.model_id)
                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END""")
-    # Only offering/interior identities are valid polymorphic product rule ends.
+    # Only option/interior identities are valid polymorphic product rule ends.
     for table, fields in {"direct_rule": ["source_id", "target_id"],
                           "group_rule": ["source_id"], "group_member": ["target_id"],
                           "price_rule": ["condition_id"]}.items():
         for action in ("INSERT", "UPDATE"):
-            condition = " OR ".join(f"(SELECT kind FROM entity WHERE id=NEW.{f}) NOT IN ('offering','model_interior')" for f in fields)
+            condition = " OR ".join(f"(SELECT kind FROM entity WHERE id=NEW.{f}) NOT IN ('option','model_interior')" for f in fields)
             db.execute(f"""CREATE TRIGGER {table}_{action.lower()}_ends BEFORE {action} ON {table}
                 WHEN {condition} BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END""")
     db.execute("""CREATE TRIGGER entity_identity_immutable BEFORE UPDATE ON entity
