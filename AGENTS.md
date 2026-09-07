@@ -14,6 +14,12 @@
   changes, or production cutover.
 
 ## Execution
+- Understand each model in its own lane using one consistent analysis structure:
+  model/body/trim foundations, connected option/equipment/price consequences,
+  guide-to-workbook-to-runtime traces, unresolved differences and coverage.
+  Do not reinvent structures per model or infer shared ownership from similarity.
+- Demonstrate connected behavior before proposing schema changes. The current
+  design proposal is unvalidated; schema work remains paused during this analysis.
 - Inspect relevant files, data, configuration, and execution paths before asking.
 - Preserve unrelated work and make the smallest complete change.
 - Proceed with requested, reversible work when the intended outcome is clear.
