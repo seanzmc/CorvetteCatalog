@@ -1,6 +1,6 @@
 # Model-specific rule review and R6X correction
 
-September 6, 2026. Candidate design review; no schema or pricing changes applied.
+September 7, 2026. R6X source and runtime review completed; no schema or pricing changes applied.
 
 **A passing Stingray example does not verify Grand Sport, Grand Sport X, Z06, ZR1 or ZR1X.** Even within one model, two `includes` rows can behave differently because of scope, prerequisites, replacements, exclusivity, defaults and conditional prices. Rule-type names are an inventory dimension, not a sufficient test plan.
 
@@ -21,9 +21,48 @@ The implementation is more complicated than that requirement:
 2. The frozen browser does not use `requires_r6x` as a selection trigger. It renders the interior's component list. Its `selectedInteriorReplacesSeat` explicitly treats **either `seat` or `r6x` component type** as grounds to omit the selected seat line.
 3. `adjustedInteriorPrice` subtracts the selected-seat resolved price, while `lineItemsFromInterior` adds a replacement-seat amount back before subtracting component totals. The net result must be traced; subtraction in one helper alone does not prove the final order is undercharged.
 
-Source: [frozen browser pricing/itemization](https://github.com/seanzmc/27vette/blob/4fe92a4f078370c478f18484cad31bdafe58ad43/form-app/app.js#L1286), plus the candidate generator above. This establishes an implementation discrepancy to reconcile, **not a verified dollar error in every R6X order**. Existing-output parity can reproduce an existing mistake and cannot settle the owner's intended behavior.
+Source: [frozen browser pricing/itemization](https://github.com/seanzmc/27vette/blob/4fe92a4f078370c478f18484cad31bdafe58ad43/form-app/app.js#L1286), plus the candidate generator above. The executed review below now establishes the exact defect: **AE4's 595 seat charge is omitted when a qualifying R6X interior is selected.** Existing-output parity reproduces this defect.
 
-Required R6X scenarios: in every model, select each of its 15 qualifying interior records, confirm one R6X charge at its source amount, and verify that R6X itself discounts no seat or other item. Switch to a nonqualifying interior, switch seats, change trim/body, reset and switch models; verify correct removal/reapplication and no duplicate charge. Expected line items and totals must be calculated from independently inspected source amounts and the owner's additive rule. These scenarios are **not yet executed**. The complete membership set is in the generated inventory described below.
+### Executed R6X review
+
+All 90 model/interior memberships were selected in both applicable body variants: **180 cases**. Expectations were extracted independently from the frozen workbook, using explicit model/sheet routing, active interior/model membership, component-rate rows, model-owned seat options and scoped seat-price rules. Every R6X interior's stored price equals its non-R6X extras; no seat component is present in these memberships. Each model's applicable AE4 self-price rule specifies 595, while AH2 resolves to zero. Every component amount and the exact qualifying set were checked against generated output.
+
+| Model | AH2 cases matching expected subtotal | AE4 cases missing 595 | Removal/reset checks passed |
+|---|---:|---:|---:|
+| Stingray | 22 | 8 | 16 |
+| Grand Sport | 22 | 8 | 16 |
+| Grand Sport X | 22 | 8 | 16 |
+| Z06 | 22 | 8 | 16 |
+| ZR1 | 22 | 8 | 16 |
+| ZR1X | 22 | 8 | 16 |
+
+Every case contains exactly one R6X component at 995 and the correct extras. All **48 AE4 cases fail additive pricing**; the 132 AH2 cases match because the suppressed seat costs zero. The frozen and candidate lanes produce identical orders, compact exports and dealer payloads in all 180 cases. No live submission was made.
+
+Concrete Stingray coupe example: `3LT_R6X_AE4_HUU`, from `lt_interiors!120`, has stored extras of zero. `model_interior_scope!560` establishes membership; `interior_components!170` references R6X at `PriceRef!22` (995). `stingray_options!157` identifies AE4 and `price_rules!30` sets its 3LT charge to 595. The expected seat/interior subtotal is **595 + 995 = 1590**. The observed lines contain HUU at zero and R6X at 995, with no AE4 line. With the tested defaults and `variant_master!4` base of 85245, observed MSRP is **86240**, versus **86835** with the missing seat restored. Other selected/default amounts are held constant; this is not an independent oracle for unrelated vehicle pricing.
+
+Root cause: the generator emits 995 plus extras after subtracting the ordinary seat rate from the combined R6X seat rate. The browser's `selectedInteriorReplacesSeat` then treats the R6X component as replacing the seat. Its itemization arithmetic restores the interior components but never the separate 595 seat charge. This is a consumer/accounting defect; the inspected R6X source amounts reconcile. Fixing only the seat-line suppression is insufficient unless the associated interior residual arithmetic is also checked, especially when extras exceed the seat amount.
+
+The 96 transition checks cover both seat types in each model: nonqualifying interior, qualifying reapplication, incompatible seat change, body change, trim change, reset, model change, and return/reapplication. They verify R6X removal or one charge as appropriate. Body/trim changes use the browser's actual `setBodyAndTrim` reset path. These transitions test R6X lifecycle, not independent pricing of every nonqualifying interior or every possible option interaction.
+
+### Settled translation requirement
+
+For these memberships, total the independently resolved **seat + R6X + other interior components**, each once. R6X is an additive component linked to qualifying model/interior memberships, never a seat-replacement instruction or a price adjustment inferred from an ID substring. Preserve the authored evidence for `requires_r6x`, `included_option_id`, component membership and model scope; their current runtime interpretations differ, and source evidence is not another editable owner.
+
+The eventual authoring design must give each charge one price owner and link applicability to it. The current R6X option amount, dedicated component rate and combined seat-rate rows agree, but must not become three independently editable ways of pricing the same R6X charge. This does not choose a final interior DDL or require a special R6X table. It settles the business rule needed for that design.
+
+This bounded review is complete. The existing parity implementation remains unchanged; implementing additive itemization in the new consumer is a known correction, separate from reproducing the frozen baseline. No additional R6X research is needed to proceed with foundation design. Broader model-rule obligations below remain separate.
+
+Reproduce using the existing Python/openpyxl environment and Node, from the repository root:
+
+```sh
+mkdir -p .local/r6x-review
+python -m catalog.importer --output .local/r6x-review/catalog.sqlite
+python -m catalog.contracts --database .local/r6x-review/catalog.sqlite --output .local/r6x-review/contracts
+python tests/r6x_source_cases.py > .local/r6x-review/cases.json
+node tests/r6x_review.mjs .local/r6x-review/cases.json .local/r6x-review/contracts/form-app/data.js > .local/r6x-review/results.json
+```
+
+Importer/generator destinations must be new; reuse their existing output for repeat diagnostics. The source extractor checks the frozen workbook hash. The runtime diagnostic checks frozen app/data hashes and loads the harness from the pinned reference commit. Its JSON records every source reference, expected/actual subtotal, affected line item and transition. It deliberately **exits 1** while the 48 pricing discrepancies remain (`summary.passed: false`); that is not a successful acceptance result. The command accepts an optional reference-repository path. Eleven existing contract tests also passed, including complete six-model serialization parity. This is an in-process browser-code review with DOM stubs, not visual or production verification.
 
 ## Observed differences by model
 
@@ -66,7 +105,7 @@ Concrete review anchors, **not the full scenario list**:
 
 [`tests/runtime_parity.mjs`](../tests/runtime_parity.mjs) runs default/reset comparisons on all 32 variants. **Only on each model's first variant**, it reserves each section's first candidate that passes the static selectable/active/status filters. It then checks dynamic disable reasons and skips a disabled candidate without trying a later choice in that section, so some sections receive no option transition. It also selects one viable interior per variant. Its 126 option transitions and 32 interior transitions are samples. It does not identify coverage by source-rule ID, establish both outcomes of each condition, or calculate intended prices independently of the same browser implementation.
 
-Consequently, the existing test does not establish complete R6X, package/wheel-price, grouped prerequisite, replacement, default-restoration, or model-specific interaction coverage. These remain open acceptance work. Do not relabel that sample as complete because all six model names appear in its output.
+Consequently, the existing parity sample does not establish complete R6X, package/wheel-price, grouped prerequisite, replacement, default-restoration, or model-specific interaction coverage. The dedicated R6X review above now covers its specified source memberships and transitions and identifies the AE4 defect; the other families remain open acceptance work. Do not relabel the original sample as complete because all six model names appear in its output.
 
 ## How to make coverage explicit
 
@@ -97,4 +136,4 @@ The input is opened read-only. The output is a visible local review artifact, no
 
 This is a record-review aid, not a scenario runner or a replacement for the database. It does not contain every availability/base-price record or prove generator/runtime coverage. Those remain in the catalog and complete generated-contract comparison. Its `status` explicitly says behavioral scenarios are not verified. Regenerate after candidate changes; do not maintain a handwritten rule duplicate.
 
-Validation for this review: all 12 model-owned inventory families reconciled to the read-only database; ordered group/scope members and source references checked; deterministic export and unchanged input checked. The matrix and named examples were queried from the candidate imported from workbook SHA-256 `3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c`. No new behavioral scenario passes are claimed. Completing the per-model scenario ledger and correcting any confirmed R6X implementation mismatch remain subsequent implementation work.
+Validation for the original inventory review: all 12 model-owned inventory families reconciled to the read-only database; ordered group/scope members and source references checked; deterministic export and unchanged input checked. The matrix and named examples were queried from the candidate imported from workbook SHA-256 `3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c`. The subsequent R6X execution and its known pricing failures are reported above. Broader per-model scenario work and implementation of the confirmed additive-pricing correction remain separate tasks.
