@@ -102,7 +102,7 @@ excluded deliberately.
 | `model_interior` — one model's use of a shared interior | `(model_id, interior_id)`; enabled, model section, leaf label, choice order | Retain all 704 memberships; derive eligible trims/bodies through the following association. If source rows differ by trim, their distinct applicability/presentation must be preserved before consolidation. |
 | `interior_configuration` — a membership eligible in a configuration | `(model_interior_id, configuration_id)` | Same-model FKs. Seat eligibility also compares selected seat with the definition's seat identity. Dynamic prerequisites remain typed rules, not availability columns. |
 | `component` — one priced component identity | `(component_type, code)`; default label | Components distinguish seat, R6X and extras. Code alone is not unique across types and is not an option FK. |
-| `component_rate` — one component amount in a rate context | `(component_id, trim_context)`; exact amount | A distinct universal context supports exact-trim then universal fallback. Existing 21 rates retain their identities/amounts. No duplicated amount on membership. |
+| `component_rate` — one component amount in a model year and rate context | `(component_id, model_year, trim_context)`; exact amount | Nonnull model year matches the selected configuration's `model.year`. A distinct universal trim context supports exact-trim then universal fallback within that year only. Existing 21 rates retain their identities/amounts, scoped to the baseline model year. No duplicated amount on membership. |
 | `interior_component` — one component of a shared interior | `(interior_id, component_id)`; rate context, display order, optional contextual label | Component and interior FKs. Consolidate current model-expanded memberships only when rate context, label, activity and order agree; source sharing must be proved. |
 | `model_interior_component` — an explicit model-specific component difference, only if reconciliation finds one | `(model_interior_id, component_id)`; include/exclude, rate context/order/label override | Proposed conditional table, not presumed populated. Exclude cannot carry a price. A differing amount needs an explicit reviewed rate context, not a second amount owner. Do not implement this table without a demonstrated difference. |
 
@@ -207,8 +207,18 @@ total, option base. Identifying which of the 297 rows belongs to a package requi
 per-model reconciliation with the frozen inference; no classification is invented
 by this proposal. Until that is done, retain current behavior in compatibility.
 
-For interiors, resolve each component rate once. Option selection and component
-itemization may describe the same physical seat or R6X charge; propose
+For interiors, resolve each component rate once using the selected configuration's
+model year and the component's rate context. Look up the exact trim in that year,
+then the universal trim in the same year; never fall back to another model year.
+A missing rate remains unresolved and blocks acceptance rather than borrowing an
+older charge. Shared interior/component memberships supply the component and trim
+context; they do not pin a year or an amount. Thus a reused component code can have
+separate 2027 and 2028 rate rows without overwriting either year's charge, while
+models in the same year can still share an evidenced rate. These years illustrate
+the key's behavior, not an accepted later-year price or source fact.
+
+Option selection and component itemization may describe the same physical seat or
+R6X charge; propose
 `interior_charge_binding` keyed by `(model_interior_id, component_id)` with a
 same-model option FK when a component represents that option's charge. The binding
 identifies one line-item owner for the resolved build; it is not an inclusion rule
@@ -308,8 +318,10 @@ new disposable candidate and produce added/changed/removed/unresolved facts with
 source references. It must retain frozen six-model contract/registry parity for
 structural changes and separately classify intentional corrections. Constraint
 checks must include cross-model endpoints, missing bindings, wrong endpoint kinds,
-null versus false/zero, member order and scope interpretation. Affected execution
-checks include OR groups, replacement direction, defaults, package precedence,
+null versus false/zero, member order and scope interpretation. Component-rate
+checks must cover one code with different amounts in two years, same-year universal
+trim fallback, and a missing-year rate that cannot borrow another year's amount.
+Affected execution checks include OR groups, replacement direction, defaults, package precedence,
 color additions after closure, and interior totals; broad counts alone are insufficient.
 
 This task validates the logical proposal by reviewing it against the complete map,
