@@ -52,24 +52,48 @@ class BaselineImporterTests(unittest.TestCase):
         for model in self.db.execute("SELECT id,model_key FROM model"):
             mid,key = model
             roles = {r["source_role"]:r["sheet_name"] for r in self.rows("model_workbook_sources") if r["model_key"]==key}
-            actual = [tuple(r) for r in self.db.execute("""SELECT o.legacy_id,c.code,p.amount,d.label,d.description,s.section_key,
-                q.selectable,d.display_order,o.active,q.display_behavior FROM offering o
-                LEFT JOIN offering_code c ON c.offering_id=o.id JOIN offering_price p ON p.offering_id=o.id
-                JOIN offering_presentation d ON d.offering_id=o.id JOIN offering_policy q ON q.offering_id=o.id
-                JOIN section s ON s.id=d.section_id WHERE o.model_id=? ORDER BY o.sequence""",(mid,))]
+            actual = [tuple(r) for r in self.db.execute("""SELECT o.legacy_id,o.rpo,o.base_price,o.name,o.description,s.section_key,
+                o.selectable,o.display_order,o.active,o.display_behavior FROM option o
+                JOIN section s ON s.id=o.section_id WHERE o.model_id=? ORDER BY o.sequence""",(mid,))]
             expected=[]
             for r in self.rows(roles["source_option_sheet"]):
                 expected.append((r["option_id"],r["rpo"],None if r["price"] is None else str(r["price"]),r["option_name"],r["description"],r["section_id"],int(r["selectable"]),r["display_order"],int(r["active"]),r["display_behavior"]))
             self.assertEqual(actual,expected,key)
             statuses=[tuple(r) for r in self.db.execute("""SELECT o.legacy_id,v.legacy_id,a.status FROM availability a
-                JOIN offering o ON o.id=a.offering_id JOIN variant v ON v.id=a.variant_id
+                JOIN option o ON o.id=a.option_id JOIN variant v ON v.id=a.variant_id
                 WHERE a.model_id=? ORDER BY a.sequence""",(mid,))]
             self.assertEqual(statuses,[(r["option_id"],r["variant_id"],r["status"]) for r in self.rows(roles["status_sheet"])],key)
         self.assertEqual(self.db.execute("SELECT count(*) FROM availability").fetchone()[0],7448)
-        # Same RPO in the same model is deliberately two distinct offerings.
-        rows=self.db.execute("""SELECT c.offering_id FROM offering_code c JOIN model m ON m.id=c.model_id
-            WHERE m.model_key='grand_sport' AND c.code='T0E'""").fetchall()
+        # Same RPO in the same model is deliberately two distinct options.
+        rows=self.db.execute("""SELECT o.id FROM option o JOIN model m ON m.id=o.model_id
+            WHERE m.model_key='grand_sport' AND o.rpo='T0E'""").fetchall()
         self.assertEqual(len({r[0] for r in rows}),2)
+
+    def test_option_owner_preserves_price_semantics_and_source_links(self):
+        self.assertEqual(self.db.execute("SELECT count(*) FROM option").fetchone()[0],1379)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM option WHERE rpo IS NULL").fetchone()[0],155)
+        for option in self.db.execute("SELECT * FROM option"):
+            self.assertEqual(option['price_basis'],'option')
+            self.assertIsNone(option['currency'])
+            self.assertEqual(option['rpo_role'], None if option['rpo'] is None else 'legacy-unspecified')
+            source=self.db.execute("""SELECT s.ordinal,s.sheet FROM evidence_link e
+                JOIN source_row s ON s.id=e.source_id WHERE e.entity_id=?""",(option['id'],)).fetchall()
+            self.assertEqual(len(source),1)
+            self.assertEqual(source[0]['ordinal'],option['sequence'])
+            mapping=self.db.execute("SELECT kind,legacy_id,model_id FROM legacy_mapping WHERE entity_id=?",(option['id'],)).fetchone()
+            self.assertEqual(tuple(mapping),('option',option['legacy_id'],option['model_id']))
+        self.db.execute("UPDATE option SET base_price=NULL WHERE legacy_id='opt_r6x_001'")
+        self.assertEqual(self.db.execute("SELECT count(*) FROM option WHERE legacy_id='opt_r6x_001' AND base_price IS NULL").fetchone()[0],6)
+        self.db.execute("UPDATE option SET base_price='0' WHERE legacy_id='opt_r6x_001'")
+        self.assertEqual(self.db.execute("SELECT count(*) FROM option WHERE legacy_id='opt_r6x_001' AND base_price='0'").fetchone()[0],6)
+
+    def test_option_relationships_reject_cross_model_parents(self):
+        row=self.db.execute("SELECT * FROM availability LIMIT 1").fetchone()
+        other=self.db.execute("SELECT id FROM option WHERE model_id!=? LIMIT 1",(row['model_id'],)).fetchone()[0]
+        self.db.execute("UPDATE availability SET option_id=? WHERE id=?",(other,row['id']))
+        self.assertTrue(self.db.execute("PRAGMA foreign_key_check").fetchall())
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.commit()
 
     def test_all_rule_endpoints_order_and_exact_amounts(self):
         for mid,key in self.db.execute("SELECT id,model_key FROM model"):
@@ -110,11 +134,11 @@ class BaselineImporterTests(unittest.TestCase):
                 WHERE m.model_key=? AND s.sheet='model_workbook_sources'""",(r["model_key"],)).fetchone()[0]
             self.assertEqual(link,5)
         self.assertEqual(self.db.execute("SELECT count(*) FROM runtime_step WHERE navigable=0 AND step_key='standard_equipment' AND runtime_order IS NULL").fetchone()[0],3)
-        offered={(r[0],r[1]) for r in self.db.execute("SELECT model_id,legacy_id FROM offering")}
+        offered={(r[0],r[1]) for r in self.db.execute("SELECT model_id,legacy_id FROM option")}
         expected={(mid,r["target_id"],r["image_url"]) for r in self.rows("asset_map") if r["model_key"]=="*"
                   for (mid,) in self.db.execute("SELECT id FROM model") if (mid,r["target_id"]) in offered}
         actual={tuple(r) for r in self.db.execute("""SELECT a.model_id,o.legacy_id,a.image_url
-            FROM asset_assignment a JOIN offering o ON o.id=a.target_id WHERE a.source_scope='shared'""")}
+            FROM asset_assignment a JOIN option o ON o.id=a.target_id WHERE a.source_scope='shared'""")}
         self.assertEqual(actual,expected)
         self.assertEqual(self.db.execute("SELECT count(*) FROM derivation_permission").fetchone()[0],5)
 
@@ -126,10 +150,10 @@ class BaselineImporterTests(unittest.TestCase):
         with self.assertRaises(sqlite3.IntegrityError):
             self.db.execute("UPDATE direct_rule SET target_id=NULL WHERE id=?",(rule["id"],))
         with self.assertRaises(sqlite3.IntegrityError):
-            self.db.execute("UPDATE offering_price SET amount='not money'")
+            self.db.execute("UPDATE option SET base_price='not money'")
         with self.assertRaises(sqlite3.IntegrityError):
-            self.db.execute("UPDATE offering_policy SET selectable=2")
-        other=self.db.execute("SELECT id FROM offering WHERE model_id!=? LIMIT 1",(rule["model_id"],)).fetchone()[0]
+            self.db.execute("UPDATE option SET selectable=2")
+        other=self.db.execute("SELECT id FROM option WHERE model_id!=? LIMIT 1",(rule["model_id"],)).fetchone()[0]
         # Deferred ownership FK is checked at the transaction boundary.
         self.db.execute("UPDATE direct_rule SET target_id=? WHERE id=?",(other,rule["id"]))
         self.assertTrue(self.db.execute("PRAGMA foreign_key_check").fetchall())

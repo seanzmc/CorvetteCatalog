@@ -197,17 +197,6 @@ CREATE TABLE variant (
 -- CHECK (active IN (0,1))
 -- CHECK (membership_active IN (0,1))
 
-CREATE TABLE option_definition (
-  id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
-  model_id TEXT NOT NULL,
-  sequence INTEGER NOT NULL,
-  intrinsic_name TEXT,
-  description TEXT,
-  UNIQUE(id,model_id),
-  FOREIGN KEY(model_id) REFERENCES model(id)
-) STRICT;
--- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
-
 CREATE TABLE hierarchy_node (
   id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
   model_id TEXT NOT NULL,
@@ -407,6 +396,37 @@ CREATE TABLE asset_assignment (
 -- Deferred in source: FOREIGN KEY(target_id,model_id) REFERENCES entity(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (active IN (0,1))
 
+CREATE TABLE option (
+  id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
+  model_id TEXT NOT NULL,
+  sequence INTEGER NOT NULL,
+  legacy_id TEXT NOT NULL,
+  rpo TEXT,
+  rpo_role TEXT,
+  name TEXT,
+  description TEXT,
+  base_price TEXT,
+  price_basis TEXT,
+  currency TEXT,
+  section_id TEXT NOT NULL,
+  selectable INTEGER,
+  display_behavior TEXT,
+  display_order INTEGER,
+  active INTEGER,
+  UNIQUE(id,model_id),
+  FOREIGN KEY(model_id) REFERENCES model(id),
+  FOREIGN KEY(section_id) REFERENCES section(id),
+  UNIQUE(model_id,legacy_id)
+) STRICT;
+-- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
+-- CHECK (base_price IS NULL OR
+--                     (base_price NOT GLOB '*[^0-9.-]*' AND base_price GLOB '*[0-9]*'
+--                     AND instr(substr(base_price,2),'-')=0
+--                     AND length(base_price)-length(replace(base_price,'.',''))<=1))
+-- Deferred in source: FOREIGN KEY(section_id) REFERENCES section(id) DEFERRABLE INITIALLY DEFERRED
+-- CHECK (selectable IN (0,1))
+-- CHECK (active IN (0,1))
+
 CREATE TABLE interior_definition (
   id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
   model_id TEXT NOT NULL,
@@ -461,22 +481,6 @@ CREATE TABLE section_presentation (
 -- Deferred in source: FOREIGN KEY(section_id) REFERENCES section(id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (standard_equipment_bucket IN (0,1))
 -- CHECK (auto_added_bucket IN (0,1))
--- CHECK (active IN (0,1))
-
-CREATE TABLE offering (
-  id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
-  model_id TEXT NOT NULL,
-  sequence INTEGER NOT NULL,
-  legacy_id TEXT NOT NULL,
-  definition_id TEXT NOT NULL,
-  active INTEGER,
-  UNIQUE(id,model_id),
-  FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(definition_id,model_id) REFERENCES option_definition(id,model_id),
-  UNIQUE(model_id,legacy_id)
-) STRICT;
--- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(definition_id,model_id) REFERENCES option_definition(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (active IN (0,1))
 
 CREATE TABLE group_member (
@@ -534,91 +538,21 @@ CREATE TABLE step_summary (
 -- Deferred in source: FOREIGN KEY(section_id,model_id) REFERENCES summary_section(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (active IN (0,1))
 
-CREATE TABLE offering_code (
-  id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
-  model_id TEXT NOT NULL,
-  sequence INTEGER NOT NULL,
-  offering_id TEXT NOT NULL,
-  code TEXT NOT NULL,
-  role TEXT NOT NULL,
-  UNIQUE(id,model_id),
-  FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id),
-  UNIQUE(offering_id,code,role)
-) STRICT;
--- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
-
-CREATE TABLE offering_policy (
-  id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
-  model_id TEXT NOT NULL,
-  sequence INTEGER NOT NULL,
-  offering_id TEXT NOT NULL,
-  selectable INTEGER,
-  display_behavior TEXT,
-  UNIQUE(id,model_id),
-  FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id),
-  UNIQUE(offering_id)
-) STRICT;
--- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
--- CHECK (selectable IN (0,1))
-
-CREATE TABLE offering_presentation (
-  id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
-  model_id TEXT NOT NULL,
-  sequence INTEGER NOT NULL,
-  offering_id TEXT NOT NULL,
-  section_id TEXT NOT NULL,
-  label TEXT,
-  description TEXT,
-  display_order INTEGER,
-  UNIQUE(id,model_id),
-  FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id),
-  FOREIGN KEY(section_id) REFERENCES section(id),
-  UNIQUE(offering_id)
-) STRICT;
--- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(section_id) REFERENCES section(id) DEFERRABLE INITIALLY DEFERRED
-
-CREATE TABLE offering_price (
-  id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
-  model_id TEXT NOT NULL,
-  sequence INTEGER NOT NULL,
-  offering_id TEXT NOT NULL,
-  amount TEXT,
-  basis TEXT,
-  currency TEXT,
-  UNIQUE(id,model_id),
-  FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id),
-  UNIQUE(offering_id)
-) STRICT;
--- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
--- CHECK (amount IS NULL OR
---                     (amount NOT GLOB '*[^0-9.-]*' AND amount GLOB '*[0-9]*'
---                     AND instr(substr(amount,2),'-')=0
---                     AND length(amount)-length(replace(amount,'.',''))<=1))
-
 CREATE TABLE availability (
   id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
   model_id TEXT NOT NULL,
   sequence INTEGER NOT NULL,
-  offering_id TEXT NOT NULL,
+  option_id TEXT NOT NULL,
   variant_id TEXT NOT NULL,
   status TEXT,
   UNIQUE(id,model_id),
   FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id),
+  FOREIGN KEY(option_id,model_id) REFERENCES option(id,model_id),
   FOREIGN KEY(variant_id,model_id) REFERENCES variant(id,model_id),
-  UNIQUE(offering_id,variant_id)
+  UNIQUE(option_id,variant_id)
 ) STRICT;
 -- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(option_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- Deferred in source: FOREIGN KEY(variant_id,model_id) REFERENCES variant(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (status IN ('standard','available','unavailable') AND status IS NOT NULL)
 
@@ -626,7 +560,7 @@ CREATE TABLE variant_override (
   id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
   model_id TEXT NOT NULL,
   sequence INTEGER NOT NULL,
-  offering_id TEXT NOT NULL,
+  option_id TEXT NOT NULL,
   variant_id TEXT NOT NULL,
   selectable INTEGER,
   display_behavior TEXT,
@@ -634,58 +568,35 @@ CREATE TABLE variant_override (
   active INTEGER,
   UNIQUE(id,model_id),
   FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id),
+  FOREIGN KEY(option_id,model_id) REFERENCES option(id,model_id),
   FOREIGN KEY(variant_id,model_id) REFERENCES variant(id,model_id),
   FOREIGN KEY(section_id) REFERENCES section(id),
-  UNIQUE(offering_id,variant_id)
+  UNIQUE(option_id,variant_id)
 ) STRICT;
 -- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(option_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- Deferred in source: FOREIGN KEY(variant_id,model_id) REFERENCES variant(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (selectable IN (0,1))
 -- Deferred in source: FOREIGN KEY(section_id) REFERENCES section(id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (active IN (0,1))
-
-CREATE TABLE model_interior (
-  id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
-  model_id TEXT NOT NULL,
-  sequence INTEGER NOT NULL,
-  legacy_id TEXT NOT NULL,
-  definition_id TEXT NOT NULL,
-  trim_level TEXT NOT NULL,
-  active INTEGER,
-  requires_offering_id TEXT,
-  included_offering_id TEXT,
-  UNIQUE(id,model_id),
-  FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(definition_id) REFERENCES interior_definition(id),
-  FOREIGN KEY(requires_offering_id,model_id) REFERENCES offering(id,model_id),
-  FOREIGN KEY(included_offering_id,model_id) REFERENCES offering(id,model_id),
-  UNIQUE(model_id,legacy_id,trim_level)
-) STRICT;
--- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(definition_id) REFERENCES interior_definition(id) DEFERRABLE INITIALLY DEFERRED
--- CHECK (active IN (0,1))
--- Deferred in source: FOREIGN KEY(requires_offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(included_offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
 
 CREATE TABLE exclusive_member (
   id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
   model_id TEXT NOT NULL,
   sequence INTEGER NOT NULL,
   group_id TEXT NOT NULL,
-  offering_id TEXT NOT NULL,
+  option_id TEXT NOT NULL,
   display_order INTEGER,
   active INTEGER,
   UNIQUE(id,model_id),
   FOREIGN KEY(model_id) REFERENCES model(id),
   FOREIGN KEY(group_id,model_id) REFERENCES exclusive_group(id,model_id),
-  FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id),
-  UNIQUE(group_id,offering_id)
+  FOREIGN KEY(option_id,model_id) REFERENCES option(id,model_id),
+  UNIQUE(group_id,option_id)
 ) STRICT;
 -- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
 -- Deferred in source: FOREIGN KEY(group_id,model_id) REFERENCES exclusive_group(id,model_id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(option_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (active IN (0,1))
 
 CREATE TABLE price_rule (
@@ -703,12 +614,12 @@ CREATE TABLE price_rule (
   UNIQUE(id,model_id),
   FOREIGN KEY(model_id) REFERENCES model(id),
   FOREIGN KEY(condition_id,model_id) REFERENCES entity(id,model_id),
-  FOREIGN KEY(target_id,model_id) REFERENCES offering(id,model_id),
+  FOREIGN KEY(target_id,model_id) REFERENCES option(id,model_id),
   UNIQUE(model_id,legacy_id)
 ) STRICT;
 -- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
 -- Deferred in source: FOREIGN KEY(condition_id,model_id) REFERENCES entity(id,model_id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(target_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(target_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (amount IS NULL OR
 --                     (amount NOT GLOB '*[^0-9.-]*' AND amount GLOB '*[0-9]*'
 --                     AND instr(substr(amount,2),'-')=0
@@ -725,27 +636,27 @@ CREATE TABLE default_rule (
   condition_kind TEXT NOT NULL,
   condition_code TEXT,
   condition_section_id TEXT,
-  condition_offering_id TEXT,
+  condition_option_id TEXT,
   target_section_mode TEXT,
   priority INTEGER,
   display_behavior TEXT,
   active INTEGER,
   UNIQUE(id,model_id),
   FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(target_id,model_id) REFERENCES offering(id,model_id),
+  FOREIGN KEY(target_id,model_id) REFERENCES option(id,model_id),
   FOREIGN KEY(condition_section_id) REFERENCES section(id),
-  FOREIGN KEY(condition_offering_id,model_id) REFERENCES offering(id,model_id),
+  FOREIGN KEY(condition_option_id,model_id) REFERENCES option(id,model_id),
   UNIQUE(model_id,legacy_id)
 ) STRICT;
 -- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(target_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(target_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- Deferred in source: FOREIGN KEY(condition_section_id) REFERENCES section(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(condition_offering_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(condition_option_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (active IN (0,1))
--- CHECK ((condition_kind='always' AND condition_code IS NULL AND condition_section_id IS NULL AND condition_offering_id IS NULL)
---         OR (condition_kind='unless_selected_rpo' AND condition_code IS NOT NULL AND condition_section_id IS NULL AND condition_offering_id IS NULL)
---         OR (condition_kind='unless_selected_section' AND condition_code IS NULL AND condition_section_id IS NOT NULL AND condition_offering_id IS NULL)
---         OR (condition_kind='when_selected_unless_selected_section' AND condition_code IS NULL AND condition_section_id IS NULL AND condition_offering_id IS NOT NULL AND target_section_mode='resolved_target_section'))
+-- CHECK ((condition_kind='always' AND condition_code IS NULL AND condition_section_id IS NULL AND condition_option_id IS NULL)
+--         OR (condition_kind='unless_selected_rpo' AND condition_code IS NOT NULL AND condition_section_id IS NULL AND condition_option_id IS NULL)
+--         OR (condition_kind='unless_selected_section' AND condition_code IS NULL AND condition_section_id IS NOT NULL AND condition_option_id IS NULL)
+--         OR (condition_kind='when_selected_unless_selected_section' AND condition_code IS NULL AND condition_section_id IS NULL AND condition_option_id IS NOT NULL AND target_section_mode='resolved_target_section'))
 
 CREATE TABLE derivation_permission (
   id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
@@ -756,13 +667,36 @@ CREATE TABLE derivation_permission (
   method TEXT NOT NULL,
   UNIQUE(id,model_id),
   FOREIGN KEY(model_id) REFERENCES model(id),
-  FOREIGN KEY(source_id,model_id) REFERENCES offering(id,model_id),
-  FOREIGN KEY(target_id,model_id) REFERENCES offering(id,model_id),
+  FOREIGN KEY(source_id,model_id) REFERENCES option(id,model_id),
+  FOREIGN KEY(target_id,model_id) REFERENCES option(id,model_id),
   UNIQUE(source_id,target_id,method)
 ) STRICT;
 -- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(source_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(target_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(source_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(target_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
+
+CREATE TABLE model_interior (
+  id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
+  model_id TEXT NOT NULL,
+  sequence INTEGER NOT NULL,
+  legacy_id TEXT NOT NULL,
+  definition_id TEXT NOT NULL,
+  trim_level TEXT NOT NULL,
+  active INTEGER,
+  requires_option_id TEXT,
+  included_option_id TEXT,
+  UNIQUE(id,model_id),
+  FOREIGN KEY(model_id) REFERENCES model(id),
+  FOREIGN KEY(definition_id) REFERENCES interior_definition(id),
+  FOREIGN KEY(requires_option_id,model_id) REFERENCES option(id,model_id),
+  FOREIGN KEY(included_option_id,model_id) REFERENCES option(id,model_id),
+  UNIQUE(model_id,legacy_id,trim_level)
+) STRICT;
+-- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(definition_id) REFERENCES interior_definition(id) DEFERRABLE INITIALLY DEFERRED
+-- CHECK (active IN (0,1))
+-- Deferred in source: FOREIGN KEY(requires_option_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(included_option_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
 
 CREATE TABLE interior_presentation (
   id TEXT PRIMARY KEY REFERENCES entity(id) NOT NULL,
@@ -840,14 +774,14 @@ CREATE TABLE color_rule (
   UNIQUE(id,model_id),
   FOREIGN KEY(model_id) REFERENCES model(id),
   FOREIGN KEY(interior_id,model_id) REFERENCES model_interior(id,model_id),
-  FOREIGN KEY(condition_id,model_id) REFERENCES offering(id,model_id),
-  FOREIGN KEY(added_id,model_id) REFERENCES offering(id,model_id),
+  FOREIGN KEY(condition_id,model_id) REFERENCES option(id,model_id),
+  FOREIGN KEY(added_id,model_id) REFERENCES option(id,model_id),
   UNIQUE(model_id,interior_id,condition_id,added_id)
 ) STRICT;
 -- Deferred in source: FOREIGN KEY(model_id) REFERENCES model(id) DEFERRABLE INITIALLY DEFERRED
 -- Deferred in source: FOREIGN KEY(interior_id,model_id) REFERENCES model_interior(id,model_id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(condition_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
--- Deferred in source: FOREIGN KEY(added_id,model_id) REFERENCES offering(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(condition_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
+-- Deferred in source: FOREIGN KEY(added_id,model_id) REFERENCES option(id,model_id) DEFERRABLE INITIALLY DEFERRED
 -- CHECK (effect='requires')
 
 -- Trigger DDL retained as reference comments only; not imported by drawDB.
@@ -924,13 +858,13 @@ CREATE TABLE color_rule (
 --                   WHERE id=NEW.id AND kind='derivation_permission' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
 -- CREATE TRIGGER direct_rule_insert_ends BEFORE INSERT ON direct_rule
---                 WHEN (SELECT kind FROM entity WHERE id=NEW.source_id) NOT IN ('offering','model_interior') OR (SELECT kind FROM entity WHERE id=NEW.target_id) NOT IN ('offering','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
+--                 WHEN (SELECT kind FROM entity WHERE id=NEW.source_id) NOT IN ('option','model_interior') OR (SELECT kind FROM entity WHERE id=NEW.target_id) NOT IN ('option','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
 -- CREATE TRIGGER direct_rule_insert_identity BEFORE INSERT ON direct_rule
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
 --                   WHERE id=NEW.id AND kind='direct_rule' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
 -- CREATE TRIGGER direct_rule_update_ends BEFORE UPDATE ON direct_rule
---                 WHEN (SELECT kind FROM entity WHERE id=NEW.source_id) NOT IN ('offering','model_interior') OR (SELECT kind FROM entity WHERE id=NEW.target_id) NOT IN ('offering','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
+--                 WHEN (SELECT kind FROM entity WHERE id=NEW.source_id) NOT IN ('option','model_interior') OR (SELECT kind FROM entity WHERE id=NEW.target_id) NOT IN ('option','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
 -- CREATE TRIGGER direct_rule_update_identity BEFORE UPDATE ON direct_rule
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
 --                   WHERE id=NEW.id AND kind='direct_rule' AND model_id=NEW.model_id)
@@ -954,25 +888,25 @@ CREATE TABLE color_rule (
 --                   WHERE id=NEW.id AND kind='exclusive_member' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
 -- CREATE TRIGGER group_member_insert_ends BEFORE INSERT ON group_member
---                 WHEN (SELECT kind FROM entity WHERE id=NEW.target_id) NOT IN ('offering','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
+--                 WHEN (SELECT kind FROM entity WHERE id=NEW.target_id) NOT IN ('option','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
 -- CREATE TRIGGER group_member_insert_identity BEFORE INSERT ON group_member
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
 --                   WHERE id=NEW.id AND kind='group_member' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
 -- CREATE TRIGGER group_member_update_ends BEFORE UPDATE ON group_member
---                 WHEN (SELECT kind FROM entity WHERE id=NEW.target_id) NOT IN ('offering','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
+--                 WHEN (SELECT kind FROM entity WHERE id=NEW.target_id) NOT IN ('option','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
 -- CREATE TRIGGER group_member_update_identity BEFORE UPDATE ON group_member
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
 --                   WHERE id=NEW.id AND kind='group_member' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
 -- CREATE TRIGGER group_rule_insert_ends BEFORE INSERT ON group_rule
---                 WHEN (SELECT kind FROM entity WHERE id=NEW.source_id) NOT IN ('offering','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
+--                 WHEN (SELECT kind FROM entity WHERE id=NEW.source_id) NOT IN ('option','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
 -- CREATE TRIGGER group_rule_insert_identity BEFORE INSERT ON group_rule
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
 --                   WHERE id=NEW.id AND kind='group_rule' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
 -- CREATE TRIGGER group_rule_update_ends BEFORE UPDATE ON group_rule
---                 WHEN (SELECT kind FROM entity WHERE id=NEW.source_id) NOT IN ('offering','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
+--                 WHEN (SELECT kind FROM entity WHERE id=NEW.source_id) NOT IN ('option','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
 -- CREATE TRIGGER group_rule_update_identity BEFORE UPDATE ON group_rule
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
 --                   WHERE id=NEW.id AND kind='group_rule' AND model_id=NEW.model_id)
@@ -1049,62 +983,22 @@ CREATE TABLE color_rule (
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
 --                   WHERE id=NEW.id AND kind='model' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_code_insert_identity BEFORE INSERT ON offering_code
+-- CREATE TRIGGER option_insert_identity BEFORE INSERT ON option
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering_code' AND model_id=NEW.model_id)
+--                   WHERE id=NEW.id AND kind='option' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_code_update_identity BEFORE UPDATE ON offering_code
+-- CREATE TRIGGER option_update_identity BEFORE UPDATE ON option
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering_code' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_insert_identity BEFORE INSERT ON offering
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_policy_insert_identity BEFORE INSERT ON offering_policy
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering_policy' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_policy_update_identity BEFORE UPDATE ON offering_policy
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering_policy' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_presentation_insert_identity BEFORE INSERT ON offering_presentation
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering_presentation' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_presentation_update_identity BEFORE UPDATE ON offering_presentation
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering_presentation' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_price_insert_identity BEFORE INSERT ON offering_price
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering_price' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_price_update_identity BEFORE UPDATE ON offering_price
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering_price' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER offering_update_identity BEFORE UPDATE ON offering
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='offering' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER option_definition_insert_identity BEFORE INSERT ON option_definition
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='option_definition' AND model_id=NEW.model_id)
---                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
--- CREATE TRIGGER option_definition_update_identity BEFORE UPDATE ON option_definition
---                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
---                   WHERE id=NEW.id AND kind='option_definition' AND model_id=NEW.model_id)
+--                   WHERE id=NEW.id AND kind='option' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
 -- CREATE TRIGGER price_rule_insert_ends BEFORE INSERT ON price_rule
---                 WHEN (SELECT kind FROM entity WHERE id=NEW.condition_id) NOT IN ('offering','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
+--                 WHEN (SELECT kind FROM entity WHERE id=NEW.condition_id) NOT IN ('option','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
 -- CREATE TRIGGER price_rule_insert_identity BEFORE INSERT ON price_rule
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
 --                   WHERE id=NEW.id AND kind='price_rule' AND model_id=NEW.model_id)
 --                   THEN RAISE(ABORT,'Entity subtype or model mismatch') END; END;
 -- CREATE TRIGGER price_rule_update_ends BEFORE UPDATE ON price_rule
---                 WHEN (SELECT kind FROM entity WHERE id=NEW.condition_id) NOT IN ('offering','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
+--                 WHEN (SELECT kind FROM entity WHERE id=NEW.condition_id) NOT IN ('option','model_interior') BEGIN SELECT RAISE(ABORT,'Invalid rule endpoint type'); END;
 -- CREATE TRIGGER price_rule_update_identity BEFORE UPDATE ON price_rule
 --                 BEGIN SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM entity
 --                   WHERE id=NEW.id AND kind='price_rule' AND model_id=NEW.model_id)

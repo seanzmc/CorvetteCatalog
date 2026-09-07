@@ -2,10 +2,10 @@
   "provenance": {
     "workbook_sha256": "3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c",
     "reference_commit": "4fe92a4f078370c478f18484cad31bdafe58ad43",
-    "schema_version": "2",
+    "schema_version": "3",
     "authority": "disposable_candidate",
-    "importer_sha256": "c7b0f8735d00ef44bd461587549d5c606d0293cdb4a528d167f4d771f92e6404",
-    "schema_sha256": "4dff2bad57d5e01f33c9ec5c7fc09b92d29d247f4e3a2c66aa4bd312ceaf7382"
+    "importer_sha256": "891d77f8486a3bd73c97e662a2bd6248f6386fb7b80cbdd6090f61730f38eb1b",
+    "schema_sha256": "616f63d9c36ba92ad42787e8f897e6965e67b6054ccdc8b1db0a1a3c2f0b09c7"
   },
   "source_sheets": [
     {
@@ -397,7 +397,7 @@
   "models": {
     "stingray": {
       "variant": 6,
-      "offering": 242,
+      "option": 242,
       "availability": 1452,
       "model_interior": 130,
       "direct_rule": 178,
@@ -406,7 +406,7 @@
     },
     "grand_sport": {
       "variant": 6,
-      "offering": 241,
+      "option": 241,
       "availability": 1446,
       "model_interior": 132,
       "direct_rule": 157,
@@ -415,7 +415,7 @@
     },
     "z06": {
       "variant": 6,
-      "offering": 244,
+      "option": 244,
       "availability": 1464,
       "model_interior": 130,
       "direct_rule": 110,
@@ -424,7 +424,7 @@
     },
     "zr1": {
       "variant": 4,
-      "offering": 207,
+      "option": 207,
       "availability": 828,
       "model_interior": 90,
       "direct_rule": 98,
@@ -433,7 +433,7 @@
     },
     "zr1x": {
       "variant": 4,
-      "offering": 206,
+      "option": 206,
       "availability": 824,
       "model_interior": 90,
       "direct_rule": 96,
@@ -442,7 +442,7 @@
     },
     "grand_sport_x": {
       "variant": 6,
-      "offering": 239,
+      "option": 239,
       "availability": 1434,
       "model_interior": 132,
       "direct_rule": 144,
@@ -457,12 +457,7 @@
     "publication": 6,
     "section": 48,
     "variant": 32,
-    "option_definition": 1379,
-    "offering": 1379,
-    "offering_code": 1224,
-    "offering_policy": 1379,
-    "offering_presentation": 1379,
-    "offering_price": 1379,
+    "option": 1379,
     "availability": 7448,
     "variant_override": 16,
     "interior_definition": 262,
@@ -492,7 +487,7 @@
     "asset_assignment": 522,
     "derivation_permission": 5
   },
-  "reconciled_fields": 218779,
+  "reconciled_fields": 189371,
   "source_dispositions": [
     {
       "model_key": "",

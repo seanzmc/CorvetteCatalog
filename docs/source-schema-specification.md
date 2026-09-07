@@ -2,6 +2,8 @@
 
 Checkpoint A, September 5, 2026. This is a logical design and source mapping for a fresh implementation. It authorizes no DDL, parser, import, application, canonical-data change, or cutover. The roadmap remains [migration-plan.md](migration-plan.md). Extend this specification when domain ambiguity warrants it; do not make a new specification for each task.
 
+The option-definition/offering/code/policy/price/presentation split below is a historical proposal, superseded by the implemented [schema-3 option ownership](workbook-translation-blueprint.md). Its source semantics remain requirements; those six table boundaries do not. Availability, contextual overrides and rule relationships remain separate.
+
 ## 1. Scope and completion
 
 Define the source roles, entity grains, fields and owners, identities, intake/reconciliation contract, and requirements shared by the future form and visualizer. Inspect one actual guide format and a bounded family. Completion means these contracts are explicit and remaining decisions have named consequences, not that all guide facts have been reconciled or a technology stack chosen.

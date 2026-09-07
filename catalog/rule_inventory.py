@@ -14,7 +14,7 @@ from catalog.schema import TABLES
 
 FAMILIES = (
     'direct_rule', 'group_rule', 'exclusive_group', 'price_rule', 'default_rule',
-    'color_rule', 'derivation_permission', 'variant_override', 'offering_policy',
+    'color_rule', 'derivation_permission', 'variant_override', 'option',
     'model_interior', 'interior_component', 'section', 'section_presentation',
 )
 CHILDREN = {
@@ -37,7 +37,7 @@ def inventory(database):
         code = [dict(r) for r in db.execute('SELECT * FROM code_evidence ORDER BY path,symbol')]
     by_id = {r['id']: (t, r) for t, rows in tables.items() for r in rows}
     models = {r['id']: r['model_key'] for r in tables['model']}
-    names = {r['offering_id']: r['label'] for r in tables['offering_presentation']}
+    names = {r['id']: r['name'] for r in tables['option']}
     names.update({r['id']: r['name'] for r in tables['interior_definition']})
 
     def identity(value):

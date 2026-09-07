@@ -48,15 +48,25 @@ class ContractTests(unittest.TestCase):
         finally:
             db.close()
 
+    def test_previous_candidate_schema_requires_rebuild(self):
+        db=connect(self.database)
+        try:
+            db.execute("UPDATE import_metadata SET value='2' WHERE key='schema_version'")
+            db.commit()
+            with self.assertRaisesRegex(ValueError,'Rebuild.*schema 3'):
+                generate_bundle(self.database)
+        finally:
+            db.execute("UPDATE import_metadata SET value='3' WHERE key='schema_version'")
+            db.commit();db.close()
+
     def test_typed_price_label_availability_and_scope_mutations_reach_output(self):
         db=connect(self.database)
         try:
             db.execute('BEGIN')
             mid=db.execute("SELECT id FROM model WHERE model_key='stingray'").fetchone()[0]
-            oid=db.execute("SELECT id FROM offering WHERE model_id=? AND legacy_id='opt_z51_001'",(mid,)).fetchone()[0]
-            db.execute("UPDATE offering_price SET amount='9999' WHERE offering_id=?",(oid,))
-            db.execute("UPDATE offering_presentation SET label='Test package' WHERE offering_id=?",(oid,))
-            db.execute("UPDATE availability SET status='standard' WHERE offering_id=?",(oid,))
+            oid=db.execute("SELECT id FROM option WHERE model_id=? AND legacy_id='opt_z51_001'",(mid,)).fetchone()[0]
+            db.execute("UPDATE option SET base_price='9999',name='Test package' WHERE id=?",(oid,))
+            db.execute("UPDATE availability SET status='standard' WHERE option_id=?",(oid,))
             db.execute("UPDATE scope_axis SET all_token=NULL WHERE owner_id IN (SELECT id FROM default_rule WHERE model_id=?)",(mid,))
             catalog=Catalog(db)
             actual=catalog.generate(catalog.by_id[mid],'fixed-test-time')

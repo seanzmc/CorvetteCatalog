@@ -35,10 +35,10 @@ dependency, hosting, account, or automatic synchronization is required.
 
 ## Compatibility and limits
 
-Checked 2026-09-06 against drawDB
+Checked 2026-09-07 for candidate schema 3 against drawDB
 [revision 95cc92e](https://github.com/drawdb-io/drawdb/blob/95cc92ec0f35d30ad2d18eb8480b7ae6df780df8/src/utils/importSQL/sqlite.js)
 and its locked `node-sql-parser` 5.4.0. The actual parser/importer reproduced all
-48 tables, 390 columns and 126 foreign keys (165 ordered column pairs), including
+43 tables, 368 columns and 111 foreign keys (145 ordered column pairs), including
 composite model keys and the hierarchy self-reference. Column types, nullability,
 primary-key membership and unique-column tuples were also compared with SQLite.
 
@@ -47,9 +47,9 @@ primary-key membership and unique-column tuples were also compared with SQLite.
 | Table order | Referenced tables precede dependents because drawDB resolves references in one pass. A future cross-table cycle stops generation instead of silently losing relationships. Self-references work. |
 | Primary, unique and foreign keys | Preserved, including composite grouping. drawDB's inferred cardinality uses the first field's unique flag, so its one/many labels may misdescribe keys; inspect key tuples rather than treating labels as authoritative. |
 | 45 table CHECK constraints | Retained verbatim as SQL comments, not diagram constraints. The importer ignores table CHECKs, and its parser rejects decimal `GLOB` expressions. These include boolean domains, exact-decimal text syntax, availability/effect/selection/scope domains, and default-rule condition shape. |
-| 81 deferred foreign keys | Foreign-key endpoints remain; `DEFERRABLE INITIALLY DEFERRED` is removed from executable export SQL because the parser rejects it. The original declarations remain in comments. The diagram cannot express transaction-end validation timing. |
+| 71 deferred foreign keys | Foreign-key endpoints remain; `DEFERRABLE INITIALLY DEFERRED` is removed from executable export SQL because the parser rejects it. The original declarations remain in comments. The diagram cannot express transaction-end validation timing. |
 | STRICT | Retained in SQL and accepted by the parser, but not modeled in the diagram. Implicit primary-key NOT NULL is made explicit from SQLite metadata so diagram nullability is accurate. |
-| 89 triggers | Full DDL retained as reference comments only. The 80 subtype INSERT/UPDATE guards enforce matching entity kind/model; 8 rule-endpoint guards restrict direct/group/member/price ends to offerings or model interiors; `entity_identity_immutable` rejects entity updates. None are represented by diagram edges. |
+| 79 triggers | Full DDL retained as reference comments only. The 70 subtype INSERT/UPDATE guards enforce matching entity kind/model; 8 rule-endpoint guards restrict direct/group/member/price ends to options or model interiors; `entity_identity_immutable` rejects entity updates. None are represented by diagram edges. |
 
 Importer/contract validation also enforces rules beyond DDL, such as source
 coverage, complete availability and supported derivation permissions. A diagram
@@ -59,5 +59,7 @@ The generated SQL is deliberately unsuitable as a replacement schema or migratio
 These checks cover the pinned upstream importer; the hosted editor may run a
 different revision. Hosted menu controls were checked, but the browser file chooser
 timed out, so hosted import/rendering remains unverified.
+Existing local `DrawDB/` JSON files are older viewing snapshots and were preserved;
+import the refreshed SQL into a new diagram to see the consolidated option owner.
 See the [drawDB guide](https://drawdb-io.github.io/docs/create-diagram)
 for editor controls.
