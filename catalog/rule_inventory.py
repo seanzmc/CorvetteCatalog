@@ -65,6 +65,9 @@ def inventory(database):
     for _, (table, foreign_key) in CHILDREN.items():
         for r in tables[table]:
             children[r[foreign_key]].append(record(table, r))
+    for rows in children.values():
+        rows.sort(key=lambda r: (r['fields']['display_order'] or 0,
+                                 r['fields']['sequence'], r['fields']['id']))
     for mid, model in models.items():
         result['models'][model] = dict(variants=[record('variant', r) for r in tables['variant']
                                                if r['model_id'] == mid], families={})
@@ -77,6 +80,8 @@ def inventory(database):
                     rows.append(dict(**record(family, row), scopes=scopes[row['id']],
                                      members=children[row['id']]))
     result['shared_sections'] = [record('section', r) for r in tables['section']]
+    result['shared_component_rates'] = [record('component_rate', r)
+                                        for r in tables['component_rate']]
     return result
 
 
