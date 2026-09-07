@@ -66,6 +66,15 @@ class RuleInventoryTests(unittest.TestCase):
         self.assertEqual(self.result, inventory(self.database))
         self.assertEqual(self.before, hashlib.sha256(self.database.read_bytes()).hexdigest())
 
+    def test_option_rows_supply_inventory_names_and_policy(self):
+        for model in self.result['models'].values():
+            options={r['fields']['id']:r for r in model['families']['option']}
+            for row in model['families']['variant_override']:
+                target=options[row['fields']['option_id']]
+                self.assertEqual(row['references']['option_id']['name'],target['fields']['name'])
+                self.assertEqual(row['references']['option_id']['kind'],'option')
+            self.assertTrue(all('selectable' in r['fields'] and r['source_rows'] for r in options.values()))
+
 
 if __name__ == '__main__':
     unittest.main()
