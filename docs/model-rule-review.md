@@ -124,16 +124,20 @@ Overlapping rules require interaction cases: sharing a source, target, exclusive
 
 ## Refreshable record inventory
 
+Expanded September 7 for the [complete relationship map](form-relationship-map.md):
+all 35 typed families and their references are now included, not only rule families.
+Cross-model matches are conservative comparison candidates, never automatic merges.
+
 Run from the repository root:
 
 ```sh
 python3 -m catalog.rule_inventory \
-  --database .local/checkpoint-d/final.sqlite \
+  --database .local/consolidate-options/after.sqlite \
   --output DrawDB/model-rule-inventory.json
 ```
 
-The input is opened read-only. The output is a visible local review artifact, not drawDB import SQL or an application dependency. It lists each model separately with variants and every stored direct/group/exclusive/price/default/color/derived rule, variant override, option policy, interior membership/component and section presentation. Group members are sorted by display order (missing order means zero), then database sequence and ID for deterministic ties. Scopes, exact fields, database sequence, resolved reference names and workbook row references are retained; code evidence is included separately. The shared component-rate collection preserves rate identity fields, amounts, price basis, currency and source rows; match a component's `rate_id` to a rate's `fields.id` to inspect its pricing evidence. It retains inactive/suppressed records rather than silently excluding them.
+The input is opened read-only. The output is a visible local review artifact, not drawDB import SQL or an application dependency. It lists each model separately with its identity, variants and every model-owned family: all direct/group/exclusive/price/default/color/derived rules, availability, variant overrides, options, interior memberships/components/hierarchy, presentation, assets and publication. Shared definitions, sections and rates are separate collections. Group members are sorted by display order (missing order means zero), then database sequence and ID for deterministic ties. Scopes, exact fields, database sequence, resolved reference names and workbook row references are retained; code evidence is included separately. The shared component-rate collection preserves rate identity fields, amounts, price basis, currency and source rows; match a component's `rate_id` to a rate's `fields.id` to inspect its pricing evidence. It retains inactive/suppressed records rather than silently excluding them.
 
-This is a record-review aid, not a scenario runner or a replacement for the database. In candidate schema 3, the inventory's `option` family replaces `offering_policy` and includes option identity, base price, copy and policy from their single owner; resolved rule-reference names come from that owner. Availability records remain outside this inventory, in the catalog and complete generated-contract comparison. Its `status` explicitly says behavioral scenarios are not verified. Rebuild older disposable databases and regenerate after candidate changes; do not maintain a handwritten rule duplicate.
+This is a record-review aid, not a scenario runner or a replacement for the database. In candidate schema 3, the inventory's `option` family replaces `offering_policy` and includes option identity, base price, copy and policy from their single owner; resolved rule-reference names come from that owner. Availability records are now included. `record_counts`, `source_sheets` and `source_dispositions` expose complete imported coverage and omissions; `cross_model_matches` compares all stored rule families without changing their ownership. Its `status` explicitly says behavioral scenarios are not verified. Rebuild older disposable databases and regenerate after candidate changes; do not maintain a handwritten rule duplicate.
 
 Validation for the original inventory review: all 12 model-owned inventory families reconciled to the read-only database; ordered group/scope members and source references checked; deterministic export and unchanged input checked. The matrix and named examples were queried from the candidate imported from workbook SHA-256 `3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c`. The subsequent R6X execution and its known pricing failures are reported above. Broader per-model scenario work and implementation of the confirmed additive-pricing correction remain separate tasks.

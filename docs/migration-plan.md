@@ -30,6 +30,17 @@ Initially support one real supplied guide format and one bounded family, chosen 
 
 ## 4. Relational design
 
+September 7 design reset: the owner requires all model relationships, including
+shared stripes, accessories and color combinations, to be mapped before further
+schema work. The [complete form relationship map](form-relationship-map.md) now
+covers all source families, all six models, cross-model comparison candidates and
+runtime interactions. The review export covers every typed record, reference and
+availability pair. This completes the relationship inventory/analysis deliverable;
+it does not approve table ownership or exhaustively validate selection scenarios.
+The next deliverable is a coherent ownership proposal from that map, not another
+isolated table consolidation. No further DDL or authoring implementation is
+authorized by this analysis.
+
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
 Define model years/models, variants, model-owned options, availability, interiors/components, typed rules, price contexts, contextual presentation, assets, and source evidence as explicit entities and relationships. Specify row grain, candidate keys, functional dependencies, null/zero/all-scope semantics, and reference constraints before DDL.

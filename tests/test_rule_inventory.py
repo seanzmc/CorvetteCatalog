@@ -7,6 +7,7 @@ import unittest
 
 from catalog.importer import build
 from catalog.rule_inventory import CHILDREN, inventory
+from catalog.schema import TABLES
 
 
 class RuleInventoryTests(unittest.TestCase):
@@ -74,6 +75,59 @@ class RuleInventoryTests(unittest.TestCase):
                 self.assertEqual(row['references']['option_id']['name'],target['fields']['name'])
                 self.assertEqual(row['references']['option_id']['kind'],'option')
             self.assertTrue(all('selectable' in r['fields'] and r['source_rows'] for r in options.values()))
+
+    def test_every_typed_record_and_relationship_is_present_once(self):
+        records = {}
+
+        def visit(value):
+            if isinstance(value, dict):
+                if 'fields' in value and 'id' in value['fields']:
+                    key = value['fields']['id']
+                    self.assertNotIn(key, records)
+                    records[key] = value
+                for child in value.values():
+                    visit(child)
+            elif isinstance(value, list):
+                for child in value:
+                    visit(child)
+
+        visit(self.result)
+        with sqlite3.connect(self.database) as db:
+            db.row_factory = sqlite3.Row
+            expected = {r['id']:dict(r) for table in TABLES
+                        for r in db.execute(f'SELECT * FROM {table}')}
+            self.assertEqual({key:r['fields'] for key,r in records.items()}, expected)
+            for table, (spec, _) in TABLES.items():
+                for row in db.execute(f'SELECT * FROM {table}'):
+                    record = records[row['id']]
+                    self.assertEqual(record['source_rows'], [r[0] for r in db.execute(
+                        'SELECT source_id FROM evidence_link WHERE entity_id=? ORDER BY source_id',
+                        (row['id'],))])
+                    for item in spec.split():
+                        field, typ = item.split(':')
+                        if typ.startswith('@') and row[field] is not None:
+                            self.assertEqual(record['references'][field]['id'], row[field])
+                            self.assertIn(row[field], records)
+            self.assertEqual(len(self.result['source_dispositions']),
+                             db.execute('SELECT count(*) FROM source_disposition').fetchone()[0])
+            self.assertEqual(sum(r['row_count'] for r in self.result['source_sheets']),
+                             db.execute('SELECT count(*) FROM source_row').fetchone()[0])
+
+    def test_shared_wheel_lock_prerequisite_does_not_merge_model_exclusions(self):
+        matches = self.result['cross_model_matches']
+        prerequisite = [r for r in matches if r['family'] == 'direct_rule'
+                        and r['pattern']['fields']['source_id']['key'] == 'opt_spz_001'
+                        and r['pattern']['fields']['target_id']['key'] == 'opt_spy_001'
+                        and r['pattern']['fields']['effect'] == 'requires']
+        self.assertEqual(len(prerequisite), 1)
+        self.assertEqual({r['model'] for r in prerequisite[0]['occurrences']},
+                         set(self.result['models']))
+        # SU1 is a ZR1/ZR1X exclusion, not a shared requirement for every model.
+        su1 = [r for r in matches if r['family'] == 'direct_rule'
+               and r['pattern']['fields']['source_id']['key'] == 'opt_sfe_001'
+               and r['pattern']['fields']['target_id']['key'] == 'opt_su1_001']
+        self.assertEqual(len(su1), 1)
+        self.assertEqual({r['model'] for r in su1[0]['occurrences']}, {'zr1', 'zr1x'})
 
 
 if __name__ == '__main__':
