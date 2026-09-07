@@ -37,9 +37,12 @@ covers all source families, all six models, cross-model comparison candidates an
 runtime interactions. The review export covers every typed record, reference and
 availability pair. This completes the relationship inventory/analysis deliverable;
 it does not approve table ownership or exhaustively validate selection scenarios.
-The next deliverable is a coherent ownership proposal from that map, not another
-isolated table consolidation. No further DDL or authoring implementation is
-authorized by this analysis.
+The [proposed database design](proposed-database-design.md) now translates that
+map into table grains, keys, typed shared definitions with model applications,
+price ownership, presentation and compatibility boundaries. It is a reviewable
+logical proposal, not approved DDL. Package classification, interior charge
+reconciliation and consumer ordering remain explicit prerequisites to migration.
+No further DDL or authoring implementation is authorized by this proposal.
 
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 

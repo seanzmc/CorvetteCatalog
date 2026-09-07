@@ -294,6 +294,10 @@ execution of every possible selection combination or approval of baseline defect
 
 ## What this establishes for the design reset
 
+The follow-on [proposed database design](proposed-database-design.md) assigns
+owners and keys to these relationships. The map remains its evidence base; the
+proposal does not change the imported records or constitute implemented DDL.
+
 The next schema proposal must assign ownership using this complete map, including
 shared rules and explicit model applications. It must resolve how shared member
 sets and model differences are authored, how contextual prices have one owner,
