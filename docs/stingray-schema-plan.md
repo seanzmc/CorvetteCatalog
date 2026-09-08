@@ -111,9 +111,23 @@ Navigation labels organize those leaves but do not define their business identit
 |---|---|---|
 | `interior` | `(R, id)` | Interior code, seat-option FK, material/color description, leaf label, enabled. No editable total or duplicate seat/R6X price. |
 | `interior_configuration` | `(R, interior_id, configuration_id)` | Explicit eligibility. Seat must be permitted in that configuration. Dynamic requirements are separate relationships. |
+| `interior_selection_policy` | `R` (one row per revision, FK to `catalog_revision`) | Minimum and maximum selected interiors, auto-select-sole-eligible flag, invalid-selection action, requirement label/detail and step FK in R. Stingray uses minimum = maximum = 1, auto-select = true, invalid action = clear, label `Interior Color`, step `base_interior`. This owns interior selection cardinality; option-only choice groups do not. |
 | `interior_part` | `(R, interior_id, part_key)` | Exactly one of option FK or component FK; role, line label override and itemization order. Unique target per interior. No amount. Seat is represented by `interior.seat_option_id`, not repeated as a part. |
 | `component` | `(R, id)`; unique `(R, component_kind, code)` | Identity and label of a non-option extra, such as N26, 38S or TU7. Not a second seat/R6X option catalog. |
 | `component_rate` | `(R, component_id, trim_context)` | Exact amount. `trim_context` is 1LT/2LT/3LT or explicit `all`; exact trim wins, then `all` in the same R. Missing rate is unresolved. R fixes model year, so no previous-year or other-model lookup. |
+
+The interior policy applies to every configuration in R. Its candidate set is the
+enabled interiors permitted by `interior_configuration`, the selected seat and
+applicable dynamic requirements. After a context or seat change, clear an invalid
+selection and auto-select only if exactly one eligible interior remains. With
+multiple candidates, leave it unset for the user; with no candidates, leave it
+unset and report that no compatible choice exists. Neither case relaxes the
+minimum: an unset interior blocks submission even if every option group is filled.
+At most one interior can be selected, and a submitted selection must be eligible.
+The policy supplies the requirement copy and navigation target, so this behavior
+does not become another hard-coded consumer rule. Evidence: frozen
+`missingRequirementDetails()` and `reconcileInteriorSelection()` at revision
+`4fe92a4f078370c478f18484cad31bdafe58ad43`.
 
 The selected seat is already an option charge, even before an interior is chosen.
 R6X is an option-backed interior part at 995. N26, stitching and TU7 are
@@ -242,8 +256,8 @@ seat line can be displayed under interior without changing its option charge own
 Recommended event sequence, to be verified when an evaluator is implemented:
 
 1. Resolve the configuration, option overrides and applicability. Body/trim change
-   resets choices; seat change clears an incompatible interior. Preserve the
-   observed sole-eligible-interior auto-selection behavior.
+   resets choices; apply `interior_selection_policy` to clear an incompatible
+   interior and auto-select a sole eligible candidate.
 2. Evaluate the attempted choice's prerequisites/conflicts. Refuse or replace as
    the applicable policies direct; record explicit intent only when accepted.
 3. Reconcile removals, interior parts, inclusions, paid-peer suppression and
@@ -251,7 +265,8 @@ Recommended event sequence, to be verified when an evaluator is implemented:
 4. Restore viable defaults and required-group fallbacks, including a sole selectable
    standard choice; repeat affected resolution
    until stable. Detect cycles/contradictions rather than arbitrarily dropping rows.
-5. Resolve charges once, then report missing prerequisites and required choices.
+5. Resolve charges once, then report missing prerequisites and required choices,
+   including the minimum interior selection from `interior_selection_policy`.
    A `retain_invalid` requirement can keep 5ZU charged after incompatible paint;
    submission remains blocked. That is distinct from removing FE4 after Z51 loss.
 6. Produce recap, order codes and visual inputs from the same resolved result.
@@ -320,10 +335,19 @@ in compatibility evidence until their consumer effects are reconciled.
 | `source_anchor` | Global ID; document + locator + fragment key | Sheet/cell/range or code commit/symbol, raw text/rich-text representation and source value. Repeated occurrences remain distinct anchors. |
 | `evidence_set`, `evidence_member` | Global set ID; `(set_id, anchor_id)` | Each authored product, applicability, part, rate, relationship and presentation fact row has a real FK to its evidence set, whose members reference anchors. No free-text table/ID link is trusted as referential integrity. |
 | `review_decision` | Global decision ID | Decision text/date/authority, evidence set, accepted/proposed/unresolved state and intent (parity/correction). Relevant typed fact rows hold a nullable decision FK. |
-| `source_disposition` | `(R, anchor_id, fact_fragment)` | Added/changed/removed/unchanged/unresolved/accounted-as-component classification, explanation and decision FK. It accounts for source coverage without acting as an editable price/rule store. |
+| `source_disposition` | `(R, anchor_id, fact_fragment)` | Added/changed/removed/unchanged/ambiguous/conflicting/accounted-as-component classification, explanation and decision FK. It accounts for source coverage without acting as an editable price/rule store. |
 | `legacy_option_identity`, `legacy_interior_identity`, `legacy_configuration_identity` | `(R, namespace, legacy_key)` | Typed target FK in R. Add the same typed mapping pattern for other exported entity kinds when needed; no RPO lookup. |
 | `release` | Global ID | Immutable manifest/hash, creation time and artifact references. |
 | `release_model` | `(release_id, model_id)` | Exactly one released revision per lane; alias, dataset path, publication order. Release has one default-model FK constrained to its membership. |
+
+`ambiguous` means the source meaning cannot yet be determined; `conflicting`
+means an interpretable source assertion disagrees with the baseline. For example,
+the guide's unclear price-column/currency meaning is ambiguous, while its RNX
+conditional Z51/ZF1 path conflicts with the workbook's outright Z51 exclusion.
+Both can have an unresolved `review_decision`; that review state must not replace
+their distinct source classifications. Preserve the original disposition and its
+evidence when recording a later decision. This follows the
+[intake classifications](migration-plan.md#3-intake-workflow).
 
 A draft revision copies a prior snapshot and changes only reviewed facts. It can
 record incomplete new options and proposed decisions. Releasing checks relational
@@ -357,6 +381,7 @@ on the frozen numeric basis. B denotes the selected configuration's base amount.
 | GBA→5ZU→Z51, reverse order, remove Z51 | Paint ANY requirement, conditional inclusion, conflict/group policies | Wing retained after package removal; ZF1/T0A order-code difference remains a decision. §6. |
 | Existing 5ZU/Z51→G26 | Requirement loss action `retain_invalid` | Wing remains charged and build invalid, matching frozen behavior; not an accepted complete order. §6. |
 | TVS + Z51, both orders | Option-price zero + spoiler peers | 85,990 at coupe 2LT; missing ZF1 stays explicit, not hidden by matching total. §6. |
+| Interior unset after otherwise complete option choices; seat change | `interior_selection_policy`, eligible interior set, requirement copy/step | Unset interior blocks submission with `Interior Color`; one eligible candidate auto-selects, multiple remain unchosen, zero stays blocked. Changing seats clears an incompatible selection before reapplying that policy. |
 | All interior leaves; seat/stitch changes | Interior eligibility, seat FK, exact part sets, rates | 130 identities and complete extras represented; seat change clears incompatible leaf. Four AE4/R6X subtotals intentionally differ by +595. §7. |
 | H8T→paid 3F9→HTE; HAG→HVZ | Yielding belt inclusion, hard conflicts, belt prices, D30, default group | Paid alternative retained when valid; D30 removed; HAG/HVZ exchange only permitted belt. §7. |
 | HUQ + G26 + Orange belt; remove causes separately | Two combination rows, one D30 charge owner | 76,580 at coupe 1LT; one cause removed retains D30, both removed drops it. §7. |
@@ -441,7 +466,9 @@ was executed. Logical representability is not runtime equivalence.
 After review, resolve the affected decisions in §9 and accept or revise these
 ownership choices. Only then scope an implementation task. Its checks should
 include same-revision FKs; missing versus zero rates and same-year fallback;
-complete configuration membership; ANY versus AND; acquisition direction;
+complete configuration membership; required single interior with zero/one/multiple
+eligible candidates and seat changes; distinct ambiguous/conflicting dispositions;
+ANY versus AND; acquisition direction;
 multiple causes and paid-peer suppression; absorbed purchase removal; the four
 intentional price corrections; DTC/SAI additions and DUW retirement; and separate
 static/installed equipment results. Expected outputs come from the frozen evidence
