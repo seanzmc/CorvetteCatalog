@@ -1,5 +1,10 @@
 # Proposed catalog database design
 
+**Status after the behavior-first review:** this earlier cross-model proposal remains
+unvalidated. The [whole Stingray schema plan](stingray-schema-plan.md) is the current
+proposal for reviewing Stingray ownership; it does not approve sharing across models.
+The historical proposal below is retained as reference, not implementation authority.
+
 September 7, 2026. **Logical design for review; no DDL or migration applied.**
 This translates the [complete six-model relationship map](form-relationship-map.md)
 into proposed owners, keys and constraints. It supersedes the earlier
