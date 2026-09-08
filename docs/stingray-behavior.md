@@ -497,7 +497,9 @@ rules are zero inclusions, scoped cover/seat prices and interior-conditioned bel
 `Exterior 1!A81:I96` ties stripes to paint: DPB/DUE/DTC conflict with GTR;
 DPC/DT0/DZU with GBK; DPG/DSY with G26; DPL/DSZ/DUK/DZX with GKZ/GPH.
 DPT/DTH/DUB/DZV have no paint restriction in these rows. The workbook instead
-has DUW and no DTC; that source difference is retained in section 12.
+has DUW and no DTC. The owner resolved this on September 7, 2026: remove DUW
+and include DTC in stripes using the newer export (section 12). The observations
+below still describe the unchanged frozen workbook.
 `rule_mapping!A48:H63` contains the workbook paint exclusions.
 
 Observed: GTR blocks DPB; changing to G8G permits DPB at 1,295. With DPB already
@@ -649,16 +651,42 @@ verification was performed.
 | Connected transitions | Original 17 scenarios / 57 states rerun; 31 additional sequences / 180 states cover the paths above: **48 sequences / 237 states**. Sweeps are counted separately. |
 | Rules and consumers | All 178 direct rows, 27 groups/155 members, 10 exclusive groups/36 members, 52 prices, four defaults and 269 color relationships inspected by family and connected consumer path. This is not an assertion that every rule branch in every state was executed. |
 
-### Differences that must remain visible in the schema plan
+### Owner decisions accepted for the schema plan — September 7, 2026
+
+The owner reviewed the analysis and confirmed that everything else reviewed looks
+correct. The following two source corrections are accepted requirements for the
+whole Stingray schema plan. This accepts the analysis as a planning foundation;
+it does not resolve every remaining business decision or authorize implementation.
+
+- **Remove DUW and add DTC to stripes.** Use the newer export for this specific
+  area. DTC is Royal Blue Full Length Dual Racing Stripes, available across all
+  six body/trim configurations and unavailable with GTR Admiral Blue Metallic
+  (`Exterior 1!A83:I83`). Carry DTC's guide-listed accessory/package/roof
+  exclusions into the plan. DUW must no longer be a selectable offering or an
+  active relationship target; retain its historical workbook identity and raw
+  guide mentions as evidence. This is an intentional source correction, not a
+  claim that the frozen workbook already contains DTC or that the two codes are
+  interchangeable aliases.
+- **Add SAI sill plates.** The new LPO stainless steel dark sill plates are
+  offered across all six configurations (`Interior 1!A40:I40`). Preserve the
+  guide's 3LT footnote excluding V8X visible Carbon Fiber sill plates. The
+  existing inactive V8X evidence remains separate; SAI's omission is resolved
+  in favor of inclusion in the plan.
+
+These decisions do not establish an option price or resolve the source's price
+column/currency ambiguity. Frozen coverage counts and runtime observations remain
+unchanged; future validation must distinguish these accepted changes from parity.
+
+### Differences and dispositions that must remain visible in the schema plan
 
 | Fact or behavior | Exact evidence and disposition |
 |---|---|
 | R6X seat undercharge | Four Stingray AE4 leaves omit 595. Additive requirement already established; consumer correction remains separate from parity. |
 | Wing/ZF1 and TVS/Z51 | Section 6: guide and current emitted order-code relationships differ even when spoiler suppression looks correct. Keep these as explicit decisions. |
 | RNX with Z51/ZF1 | Guide permits the conditional aero-delete path; workbook excludes Z51 outright. Reproduced refusal; no repair made. |
-| DTC versus DUW | Guide `Exterior 1!A83:I83` has DTC; workbook has no DTC offering. Workbook `stingray_options!A202:K202` has DUW, absent as a primary offering in this guide, although some guide exclusion lists mention it. Neither is accepted as the other's replacement. CF8's 14-code raw list versus its 13 workbook members remains a related gap. |
+| DTC versus DUW | Guide `Exterior 1!A83:I83` has DTC; workbook has no DTC offering. Workbook `stingray_options!A202:K202` has DUW, absent as a primary offering in this guide, although some guide exclusion lists mention it. Owner decision: remove DUW and include DTC in stripes using this export. Carry the corrected active stripe membership into the plan, including CF8's exclusions; retain the original 14-code raw list and 13-member workbook list as historical evidence. |
 | Lifecycle disagreements | Guide marks 5ZZ (`Exterior 1!C50`), R88 (C34) and SLN (`Mechanical 1!C38`) unavailable at this time; all three are active workbook choices. Workbook-inactive RYQ/5VM/5W8/V8X/CF8/5ZW are preserved separately. Matrix availability does not supersede a lifecycle footnote. |
-| SAI omission | `Interior 1!A40:I40` offers stainless dark sill plates with a 3LT V8X conflict. No Stingray SAI workbook offering exists. V8X is inactive; omission is not proof that SAI should be added. |
+| SAI omission | `Interior 1!A40:I40` offers stainless dark sill plates with a 3LT V8X conflict. No Stingray SAI workbook offering exists. Owner decision: add the new SAI offering using the export, retaining its scoped V8X conflict. V8X remains inactive in the frozen baseline. |
 | Service and order-type scope omitted | R6P, R9Y, R9V, R9W, R9L and PRB at `Interior 1!A11:I11`, A44:I46, A51:I52 have no matching workbook offerings. They depend on service prerequisites, BFU, order type and/or destination; no automatic inheritance into the schema baseline. |
 | Emissions scope omitted | FE9/YF5/NE1/NB8/NB9/NC7 at `Mechanical 1!A19:I24` are absent from the offering set. NB8 requires FE9; NB9/NC7 require YF5 or NE1, with dealer/registration/shipping conditions. These relationships are recorded as outside the current form, not silently discarded. |
 | Package alternatives and charge retention | PCX/PDV examples suppress an included member while retaining the package charge and adding a paid alternative. Current behavior is clear; guide text alone does not establish that authoring policy. |
@@ -669,15 +697,17 @@ The five guide codes TU7/N26/36S/37S/38S absent from `stingray_options` are
 **accounted for as interior components**, unlike the 14 unmatched guide offerings
 above (DTC, SAI, six service codes and six emissions codes). No source fact or
 relationship was added to, changed in, or removed from canonical data. The added
-facts here are analysis findings and explicit dispositions only.
+facts here are analysis findings and explicit dispositions; DTC/DUW and SAI are
+now owner-accepted planning corrections, pending implementation.
 
 ### Next: one coherent Stingray schema plan
 
 This completes the remaining family analysis at the stated planning boundary.
 The next deliverable is the **whole Stingray schema plan**: ownership, identities,
 relationship grains, scopes, price ownership and consumer/presentation boundaries,
-with the unresolved decisions above attached to the affected concepts. Validate
-that plan by walking these connected scenarios through it. Do not implement a
+with the accepted corrections and remaining unresolved decisions above attached
+to the affected concepts. Validate that plan by walking these connected scenarios
+through it. Do not implement a
 small database pilot or cut over before the model plan is reviewed. The previous
 cross-model ownership proposal remains unvalidated; other model lanes have not
 been completed by this work.
