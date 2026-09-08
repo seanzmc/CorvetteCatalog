@@ -39,11 +39,18 @@ Use full raw-guide disclosures with the workbook and inspect runtime behavior
 where needed; do not inherit the old architecture or consolidate models from
 matching codes/signatures.
 
-The [first Stingray analysis slice](stingray-behavior.md) now documents foundations
-and selected roof/accent, engine-appearance, paint/interior and spoiler/package
-paths. It reconciles 198 selected status pairs, compares 39 duplicate source
-occurrences and records 57 frozen-runtime states. It explicitly leaves the full
-Stingray model, other models and unresolved source/behavior differences unfinished.
+The [Stingray relationship analysis](stingray-behavior.md) now covers every family,
+including interiors/belts, performance, wheels, accessories, order restrictions
+and equipment/output. All 242 workbook offerings have a source disposition;
+1,386 matched status pairs and 223 coded duplicate occurrences agree. The guide's
+78 trim/seat/interior combinations expand exactly to 130 workbook choices. The
+review includes 260 interior/body contexts, 1,300 paint/interior states, 780 belt
+attempts and 48 connected sequences / 237 states. Four known R6X/AE4 undercharges
+and source/behavior differences remain explicit; this is family-analysis completion,
+not exhaustive build acceptance or manufacturer reconciliation approval.
+The owner wants one whole Stingray schema plan before implementation or cutover.
+That plan is the next separately scoped task; no database pilot is started here.
+Other models remain unfinished.
 The [earlier relationship map](form-relationship-map.md) remains inventory evidence,
 not completed behavioral analysis or schema approval.
 
