@@ -47,7 +47,9 @@ and equipment/output. All 242 workbook offerings have a source disposition;
 review includes 260 interior/body contexts, 1,300 paint/interior states, 780 belt
 attempts and 48 connected sequences / 237 states. Four known R6X/AE4 undercharges
 and source/behavior differences remain explicit; this is family-analysis completion,
-not exhaustive build acceptance or manufacturer reconciliation approval.
+not exhaustive build acceptance or blanket manufacturer reconciliation approval.
+The owner subsequently accepted the DTC/DUW and SAI corrections for planning
+(section 8).
 The owner wants one whole Stingray schema plan before implementation or cutover.
 That plan is the next separately scoped task; no database pilot is started here.
 Other models remain unfinished.
@@ -111,3 +113,14 @@ Sean supplied a refreshed export and authorized C. The new file's price schedule
 Visualizer assets are unprocessed `.psb` files in a local folder, as reported by the owner. Inspection and processing will be part of a later task; inventory, rights and the first scene remain to be established in H. UI interactions to retain or redesign remain a decision for authoring UI work.
 
 The owner clarifications above did not authorize source corrections or change canonical authority. The subsequent request to start the next checkpoint authorized beginning B; its workbook/runtime baseline is now frozen as described above.
+
+September 7, 2026, after reviewing the complete Stingray relationship analysis:
+the owner accepted two specific corrections for the whole-model schema plan.
+Remove DUW and include DTC Royal Blue Full Length Dual Racing Stripes; add SAI
+stainless steel dark sill plates. Use the newer export for these items, including
+DTC's GTR paint restriction and SAI's 3LT V8X exclusion. See the
+[accepted decisions and source locations](stingray-behavior.md#owner-decisions-accepted-for-the-schema-plan--september-7-2026).
+The owner confirmed the rest of the reviewed analysis looks correct. These are
+accepted planning requirements; the frozen workbook/runtime evidence remains
+unchanged, other explicit decisions remain visible, and no implementation or
+canonical cutover is performed by this clarification.
