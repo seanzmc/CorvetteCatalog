@@ -32,8 +32,8 @@ Initially support one real supplied guide format and one bounded family, chosen 
 
 September 7 behavior-analysis reset: the relationship inventory did not demonstrate
 comprehension of complete model behavior. The subsequent [ownership proposal](proposed-database-design.md)
-(PR #12) is unvalidated and is not a basis for implementation. Schema work is
-paused. Analyze each model in its own lane with the same structure, following
+(PR #12) is unvalidated and is not a basis for implementation. Schema
+implementation remains paused. Analyze each model in its own lane with the same structure, following
 model/body/trim foundations through connected selections, equipment and prices.
 Use full raw-guide disclosures with the workbook and inspect runtime behavior
 where needed; do not inherit the old architecture or consolidate models from
@@ -51,16 +51,24 @@ not exhaustive build acceptance or blanket manufacturer reconciliation approval.
 The owner subsequently accepted the DTC/DUW and SAI corrections for planning
 (section 8).
 The owner wants one whole Stingray schema plan before implementation or cutover.
-That plan is the next separately scoped task; no database pilot is started here.
+The owner authorized that planning task. The [whole Stingray schema plan](stingray-schema-plan.md)
+is now drafted for review: model-owned identities, explicit configuration scopes,
+typed relationships, one owner per charge, equipment/content, presentation,
+provenance and release boundaries. Connected walkthroughs cover the analyzed
+families and distinguish accepted corrections from unresolved decisions.
+This is a logical proposal, not executed DDL or new runtime parity. Review the
+plan and its decision table before scoping implementation; no database pilot is
+started here.
 Other models remain unfinished.
 The [earlier relationship map](form-relationship-map.md) remains inventory evidence,
 not completed behavioral analysis or schema approval.
 
-The proposal records table grains, keys, typed shared definitions with model
-applications, price ownership, presentation and compatibility boundaries. Package
-classification, interior charge reconciliation and consumer ordering remain
-explicit prerequisites to migration. No DDL or authoring implementation is
-authorized by the proposal.
+The earlier cross-model proposal remains reference material. For Stingray, the
+new plan proposes direct model-owned relationship families without an unproven
+shared-definition/application layer. Seat and R6X charges have option owners;
+non-option interior extras have component rates. Detailed row translation and
+consumer equivalence remain implementation obligations after plan review.
+No DDL or authoring implementation is authorized by either proposal.
 
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 

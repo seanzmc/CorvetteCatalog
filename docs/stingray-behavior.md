@@ -700,16 +700,15 @@ relationship was added to, changed in, or removed from canonical data. The added
 facts here are analysis findings and explicit dispositions; DTC/DUW and SAI are
 now owner-accepted planning corrections, pending implementation.
 
-### Next: one coherent Stingray schema plan
+### Schema plan drafted; review before implementation
 
 This completes the remaining family analysis at the stated planning boundary.
-The next deliverable is the **whole Stingray schema plan**: ownership, identities,
-relationship grains, scopes, price ownership and consumer/presentation boundaries,
-with the accepted corrections and remaining unresolved decisions above attached
-to the affected concepts. Validate that plan by walking these connected scenarios
-through it. Do not implement a
-small database pilot or cut over before the model plan is reviewed. The previous
-cross-model ownership proposal remains unvalidated; other model lanes have not
+The [whole Stingray schema plan](stingray-schema-plan.md) is now drafted for review:
+ownership, identities, relationship grains, scopes, prices and consumer/presentation
+boundaries, with accepted corrections and remaining decisions attached to their
+owners. Its connected walkthrough is design reasoning, not a new runtime test.
+Do not implement a small database pilot or cut over before the model plan is
+reviewed. The previous cross-model ownership proposal remains unvalidated; other model lanes have not
 been completed by this work.
 
 Source/workbook/browser hashes were checked, and the frozen source remains unchanged.
