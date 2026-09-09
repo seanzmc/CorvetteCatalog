@@ -76,10 +76,19 @@ ZR1X. Use the same lane structure and test each against the Stingray proposal;
 revise one coherent proposal after the model-specific challenges are understood.
 The [Grand Sport analysis](grand-sport-behavior.md) is documented for review,
 including connected package/graphics/interior behavior and source discrepancies.
-It identifies a missing option-plus-paint condition on prerequisites, unresolved
-Launch Edition charge ownership, and distinctions between initial defaults and
-restoration. No new tables or source corrections were applied. The next lane is
-Grand Sport X; this bounded task stops at Grand Sport.
+It identifies a missing option-plus-paint condition on prerequisites and
+distinctions between initial defaults and restoration. Owner review resolves
+Launch Edition pricing and records the other intended Grand Sport corrections.
+No new tables or source corrections were applied.
+
+September 9: the owner directed structured handoffs as each model is completed,
+starting by backfilling Stingray. The [Stingray structured handoff](stingray-structured.md)
+and its [record file](stingray-structured-records.json) now organize complete
+baseline lists, connected behavior, accepted corrections, unresolved decisions
+and expected sequences. These are review inputs, not a finalized target dataset
+or implementation. Grand Sport's structured handoff is next; remaining behavior
+lanes retain their order: Grand Sport X, Z06, ZR1, ZR1X. Consolidate the schema
+after the model handoffs. This task stops at structured Stingray.
 
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
