@@ -19,6 +19,7 @@ When a guide and workbook disagree, record the discrepancy and its evidence. Nei
 - [Migration and intake plan](docs/migration-plan.md)
 - [Stingray behavior: complete family relationship analysis and unresolved decisions](docs/stingray-behavior.md)
 - [Stingray whole-model schema plan: ownership and connected walkthrough](docs/stingray-schema-plan.md)
+- [Stingray structured handoff: records, behavior, evidence and decisions](docs/stingray-structured.md)
 - [Grand Sport behavior: connected choices, source differences and schema implications](docs/grand-sport-behavior.md)
 - [Earlier unvalidated database proposal: shared rules and model applications](docs/proposed-database-design.md)
 - [All six models: complete form relationship map and shared-rule analysis](docs/form-relationship-map.md)
