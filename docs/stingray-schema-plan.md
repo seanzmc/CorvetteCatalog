@@ -15,8 +15,11 @@ aero deletion. Those results are not additional editable catalog records.
 
 This is the proposed Stingray design to review instead of applying the earlier
 [unvalidated cross-model proposal](proposed-database-design.md). The same table
-structure can accommodate subsequent model lanes, but this task approves no shared
-product identities, rates or rule definitions across models. Schema 3 and its
+structure is a candidate for subsequent model lanes, subject to their behavior
+reviews. The [Grand Sport analysis](grand-sport-behavior.md#12-coverage-unresolved-facts-and-implications-for-the-schema-proposal)
+identifies a missing conditional prerequisite and unresolved package pricing;
+implementation remains paused while the remaining lanes are analyzed. This task
+approves no shared product identities, rates or rule definitions across models. Schema 3 and its
 [drawDB diagram](drawdb.md) remain the earlier disposable implementation.
 
 ## 1. Foundations: identity, configuration and scope
