@@ -90,6 +90,14 @@ or implementation. Grand Sport's structured handoff is next; remaining behavior
 lanes retain their order: Grand Sport X, Z06, ZR1, ZR1X. Consolidate the schema
 after the model handoffs. This task stops at structured Stingray.
 
+September 9: the separately authorized [Grand Sport structured handoff](grand-sport-structured.md)
+and [record file](grand-sport-structured-records.json) now retain the complete
+model-scoped baseline, recorded observations and September 8 owner decisions.
+Baseline defects remain distinct from accepted target corrections and unresolved
+facts, including the T0E duplicate and R6X charge discrepancy. Grand Sport X is
+next in the established model order; schema consolidation remains paused. This
+task stops at structured Grand Sport, without implementation or canonical-data changes.
+
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
 Define model years/models, variants, model-owned options, availability, interiors/components, typed rules, price contexts, contextual presentation, assets, and source evidence as explicit entities and relationships. Specify row grain, candidate keys, functional dependencies, null/zero/all-scope semantics, and reference constraints before DDL.
