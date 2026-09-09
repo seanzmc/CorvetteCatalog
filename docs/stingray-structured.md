@@ -61,7 +61,7 @@ target**, and do not flatten the source rule sheets into one universal behavior.
 | Conditional prices | `baseline_rows.price_rules` | All 52 rows. No inferred positive package-minimum/delta schedule. |
 | Combination additions | `baseline_rows.color_overrides` | All 269 exact interior/selected-option pairs: 137 paint and 132 belt conditions, all adding D30. |
 | Defaults | `baseline_rows.default_selection_rules` | Four explicit restoration/default rows: FE1, NGA, 719, coupe BC7. Initial defaults also come from sections and standard status. |
-| Presentation | `baseline_rows.section_master`, `section_presentation`, `runtime_steps`, `context_section_master`, `context_choice_copy`, `order_summary_sections`, `step_order_summary_map`, `asset_map` | Relevant sections, model-scoped rows and applicable wildcard copy/assets retained. Wildcard evidence is not approval of shared ownership. |
+| Presentation | `baseline_rows.section_master`, `section_presentation`, `runtime_steps`, `context_section_master`, `context_choice_copy`, `order_summary_sections`, `step_order_summary_map`, `asset_map` | Relevant sections, including every definition referenced by Stingray presentation rows, model-scoped rows and applicable wildcard copy/assets retained. Wildcard evidence is not approval of shared ownership. |
 | Routing / intake evidence | `baseline_rows.model_master`, `model_registry_promotion`, `model_workbook_sources`, `rule_phrase_map`, `runtime_rule_exceptions` | Model metadata, 11 source routes, six phrase rows, empty exception list. Historical routes are not future authoring tables. |
 | Observations | `observed_sequences` | 48 original sequences, 237 captured states; names, selected/automatic equipment, line items, totals and missing requirements retained as recorded. Sweeps remain documented in E-B, not relabeled as new executions. |
 | Duplicate RPO audit | `duplicate_rpos_within_model` | No duplicate nonblank RPO among the 242 baseline option rows, including inactive offerings. Blank equipment codes are not one product. Repeated guide occurrences are references, not duplicate options. |
@@ -183,6 +183,13 @@ implementation algorithm or database cascade.
 | ST-S11 | Pricing/output | One resolved set of explicit/default/automatic/retained-invalid selections, with suppression and causes distinguished, supplies totals/recap/order inputs. | E-S §4 recommendation; E-B §11 legacy `currentOrder()` / `compactOrder()` evidence; installed-equipment limits below. |
 
 ## 7. Presentation, physical content and operational boundaries
+
+The frozen workbook retains Stingray `section_presentation` rows 27–28 for
+`sec_gsha_001` and `sec_gsce_001`, even though neither has Stingray offerings or
+interiors. Their exact `section_master` definitions (rows 5–6, “GS Hash Marks”
+and “GS Center Stripes”) are retained so those references resolve, including
+selection mode and step ownership. This preserves baseline presentation metadata;
+it does not establish Stingray availability or approve these sections for the target UI.
 
 | ID | Condition / subject | Content or presentation consequence | Evidence / state |
 |---|---|---|---|
