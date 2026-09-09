@@ -5,7 +5,9 @@ This follows the same lane structure as [Stingray](stingray-behavior.md):
 foundations, connected choices and charges, guide → workbook → observed behavior,
 unresolved differences, and coverage. Section 12 tests those findings against the
 [Stingray schema proposal](stingray-schema-plan.md). No schema, workbook, runtime,
-business-data correction or cutover is implemented or approved here.
+business-data correction or cutover is implemented here. The owner decisions
+below establish intended Grand Sport behavior; they do not authorize schema
+implementation or cutover. Frozen observations remain evidence of the old form.
 
 Grand Sport adds two important design challenges: a stripe can require a roof
 only with specified paints, and a special interior currently carries a package's
@@ -39,6 +41,28 @@ Amounts below use the workbook's numeric basis. Six base amounts reconcile with
 guide base MSRP plus destination; the option-price column ambiguity and currency
 remain unresolved. Example totals are partial builds unless stated otherwise.
 Agreement with a price-schedule number alone does not resolve its price basis.
+
+### Owner review decisions — September 8, 2026
+
+These decisions supersede unresolved behavior questions below, while retaining
+frozen observations and source references for comparison. They apply to Grand
+Sport; duplicate-RPO review is scoped strictly within each individual model.
+
+| Area | Intended behavior / disposition |
+|---|---|
+| Heritage dependency (§6) | Any heritage hash mark automatically adds Z15 at $995. Center heritage stripes are available only with a selected hash mark. Removing the hash removes its dependent center stripe and the Z15 charge. |
+| Z15 presentation (§6) | Proposed UI: a $995 Z15 option card prompts the customer to choose a hash mark, avoiding apparently free hashes. This is a presentation proposal, not a finalized interaction design; preserve a usable entry path and require a hash for the completed package selection. |
+| Conditional D84 (§4) | On convertible, selecting a center stripe with a paint in its listed requirement set automatically adds D84 with disclosure. Example: G26, no optional roof treatment, then 20A adds Z15; selecting DMX adds D84 Carbon Flash painted roof and nacelles and alerts the customer. This is a new dataset rule absent from the old form. |
+| Center-stripe disclosure (§4) | All center stripes must carry: “When (D84) Carbon Flash painted nacelles and roof is ordered (required or selected) roof will not include the stripe.” |
+| EL9 / Z25 pricing (§7) | The $1,995 applies to EL9's Launch Edition content through Z25; seats are separate and additional. AH2 + EL9 costs $1,995 above base; AE4 + EL9 costs $1,995 + $595 = $2,590 above base. Charge once. The old EL9 placement deliberately exposed the cost; an EL9 selection alert explaining that Z25 adds $1,995 can preserve that visibility with Z25 as charge owner. |
+| EL9 belt (§7) | EL9 always includes 3F9 at $0 with no belt override. The old alternative-belt behavior is not the target, so the EL9/orange-belt D30 gap is historical evidence rather than a request to enable that pairing. |
+| Prerequisite loss (§8) | The retained J57/T0F state after FEB removal is a real bug. Remove them when their required package support is lost; FEY still supplies them when selected. Reconcile dependent equipment and charges as part of the removal. |
+| B4Z (§8) | Correct to the guide: included and only available with FEB or FEY, not standard without either package, in all six body/trim contexts. |
+| Caliper swaps (§8) | Removing J57 replaces J6D or J6L with J6A. Adding J57 replaces selected J6A with J6D, including explicitly selected J6A. Retain other paid caliper selections when brakes change. |
+| Required selections (§§8–9) | Wheels and calipers must never remain empty. If a selected choice becomes unavailable, restore the standard available choice for the resulting configuration. |
+| FEY absorption (§§8–10) | FEY absorbs J57, T0F, WUB and CFZ. CFV is an adjacent option that becomes unavailable with FEY; its removal is incompatibility cleanup, not absorption into FEY. |
+| Offering corrections (§12) | Remove DUW from Grand Sport; add missing DTC and SAI sill plates. The inspected baseline lacks both identities. Reconcile affected relationships when implementing these corrections. |
+| Duplicate RPOs (§12) | Flag every duplicate RPO in a single model's option list for resolution, including dormant entries. The known active/dormant T0E duplication is unresolved. Preserve raw source identities as evidence; they do not justify duplicate catalog options. This is not cross-model deduplication, and repeated guide references are not duplicate option identities. |
 
 ## 2. Model, body and trim establish the starting configuration
 
@@ -126,7 +150,8 @@ body/stripe/paint runtime states examined, all 17 convertible combinations for
 which the guide requires D84 accept the stripe without it. For example,
 2LT convertible + G26 + 97A + DMX totals 105,880 with CM9 still selected.
 Adding D84 raises it to 107,175. The first state reports only missing interior,
-not missing roof. This is a guide-to-runtime conflict, not an accepted correction.
+not missing roof. This is a guide-to-runtime conflict. Owner review now requires
+D84 auto-add with disclosure for these cases; it has not been implemented.
 
 ## 5. Engine appearance: body, selected cover and price act together
 
@@ -166,8 +191,10 @@ then DMU, returning to 95,595.
 Sources: `Exterior 2` rows 5, 70–80; `grandSport_options` rows 58–68 and 203;
 direct rules 72–82; `section_master` rows 5–7. The guide describes Z15 as
 including one required hash. The workbook reverses the acquisition path to make
-the hash the customer-facing choice. A migration must preserve that usable path
-without creating a circular requirement that makes both choices impossible.
+the hash the customer-facing choice. The target must retain a usable acquisition
+path without a circular entry gate.
+Owner review proposes a priced Z15 card prompting hash selection; the dependency
+and removal rules above remain required regardless of presentation.
 
 Z15 permits the DM* center stripes, but excludes the racing/stinger/Jake families.
 The workbook contains both the Z15-side group (row 2) and explicit reverse
@@ -207,10 +234,13 @@ Both seat paths produce a 102,240 3LT coupe total. Itemization differs:
 `interior_components!A847:K847` supplies AE4's 595 component. The browser's
 `adjustedInteriorPrice` and `lineItemsFromInterior` subtract the seat from the
 stored interior total. A new schema with no editable interior total cannot
-simply discard these residual charges. The proposed owner should be Z25, but
-whether its amount includes the AE4 upgrade is an unresolved business decision.
-Guide `Price Schedule` row 228 shows 1,995 for Z25; it does not settle that
-seat inclusion or the existing option-price column ambiguity.
+simply discard these residual charges. Owner review resolves the seat question:
+Z25/EL9 content costs 1,995 and AE4
+is an additional 595. With Z25 owning the charge, disclose it when EL9 is
+selected. Corrected partial 3LT coupe totals would be 102,240 with AH2 and
+102,835 with AE4; these are target calculations, not executed runtime results.
+Guide `Price Schedule` row 228 shows 1,995 for Z25; the broader source
+option-price column ambiguity remains separate from this owner decision.
 
 Selecting a different ordinary interior removes Z25. An explicitly purchased
 alternative belt can remain. Package content such as quilting and mats currently
@@ -226,7 +256,8 @@ independently for Grand Sport: `3LT_R6X_AE4_HU0_38S`, `..._HUU`,
 discrepancy, not a new accepted Grand Sport correction. No package-minimum/delta
 pricing mechanism is needed to describe the observed FEB/FEY prices.
 
-Included belts yield to permitted explicit alternatives. EL9 supplies 3F9 at
+In the frozen form, included belts yield to permitted explicit alternatives.
+EL9 supplies 3F9 at
 zero; 3A9 costs 595 when chosen instead. HAG/HVZ enforce hard exclusions:
 the AUP/HAG→AUP/HVZ change swaps automatic blue for red, and red is refused
 while HAG is selected. D30 does not bypass those exclusions. Sources:
@@ -240,6 +271,8 @@ natural combinations do acquire D30 (`color_overrides` rows 439, 442, 500, 509).
 All 792 belt attempts reproduce the workbook matrix; 30 prohibited attempts
 are refused and every resulting state has exactly one belt line. This verifies
 the discrepancy rather than treating workbook parity as manufacturer accuracy.
+Owner review supersedes the EL9 alternative-belt path: 3F9 is included at zero
+and cannot be overridden. Other interior belt findings remain unchanged.
 
 ## 8. Performance connects suspension, brakes, tires and exhaust
 
@@ -283,7 +316,8 @@ than restoring J6A. The initial standard default and restoration are distinct.
 Traction Management included and only available with FEB/FEY. The workbook
 stores B4Z as standard in all six contexts (`grandSport_ovs!A176:C181`), with
 no FEB/FEY inclusion edge. It therefore appears in the baseline standard-equipment
-view even without either package. All six status differences must remain open.
+view even without either package. Owner review accepts correcting all six
+contexts to that guide scope; the frozen differences remain evidence until implementation is verified.
 
 **Exhaust layout and tips:** NWI (395) requires WUB (1,995). NGA is the default
 tip; NWI replaces NGA but retains WUB. The WUB row in
@@ -386,8 +420,11 @@ option cards. SAI (`Interior 2!C40:I40`) and DTC (`Exterior 2!C83:I83`) have no
 workbook option identity. DUW remains in workbook row 207 and rule sets; the
 guide has no primary DUW offering but still mentions it in some exclusions.
 DUE's workbook name says Santorini Blue; the current guide calls it Royal Blue
-(`Exterior 2!C81`). The owner-approved Stingray DTC/DUW/SAI decisions are not
-automatically accepted Grand Sport corrections.
+(`Exterior 2!C81`). Owner review now independently directs removing DUW and adding
+DTC/SAI in Grand Sport. This is model-specific authority, not inheritance from Stingray.
+The dormant T0E duplicate is flagged for resolution under the within-model
+duplicate-RPO rule; source identity preservation does not permit duplicate
+options in the corrected catalog.
 
 Validation executed: 44 connected sequences / 199 captured states; 264
 interior/body contexts; 1,320 paint/interior states; 792 belt attempts; 100
@@ -402,18 +439,18 @@ the detailed release/visualizer contract remain implementation obligations.
 
 | Grand Sport requirement | Assessment of the Stingray proposal | Next design/review obligation |
 |---|---|---|
-| Model/body/trim identity; active and dormant T0E records | Fits model-owned options, explicit configuration membership and lifecycle | Keep both source identities; do not merge by RPO |
-| T0F requires J57 AND (FEB OR FEY) | Fits multiple `requirement` rows with ANY members | Preserve resolved-state evaluation and explicit acquisition/removal semantics |
+| Model/body/trim identity; active and dormant T0E records | Fits model-owned options, explicit configuration membership and lifecycle | Preserve both raw source identities as evidence; flag and resolve the duplicate T0E catalog option within Grand Sport |
+| T0F requires J57 AND (FEB OR FEY) | Fits multiple `requirement` rows with ANY members | Remove unsupported J57/T0F after package loss; retain FEY-supplied inclusions through resolved-state evaluation |
 | Stripe + paint requires D84 on convertible | **Missing explicit condition ownership** in the proposed requirement family | Add a bounded typed option-condition capability after cross-model review; enumerate the exact paint sets. Do not misuse interior-only `combination_addition` or duplicate configurations by paint |
 | D84 removes the stripe from the physical roof | Fits configuration-qualified `content_effect` with an option guard | Preserve the difference between what is purchasable and which surfaces receive it |
 | Hash acquires Z15; center stripe requires Z15 | Fits option inclusion, requirement, choice-group and separate price owner | Decide explicit zero/included semantics for blank hash prices; avoid circular entry requirements |
-| EL9 acquires Z25 and shares an included belt cause | Fits interior-source inclusion; **charge ownership is unresolved** | Recommend Z25 as package charge owner; decide whether AE4 is included or additional. A parity mapping must explain the current 1,400/595 split without inventing an editable residual price |
-| Z25-only interior metadata | Requires a precise translation, not a blind flag-to-requirement mapping | Preserve the current interior-first entry path or explicitly approve a package-first redesign |
-| J6D trigger default honors explicit alternatives | Proposed default kind is relevant, but “section occupied” is insufficiently precise | Specify customer-selected occupancy separately from initial/default occupancy; default J6A must not prevent J6D when J57 removes it |
-| Wheels/calipers can remain empty after dependency loss | Initial default versus restoration needs an explicit contract | Do not automatically restore every standard option; decide desired correction versus retained missing-choice behavior |
-| FEB/FEY locked inclusions and absorbed purchases | Fits inclusion acquisition and peer policies | Verify FEY absorbs explicit J57/T0F/CFV/WUB and does not resurrect them after removal |
-| B4Z, orange/EL9 D30, VPW/VPO stripe gaps | Structures can represent these facts; data differs | Review corrections independently of migration parity; no schema extension is justified by a missing row alone |
-| Static versus installed equipment | Fits proposed equipment substitutions/content, after facts are resolved | Define brake/tire/suspension replacements and resolve B4Z applicability before claiming a finished-build view |
+| EL9 acquires Z25 and shares an included belt cause | Fits interior-source inclusion; owner resolves 1,995 content plus separate 595 AE4 | Use one charge owner with visible EL9-triggered Z25 disclosure; preserve the old 1,400/595 split as discrepancy evidence, not target pricing; lock included 3F9 at zero |
+| Z25-only interior metadata | Requires a precise translation, not a blind flag-to-requirement mapping | Preserve EL9-first entry with automatic Z25 acquisition and disclosed charge |
+| J6D trigger default honors explicit alternatives | Proposed default kind is relevant, but “section occupied” is insufficiently precise | Replace J6A with J6D when adding J57; replace J6D/J6L with J6A when removing J57; retain other paid choices |
+| Wheels/calipers can remain empty after dependency loss | Initial default versus restoration needs an explicit contract | Restore the standard available wheel/caliper after availability loss; empty sections are not the accepted target |
+| FEB/FEY locked inclusions and absorbed purchases | Fits inclusion acquisition and peer policies | Verify FEY absorbs J57/T0F/WUB/CFZ; CFV becomes unavailable and is removed as a conflict, not absorbed |
+| B4Z, orange/EL9 D30, VPW/VPO stripe gaps | Structures can represent these facts; data differs | Correct B4Z to guide scope; EL9 belt locking supersedes orange-belt repair; VPW/VPO remain unresolved. Keep corrections distinct from parity |
+| Static versus installed equipment | Fits proposed equipment substitutions/content, after facts are resolved | Define brake/tire/suspension replacements and implement the reviewed B4Z package scope before claiming a finished-build view |
 | Ship-to/order/dealer/lifecycle restrictions | Current body/trim scope is insufficient for full dealer-order validation | Decide consumer scope before adding ordering-context fields; retain disclosures and omissions meanwhile |
 
 These findings justify keeping DDL paused. They do not authorize a new rule
