@@ -11,6 +11,13 @@ catalog. They are not another database schema, an executable ruleset, or a new
 canonical dataset. The [logical schema proposal](stingray-schema-plan.md) remains
 a design reference; its proposed tables are not imposed on this intermediate format.
 
+
+**September 9 owner review:** the decisions in §8 supersede earlier unresolved
+or proposed target language in this handoff and the linked behavior/schema analyses.
+Frozen workbook rows, source disclosures and observed sequences remain historical
+evidence, including their old labels, prices and conflict actions. Accepted target
+changes are not implementation or runtime verification.
+
 ## 1. Record conventions and evidence
 
 Use these same categories for subsequent models: configurations, offerings,
@@ -28,7 +35,7 @@ its records. Matching an RPO in another model does not establish shared identity
 | Evidence class / review state | Keep added, removed, conflicting, ambiguous and component-accounted facts distinct from accepted, proposed or unresolved decisions. |
 | Scope | `All` below means exactly the six ST-C configurations. Otherwise intersect the stated body/trim with option and interior applicability. Unknown scope is unresolved, not all. |
 | Conditions | `AND` requires every condition; `ANY(...)` requires at least one. Separate eligibility, auto-add, price override, conflict action and removal action. |
-| Prices | Numeric frozen-workbook basis; currency and guide price-column interpretation unresolved. Zero is known zero; null is unknown. No second destination charge. |
+| Prices | Numeric frozen-workbook basis; guide OPTIONS use Price Schedule column E by September 9 decision; currency code not specified. Zero is known zero; null is unknown. No second destination charge. |
 | Completeness | Full baseline lists are preserved in the record file. This document resolves known connected semantics by family; unexecuted interaction directions remain unverified. Neither artifact is a fully resolved target dataset. |
 
 | Evidence ID | Immutable identity / locator | Use |
@@ -98,7 +105,7 @@ J6A, 719, QEB, EFR, FE1 and NGA; coupe includes BC7. See exact per-body states.
 | Factory wheels | Exactly one QEB/QE6/Q99/Q9A/Q9I/Q9O in required factory-wheel section. | E-G Exterior 1 rows 99–104; E-B §9. |
 | Accessory wheels | Optional separate second set 5DO/5DG; coexist with factory wheels. | E-G Exterior 1 rows 66–67; ST-R12. |
 | Trim/body equipment | AP9 at 2LT/3LT versus W2D purchase at 1LT; SLK/SLN/VUP coupe; 5JR 3LT. | E-B §§10–11; lifecycle issue ST-D05. |
-| Historical/added options | Retire DUW; add DTC and SAI across all six configurations. Do not map DTC as a DUW alias. | ST-D01/02; additions retain unknown prices. |
+| Historical/added options | Retire DUW; add DTC and SAI across all six configurations. Do not map DTC as a DUW alias. | ST-D01/02; accepted DTC 1,295 / SAI 295. |
 | Duplicate control | Flag duplicate option RPOs within each model for resolution; preserve raw evidence separately. | Owner's September 8 review instruction; baseline audit is empty. |
 
 ## 4. Interior records and price ownership
@@ -130,6 +137,10 @@ leaves matched the additive coupe check. No corrected evaluator was executed.
 
 ## 5. Relationships: conditions, consequences and removal
 
+The relationship inventory retains baseline observations, including old PCX wheel
+substitutions and conflict directions. September 9 decisions in §8 govern the
+corrected target; those observations are not instructions to preserve a defect.
+
 Each row below describes a connected business relationship. Its complete endpoint
 sets remain in the record file where too large to repeat. E-B section references
 supply guide and workbook locations. Scope is effective availability plus any
@@ -149,7 +160,7 @@ explicit condition below; source text and old raw scope are not silently rewritt
 | ST-R13 | SPZ requires SPY; SPY conflicts with S47/SFE | Locks are not auto-included with nuts. | SPY 320 + SPZ 105; loss of SPY removes SPZ. | E-B §9; ST-O21. |
 | ST-R14 | PCX | Includes 5DG/SFZ/SHT/SNG; full model-local exclusion group retained. Paid 5DO/SHW suppress included peers. | PCX stays 4,595 without credit; paid peers add their full prices. Removal drops remaining inclusions and retains paid alternatives. | E-B §9; ST-O26. |
 | ST-R15 | PDV | Includes SB7/VWD; paid cap peer overrides VWD, including already-selected 5ZD then RXH. | PDV 750 retained; RXH remains after package removal. | E-B §9; ST-O27. |
-| ST-R16 | 5ZU requires ANY(G8G,GBA,GKZ); incompatible with 5ZW/5ZZ/TVS | With Z51, baseline auto-adds ZF1, suppressing T0A. Without Z51, no ZF1. | Wing 1,395; removing Z51 retains wing, removes ZF1. Incompatible later paint retains charged invalid wing in baseline. | E-B §6; ST-O12–14/48; unresolved ST-D04/07. |
+| ST-R16 | 5ZU requires ANY(G8G,GBA,GKZ); incompatible with 5ZW/5ZZ/TVS | With Z51, baseline auto-adds ZF1, suppressing T0A. Without Z51, no ZF1. | Wing 1,395; removing Z51 retains wing, removes ZF1. Incompatible later paint retains charged invalid wing in baseline. | E-B §6; ST-O12–14/48; accepted target changes ST-D04/07. |
 | ST-R17 | TVS + Z51, either tested order | T0A suppressed; frozen output omits guide-required ZF1. | TVS resolves to 0; coupe 2LT total 85,990. | E-B §6; ST-O15/16; ST-D04. |
 | ST-R18 | Stripe + forbidden paint | DPB/DUE/DTC vs GTR; DPC/DT0/DZU vs GBK; DPG/DSY vs G26; DPL/DSZ/DUK/DZX vs GKZ/GPH. DPT/DTH/DUB/DZV have no listed paint restriction. | Stripe peer changes replace price; tested DPB↔GTR refused. DTC is accepted addition, not executed legacy behavior. | E-G Exterior 1 rows 81–96; E-B §10; ST-D01. |
 | ST-R19 | Graphics/package/badge group conflicts | Preserve each of 25 exclusion member sets. DPB→PDV removes DPB; PDV→PCX replaces PDV; PCX→DPB refused. EYK→SFZ removes EYK; SHT→SB7 refused. | No universal symmetric conflict action. Hash section remains separate from stripe section. | E-B §10; ST-O28–31; ST-D06. |
@@ -160,7 +171,7 @@ explicit condition below; source text and old raw scope are not silently rewritt
 | ST-R24 | SXB/SXR/SXT; RIK/RIN/SL8 | Replace within liner-color and script groups respectively; independent accessories unaffected. | Removing RWU removes only its 175; other purchases remain. | E-B §10; ST-O36/37. |
 | ST-R25 | 5JR at 3LT; ZYC; RYQ/RZ9 vs EFY | 5JR/ZYC both supply DRG; preserve EFY conflicts and lifecycle. | 5JR 1,395 + ZYC 295; DRG once; aero deletion removes T0A without removing unrelated DRG/ZYC. | E-B §10; ST-O46; physical surfaces ST-V02. |
 | ST-R26 | R8C / BV4 | R8C includes CFX; BV4/R8C excluded in baseline; accessory-wheel conflicts also apply. | R8C 1,695; BV4 395; removing R8C removes CFX. | E-B §11; ST-O38; operational limits ST-V04/ST-D08. |
-| ST-R27 | DTC/SAI accepted additions, DUW retirement | DTC conflicts with GTR and guide-listed PDV/PCX/SFZ/R88/SHT/SB7/CF8; SAI conflicts with V8X in 3LT. Remove DUW from selectable list and active relationships. | DTC/SAI price unresolved; retain DUW only as historical evidence. | E-A; full new-option guide text in `accepted_additions`; ST-D01/02. |
+| ST-R27 | DTC/SAI accepted additions, DUW retirement | DTC conflicts with GTR and guide-listed PDV/PCX/SFZ/R88/SHT/SB7/CF8; SAI conflicts with V8X in 3LT. Remove DUW from selectable list and active relationships. | DTC 1,295 / SAI 295 accepted; retain DUW only as historical evidence. | E-A; full new-option guide text in `accepted_additions`; ST-D01/02. |
 
 ## 6. Selection and reconciliation policies
 
@@ -172,15 +183,15 @@ implementation algorithm or database cascade.
 |---|---|---|---|
 | ST-S01 | Body/trim change | Reset selections and interior; apply new context defaults. Do not restore old purchases when returning to previous trim. | E-B §§2/4/11; ST-O07/08. |
 | ST-S02 | Interior absent or incompatible after context/seat change | Exactly one eligible interior required. Clear invalid selection; auto-select sole eligible choice; multiple choices remain unset; zero choices remain blocked. Report `Interior Color`, step `base_interior`. | E-S §2 records reviewed frozen `reconcileInteriorSelection()` / `missingRequirementDetails()`; no new zero/one/many execution here. |
-| ST-S03 | Choice attempted | Check effective applicability, prerequisites and direction-specific conflicts. Preserve tested refusal/replacement direction; untested directions require verification. | ST-R04/05/16/19; E-S §3. |
+| ST-S03 | Choice attempted | Check effective applicability and prerequisites. For conflicts, explain and offer replacement before changing selections; explicit PCX wheel blocking and BV4/R8C exclusion remain. | September 9 ST-D06/08; untested directions require verification. |
 | ST-S04 | More than one inclusion/addition cause | Emit target once, charge once; retain while another cause remains. Do not infer multiple purchases from repeated relationships. | D30, D3V, DRG; ST-O10/46/47. |
 | ST-S05 | Package absorbs prior standalone purchase | Consume prior purchase intent; package removal does not resurrect it. | PCU/STI, PEF/CAV, PDY/RYT, SBT/SC7; ST-O23–25/35. |
-| ST-S06 | Included peer yields to explicit choice | Keep paid alternative, suppress included peer, retain full package charge; remove package without removing independently valid paid peer. | PCX/PDV; ST-O26/27; ST-D06 target-policy confirmation remains explicit. |
-| ST-S07 | Direct prerequisite lost | Remove FE4 after Z51, BCP after convertible ZZ3, NWI after WUB, SPZ after SPY. | ST-O11/18/21/22. This is not universal evidence for every requirement family. |
-| ST-S08 | 5ZU paint prerequisite lost after selection | Baseline retains wing and charge but marks build invalid and blocks submission. Immediate deletion/refusal is an unresolved target choice. | E-B §6; ST-D07. |
+| ST-S06 | Included peer yields to explicit choice | PDV retains accepted paid-cap substitution and full package price. PCX blocks other accessory wheels while selected; do not apply the old 5DO override as target behavior. | ST-O26/27 are baseline; September 9 ST-D06 defines target. |
+| ST-S07 | Dependency lost | Remove invalid selections and reconcile their dependent equipment/charges; alert and offer revert of the triggering selection. Prior examples include FE4 after Z51, BCP after convertible ZZ3, NWI after WUB and SPZ after SPY. | Universal target accepted September 9 ST-D07; all paths require verification. |
+| ST-S08 | 5ZU paint prerequisite lost after selection | Baseline retains wing and charge but marks build invalid and blocks submission. Target removes the invalid wing, alerts and offers revert of the triggering paint selection. | E-B §6; ST-D07. |
 | ST-S09 | Default/restoration conditions | FE1 when suspension empty; NGA absent NWI; 719 when belt group empty; BC7 coupe unless cover peer prevents re-add. FE3 supplied by surviving Z51 after FE4 removal. | Four default rows plus group/inclusion behavior; E-B §§5/7/8. |
 | ST-S10 | Required choice groups | Required factory wheel/roof/paint/seat/belt/caliper and badge behavior follows effective sections; interior cardinality is separately ST-S02. Initial defaults and fallback are distinct. | All relevant section/group rows retained. Grand Sport's newly stated wheel/caliper fallback policy is not proof of Stingray's untested removal paths. |
-| ST-S11 | Pricing/output | One resolved set of explicit/default/automatic/retained-invalid selections, with suppression and causes distinguished, supplies totals/recap/order inputs. | E-S §4 recommendation; E-B §11 legacy `currentOrder()` / `compactOrder()` evidence; installed-equipment limits below. |
+| ST-S11 | Pricing/output | A resolved valid selection set with separate causes/suppression supplies totals/recap/order inputs. Remove dependency-invalid choices under ST-D07. Selected-options equipment reflects configuration; informational equipment remains model/body/trim based. | September 9 ST-D07/10; consumer validation pending. |
 
 ## 7. Presentation, physical content and operational boundaries
 
@@ -193,10 +204,10 @@ it does not establish Stingray availability or approve these sections for the ta
 
 | ID | Condition / subject | Content or presentation consequence | Evidence / state |
 |---|---|---|---|
-| ST-V01 | Z51/FE4 installed equipment | Describe replacements of JL9/G0J/M1L/XFN/FE1 with applicable performance equipment. Keep the static standard-equipment view distinct from installed equipment. | E-B §8; legacy `standardEquipmentRows()` is configuration-only; target installed view proposed, ST-D10. |
+| ST-V01 | Z51/FE4 installed equipment | Describe replacements of JL9/G0J/M1L/XFN/FE1 with applicable performance equipment. Keep the static standard-equipment view distinct from installed equipment. | E-B §8; legacy `standardEquipmentRows()` is configuration-only; configured versus informational views accepted, ST-D10. |
 | ST-V02 | Convertible EFR/EFY/EDU; D84 versus D86; WKR + high wing; HUB/HUC interiors | Preserve tonneau/accent/roof surfaces, contextual high-wing cover version and suede-trim content. Do not invent separate purchasable RPOs or visual assets. | E-B §§2/4/10/11; ST-D10. |
 | ST-V03 | SBT; 5DO/5DG | Additional roof or second wheel set is physical content, not a replacement of factory choice. Included wheel hardware is not separately selected incompatible accessories. | E-G Exterior 1 rows 44, 66–67; ST-R12/22. |
-| ST-V04 | R8C/BV4/PIN/VK3/D30/R6X | Preserve sold-order, ship-to BAC, state, acknowledgement and approval disclosures. Frozen selection does not enforce those external contexts. | E-B §11; ST-D11. No customer/approval data added. |
+| ST-V04 | R8C/BV4/PIN/VK3/D30/R6X | Preserve source sold-order, state and approval disclosures as evidence. Customer-form scope does not add full dealer-order enforcement or omitted services/emissions options. | September 9 ST-D11; no customer/approval data added. |
 | ST-V05 | Sections, steps, interior navigation and summaries | Preserve required/single/multiple/display-only meaning, placement/order, body/trim copy and recap routing. Raw `is_required=false` on interior sections does not override ST-S02. | Complete scoped presentation rows in record file; E-B §11. |
 | ST-V06 | Option/interior/model artwork and future visualizer | Retain existing asset references/roles as evidence. Missing artwork does not alter availability. `.psb` scenes/layers and bindings remain unprocessed. | E-S §6; no new asset inspection or rendering claim. |
 | ST-V07 | Refused option explanation | D84 attempted after GBA currently says “Blocked by D84” although D84 is candidate. Keep this known copy issue visible. | E-B §4; no accepted replacement wording or UI implementation. |
@@ -205,18 +216,18 @@ it does not establish Stingray availability or approve these sections for the ta
 
 | ID | Source / baseline difference | Target or pending decision | State |
 |---|---|---|---|
-| ST-D01 | Guide has DTC, workbook has legacy DUW | Remove DUW offering/active references; add DTC across six configurations with GTR and full guide accessory/package/roof exclusions. Do not mechanically rename DUW edges. DTC appears in exclusions authored by PDV/PCX/SFZ/R88/SHT/SB7/CF8 at Exterior 1 rows 24/25/33/34/55/56/75; preserve those exact endpoints, applicability and lifecycle. New interaction directions still need validation. Raw guide mentions of DUW remain evidence. | Accepted correction, September 7; price unresolved. E-G Exterior 1 row 83; E-A. |
-| ST-D02 | SAI absent from workbook | Add all six configurations; retain 3LT V8X conflict while V8X remains inactive. | Accepted correction, September 7; price unresolved. E-G Interior 1 row 40; E-A. |
-| ST-D03 | Four R6X/AE4 leaves omit 595 | Add seat charge once under established additive requirement; preserve old totals as defect evidence. | Established requirement; consumer correction not implemented. E-B §7; [R6X review](model-rule-review.md#r6x-requirement-versus-implementation). |
-| ST-D04 | 5ZU/Z51 emits guide-conflicting ZF1; TVS/Z51 omits guide-required ZF1 | Decide emitted order-code requirements separately from net T0A suppression. E-S proposes compatibility until resolved. | Conflicting, unresolved. E-G Exterior 1 rows 4/49/80; E-B §6. |
-| ST-D05 | 5ZZ/R88/SLN active despite guide unavailable; other six options already inactive | Choose lifecycle for a future release. Preserve baseline and footnotes independently; do not activate CF8/5ZW/5VM/5W8/RYQ/V8X. | Conflicting, unresolved. E-B §12. |
-| ST-D06 | Package paid alternatives and asymmetric conflict actions | E-S recommends preserving reviewed behavior. Confirm target treatment and inspect unexecuted overlap/direction cases. No inferred package credit. | Baseline observed; target policy proposed. E-B §§9/10. |
-| ST-D07 | Wing remains charged after incompatible paint change | Decide retain-invalid versus immediate reconciliation. Grand Sport prerequisite corrections do not silently resolve this Stingray decision. | Target behavior unresolved. E-B §6. |
-| ST-D08 | 5V7 guide includes inactive 5ZW; BV4/R8C exclusion stronger than guide; BCP prose suggests extra coupe prerequisite | Retain effective baseline for review, preserve exact source alternatives, do not promote prose into executable requirements. | Unresolved interpretation/behavior where noted. E-B §§5/10/11. |
-| ST-D09 | RNX guide permits Z51 with ZF1; workbook excludes Z51 | Decide conditional guide path versus outright conflict; tested Z51→ZF1→RNX remains refused. | Conflicting, unresolved. E-G Exterior 1 row 31; E-B §10. |
-| ST-D10 | Static equipment card and descriptive surfaces do not prove installed-equipment/visual output | Define target output meaning and physical-content vocabulary; retain source facts without claiming executed substitutions/assets. | Proposed design, incomplete output validation. E-B §§8/10/11. |
-| ST-D11 | Six service codes and six emissions codes absent from offerings; order approvals not enforced | Keep R6P/R9Y/R9V/R9W/R9L/PRB and FE9/YF5/NE1/NB8/NB9/NC7 as source candidates. Decide ordering-service scope before adding enforcement. | Explicit scope gap. E-G Interior 1 rows 11/44–46/51–52, Mechanical 1 rows 19–24. |
-| ST-D12 | Guide option-price headings/currency ambiguous; new-option amounts not accepted | Preserve legacy numeric basis; resolve DTC/SAI rates and release price basis before priced release. Missing does not mean free. | Ambiguous, unresolved. E-B §§1/12. |
+| ST-D01 | Guide has DTC, workbook has legacy DUW | Retire DUW active offering/references; add DTC across six configurations at 1,295, with GTR and exact guide accessory/package/roof exclusions. Do not mechanically rename DUW edges. Preserve raw source evidence. | Accepted September 7; price accepted September 9, Price Schedule!E257. |
+| ST-D02 | SAI absent from workbook | Add across six configurations at 295; retain 3LT V8X conflict while V8X remains inactive. | Accepted September 7; price accepted September 9, Price Schedule!E128. |
+| ST-D03 | Four R6X/AE4 leaves omit 595 | Add the seat charge once; preserve frozen totals as defect evidence. | Accepted additive requirement; implementation/testing pending. |
+| ST-D04 | 5ZU/Z51 emits ZF1; TVS/Z51 omits ZF1 | 5ZU or 5ZZ with Z51 removes T0A without adding ZF1. TVS + Z51 adds ZF1: TVS brings its own splitter and deletes Z51 aero, even though the splitter is the same. 5ZZ remains subject to its unavailable-card state. | Accepted September 9, owner answers 1–2; corrected output unexecuted. |
+| ST-D05 | 5ZZ/R88/SLN active despite guide unavailable | Show 5ZZ/R88/SLN cards but disable selection with reason “Unavailable at this time”. Other already-inactive offerings remain inactive; 5ZW remains unavailable until released. | Accepted September 9, answers 7/16; visibility does not imply availability. |
+| ST-D06 | Package alternatives and order-dependent conflict actions | PCX blocks other accessory-wheel choices while selected; no replacement of its included wheels by paid alternatives. Preserve current PDV cap behavior: paid cap replaces included VWD, retains its own charge and full 750 package price, and survives package removal. General conflicts explain the issue and offer replacement before changing selections; explicit refusal/blocking rules take precedence. PCX non-wheel paid alternatives remain baseline evidence, with no newly inferred package credit. | Accepted September 9, answers 5–6; PCX acquisition with an existing alternative wheel needs an explained replacement offer. |
+| ST-D07 | Paint change retains invalid charged wing | Universal application policy: remove selections when they lose dependencies, reconcile charges/dependents, alert the customer and offer to revert the triggering selection. Apply to incompatible wing after paint change. | Accepted September 9, answer 3; not a retain-invalid target. |
+| ST-D08 | 5V7 prerequisite omission; BV4/R8C exclusion; stale BCP prose | Record 5ZW as valid 5V7 prerequisite while unavailable. Keep BV4/R8C exclusion: R8C adds reference-only, nonselectable CFX, not BV4. Accept coupe BCP without B6P and retire stale target prerequisite wording. | Accepted September 9, answers 7–9; frozen wording retained as evidence. |
+| ST-D09 | RNX blocked with Z51 even when ZF1 present | Allow RNX with Z51 + ZF1; preserve other applicable constraints. | Accepted September 9, answer 4; corrected interaction unexecuted. |
+| ST-D10 | Static equipment and installed equipment not distinguished by consumer | Equipment displayed within selected-options sections reflects the configured vehicle and replacements. Informational standard-equipment displays use model/body/trim without replacements. Physical content and visualizer binding validation remain work to do. | Accepted September 9, answer 19; consumer-specific semantics, not one global list. |
+| ST-D11 | Service/emissions and dealer-order enforcement outside baseline | Scope is a customer configuration form. Keep omitted dealer/service/emissions options outside customer selection; preserve source disclosures as evidence. Do not add full dealer-order validation. | Accepted September 9, answer 18. |
+| ST-D12 | Raw option-price basis and new-option rates previously unresolved | Use raw Price Schedule column E for OPTIONS; DTC 1,295 from E257 and SAI 295 from E128. This does not change base/destination calculation or automatically reprice the baseline. Currency code remains unspecified in this decision. | Accepted September 9, answer 17; both code/value cells verified against the named guide. |
 
 ## 9. Worked sequences and expected outcomes
 
@@ -241,16 +252,16 @@ make a corrected target appear to have been the old behavior.
 | ST-T11 | Coupe 2LT WUB → NWI → remove WUB | 82,590 → 82,985 → 80,595; NWI removed, NGA restored. | ST-O22 |
 | ST-T12 | Coupe 2LT QE6 → 5DG → remove 5DG → R8C | Factory QE6 retained throughout; 86,085 with wheel set, 83,385 with delivery/CFX after removal. | ST-O20 |
 | ST-T13 | SPY → SPZ → attempt S47 → remove SPY | S47 refused; dependent SPZ removed with SPY. | ST-O21 |
-| ST-T14 | Coupe 2LT QE6 → PCX → 5DO → SHW → remove PCX | 86,285 → 90,680 → 90,975 → 86,380; paid peers survive; full package price before removal. | ST-O26; target confirmation ST-D06 |
+| ST-T14 | Coupe 2LT QE6 → PCX → attempt 5DO | Baseline allowed 5DO and charged both. Target blocks 5DO while PCX selected; test the blocked state and unchanged package inclusions/total. Non-wheel alternatives are separate behavior. | ST-O26 baseline; ST-D06 accepted target |
 | ST-T15 | Coupe 2LT 5ZD → PDV → RXH → remove PDV | RXH replaces caps, remains after package; 81,595 with package/RXH, 80,845 after removal. | ST-O27; ST-D06 |
 | ST-T16 | STI→PCU / CAV→PEF / RYT→PDY / SC7→SBT; remove package | Absorbed standalone choice does not return. SBT removal permits CC3; factory roof not replaced by second-roof content. | ST-O23–25/35 |
-| ST-T17 | GBA→5ZU→Z51, reverse order, remove Z51 | 87,385 with package/wing at coupe 2LT; ZF1 automatic/T0A absent in baseline; removal leaves wing. | ST-O12/14; ST-D04 |
-| ST-T18 | Existing 5ZU/Z51 → G26; TVS+Z51 in both orders | Wing retained invalid at 88,380; TVS/Z51 baseline 85,990 with no ZF1. Do not call either order-code policy resolved. | ST-O12/15/16; ST-D04/07 |
-| ST-T19 | DPB→PDV→PCX; PCX→attempt DPB; GTR→attempt DPB | Preserve recorded replacement versus refusal; no universal symmetric action. | ST-O28–31; ST-D06 |
+| ST-T17 | GBA→5ZU→Z51, reverse order, remove Z51; corresponding 5ZZ rule | Baseline 5ZU chain adds ZF1. Target 5ZU/5ZZ + Z51 removes T0A without ZF1; 5ZZ remains visible but unavailable. Verify order codes as well as net equipment. | ST-O12/14 baseline; ST-D04/05 target |
+| ST-T18 | Existing 5ZU/Z51 → G26; TVS+Z51 in both orders | Wing retained invalid at 88,380; TVS/Z51 baseline 85,990 with no ZF1. Target removes invalid wing and uses the accepted order-code rules in ST-D04/07. | ST-O12/15/16; ST-D04/07 |
+| ST-T19 | DPB→PDV→PCX; PCX→attempt DPB; GTR→attempt DPB | Preserve original refusal/replacement records as evidence. Target explains conflict and offers replacement before applying it, subject to explicit blocking exceptions. | ST-O28–31 baseline; ST-D06 target |
 | ST-T20 | 5V7 alone; G8G→5ZU→5V7; attempt Z51/PCU | Alone refused, valid wing route succeeds for 1,395 + 650, conflicting packages refused. | ST-O32/48; inactive 5ZW not exercised |
-| ST-T21 | Z51→ZF1→RNX; WKQ→attempt 5ZU | RNX still refused in baseline; cover blocks wing. Conditional RNX target remains unresolved. | ST-O33/34; ST-D09 |
+| ST-T21 | Z51→ZF1→RNX; WKQ→attempt 5ZU | RNX still refused in baseline; cover blocks wing. Target permits RNX with Z51 + ZF1. | ST-O33/34; ST-D09 |
 | ST-T22 | 5JR + ZYC + Z51 → aero deletion | DRG once; both paid source charges retained; T0A removal does not drop unrelated mirror content. | ST-O46 |
-| ST-T23 | Add DTC in permitted context / attempt GTR; SAI at 3LT with V8X | Target enforces exact guide conflicts and all-six offering scope; DUW absent from active offerings/edges. No total until new rates resolved; V8X currently inactive. | E-A; ST-D01/02; target not executed |
+| ST-T23 | Add DTC in permitted context / attempt GTR; SAI at 3LT with V8X | Target enforces exact guide conflicts and all-six offering scope; DUW absent from active offerings/edges. DTC 1,295 / SAI 295 accepted; V8X currently inactive. | E-A; ST-D01/02; target not executed |
 | ST-T24 | Interior eligibility yields zero / one / several leaves; incompatible seat change | Zero blocked; one auto-selected; several await user choice; invalid old selection cleared; unset interior always blocks submission. | E-S §2 reviewed policy; targeted new evaluator check pending |
 | ST-T25 | SXB→SXR; RIK→RIN; independent accessory removal; E60 removal; R8C removal | Only respective peers/dependents change. E60 loses TR7; R8C loses CFX; removing RWU does not remove independent accessories. | ST-O36–39 |
 
@@ -270,10 +281,10 @@ interior source links; preserved all 48 sequence / 237 state records; checked
 within-model RPO duplicates; reviewed the tables against E-B/E-S and checked links
 and the diff. No old runtime probes were rerun and no corrected target was executed.
 
-Remaining work is explicit: resolve ST-D open decisions, classify unexecuted
-conflict directions/effective scopes during detailed translation, finalize target
-price basis/new-option amounts, and validate corrected and installed-equipment
-outputs. The 1,386 previously matched status pairs and broader sweeps are evidence
+Remaining work is implementation and verification of the accepted ST-D decisions,
+including conflict directions, effective scopes, dependency cleanup/revert, column-E
+option-price reconciliation and configured versus informational equipment outputs.
+Currency code is still unspecified; no ISO currency has been inferred. The 1,386 previously matched status pairs and broader sweeps are evidence
 of their stated scope, not full manufacturer-order or release acceptance.
 
 Apply this category structure to Grand Sport next in a separately authorized task,

@@ -1,5 +1,7 @@
 # Stingray schema plan
 
+**September 9 review update:** the [Stingray](stingray-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate) and [Grand Sport](grand-sport-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate) owner decisions supersede conflicting behavior/price proposals below. This earlier schema proposal remains paused; no schema implementation is authorized by those decisions.
+
 September 7, 2026. **Complete logical model proposed for review.** This plan follows
 [Stingray's reviewed relationship analysis](stingray-behavior.md), including the
 accepted DUW removal, DTC stripe inclusion and SAI sill-plate addition. It defines

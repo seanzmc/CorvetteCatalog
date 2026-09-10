@@ -98,6 +98,18 @@ facts, including the T0E duplicate and R6X charge discrepancy. Grand Sport X is
 next in the established model order; schema consolidation remains paused. This
 task stops at structured Grand Sport, without implementation or canonical-data changes.
 
+September 9 owner review resolves the model decision lists in the
+[Stingray handoff](stingray-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate)
+and [Grand Sport handoff](grand-sport-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate).
+Accepted targets include dependency-loss removal with alert/revert, general
+conflict replacement offers with explicit blocking exceptions, aero/cover rules,
+Grand Sport R6X/T0E/graphics/naming corrections, visible unavailable cards,
+column-E option pricing (DTC 1,295; SAI 295), customer-form scope and separate
+configured/informational equipment displays. Hash-first Z15 is the current
+preference; exact disclosure/UI details and currency code remain unspecified.
+Frozen evidence is unchanged. Implementation, corrected-output verification and
+schema consolidation remain separate work after model analysis.
+
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
 Define model years/models, variants, model-owned options, availability, interiors/components, typed rules, price contexts, contextual presentation, assets, and source evidence as explicit entities and relationships. Specify row grain, candidate keys, functional dependencies, null/zero/all-scope semantics, and reference constraints before DDL.
