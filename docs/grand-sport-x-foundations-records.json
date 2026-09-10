@@ -1,0 +1,807 @@
+{
+  "scope": "Grand Sport X foundations and FED only; partial analysis, no accepted target corrections",
+  "baseline": "baselines/2026-09-06/manifest.json",
+  "model_key": "grand_sport_x",
+  "sources": {
+    "model_variants": [
+      {
+        "_row": 8,
+        "model_key": "grand_sport_x",
+        "variant_id": "1lt_g07",
+        "display_order": 1,
+        "active": true,
+        "notes": "Compiled from target Price Schedule."
+      },
+      {
+        "_row": 9,
+        "model_key": "grand_sport_x",
+        "variant_id": "1lt_g67",
+        "display_order": 4,
+        "active": true,
+        "notes": "Compiled from target Price Schedule."
+      },
+      {
+        "_row": 10,
+        "model_key": "grand_sport_x",
+        "variant_id": "2lt_g07",
+        "display_order": 2,
+        "active": true,
+        "notes": "Compiled from target Price Schedule."
+      },
+      {
+        "_row": 11,
+        "model_key": "grand_sport_x",
+        "variant_id": "2lt_g67",
+        "display_order": 5,
+        "active": true,
+        "notes": "Compiled from target Price Schedule."
+      },
+      {
+        "_row": 12,
+        "model_key": "grand_sport_x",
+        "variant_id": "3lt_g07",
+        "display_order": 3,
+        "active": true,
+        "notes": "Compiled from target Price Schedule."
+      },
+      {
+        "_row": 13,
+        "model_key": "grand_sport_x",
+        "variant_id": "3lt_g67",
+        "display_order": 6,
+        "active": true,
+        "notes": "Compiled from target Price Schedule."
+      }
+    ],
+    "model_workbook_sources": [
+      {
+        "_row": 13,
+        "model_key": "grand_sport_x",
+        "source_role": "color_overrides_sheet",
+        "sheet_name": "grand_sport_x_color_overrides",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 14,
+        "model_key": "grand_sport_x",
+        "source_role": "exclusive_group_members_sheet",
+        "sheet_name": "grand_sport_x_exclusive_members",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 15,
+        "model_key": "grand_sport_x",
+        "source_role": "exclusive_groups_sheet",
+        "sheet_name": "grand_sport_x_exclusive_groups",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 16,
+        "model_key": "grand_sport_x",
+        "source_role": "interior_source_sheet",
+        "sheet_name": "lt_interiors",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 17,
+        "model_key": "grand_sport_x",
+        "source_role": "price_rules_sheet",
+        "sheet_name": "grand_sport_x_price_rules",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 18,
+        "model_key": "grand_sport_x",
+        "source_role": "rule_group_members_sheet",
+        "sheet_name": "grand_sport_x_rule_members",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 19,
+        "model_key": "grand_sport_x",
+        "source_role": "rule_groups_sheet",
+        "sheet_name": "grand_sport_x_rule_groups",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 20,
+        "model_key": "grand_sport_x",
+        "source_role": "rule_mapping_sheet",
+        "sheet_name": "grand_sport_x_rule_mapping",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 21,
+        "model_key": "grand_sport_x",
+        "source_role": "source_option_sheet",
+        "sheet_name": "grand_sport_x_options",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 22,
+        "model_key": "grand_sport_x",
+        "source_role": "status_sheet",
+        "sheet_name": "grand_sport_x_ovs",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      },
+      {
+        "_row": 23,
+        "model_key": "grand_sport_x",
+        "source_role": "variant_option_overrides_sheet",
+        "sheet_name": "grand_sport_x_variant_overrides",
+        "active": true,
+        "notes": "Inactive source role compiled from canonical family registration."
+      }
+    ],
+    "default_selection_rules": [
+      {
+        "_row": 24,
+        "model_key": "grand_sport_x",
+        "rule_id": "grand_sport_x_default_none_9c299f7ababa",
+        "target_option_id": "opt_bc7_001",
+        "condition_type": "always",
+        "condition_id": null,
+        "body_style_scope": "coupe",
+        "trim_level_scope": "*",
+        "variant_scope": "*",
+        "priority": 40,
+        "active": true,
+        "notes": "Target standard-status default corroborated by selected comparator.",
+        "display_behavior": "default_selected"
+      },
+      {
+        "_row": 25,
+        "model_key": "grand_sport_x",
+        "rule_id": "grand_sport_x_default_none_ee00a36598b0",
+        "target_option_id": "opt_j6d_001",
+        "condition_type": "when_selected_unless_selected_section",
+        "condition_id": "opt_j57_001",
+        "body_style_scope": "*",
+        "trim_level_scope": "*",
+        "variant_scope": "*",
+        "priority": 50,
+        "active": true,
+        "notes": "Target standard-status default corroborated by selected comparator.",
+        "display_behavior": null
+      },
+      {
+        "_row": 26,
+        "model_key": "grand_sport_x",
+        "rule_id": "gsx_default_nga_unless_nwi",
+        "target_option_id": "opt_nga_001",
+        "condition_type": "unless_selected_rpo",
+        "condition_id": "NWI",
+        "body_style_scope": "*",
+        "trim_level_scope": "*",
+        "variant_scope": "*",
+        "priority": 20,
+        "active": true,
+        "notes": "Default Grand Sport X standard NGA exhaust tips unless NWI bright chrome tips are selected; Grand Sport parity.",
+        "display_behavior": "default_selected"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "_row": 14,
+      "variant_id": "1lt_g07",
+      "model_year": 2027,
+      "trim_level": "1lt",
+      "body_style": "coupe",
+      "display_name": "Corvette Grand Sport X Coupe 1LT",
+      "base_price": 112195,
+      "display_order": 13,
+      "active": true
+    },
+    {
+      "_row": 15,
+      "variant_id": "2lt_g07",
+      "model_year": 2027,
+      "trim_level": "2lt",
+      "body_style": "coupe",
+      "display_name": "Corvette Grand Sport X Coupe 2LT",
+      "base_price": 117695,
+      "display_order": 14,
+      "active": true
+    },
+    {
+      "_row": 16,
+      "variant_id": "3lt_g07",
+      "model_year": 2027,
+      "trim_level": "3lt",
+      "body_style": "coupe",
+      "display_name": "Corvette Grand Sport X Coupe 3LT",
+      "base_price": 122845,
+      "display_order": 15,
+      "active": true
+    },
+    {
+      "_row": 17,
+      "variant_id": "1lt_g67",
+      "model_year": 2027,
+      "trim_level": "1lt",
+      "body_style": "convertible",
+      "display_name": "Corvette Grand Sport X Convertible 1LT",
+      "base_price": 119195,
+      "display_order": 16,
+      "active": true
+    },
+    {
+      "_row": 18,
+      "variant_id": "2lt_g67",
+      "model_year": 2027,
+      "trim_level": "2lt",
+      "body_style": "convertible",
+      "display_name": "Corvette Grand Sport X Convertible 2LT",
+      "base_price": 124695,
+      "display_order": 17,
+      "active": true
+    },
+    {
+      "_row": 19,
+      "variant_id": "3lt_g67",
+      "model_year": 2027,
+      "trim_level": "3lt",
+      "body_style": "convertible",
+      "display_name": "Corvette Grand Sport X Convertible 3LT",
+      "base_price": 129845,
+      "display_order": 18,
+      "active": true
+    }
+  ],
+  "observed_sequences": [
+    {
+      "body": "coupe",
+      "trim": "1LT",
+      "states": [
+        {
+          "label": "initial",
+          "total": 112195,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cf7_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_bc7_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED added",
+          "total": 112695,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cf7_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_bc7_001",
+            "opt_fed_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ],
+            [
+              "opt_xfr_001",
+              "Included with FED Sport Performance Package."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED removed",
+          "total": 112195,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cf7_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_bc7_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        }
+      ]
+    },
+    {
+      "body": "coupe",
+      "trim": "2LT",
+      "states": [
+        {
+          "label": "initial",
+          "total": 117695,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cf7_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_bc7_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED added",
+          "total": 118195,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cf7_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_bc7_001",
+            "opt_fed_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ],
+            [
+              "opt_xfr_001",
+              "Included with FED Sport Performance Package."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED removed",
+          "total": 117695,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cf7_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_bc7_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        }
+      ]
+    },
+    {
+      "body": "coupe",
+      "trim": "3LT",
+      "states": [
+        {
+          "label": "initial",
+          "total": 122845,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cf7_001",
+            "opt_719_001",
+            "opt_ah2_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_bc7_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED added",
+          "total": 123345,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cf7_001",
+            "opt_719_001",
+            "opt_ah2_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_bc7_001",
+            "opt_fed_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ],
+            [
+              "opt_xfr_001",
+              "Included with FED Sport Performance Package."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED removed",
+          "total": 122845,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cf7_001",
+            "opt_719_001",
+            "opt_ah2_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_bc7_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        }
+      ]
+    },
+    {
+      "body": "convertible",
+      "trim": "1LT",
+      "states": [
+        {
+          "label": "initial",
+          "total": 119195,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cm9_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED added",
+          "total": 119695,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cm9_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_fed_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ],
+            [
+              "opt_xfr_001",
+              "Included with FED Sport Performance Package."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED removed",
+          "total": 119195,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cm9_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        }
+      ]
+    },
+    {
+      "body": "convertible",
+      "trim": "2LT",
+      "states": [
+        {
+          "label": "initial",
+          "total": 124695,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cm9_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED added",
+          "total": 125195,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cm9_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_fed_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ],
+            [
+              "opt_xfr_001",
+              "Included with FED Sport Performance Package."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED removed",
+          "total": 124695,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cm9_001",
+            "opt_719_001",
+            "opt_aq9_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        }
+      ]
+    },
+    {
+      "body": "convertible",
+      "trim": "3LT",
+      "states": [
+        {
+          "label": "initial",
+          "total": 129845,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cm9_001",
+            "opt_719_001",
+            "opt_ah2_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED added",
+          "total": 130345,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cm9_001",
+            "opt_719_001",
+            "opt_ah2_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_fed_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ],
+            [
+              "opt_xfr_001",
+              "Included with FED Sport Performance Package."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        },
+        {
+          "label": "FED removed",
+          "total": 129845,
+          "selected": [
+            "opt_eyt_001",
+            "opt_t0e_001",
+            "opt_j57_001",
+            "opt_cm9_001",
+            "opt_719_001",
+            "opt_ah2_001",
+            "opt_swm_001",
+            "opt_nga_001",
+            "opt_efr_001",
+            "opt_j6d_001"
+          ],
+          "auto_added": [
+            [
+              "opt_j6d_001",
+              "Included with J57 Carbon Ceramic Brakes."
+            ]
+          ],
+          "missing": [
+            "Paint",
+            "Interior Color"
+          ]
+        }
+      ]
+    }
+  ]
+}
