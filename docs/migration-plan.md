@@ -136,6 +136,16 @@ targets; the separate ZZ3/LS6 relationship correction remains a clarification.
 The earlier foundation JSON remains unchanged. Next is the Grand Sport X
 structured handoff and model-specific review; no Z06 or schema work starts here.
 
+September 10: the owner separately authorized the [Grand Sport X structured
+handoff](grand-sport-x-structured.md) and [record file](grand-sport-x-structured-records.json).
+They now preserve all 239 offerings, 1,434 availability rows, 132 interiors,
+198 components, model-scoped relationships/prices/presentation and all full-analysis
+observations. Thirteen owner-overlay entries are accepted; the ZZ3→LS6→D3V
+relationship correction remains proposed. HP1 target copy retains only the
+front-axle rating and torque. Frozen source/behavior evidence remains distinct
+from accepted targets. Structured review input is complete; implementation and
+corrected-output verification remain separate. No Z06 or schema work starts here.
+
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
 Define model years/models, variants, model-owned options, availability, interiors/components, typed rules, price contexts, contextual presentation, assets, and source evidence as explicit entities and relationships. Specify row grain, candidate keys, functional dependencies, null/zero/all-scope semantics, and reference constraints before DDL.
