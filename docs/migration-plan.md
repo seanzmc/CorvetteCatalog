@@ -121,6 +121,17 @@ six configurations (18 observed states). The [foundation records](grand-sport-x-
 preserve this partial evidence. Remaining families and the complete structured
 handoff are unfinished; schema consolidation remains paused.
 
+September 10: the owner authorized completion of the Grand Sport X behavior
+analysis, with its structured handoff explicitly deferred to the next pass.
+The [complete family analysis](grand-sport-x-behavior.md) now accounts for all
+239 workbook offerings, reconciles 1,368 primary-equipment status pairs, and
+traces interiors, graphics/roof dependencies, performance, accessories and order
+output. Independently observed issues include missing Z25 output, DTC/hash
+coexistence without Z15, conditional D84 gaps, R6X/AE4 undercharges and incomplete
+rear-graphic exclusions. These are review findings, not accepted corrections.
+The earlier foundation JSON remains unchanged. Next is the Grand Sport X
+structured handoff and model-specific review; no Z06 or schema work starts here.
+
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
 Define model years/models, variants, model-owned options, availability, interiors/components, typed rules, price contexts, contextual presentation, assets, and source evidence as explicit entities and relationships. Specify row grain, candidate keys, functional dependencies, null/zero/all-scope semantics, and reference constraints before DDL.
