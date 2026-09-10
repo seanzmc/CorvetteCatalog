@@ -23,6 +23,11 @@ brake/aero chain. DTC is already present and DUW absent, but DTC has a heritage
 relationship gap. EL9 is selectable without emitting Z25. Those differences
 must survive review instead of being overwritten by the other model's analysis.
 
+**Structured handoff update — September 10:** the subsequently authorized
+[structured handoff](grand-sport-x-structured.md) and [record file](grand-sport-x-structured-records.json)
+now preserve this full analysis and its decision overlay. The earlier pass boundary
+below remains historical; ZZ3 relationship approval is still outstanding.
+
 ## 1. Sources and how to read this analysis
 
 **Guide:** unchanged `2027 Chevrolet Car Corvette Export (6).xlsx`, SHA-256
