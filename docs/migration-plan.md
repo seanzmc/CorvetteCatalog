@@ -114,6 +114,13 @@ not the accepted currency for these two models.
 Frozen evidence is unchanged. Implementation, corrected-output verification and
 schema consolidation remain separate work after model analysis.
 
+September 9: PR #21 is merged and the 12 Stingray / 16 Grand Sport decision
+records are accepted. [Grand Sport X analysis](grand-sport-x-behavior.md) has
+begun with model/body/trim foundations and FED tire-package round trips across
+six configurations (18 observed states). The [foundation records](grand-sport-x-foundations-records.json)
+preserve this partial evidence. Remaining families and the complete structured
+handoff are unfinished; schema consolidation remains paused.
+
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
 Define model years/models, variants, model-owned options, availability, interiors/components, typed rules, price contexts, contextual presentation, assets, and source evidence as explicit entities and relationships. Specify row grain, candidate keys, functional dependencies, null/zero/all-scope semantics, and reference constraints before DDL.
