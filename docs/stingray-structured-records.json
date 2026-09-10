@@ -3636,11 +3636,11 @@
   ],
   "owner_review": {
   "review_date": "2026-09-09",
-  "authority": "Owner answers 1–19 in model review; target review input only",
+  "authority": "Owner answers 1–19 in model review, plus explicit post-PR #20 confirmation of USD for both models and Grand Sport hash-first flow/disclosure; target review input only",
   "decision_document": "stingray-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate",
   "option_price_column": "E",
-  "currency_code": null,
-  "currency_status": "not_explicitly_specified",
+  "currency_code": "USD",
+  "currency_status": "owner_confirmed_after_pr20",
   "records": [
     {
       "decision_id": "ST-D01",
@@ -3711,7 +3711,7 @@
     {
       "decision_id": "ST-D12",
       "baseline_issue": "Raw option-price basis and new-option rates previously unresolved",
-      "target": "Use raw Price Schedule column E for OPTIONS; DTC 1,295 from E257 and SAI 295 from E128. This does not change base/destination calculation or automatically reprice the baseline. Currency code remains unspecified in this decision.",
+      "target": "Use raw Price Schedule column E for OPTIONS; DTC 1,295 from E257 and SAI 295 from E128. This does not change base/destination calculation or automatically reprice the baseline. All prices are USD, confirmed by the owner after PR #20; numeric amounts are unchanged.",
       "review_state": "Accepted September 9, answer 17; both code/value cells verified against the named guide."
     }
   ]

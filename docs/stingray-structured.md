@@ -35,7 +35,7 @@ its records. Matching an RPO in another model does not establish shared identity
 | Evidence class / review state | Keep added, removed, conflicting, ambiguous and component-accounted facts distinct from accepted, proposed or unresolved decisions. |
 | Scope | `All` below means exactly the six ST-C configurations. Otherwise intersect the stated body/trim with option and interior applicability. Unknown scope is unresolved, not all. |
 | Conditions | `AND` requires every condition; `ANY(...)` requires at least one. Separate eligibility, auto-add, price override, conflict action and removal action. |
-| Prices | Numeric frozen-workbook basis; guide OPTIONS use Price Schedule column E by September 9 decision; currency code not specified. Zero is known zero; null is unknown. No second destination charge. |
+| Prices | Numeric frozen-workbook basis; guide OPTIONS use Price Schedule column E by September 9 decision; all prices are USD, confirmed by the owner after PR #20. Zero is known zero; null is unknown. No second destination charge. |
 | Completeness | Full baseline lists are preserved in the record file. This document resolves known connected semantics by family; unexecuted interaction directions remain unverified. Neither artifact is a fully resolved target dataset. |
 
 | Evidence ID | Immutable identity / locator | Use |
@@ -227,7 +227,7 @@ it does not establish Stingray availability or approve these sections for the ta
 | ST-D09 | RNX blocked with Z51 even when ZF1 present | Allow RNX with Z51 + ZF1; preserve other applicable constraints. | Accepted September 9, answer 4; corrected interaction unexecuted. |
 | ST-D10 | Static equipment and installed equipment not distinguished by consumer | Equipment displayed within selected-options sections reflects the configured vehicle and replacements. Informational standard-equipment displays use model/body/trim without replacements. Physical content and visualizer binding validation remain work to do. | Accepted September 9, answer 19; consumer-specific semantics, not one global list. |
 | ST-D11 | Service/emissions and dealer-order enforcement outside baseline | Scope is a customer configuration form. Keep omitted dealer/service/emissions options outside customer selection; preserve source disclosures as evidence. Do not add full dealer-order validation. | Accepted September 9, answer 18. |
-| ST-D12 | Raw option-price basis and new-option rates previously unresolved | Use raw Price Schedule column E for OPTIONS; DTC 1,295 from E257 and SAI 295 from E128. This does not change base/destination calculation or automatically reprice the baseline. Currency code remains unspecified in this decision. | Accepted September 9, answer 17; both code/value cells verified against the named guide. |
+| ST-D12 | Raw option-price basis and new-option rates previously unresolved | Use raw Price Schedule column E for OPTIONS; DTC 1,295 from E257 and SAI 295 from E128. This does not change base/destination calculation or automatically reprice the baseline. All prices are USD, confirmed by the owner after PR #20; numeric amounts are unchanged. | Accepted September 9, answer 17; both code/value cells verified against the named guide. |
 
 ## 9. Worked sequences and expected outcomes
 
@@ -284,7 +284,7 @@ and the diff. No old runtime probes were rerun and no corrected target was execu
 Remaining work is implementation and verification of the accepted ST-D decisions,
 including conflict directions, effective scopes, dependency cleanup/revert, column-E
 option-price reconciliation and configured versus informational equipment outputs.
-Currency code is still unspecified; no ISO currency has been inferred. The 1,386 previously matched status pairs and broader sweeps are evidence
+The owner confirmed USD for all Stingray prices after PR #20; numeric amounts remain unchanged. The 1,386 previously matched status pairs and broader sweeps are evidence
 of their stated scope, not full manufacturer-order or release acceptance.
 
 Apply this category structure to Grand Sport next in a separately authorized task,

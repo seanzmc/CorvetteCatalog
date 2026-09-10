@@ -105,8 +105,12 @@ Accepted targets include dependency-loss removal with alert/revert, general
 conflict replacement offers with explicit blocking exceptions, aero/cover rules,
 Grand Sport R6X/T0E/graphics/naming corrections, visible unavailable cards,
 column-E option pricing (DTC 1,295; SAI 295), customer-form scope and separate
-configured/informational equipment displays. Hash-first Z15 is the current
-preference; exact disclosure/UI details and currency code remain unspecified.
+configured/informational equipment displays. After PR #20, the owner confirmed hash-first Z15 selection with the exact disclosure
+“Selecting this hash mark adds the Grand Sport Heritage Package (Z15) for $995.”
+and USD for all Stingray and Grand Sport prices. These confirmations close the
+remaining decision details for both model handoffs; numeric prices are unchanged.
+Earlier currency-unknown statements below describe preserved historical evidence,
+not the accepted currency for these two models.
 Frozen evidence is unchanged. Implementation, corrected-output verification and
 schema consolidation remain separate work after model analysis.
 
