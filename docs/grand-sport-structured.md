@@ -12,6 +12,13 @@ Neither file is a new canonical dataset, executable ruleset or database schema.
 The [Stingray schema proposal](stingray-schema-plan.md) is a design reference,
 not a required storage format for these review records.
 
+
+**September 9 owner review:** the decisions in §8 supersede earlier unresolved
+or proposed target language in this handoff and the linked behavior/schema analyses.
+Frozen workbook rows, source disclosures and observed sequences remain historical
+evidence, including their old labels, prices and conflict actions. Accepted target
+changes are not implementation or runtime verification.
+
 ## 1. Record conventions and evidence
 
 Use the same categories for each model: configurations, offerings, applicability,
@@ -28,7 +35,7 @@ identity or authorize copying another model's decisions.
 | Evidence versus review state | Coded/uncoded matches, missing offerings, duplicate identities and conflicting facts are evidence classifications; accepted, proposed and unresolved are decision states. |
 | Scope | `All` means the six GS-C configurations, intersected with effective option/interior applicability. Unknown scope is unresolved. |
 | Conditions | Keep eligibility, auto-add, price override, refusal/replacement and removal separate. `AND` requires every condition; `ANY(...)` requires at least one. |
-| Prices | Preserve the frozen numeric basis. Zero is known zero; null is unknown. Destination is already in base amounts. Option-price column interpretation and currency remain unresolved. |
+| Prices | Preserve the frozen numeric basis. Zero is known zero; null is unknown. Destination is already in base amounts. Guide OPTIONS use Price Schedule column E; currency code not specified. |
 | Completeness | Complete baseline lists do not mean all target decisions or interaction directions are resolved. Neither file is release acceptance. |
 
 | Evidence ID | Identity / locator | Use |
@@ -37,7 +44,7 @@ identity or authorize copying another model's decisions.
 | E-G | [Manufacturer guide](../sources/README.md), `2027 Chevrolet Car Corvette Export (6).xlsx`, SHA-256 `d3ca7d3a09c9fb89210b4ce584493b3ad8fb65ca35087c49d816d1cbf1a333d1` | Interior/Exterior/Mechanical 2, associated equipment sheets and model-qualified Color and Trim tables. |
 | E-O | Frozen browser commit `4fe92a4f078370c478f18484cad31bdafe58ad43` | Existing DOM-stub observations: 44 sequences / 199 states. No new runtime execution, visual QA or live submission in this handoff. |
 | E-B | [Grand Sport analysis](grand-sport-behavior.md), §§1–12 | Connected interpretation, source traces, coverage and limits. |
-| E-A | [Owner decisions](grand-sport-behavior.md#owner-review-decisions--september-8-2026), September 8 | Grand Sport-specific accepted corrections; Z15 UI remains proposed. |
+| E-A | [Owner decisions](grand-sport-behavior.md#owner-review-decisions--september-8-2026), September 8 | Earlier Grand Sport decisions; September 9 updates in §8 supersede the Z15 card proposal. |
 | E-S | [Stingray schema proposal](stingray-schema-plan.md), compared in E-B §12 | Design reasoning only; conditional stripe/paint prerequisite ownership is still a cross-model design obligation. |
 
 Original Grand Sport observation JSON does not embed source hashes. The record
@@ -114,7 +121,7 @@ R6X 3LT, totaling 132; EL9 contributes two of the ordinary 3LT leaves. E-B §§2
 |---|---|---|---|
 | GS-P01 | Base / option rates | Preserve six bases and exact legacy option/conditional rates. Missing rates do not mean free. UQT's trim override does not create another product. | E-W; E-B §§1–2 |
 | GS-P02 | EL9 → Z25 | Baseline AH2/EL9 and AE4/EL9 both add 1,995: AE4 itemizes 595 seat + 1,400 interior; Z25 is zero. Accepted target: Z25 owns 1,995 content once, AH2 adds zero, AE4 adds another 595. Coupe 3LT totals 102,240 / 102,835. Disclose Z25 cost on EL9 selection. | E-W options row 167, interiors rows 47/80, component row 847; E-G Price Schedule row 228; E-A; GS-O40/41 |
-| GS-P03 | Ordinary interiors / components | Preserve exact seat/N26/TU7/stitch/R6X memberships and rates. Four R6X/AE4 leaves omit 595; this Grand Sport correction remains unresolved, independently of Stingray policy. | E-B §7; GS-D09; supplemental price comparisons |
+| GS-P03 | Ordinary interiors / components | Preserve exact seat/N26/TU7/stitch/R6X memberships and rates. Four R6X/AE4 leaves omit 595; the additional 595 is accepted for all four Grand Sport combinations on September 9. | E-B §7; GS-D09; supplemental price comparisons |
 | GS-P04 | FEB / J57 / T0F / FEY | FEB 3,500; J57 with FEB +6,000; T0F +8,995; FEY 20,695 includes J57/T0F/WUB/CFZ at zero incremental charge. Absorbed purchases do not return on removal. | E-B §8; GS-O01–03/12 |
 | GS-P05 | Heritage | Selected hash acquires Z15 995; center stripe adds 1,295; required/selected D84 adds 1,295. Hash source null prices becoming runtime zero is baseline behavior, not a universal null-price policy. | E-B §§4/6; GS-O15/38; GS-D03/04 |
 | GS-P06 | Engine covers | BC4/BCP/BCS 695 normally, 595 with applicable B6P 1,895 or ZZ3 1,195. Do not charge supplied lighting twice. | E-B §5; GS-O13/14/37 |
@@ -123,9 +130,14 @@ R6X 3LT, totaling 132; EL9 contributes two of the ordinary 3LT leaves. E-B §§2
 The four GS-P03 leaves have component-sum versus frozen additions of
 2,085 vs 1,490 (`3LT_R6X_AE4_HU0_38S`), 1,590 vs 995 (`..._HUU`),
 2,780 vs 2,185 (`..._HXO_N26_38S`), and 2,285 vs 1,690 (`..._HZP_N26`).
-These are discrepancy calculations, not newly approved Grand Sport target prices.
+These component sums are accepted Grand Sport target additions as of September 9;
+the lower frozen amounts remain defect evidence.
 
 ## 5. Connected relationship records
+
+The baseline relationship descriptions below retain observed behavior. Apply the
+September 9 decisions in §8 for target changes, including conflict handling and
+dependency cleanup; an old observation does not override an accepted decision.
 
 | ID | Trigger / eligibility | Connected action and removal | Charge / evidence |
 |---|---|---|---|
@@ -152,24 +164,24 @@ These are discrepancy calculations, not newly approved Grand Sport target prices
 | GS-R21 | DTC/SAI addition, DUW removal | Retire DUW active offering/relationships. DTC requires exact guide GTR and package/graphic/badge/roof exclusions; SAI excludes V8X. Do not mechanically rename DUW edges. | E-A; `accepted_additions` retains source disclosure and all related guide mentions; GS-D01/02 |
 | GS-R22 | B4Z | Target included and only available with FEB or FEY in all six configurations; baseline is standard without either. | E-G Mechanical 2 row 44; E-A; GS-D08 |
 
-GS-R04 establishes auto-add on qualifying selection, but the existing owner decision
-does not settle every subsequent paint/stripe reversal or whether an explicitly
-purchased D84 survives all cause changes. Preserve cause distinctions and verify
-those directions before implementing a complete reconciliation policy.
+September 9 settles D84 cause loss: remove dependency-added D84 and its charge
+when no longer required, retain independently selected D84, and notify the customer.
+The universal dependency-removal interaction includes an option to revert the
+triggering selection. Verify both purchase-intent paths and reversal directions.
 
 ## 6. Selection and reconciliation policies
 
 | ID | Event / condition | Required or proposed result | Authority / limit |
 |---|---|---|---|
 | GS-S01 | Body/trim change | Reset purchases and interior, then establish new defaults. | GS-O44; baseline observed |
-| GS-S02 | Choice attempt | Intersect model/body/trim/lifecycle, prerequisites and direction-specific conflict behavior. Do not reduce refusal and replacement to one rule. | GS-R04/07/08/11; untested directions remain open |
-| GS-S03 | Last package prerequisite lost | Remove unsupported J57/T0F and reconcile their equipment/charges. Retain FEY-supported inclusions while FEY remains. | E-A; GS-D06; baseline instead retains invalid charges and blocks submit |
+| GS-S02 | Choice attempt | Intersect model/body/trim/lifecycle and prerequisites. General conflicts explain and offer replacement; VPW/VPO guide conflicts refuse. | September 9 GS-D12/16; test both interaction directions. |
+| GS-S03 | Last package prerequisite lost | Remove unsupported J57/T0F and reconcile equipment/charges. Retain FEY-supported inclusions. Alert and offer revert of the trigger. | GS-D06/16; old retained-invalid state is historical. |
 | GS-S04 | Wheel/caliper availability lost | Restore standard available choice; wheels/calipers must not remain empty. Apply exact J57 caliper swap policy. | E-A; GS-D07; other untested section fallback not inferred |
 | GS-S05 | Absorbed purchase / incompatible option | Consumed purchase does not return on package removal. Keep CFV incompatibility distinct from FEY absorption. | E-A; GS-O03/07/12/23/25–28 |
 | GS-S06 | Multiple inclusion causes | Retain one resolved item/charge while supported; preserve cause distinctions. Shared references do not imply extra purchase quantities. | E-B §§5/7–8; complete multi-cause reversal coverage remains unverified |
 | GS-S07 | Interior / belts | Preserve exact eligible leaves, clear incompatible interior on context change; missing interior blocks completion. EL9's included 3F9 is locked at zero; HAG/HVZ restrictions remain hard. | E-A; GS-O40–44; detailed zero/one/many reconciliation still needs Grand Sport target verification |
 | GS-S08 | Defaults / restoration | Keep four authored rules and section defaults separate. New wheel/caliper restoration is a target correction, not proof the old defaults worked. | E-W; GS-D07 |
-| GS-S09 | Heritage acquisition / removal | Hash adds Z15; center needs hash; last supporting hash removal removes center and Z15 charge. Priced Z15 card is proposed presentation. | E-A; GS-D03 |
+| GS-S09 | Heritage acquisition / removal | Hash adds Z15; center needs hash; last supporting hash removal removes center and Z15 charge. Hash-first with explicit 995 disclosure is the current owner preference. | E-A; GS-D03 |
 | GS-S10 | Totals / recap / order | Corrected resolved equipment and single charge ownership must reach all consumers. Old submit guards prove rejection of invalid state, not correctness of retained charges. | E-B §§8/11; target output validation pending |
 
 ## 7. Presentation, physical content and operational boundaries
@@ -177,32 +189,32 @@ those directions before implementing a complete reconciliation policy.
 | ID | Subject / condition | Content or presentation consequence | Evidence / state |
 |---|---|---|---|
 | GS-V01 | Any center stripe with D84 | Required disclosure: “When (D84) Carbon Flash painted nacelles and roof is ordered (required or selected) roof will not include the stripe.” Conditional addition also alerts the customer. | E-A; physical roof content separate from stripe eligibility |
-| GS-V02 | Z15 / EL9 | Proposed 995 Z15 card prompts hash selection; final interaction design open. EL9-triggered Z25 charge must remain visible; accepted content 1,995 plus separate seat charge. | E-A; GS-D03/05 |
+| GS-V02 | Z15 / EL9 | Current preference is hash-first selection with explicit 995 Z15 disclosure; exact UI wording remains open. EL9-triggered Z25 charge must remain visible; accepted content 1,995 plus separate seat charge. | E-A; GS-D03/05 |
 | GS-V03 | Z25 / accents / cover / second roof | Retain Launch Edition quilting, mats, embossed headrests and plaque; EFR/EDU surface changes with CFV/CFZ; WKR version depends on 5ZV/T0F; SBT supplies an additional roof. No extra purchasable identities inferred. | E-G Exterior 2 rows 4/16–17/31/41; E-B §§7/9–10 |
-| GS-V04 | R8C/BV4/PIN/VK3/D30/R6X and services | Keep SOLD-order, acknowledgement, BAC, state and approval disclosures. Missing service/emissions options and uncoded OnStar Basics are explicit scope gaps. | E-B §11; `guide_only_dispositions`; dealer-context enforcement not tested |
-| GS-V05 | Standard versus installed equipment | Static `standardEquipmentRows()` is configuration-only. Define actual JX6/J56/J57, XFT/XFR/XFS, FEA/FEB/FEY replacements and corrected B4Z scope before claiming finished-build equipment. | E-B §11; target consumer interpretation pending |
+| GS-V04 | R8C/BV4/PIN/VK3/D30/R6X and services | Retain source restrictions as evidence. Customer configuration scope omits dealer/service/emissions options and does not implement full dealer-order validation. | September 9 GS-D15; historical omissions remain documented. |
+| GS-V05 | Standard versus installed equipment | Equipment within selected-options sections reflects configured replacements; informational standard-equipment lists stay model/body/trim based. Preserve actual brake/tire/suspension and B4Z consequences. | September 9 GS-D15; implementation/consumer verification pending. |
 | GS-V06 | Sections / navigation / assets | Preserve scoped steps, required/single/multiple/display-only modes, contextual copy and summary routing. Shared `standard_equipment` section metadata is retained even though it is not an interactive runtime-step row. Assets are references, not validated visualizer bindings. | Complete scoped rows; no visual QA or asset rendering in this task |
 
 ## 8. Decision overlay: source, baseline and target remain separate
 
 | ID | Source / baseline difference | Target or pending decision | State |
 |---|---|---|---|
-| GS-D01 | DTC missing; DUW retained in baseline | Remove DUW from active offerings/relationships; add DTC in all six configurations, including GTR and exact guide exclusions authored by PDA/SFZ/R88/VPW/VPO/SNE/SHT/CF8. Preserve raw DUW mentions as history. | Accepted September 8; DTC rate unresolved; new interactions unexecuted. E-G Exterior 2 row 83 and related mentions. |
-| GS-D02 | SAI missing | Add all six configurations with guide V8X conflict; V8X remains inactive in baseline. | Accepted September 8; rate unresolved. E-G Interior 2 row 40. |
-| GS-D03 | Hash-first Z15 purchase appears free at hash level | Retain hash→Z15 995 and center dependency/removal. Priced Z15 card prompting a hash is proposed, not finalized. Do not create circular entry prerequisites. | Dependency accepted; presentation proposed; E-A. |
-| GS-D04 | All 17 qualifying convertible stripe/paint states omit D84 | Auto-add D84 with alert and exact GS-R04 paint sets; disclose absent roof stripe whenever D84 present. Subsequent cause/removal directions still require explicit treatment. | Accepted selection correction/disclosure; unexecuted target. |
-| GS-D05 | EL9 bundles seat in 1,995 and permits other belts | Z25 content 1,995 once; AH2 zero, AE4 another 595; visible EL9-triggered charge. Always include locked 3F9 zero. Orange-belt D30 gap becomes historical, not a target pairing to enable. | Accepted; E-A; target arithmetic only, not runtime proof. |
-| GS-D06 | FEB removal leaves charged J57/T0F invalid | Remove unsupported dependencies, reconcile equipment/charges; FEY still supplies them when present. | Accepted; six baseline guard checks retained. |
-| GS-D07 | J57 caliper swaps and wheel loss leave empty/incorrect defaults | Add J57: J6A→J6D, including explicit J6A. Remove J57: J6D/J6L→J6A; retain other paid calipers. Restore standard available wheels/calipers after loss. | Accepted; target reversal checks pending. |
-| GS-D08 | B4Z standard in all six contexts | Included/available only with FEB or FEY; reconcile both availability and acquisition. | Accepted guide correction; all six status discrepancies retained. |
-| GS-D09 | Four R6X/AE4 component sums exceed frozen totals by 595 | Resolve Grand Sport charge policy explicitly; do not inherit Stingray's accepted correction. | Conflicting, unresolved in E-B §7. |
-| GS-D10 | Two T0E identities, one dormant | Resolve duplicate within Grand Sport, including affected references. Preserve both raw IDs until target resolution; repeated guide references are not duplicate options. | Audit requirement accepted; identity resolution pending. |
-| GS-D11 | SLN/R88 guide unavailable; CF8 unavailable at production start; RZ9/V8X inactive | Decide future release lifecycle; retain current active/dormant values and guide disclosures independently. | Unresolved; E-B §11; GS-O30 only establishes old purchasability. |
-| GS-D12 | VPW/VPO incomplete racing/stinger exclusions | Reconcile full guide member sets and both interaction directions. VPW+DPB is executed counterexample; VPO gap is source inspection. | Conflicting, unresolved; E-G Exterior 2 rows 47–48. |
-| GS-D13 | DUE Santorini Blue workbook name versus Royal Blue guide name | Preserve both labels and source references; do not silently rename alongside DTC addition. | Unresolved source difference; E-G Exterior 2 row 81. |
-| GS-D14 | Option-price headings/currency ambiguous; addition rates unaccepted | Resolve priced-release basis and DTC/SAI amounts; missing price is not zero. Owner-set Z25 1,995 remains established independently. | Ambiguous, unresolved; E-B §§1/7/12. |
-| GS-D15 | Dealer/service/emissions scope and installed-equipment output incomplete | Decide consumer scope and output meaning before adding enforcement or claiming installed-equipment/visualizer accuracy. | Scope/design gap; E-B §11; GS-V04–06. |
-| GS-D16 | Stale cover requirement prose / null hash semantics / untested directions | Preserve effective baseline versus text; confirm detailed translation and cause cleanup in target review. Do not infer one universal conflict/default policy. | Remaining interpretation and verification obligations; E-B §§5–6/12. |
+| GS-D01 | DTC missing; DUW retained in baseline | Retire DUW active offering/relationships; add DTC across six configurations at 1,295 with exact GTR and guide package/graphic/badge/roof exclusions. Preserve raw DUW mentions as history. | Accepted September 8; price accepted September 9, Price Schedule!E257. |
+| GS-D02 | SAI missing | Add across six configurations at 295 with guide V8X conflict; V8X remains inactive. | Accepted September 8; price accepted September 9, Price Schedule!E128. |
+| GS-D03 | Heritage acquisition presentation | Current owner preference: retain hash-first selection with explicit disclosure that it adds Z15 at 995. Hash→Z15 and center dependency/removal remain accepted. The earlier priced Z15 entry card is not the current preference. | September 9 answer 14 says “Probably”; working preference, exact disclosure/UI confirmation pending. |
+| GS-D04 | Conditional D84 absent; later cause loss unspecified | Auto-add D84 for the exact accepted convertible stripe/paint conditions with disclosure. When no longer required, remove D84 and its 1,295 charge only if it was dependency-added; retain independently chosen D84. Notify through toast/alert; universal dependency cleanup offers revert of the triggering selection. | Accepted September 8 and September 9 answers 3/15; target unexecuted. |
+| GS-D05 | EL9 bundles seat in 1,995 and permits other belts | Z25 content 1,995 once; AH2 zero, AE4 another 595; visible EL9-triggered charge. Lock included 3F9 at zero. Historical orange-belt D30 gap is not a target pairing to enable. | Accepted September 8; target arithmetic, not runtime proof. |
+| GS-D06 | FEB removal leaves charged J57/T0F invalid | Remove unsupported dependencies, reconcile equipment/charges; retain FEY-supported inclusions. Universal dependency-loss cleanup alerts customer and offers revert of triggering selection. | Accepted September 8; universal interaction accepted September 9 answer 3. |
+| GS-D07 | Caliper swaps and wheel loss leave empty/incorrect defaults | Add J57: J6A→J6D, including explicit J6A. Remove J57: J6D/J6L→J6A; retain other paid calipers. Restore standard available wheels/calipers after loss. | Accepted September 8; target reversal checks pending. |
+| GS-D08 | B4Z standard without package support | Included and only available with FEB or FEY in all six configurations; reconcile availability and acquisition. | Accepted September 8; baseline conflicts retained. |
+| GS-D09 | Four R6X/AE4 component sums exceed frozen totals by 595 | Add missing 595 once in all four affected combinations. Required additions: HU0/38S 2,085; HUU 1,590; HXO/N26/38S 2,780; HZP/N26 2,285. | Accepted September 9, answer 10; original price observations unchanged. |
+| GS-D10 | Two T0E identities | Retain active opt_t0e_001 as the single target T0E option; retire dormant opt_t0e_002 and reconcile affected references. Keep both raw records as historical evidence. | Accepted September 9, answer 11; target identity resolved. |
+| GS-D11 | SLN/R88 unavailable; CF8 unavailable at production start | Show SLN/R88/CF8/RZ9/V8X cards in applicable model/body/trim contexts but disable selection with reason “Unavailable at this time”. Apply this policy to every option unavailable under a guide lifecycle notice, including already-inactive options; release is required before selection becomes available. Preserve compatibility rules and historical evidence. | Accepted September 9, answer 16 and PR #20 owner clarification; visibility does not imply availability. |
+| GS-D12 | VPW/VPO incomplete graphic exclusions | Apply full guide exclusions to both graphics and refuse conflicting selections. This explicit refusal policy overrides the general explain-and-offer-replacement interaction for these conflicts. | Accepted September 9, answer 12; both directions require verification. |
+| GS-D13 | DUE Santorini Blue workbook name versus Royal Blue guide name | Use Royal Blue for DUE target customer-facing naming; retire old DUE naming throughout target references. Preserve original workbook/observation labels as historical evidence; do not rename unrelated legitimately Santorini Blue items. | Accepted September 9, answer 13. |
+| GS-D14 | Option-price basis and addition rates previously unresolved | Use raw Price Schedule column E for OPTIONS. DTC 1,295 at E257; SAI 295 at E128. Preserve base/destination interpretation and frozen numeric evidence. Currency code remains unspecified in this decision. | Accepted September 9, answer 17; code/value cells verified; no wholesale repricing. |
+| GS-D15 | Dealer-order scope and equipment display meaning incomplete | Customer configuration form: omitted dealer/service/emissions options stay outside customer selection. Selected-options equipment reflects configured replacements; informational standard equipment uses model/body/trim. Physical content/assets still need implementation verification. | Accepted September 9, answers 18–19. |
+| GS-D16 | General conflict and dependency-loss interaction; stale prose | General conflicts explain and offer replacement before changing selections. Remove dependency-invalid selections with an alert and option to revert the trigger; keep independent purchase intent distinct. Explicit VPW/VPO refusal overrides the general policy. Retire stale target cover prerequisites in favor of accepted current behavior. Hash-first disclosure makes the 995 charge visible; no universal null-as-zero rule inferred. | Accepted September 9, answers 3/6/9, plus hash-first preference; untested directions remain verification work. |
 
 ## 9. Worked sequences and expected outcomes
 
@@ -218,10 +230,10 @@ expectations; unresolved decisions retain baseline expectations only.
 | GS-T04 | Convertible 2LT BC4 attempt → ZZ3 → BC4 → remove ZZ3 | First refused; 103,790 → 104,385 → 102,595; no D3V or dependent cover remains. | GS-O37 |
 | GS-T05 | Coupe 2LT 97A → DMU → remove 97A | 96,590 → 97,885 → 95,595; center and Z15 removed with hash. | GS-O15 |
 | GS-T06 | Convertible 2LT G26/97A → DMX | Baseline 105,880 without D84; target D84 addition brings 107,175 and disclosure. Target auto-add not executed. | GS-O38; 17 focused roof gaps; GS-D04 |
-| GS-T07 | Heritage→DPB; DPB→hash; heritage/center→CF8; CF8→center | First two refuse; CF8 removes center and keeps hash/Z15; reverse center refuses. Lifecycle target still open. | GS-O16/17/19/20 |
+| GS-T07 | Heritage→DPB; DPB→hash; heritage/center→CF8; CF8→center | Historical baseline: first two refuse; CF8 removes center and keeps hash/Z15; reverse center refuses. Accepted target: CF8 remains visible but disabled with “Unavailable at this time”, so its selection is refused before these historical replacement paths can run (GS-D11). | GS-O16/17/19/20 |
 | GS-T08 | G8G/20A/DMX → attempt GTR; D84/ZYC → attempt GBA | Preserve selected valid paint and purchases; prohibited paint refused. | GS-O18/39 |
 | GS-T09 | Coupe 3LT AH2/EL9 versus AE4/EL9 | Baseline both 102,240. Target 102,240 / 102,835; Z25 charged once and 3F9 locked zero. No orange/alternative belt path in target. | GS-O40/41; GS-D05 |
-| GS-T10 | Each four R6X/AE4 discrepancy leaves | Retain exact component sums and observed additions in §4; +595 is a discrepancy, not approved Grand Sport correction. | GS-O42 plus complete price sweep; GS-D09 |
+| GS-T10 | Each four R6X/AE4 discrepancy leaves | Retain exact component sums and observed additions in §4; +595 once is now the accepted correction for each affected leaf. | GS-O42 plus complete price sweep; GS-D09 |
 | GS-T11 | HAG → attempt red; AUP/HAG → AUP/HVZ | Red refused under HAG; automatic blue changes to red under HVZ; D30 does not bypass prohibition. | GS-O43; belt sweep |
 | GS-T12 | Coupe 2LT FEB → J57 → T0F → FEY → FEB | 99,095 → 105,095 → 114,090 → 116,290 → 99,095; absorbed purchases do not return, J56/XFR/T0E restored. | GS-O03 |
 | GS-T13 | Completed configuration FEB/J57/T0F → remove FEB | Baseline retains invalid components/charges and blocks button/modal/submit; coupe 2LT 110,590. Target removes unsupported J57/T0F/dependents and reconciles charges/defaults. | GS-O01; six focused checks; GS-D06/07 |
@@ -231,9 +243,9 @@ expectations; unresolved decisions retain baseline expectations only.
 | GS-T17 | WUB → NWI → FEY → remove FEY | WUB/NWI supported during package; absorbed WUB and dependent NWI removed at end, NGA restored. | GS-O12 |
 | GS-T18 | CFV → FEY → remove FEY; SIG → 5ZV → FEY attempt | CFV removed as incompatible and does not return; 5ZV removes SIG and blocks FEY. | GS-O07/08 |
 | GS-T19 | SNE→PDA / VWE→PCQ / CAV→PEF / RYT→PDY / SC7→SBT; remove package | Prior absorbed item does not reappear as a paid purchase. SBT retains factory roof and blocks CC3 while selected. | GS-O23/25–28 |
-| GS-T20 | VPW → DPB | Baseline permits both despite guide exclusion; corrected behavior remains unresolved. | GS-O24; GS-D12 |
-| GS-T21 | Peer accessory changes; attempt SLN/R88/CF8 | Preserve peer replacement examples; old purchasability does not settle target lifecycle. | GS-O29/30; GS-D11 |
-| GS-T22 | Add DTC / attempt GTR; add SAI with V8X; inspect active DUW/T0E | Accepted additions use guide conflicts and all-six scope, no invented rates; DUW retired. T0E target identity awaits resolution. | GS-D01/02/10; new behavior unexecuted |
+| GS-T20 | VPW → DPB | Baseline permits both despite guide exclusion; target applies full guide exclusions and refuses the conflict. | GS-O24; GS-D12 |
+| GS-T21 | Peer accessory changes; attempt SLN/R88/CF8/RZ9/V8X | Preserve peer replacement examples; target shows SLN/R88/CF8/RZ9/V8X disabled with “Unavailable at this time”. | GS-O29/30; GS-D11 |
+| GS-T22 | Add DTC / attempt GTR; add SAI with V8X; inspect active DUW/T0E | Accepted additions use guide conflicts and all-six scope, DTC 1,295 / SAI 295; DUW retired. Retain active T0E, retire dormant duplicate. | GS-D01/02/10; new behavior unexecuted |
 | GS-T23 | Any of six configurations without / with FEB or FEY | Target B4Z absent without support, included with either; verify availability, selection and installed-equipment outputs together. | Six source status differences; GS-D08; target unexecuted |
 
 ## 10. Coverage and handoff boundary
@@ -261,8 +273,9 @@ component-only price expectations and the historical orange-belt gap. They do no
 prove complete interaction/direction coverage, full option-price reconciliation,
 visual QA, installed-equipment accuracy or dealer-order acceptance.
 
-Resolve the explicit GS-D decisions and validate corrected outputs before a priced
-release or implementation acceptance. Continue separately with **Grand Sport X,
+Implement and validate the accepted GS-D decisions before a priced release or
+implementation acceptance. Hash-first is the current preference rather than final
+UI design; exact disclosure wording and currency code remain unspecified. Continue separately with **Grand Sport X,
 Z06, ZR1, ZR1X**, using the same handoff categories, before consolidating one
 comprehensive schema. This task stops at the Grand Sport structured handoff:
 no schema, evaluator, canonical workbook, reference repository, production output

@@ -1,5 +1,7 @@
 # Grand Sport behavior: foundations and connected choices
 
+**September 9 review update:** [Accepted owner decisions](grand-sport-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate) supersede earlier unresolved/proposed target statements below. This analysis preserves the original guide, workbook and observed behavior; it is not a statement that corrected targets have been implemented.
+
 September 8, 2026. **Grand Sport relationship analysis for schema planning.**
 This follows the same lane structure as [Stingray](stingray-behavior.md):
 foundations, connected choices and charges, guide → workbook → observed behavior,
