@@ -5,7 +5,10 @@ Z06 is model four of six. Stingray, Grand Sport and Grand Sport X have behavior
 analyses and structured handoffs; GSX's final decision PR #24 is merged. ZR1 and
 ZR1X remain. This pass follows the same structure: model/body/trim, connected
 choices and charges, guide → workbook → runtime, discrepancies and coverage.
-It does not implement corrections or build the subsequent structured handoff.
+The original behavior pass did not implement corrections or build the structured
+handoff. The subsequent [structured handoff](z06-structured.md) and
+[record file](z06-structured-records.json) now preserve this full analysis and all
+twelve accepted decisions; frozen evidence and implementation boundaries remain unchanged.
 
 Z06 starts with J56 iron brakes, FE6 suspension and XFR tires. J57, Z07 and
 PDB/PDD/PDF are different acquisition paths; they cannot inherit GSX's standard
@@ -501,5 +504,6 @@ Local reproducible extraction/probes and observations are in `.local/z06/`:
 Exact source rows and material outcomes are retained above for durable review.
 “Complete” is family/source coverage, not all-build combinatorial acceptance,
 visual browser QA, production validation or verification of proposed corrections.
-Owner decision review is complete. The next bounded task is Z06's structured handoff;
-ZR1/ZR1X and schema consolidation do not start in this pass.
+Owner decision review and the subsequent Z06 structured handoff are complete.
+ZR1/ZR1X remain the next model lanes; they and schema consolidation do not start
+in this pass. Implementation and corrected-output verification remain later work.

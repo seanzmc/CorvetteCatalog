@@ -178,6 +178,17 @@ accessories, N3W standard at 3LZ and removed by N2Z, and no PDB+Z07 coexistence
 accepted overlay. Z06 structured handoff remains next, followed by ZR1 and ZR1X. No Z06 corrections,
 schema consolidation, canonical-data changes or cutover are implemented.
 
+September 10: PR #25 is merged. The separately authorized [Z06 structured
+handoff](z06-structured.md) and [record file](z06-structured-records.json) now
+preserve all 244 offerings, 1,464 availability rows, 130 LZ interiors, 197
+component memberships, model-scoped relationships/prices/presentation and all
+captured full-analysis observations. All twelve owner decisions are accepted;
+D11 retains the authorized block-or-noticed-PDD-switch alternatives without
+choosing a final UI treatment. Five code-derived CBF replacement edges remain
+explicit translation obligations. Z06 behavior, structured review input and
+business-decision capture are complete. Implementation and corrected-output
+verification remain separate; ZR1/ZR1X and schema work do not start in this pass.
+
 ## 5. Comparison and release contracts
 
 Maintain two separate comparisons:
