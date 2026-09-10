@@ -10,8 +10,8 @@ These are review inputs, not canonical data, an executable ruleset or a schema.
 
 The owner applied the accepted Grand Sport decisions to overlapping issues on
 September 10 and separately corrected HP1 copy. Section 8 records that authority
-against actual Grand Sport X identities. **ZZ3→LS6→D3V remains proposed, not
-accepted.** Building this handoff does not settle that remaining clarification.
+against actual Grand Sport X identities. **All 14 decision entries are now accepted**, including the subsequent explicit
+owner instruction to remove both LS6 rules from `grand_sport_x_rule_mapping`.
 Earlier unresolved language in the behavior analysis describes historical review
 state; the accepted overlay controls target interpretation without rewriting evidence.
 
@@ -66,7 +66,7 @@ rules. Read the decision overlay before treating any baseline row as a target.
 | Observations | `observed_sequences`: 49 sequences / 213 states; `supplemental_observations.edges`: five sequences / 20 states. |
 | Sweeps | `supplemental_observations`: 264 interior/body contexts, 1,320 paint states, 792 belt attempts, 132 price comparisons, 100 roof cases, 16 completed defect cases, two equipment comparisons and six seat/cause states. |
 | Source reconciliation | `source_reconciliation`: 202 primary coded comparisons, 226 repeated occurrences, exact interior/component/paint reconciliation and 148 numeric price comparisons. Uncoded disclosures are in offering dispositions. |
-| Decisions | `owner_review.records`: 13 accepted entries and one proposed relationship clarification; exact HP1 target and GSX-specific preservation requirements. |
+| Decisions | `owner_review.records`: 14 accepted entries, including exact sheet/row/rule IDs for both LS6 removals; exact HP1 target and GSX-specific preservation requirements. |
 | Duplicate audit | `duplicate_rpos_within_model` is empty, including inactive offerings. DTC exists; DUW does not. |
 
 For example, follow the existing DTC offering through its six availability rows,
@@ -127,7 +127,7 @@ and dependency cleanup policy, with explicit refusal exceptions, to target behav
 | GSX-R05 | Convertible stripe + paint | Target D84 required for DMX/DMV with G26/G4Z/GBK/GKZ/GPH, DMY with G26/G4Z/GBK/GTR, DMW with G26/G4Z/GBK. DMU has no set. | Exterior 3!C67:I71; GSX-D04 |
 | GSX-R06 | Roof / paint | DMX excludes GTR; DMV GKA; DMY GKZ/GPH; DMW G8G. D84/D86/EDU/ZYC exclude GBA. D84 physically removes roof stripe regardless of acquisition cause. | GSX-O13/43/44; E-B §4 |
 | GSX-R07 | Coupe colored cover / B6P | Cover replaces BC7 and supplies D3V. B6P adds SL9 and discounts cover. Remove B6P: retain cover/D3V at 695; remove cover: restore BC7. Absorbed independent D3V does not return if no cause survives. | GSX-O07–09; E-B §5 |
-| GSX-R08 | Convertible cover / ZZ3 | Cover requires ZZ3; package supplies BC7/SL9, cover replaces BC7. Remove ZZ3: remove unsupported cover/content. D3V unavailable. Keep effective body scope despite blank raw prerequisite scope. | GSX-O42; E-B §5; GSX-D14 proposal separate |
+| GSX-R08 | Convertible cover / ZZ3 | Cover requires ZZ3; package supplies BC7/SL9, cover replaces BC7. Remove ZZ3: remove unsupported cover/content. D3V unavailable. Keep effective body scope despite blank raw prerequisite scope. | GSX-O42; E-B §5; GSX-D14 accepted rule removals |
 | GSX-R09 | Hash / center | Hash-first acquires Z15; center requires hash. Removing last hash removes dependent center/Z15 charge. Exact 995 disclosure required. | GSX-O10; GSX-D01 |
 | GSX-R10 | DTC / Heritage | Baseline DTC suppresses Z15 in its single-choice section but leaves hash. Target complete guide conflicts on existing DTC prevent unsupported coexistence and lost package charge. | GSX-O11/12; 12 completed cases; GSX-D01 |
 | GSX-R11 | FED | Adds XFR; removal removes that inclusion while standard J57/B4Z/FE5 and independent wheel/caliper choices survive. Target configured tires reflect XFT/XFR replacement; frozen static equipment retains XFT. | GSX-O01/02; foundation records; E-B §8 |
@@ -172,7 +172,7 @@ and dependency cleanup policy, with explicit refusal exceptions, to target behav
 ## 8. Decision overlay: source, baseline and target remain separate
 
 The following records reproduce the current behavior-analysis owner overlay.
-Thirteen entries are accepted; GSX-D14 is proposed. None is implementation proof.
+All 14 entries are accepted. None is implementation proof.
 
 | ID | Source / baseline issue | Target / clarification | State |
 |---|---|---|---|
@@ -189,7 +189,7 @@ Thirteen entries are accepted; GSX-D14 is proposed. None is implementation proof
 | GSX-D11 | Output/content and ordering scope | Customer configuration form; omitted dealer/service/emissions options remain out of customer selection. Configured equipment reflects replacements; informational equipment remains model/body/trim based. GS-D15. | Accepted September 10 |
 | GSX-D12 | General conflicts and dependency loss | Explain and offer replacement before changing selections, except explicit refusal rules. Remove invalid dependents with alert/revert and preserve independent purchase intent. GS-D16. | Accepted September 10 |
 | GSX-D13 | HP1 copy | Remove the combined 1,250-hp / 932.1-kW statement and LT7 engine reference. Retain the supported front-axle rating; no replacement combined-power claim. Explicit owner correction September 10. | Accepted September 10 |
-| GSX-D14 | ZZ3→LS6→D3V | Separate clarification: the workbook incorrectly describes the appearance package as adding the standard engine, with an engine→lighting edge. Proposed target: retain standard LS6 independently; keep ZZ3→BC7/SL9 and valid coupe cover/package→D3V relationships, removing ZZ3→LS6 and LS6→D3V. Not yet recorded as owner-approved. | Proposed; not owner-approved |
+| GSX-D14 | ZZ3→LS6→D3V | Remove both LS6-related rules from the accepted target: grand_sport_x_rule_mapping row 51 (grand_sport_x_rule_ls6_includes_d3v_c7bc4b3df65b) and row 82 (grand_sport_x_rule_zz3_includes_ls6_b15b51ebf396). Retain standard LS6 independently, ZZ3→BC7/SL9 and valid coupe cover/package→D3V relationships. These are rule-mapping errors, not errors in the options-sheet disclosure. Frozen rows remain historical evidence. | Accepted September 10, explicit owner instruction |
 
 ## 9. Worked sequences and expected outcomes
 
@@ -203,7 +203,7 @@ Amounts are USD partial-build totals unless the context is described as complete
 | GSX-T02 | 3LT coupe FED/EL9 → 1LT convertible | Purchases/interior reset; 119,195, CM9. GSX-O49. |
 | GSX-T03 | FED with paid caliper/wheel → remove FED | Baseline removes XFR inclusion; retain standard J57/B4Z/FE5 and independent purchases. Target configured tire display returns to XFT; baseline static list is separate. GSX-O01/02, foundation records. |
 | GSX-T04 | Coupe 2LT BC4 → B6P → remove B6P → remove BC4 | 118,390 → 120,185 → 118,390 → 117,695; D3V retained by cover until removal, SL9 lost with package, BC7 restored. GSX-O07. |
-| GSX-T05 | Convertible 2LT BC4 attempt → ZZ3 → BC4 → remove ZZ3 | First refused; 125,890 → 126,485 → 124,695; unsupported cover/content removed, no D3V. GSX-O42. Proposed engine-edge correction remains separately unaccepted. |
+| GSX-T05 | Convertible 2LT BC4 attempt → ZZ3 → BC4 → remove ZZ3 | First refused; 125,890 → 126,485 → 124,695; unsupported cover/content removed, no D3V. GSX-O42. Accepted GSX-D14 removes the erroneous engine edges; the original sequence is baseline evidence. |
 | GSX-T06 | D3V → B6P → remove B6P, no colored cover | Absorbed D3V does not return. Contrast GSX-T04's surviving cover cause. GSX-O09. |
 | GSX-T07 | Coupe 2LT 97A → DMU → remove 97A | 118,690 → 119,985 → 117,695; dependent center and Z15 removed. Target adds exact hash-first disclosure. GSX-O10, GSX-D01. |
 | GSX-T08 | Completed DTC→hash and hash/center→DTC across six contexts | Baseline permits DTC/hash without Z15, button enabled. Target applies complete DTC conflicts and preserves valid package/output/charge after the accepted interaction. Verify both directions. GSX-O11/12, focused cases, GSX-D01/12. |
@@ -223,7 +223,7 @@ Amounts are USD partial-build totals unless the context is described as complete
 | GSX-T22 | Attempt SLN/R88/CF8/RZ9/V8X in applicable contexts | Target cards visible but disabled with exact unavailability text. Historical CF8 replacement behavior is not target selection permission. GSX-O33, GSX-D09. |
 | GSX-T23 | SAI / DUE / HP1; inspect DTC and T0E identities | SAI 295 across six contexts with 3LT V8X conflict; DUE Royal Blue; exact axle-only HP1 copy. DTC/T0E remain single identities; no DUW. GSX-D07/13. |
 | GSX-T24 | FED and EL9 in recap/order versus informational equipment | Configured equipment shows XFR/Z25 with correct charges; informational standard list remains context-based. Two static-equipment comparisons are baseline evidence only. GSX-D11. |
-| GSX-T25 | ZZ3 engine ownership | Pending proposal removes ZZ3→LS6 and LS6→D3V, keeps standard LS6 and valid cover/package content. Do not treat this as an accepted target test until clarified. GSX-D14. |
+| GSX-T25 | ZZ3 engine ownership | Accepted target removes both LS6 rules identified in GSX-D14; LS6 remains standard without ZZ3, and valid cover/package lighting remains. Check the resolved rule set has no source or target opt_ls6_001 in this model mapping; corrected runtime verification is still future work. |
 
 ## 10. Coverage and handoff boundary
 
@@ -250,7 +250,8 @@ production output was tested. Existing observations are not exhaustive interacti
 or reversal coverage. Original outputs lack embedded source hashes as disclosed
 in §1. The price-only 5ZB provenance limit remains explicit despite accepted retention.
 
-The structured handoff is complete as review evidence. ZZ3 relationship approval
-and later implementation/target verification remain outstanding. This task stops
+The structured handoff and all business decisions are complete, matching the
+Stingray and Grand Sport review stage. Merge of this final decision update remains;
+implementation/target verification is later work for all three models. This task stops
 here: no Z06 analysis, schema consolidation, canonical workbook change, runtime
 implementation, merge or deployment is included.

@@ -146,6 +146,16 @@ front-axle rating and torque. Frozen source/behavior evidence remains distinct
 from accepted targets. Structured review input is complete; implementation and
 corrected-output verification remain separate. No Z06 or schema work starts here.
 
+September 10 final Grand Sport X decision: the owner explicitly approved removal
+of both LS6 rules in `grand_sport_x_rule_mapping`: row 51
+`grand_sport_x_rule_ls6_includes_d3v_c7bc4b3df65b` and row 82
+`grand_sport_x_rule_zz3_includes_ls6_b15b51ebf396`. The handoff now records exact
+removal operations while retaining frozen evidence. All 14 Grand Sport X decision
+entries are accepted, matching Stingray and Grand Sport's completed behavior,
+structured handoff and business-decision stage. This supersedes the preceding
+pending-ZZ3 status. Only review/merge of this decision update remains for that
+stage; implementation and corrected-output verification are later work.
+
 The [workbook translation blueprint](workbook-translation-blueprint.md) maps the current source families and behavior. Its first structural slice is implemented in candidate schema 3: one model-owned `option` table replaces six option tables, with relationships retargeted and six-model parity preserved. The candidate now has 43 tables and 23,588 typed rows; all source facts and 7,448 availability pairs remain intact. Workbook meaning and intended behavior are the migration requirements; remaining table boundaries remain revisable. Passing import and output parity does not approve the final authoring schema or the known R6X pricing defect.
 
 Define model years/models, variants, model-owned options, availability, interiors/components, typed rules, price contexts, contextual presentation, assets, and source evidence as explicit entities and relationships. Specify row grain, candidate keys, functional dependencies, null/zero/all-scope semantics, and reference constraints before DDL.

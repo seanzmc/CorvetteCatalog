@@ -4,8 +4,8 @@
 open items use the accepted Grand Sport decisions. The accepted targets below
 supersede earlier pending/proposed statements in this preserved analysis.
 HP1 copy must remove the 1,250-hp combined-output claim (including its 932.1-kW
-equivalent) and the LT7 reference. The ZZ3 relationship is explained separately;
-no owner acceptance of that distinct relationship correction is recorded yet.
+equivalent) and the LT7 reference. The owner subsequently approved removing both LS6 rules from
+`grand_sport_x_rule_mapping` (rows 51 and 82); all model decisions are now accepted.
 
 September 10, 2026. **Complete family relationship analysis for review.** This
 extends the initial PR #22 foundation slice through interiors, graphics, roofs,
@@ -26,7 +26,7 @@ must survive review instead of being overwritten by the other model's analysis.
 **Structured handoff update — September 10:** the subsequently authorized
 [structured handoff](grand-sport-x-structured.md) and [record file](grand-sport-x-structured-records.json)
 now preserve this full analysis and its decision overlay. The earlier pass boundary
-below remains historical; ZZ3 relationship approval is still outstanding.
+below remains historical; the owner has now approved the LS6 rule removals.
 
 ## 1. Sources and how to read this analysis
 
@@ -200,11 +200,13 @@ them when the prerequisite option is unavailable in the current body.
 An explicit future scope must preserve the effective behavior, not copy blanks
 as all-body requirements.
 
-There is also a misleading equipment edge: ZZ3→LS6 (row 82) and LS6→D3V
-(row 51). The guide describes an LS6 **cover**, not package acquisition of the
+The errors are in **`grand_sport_x_rule_mapping`**, not the options-sheet
+disclosure: ZZ3→LS6 at row 82 (`grand_sport_x_rule_zz3_includes_ls6_b15b51ebf396`)
+and LS6→D3V at row 51 (`grand_sport_x_rule_ls6_includes_d3v_c7bc4b3df65b`). The guide describes an LS6 **cover**, not package acquisition of the
 standard engine. Runtime emits LS6 under ZZ3, but availability filtering prevents
-D3V on convertible; the engine is standard even without ZZ3. Reconcile that
-relationship as source-data debt, not a new engine price or blanket inclusion.
+D3V on convertible; the engine is standard even without ZZ3. The owner approved removing both rule rows from the target. Keep the engine
+standard independently and preserve the valid cover/appearance relationships;
+the original frozen rows remain evidence.
 
 ## 6. Heritage graphics connect hashes, center stripes and exclusions
 
@@ -545,7 +547,7 @@ not implementation or canonical-data changes. Earlier observations remain intact
 | Output/content and ordering scope | Customer configuration form; omitted dealer/service/emissions options remain out of customer selection. Configured equipment reflects replacements; informational equipment remains model/body/trim based. GS-D15. |
 | General conflicts and dependency loss | Explain and offer replacement before changing selections, except explicit refusal rules. Remove invalid dependents with alert/revert and preserve independent purchase intent. GS-D16. |
 | HP1 copy | Remove the combined 1,250-hp / 932.1-kW statement and LT7 engine reference. Retain the supported front-axle rating; no replacement combined-power claim. Explicit owner correction September 10. |
-| ZZ3→LS6→D3V | Separate clarification: the workbook incorrectly describes the appearance package as adding the standard engine, with an engine→lighting edge. Proposed target: retain standard LS6 independently; keep ZZ3→BC7/SL9 and valid coupe cover/package→D3V relationships, removing ZZ3→LS6 and LS6→D3V. Not yet recorded as owner-approved. |
+| ZZ3→LS6→D3V | Accepted September 10 by explicit owner instruction. Remove both LS6-related rules from the accepted target: grand_sport_x_rule_mapping row 51 (grand_sport_x_rule_ls6_includes_d3v_c7bc4b3df65b) and row 82 (grand_sport_x_rule_zz3_includes_ls6_b15b51ebf396). Retain standard LS6 independently, ZZ3→BC7/SL9 and valid coupe cover/package→D3V relationships. These are rule-mapping errors, not errors in the options-sheet disclosure. Frozen rows remain historical evidence. |
 
 The HP1 target description is: **“Electrified front axle: 186 hp (138.7 kW),
 145 lb-ft of front torque (196.6 N-m).”** The title remains “Electrified Front
