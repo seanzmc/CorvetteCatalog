@@ -129,6 +129,10 @@ traces interiors, graphics/roof dependencies, performance, accessories and order
 output. Independently observed issues include missing Z25 output, DTC/hash
 coexistence without Z15, conditional D84 gaps, R6X/AE4 undercharges and incomplete
 rear-graphic exclusions. These are review findings, not accepted corrections.
+September 10 owner review subsequently applies the accepted Grand Sport decisions
+to overlapping Grand Sport X findings and directs removing the HP1 combined
+1,250-hp claim and LT7 reference. The behavior document records these accepted
+targets; the separate ZZ3/LS6 relationship correction remains a clarification.
 The earlier foundation JSON remains unchanged. Next is the Grand Sport X
 structured handoff and model-specific review; no Z06 or schema work starts here.
 

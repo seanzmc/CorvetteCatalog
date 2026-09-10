@@ -1,5 +1,12 @@
 # Grand Sport X behavior: foundations and connected choices
 
+**Owner review update — September 10:** the owner directed that overlapping
+open items use the accepted Grand Sport decisions. The accepted targets below
+supersede earlier pending/proposed statements in this preserved analysis.
+HP1 copy must remove the 1,250-hp combined-output claim (including its 932.1-kW
+equivalent) and the LT7 reference. The ZZ3 relationship is explained separately;
+no owner acceptance of that distinct relationship correction is recorded yet.
+
 September 10, 2026. **Complete family relationship analysis for review.** This
 extends the initial PR #22 foundation slice through interiors, graphics, roofs,
 performance, wheels, accessories, equipment and order output. It follows the
@@ -511,25 +518,38 @@ covers, package inclusions and belts. Matching a base rate does not certify
 all resolved totals: EL9/R6X examples demonstrate why component ownership and
 selection/output still need independent checks.
 
-### Remaining model-specific review items
+### Owner decisions and remaining relationship clarification
 
-These are review findings, not applied corrections or a new structured overlay.
-Universal interaction decisions already made are not being reopened.
+September 10: the owner explicitly applied the accepted
+[Grand Sport decisions](grand-sport-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate)
+to overlapping Grand Sport X issues. This is authority for the target analysis,
+not implementation or canonical-data changes. Earlier observations remain intact.
 
-| Finding | Proposed disposition / decision still needed |
+| Finding | Accepted target / remaining clarification |
 |---|---|
-| DTC/hash coexistence loses Z15 and its charge | Reconcile DTC's complete heritage conflicts and preserve a usable hash-first acquisition path; verify both directions and order output. Confirm this lane's package disclosure and null-hash-price interpretation. |
-| EL9 lacks Z25; AH2/AE4 share 1,995 total | Restore correct package acquisition/output; review content versus separate AE4 charge and EL9 belt locking for this model. |
-| Four R6X/AE4 shortfalls | Review adding the missing 595 once, based on this lane's components, preserving old observations. |
-| Conditional D84 absent | Add exact convertible stripe/paint requirements and disclosure, with explicit/dependency ownership and existing cleanup/revert policy. |
-| EL9/orange D30 gap | Resolve alongside EL9 belt policy; if alternatives are prohibited, do not implement a new invalid pairing just to add its surcharge. |
-| VPW/VPO incomplete stripe exclusions | Reconcile complete guide sets, including standalone rear graphics, in both directions. |
-| SAI missing; DUE naming differs | Review adding SAI at the evidenced scope/rate and correcting DUE naming; no DUW replacement or T0E deduplication is needed here. |
-| 5ZB has price-only guide support | Retain the observed workbook choice while confirming Grand Sport X applicability; a matching price is not an availability assertion. |
-| SLN/CF8 selectable during lifecycle restriction | Review disabled-selection treatment and applicability; retain inactive R88/RZ9/V8X and verify full rules before future release. |
-| ZZ3→LS6→D3V and HP1 copy | Remove misleading package-engine ownership from the target after review; corroborate model-specific horsepower rather than silently edit evidence. |
-| Currency and price basis | Confirm Grand Sport X scope; preserve qualified discounts and zero/null distinctions. |
-| Output/content and ordering scope | Carry configured versus informational equipment semantics into future consumers; retain disclosures without assuming full dealer-order enforcement. |
+| DTC/hash coexistence loses Z15 and its charge | Apply complete guide conflicts to the existing DTC identity. Keep hash-first acquisition and the exact disclosure: “Selecting this hash mark adds the Grand Sport Heritage Package (Z15) for $995.” Preserve hash→Z15 and center dependency/removal; no universal null-as-zero rule. GS-D01/03/16. |
+| EL9 lacks Z25; AH2/AE4 share 1,995 total | EL9 acquires Z25 with a visible 1,995 content charge once; AH2 zero, AE4 another 595. Lock included 3F9 at zero. Emit Z25 in configured output. GS-D05. |
+| Four R6X/AE4 shortfalls | Add the missing 595 once in each affected leaf, using the component subtotals in §7. GS-D09. |
+| Conditional D84 absent | Auto-add D84 for the exact convertible stripe/paint contexts with disclosure. On cause loss remove dependency-added D84 and its charge, retain independently selected D84; alert and offer revert. Retain the center-stripe roof disclosure. GS-D04/16. |
+| EL9/orange D30 gap | Red-belt locking supersedes this historical alternative-belt defect; do not enable the orange pairing. GS-D05. |
+| VPW/VPO incomplete stripe exclusions | Apply full guide exclusions and refuse conflicting selections in both directions; this explicit blocking policy overrides general replacement offers. GS-D12. |
+| SAI missing; DUE naming differs | Add SAI across six configurations at 295 with the 3LT V8X conflict; use Royal Blue for DUE. DTC already exists, DUW does not, and no T0E duplicate needs retirement. GS-D01/02/13 applied to actual GSX identities. |
+| 5ZB has price-only guide support | Preserve the existing workbook choice, consistent with retained Grand Sport cap behavior. Price-only guide evidence remains a provenance limitation, not a renewed owner decision. |
+| SLN/CF8 and inactive lifecycle options | Show applicable SLN/R88/CF8/RZ9/V8X cards disabled with “Unavailable at this time”, including already-inactive options. Preserve compatibility rules; verify them before release. GS-D11. |
+| Currency and price basis | USD; raw Price Schedule column E for OPTIONS, preserving base/destination semantics and model-qualified wheel discounts. No wholesale baseline repricing. GS-D14. |
+| Output/content and ordering scope | Customer configuration form; omitted dealer/service/emissions options remain out of customer selection. Configured equipment reflects replacements; informational equipment remains model/body/trim based. GS-D15. |
+| General conflicts and dependency loss | Explain and offer replacement before changing selections, except explicit refusal rules. Remove invalid dependents with alert/revert and preserve independent purchase intent. GS-D16. |
+| HP1 copy | Remove the combined 1,250-hp / 932.1-kW statement and LT7 engine reference. Retain the supported front-axle rating; no replacement combined-power claim. Explicit owner correction September 10. |
+| ZZ3→LS6→D3V | Separate clarification: the workbook incorrectly describes the appearance package as adding the standard engine, with an engine→lighting edge. Proposed target: retain standard LS6 independently; keep ZZ3→BC7/SL9 and valid coupe cover/package→D3V relationships, removing ZZ3→LS6 and LS6→D3V. Not yet recorded as owner-approved. |
+
+The HP1 target description is: **“Electrified front axle: 186 hp (138.7 kW),
+145 lb-ft of front torque (196.6 N-m).”** The title remains “Electrified Front
+Axle.” Original guide/workbook wording stays preserved as evidence.
+
+Standard J57/B4Z/FE5, FED's tire-only content, the existing DTC identity and the
+verified carbon-wheel discounts remain Grand Sport X facts. Applying overlapping
+decisions does not copy Grand Sport's FEB/FEY requirements into this lane.
+Implementation and corrected-output verification remain outstanding.
 
 ### Implications for the paused Stingray proposal
 
