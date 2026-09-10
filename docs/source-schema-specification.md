@@ -1,5 +1,8 @@
 # Source and schema specification
 
+**Historical specification.** Current work is [model discovery](model-discovery.md).
+Do not resume or extend this schema proposal before the six-model discovery review.
+
 Checkpoint A, September 5, 2026. This is a logical design and source mapping for a fresh implementation. It authorizes no DDL, parser, import, application, canonical-data change, or cutover. The roadmap remains [migration-plan.md](migration-plan.md). Extend this specification when domain ambiguity warrants it; do not make a new specification for each task.
 
 The option-definition/offering/code/policy/price/presentation split below is a historical proposal, superseded by the implemented [schema-3 option ownership](workbook-translation-blueprint.md). Its source semantics remain requirements; those six table boundaries do not. Availability, contextual overrides and rule relationships remain separate.

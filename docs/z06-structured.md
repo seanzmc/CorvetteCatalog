@@ -1,5 +1,7 @@
 # Z06 structured handoff
 
+**September 10 discovery catch-up:** the [current completion review](model-discovery.md#z06) supplements this historical analysis with retained source/price accounting, full starting-choice observations and additional connected behavior/output evidence. Read it before interpreting older statements about unfinished coverage. Original facts, observations and accepted decisions below remain unchanged.
+
 September 10, 2026. Complete model review handoff following the established
 Stingray, Grand Sport and Grand Sport X structure. The [record file](z06-structured-records.json)
 preserves frozen source rows, observed behavior and the twelve accepted owner

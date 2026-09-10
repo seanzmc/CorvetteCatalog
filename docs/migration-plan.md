@@ -1,5 +1,18 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
+## Current direction — September 10 discovery catch-up
+
+The owner directed a consistent completion review and catch-up of Stingray,
+Grand Sport, Grand Sport X and Z06 before continuing ZR1/ZR1X. The authoritative
+current scope and model status are in the [discovery index](model-discovery.md).
+Earlier dated completion entries mean completion of the work described at that
+time; they do not override the current coverage review. Keep their source evidence
+and accepted decisions intact. Complete all six independent model discoveries
+before proposing one master schema. No DDL, canonical corrections, application
+implementation, deployment or cutover is authorized by this work.
+
+## Historical roadmap and decisions
+
 Status: Checkpoint A specification completed September 5, 2026. Checkpoint B's disposable relational import is implemented and verified locally September 6, 2026. The owner separately authorized C after supplying a new export; its bounded brake intake is also verified locally. D's direct catalog generation and six-model form parity are implemented and verified locally September 6, 2026. E–H remain unauthorized. See [relational import evidence](../catalog/README.md), [source and schema specification](source-schema-specification.md) and [source intake results](../sources/README.md).
 
 ## 1. Clean project boundary

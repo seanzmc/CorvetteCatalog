@@ -1,5 +1,7 @@
 # Grand Sport X behavior: foundations and connected choices
 
+**September 10 discovery catch-up:** the [current completion review](model-discovery.md#grand-sport-x) supplements this historical analysis with retained source/price accounting, full starting-choice observations and additional connected behavior/output evidence. Read it before interpreting older statements about unfinished coverage. Original facts, observations and accepted decisions below remain unchanged.
+
 **Owner review update — September 10:** the owner directed that overlapping
 open items use the accepted Grand Sport decisions. The accepted targets below
 supersede earlier pending/proposed statements in this preserved analysis.

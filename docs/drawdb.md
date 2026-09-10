@@ -1,5 +1,8 @@
 # Current disposable candidate in drawDB
 
+**Historical implementation reference; schema work is paused.** The
+[model discovery index](model-discovery.md) controls the current task.
+
 [schema-candidate.drawdb.sql](schema-candidate.drawdb.sql) visualizes the
 **current disposable candidate**, not the final authoring/release design.
 [catalog/schema.py](../catalog/schema.py) remains authoritative for the implemented
