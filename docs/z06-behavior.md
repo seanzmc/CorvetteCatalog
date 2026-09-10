@@ -1,6 +1,6 @@
 # Z06 behavior: foundations and connected choices
 
-September 10, 2026. **Complete family relationship analysis for owner review.**
+September 10, 2026. **Complete family relationship analysis; all twelve owner decisions accepted.**
 Z06 is model four of six. Stingray, Grand Sport and Grand Sport X have behavior
 analyses and structured handoffs; GSX's final decision PR #24 is merged. ZR1 and
 ZR1X remain. This pass follows the same structure: model/body/trim, connected
@@ -39,7 +39,8 @@ The guide's option header alignment ambiguity remains documented in source
 provenance. Earlier model USD/price-basis decisions are precedent for review;
 this pass does not silently accept a new Z06 tariff or extend GSX-only approvals.
 The canonical workbook, baseline, application, schema and reference project stay
-unchanged. Findings below are proposed review items, not accepted corrections.
+unchanged. Frozen findings below remain historical evidence; the September 10 owner decision
+overlay in §9 records accepted targets, not implemented corrections.
 
 ## 2. Model, body and trim establish the starting configuration
 
@@ -438,26 +439,36 @@ all six guide contexts at Interior 4 41 and Price Schedule 128 (295), with V8X
 conflict at 3LZ. TU7/N26/N2Z/36S/37S/38S are represented through interior
 components, not classified as missing customer cards.
 
-| Review ID | Proposed target / unresolved choice |
-|---|---|
-| Z06-D01 | Add J57→J6D default inclusion, allowing paid caliper upgrades; confirm J57/Z07/PDD/PDF acquisition and restoration across all configurations. |
-| Z06-D02 | Implement PCZ's four contents once at its 5,295 charge, full guide conflicts and explicit child/removal ownership. |
-| Z06-D03 | Implement 5DH/5DK second-set exclusions and included hardware content without duplicate accessory charges. |
-| Z06-D04 | Apply the 15 inspected stripe/paint prohibition pairs in both directions; retain non-prohibited combinations. |
-| Z06-D05 | Complete VPW/VPO stripe and package/badge conflicts; earlier models' explicit refusal policy is precedent for owner review. |
-| Z06-D06 | Price SC7 at zero under SBT; preserve independent-purchase intent according to the accepted application policy. |
-| Z06-D07 | Enforce RXI/SLN conflict in both directions; do not incorrectly disable Z06 SLN as a lifecycle-unavailable item. |
-| Z06-D08 | Restore the four missing AE4 595 charges, retaining N2Z 895 and other model-qualified components. |
-| Z06-D09 | Replace legacy DUW with DTC plus all its relationships, update DUE naming and add SAI with its 3LZ V8X exclusion; preserve raw contradictions. |
-| Z06-D10 | Resolve R88 lifecycle display and dormant RYQ/V8X/5V5/CF8 presentation. Separately restore/represent standard N3W equipment at 3LZ. |
-| Z06-D11 | Decide whether overlapping PDB+Z07 remains allowed with its 9,000 premium or receives an explained PDD/PDF substitution offer; guide evidence alone does not decide. |
-| Z06-D12 | Confirm Z06 USD/column-E option-price basis, base/destination/R8E ownership, the AUP HAG/HVZ qualifier conflict, customer-form ordering scope and static-versus-configured equipment presentation. |
+### Owner decisions accepted September 10, 2026
 
-Previously accepted application-level dependency cleanup with alert/revert and
-conflict replacement offers remain design guidance, with explicit refusal
-exceptions taking precedence. These do not authorize inventing Z06 product
-facts. This pass records the twelve items for review; it does not mark them
-accepted based on similar RPOs or silently apply earlier model corrections.
+The owner approved all twelve review items in this conversation, with the
+specific interaction policies below. These accepted targets supersede the earlier
+proposals and unresolved-choice wording; frozen observations and raw contradictions
+remain unchanged. This is the decision log for the subsequent structured handoff,
+not the complete structured record file or corrected-runtime verification.
+
+| Review ID | Status | Accepted target |
+|---|---|---|
+| Z06-D01 | Accepted | Add J57→J6D default inclusion, allowing compatible paid caliper upgrades. Confirm J57/Z07/PDD/PDF acquisition and default restoration across all configurations. J6D is gray; the conversational review list incorrectly called it red. The approved code is unchanged. |
+| Z06-D02 | Accepted | Implement PCZ's four contents (5DK, SFZ, SHT, VPO) once at its 5,295 charge, with zero additional child charges, full guide conflicts and explicit child/removal ownership under the accepted independent-purchase policy. |
+| Z06-D03 | Accepted | Implement 5DH/5DK second-set exclusions. Retain factory wheels; represent included black lug nuts/locks and 5DK bronze caps as supplied content without duplicate accessory charges. |
+| Z06-D04 | Accepted | Apply all 15 inspected stripe/paint prohibition pairs in both directions; retain non-prohibited combinations. |
+| Z06-D05 | Accepted | Complete VPW/VPO stripe and package/badge conflicts. Explicitly refuse conflicting stripes in both directions. Use a replacement notice for conflicting badges, following the accepted replacement-offer policy rather than silent replacement. |
+| Z06-D06 | Accepted | Price SC7 at zero under SBT so the package costs 2,525, not 2,720. Preserve independent-purchase intent according to the accepted application policy, including a pouch purchased before SBT and subsequent package removal. |
+| Z06-D07 | Accepted | Enforce RXI/SLN conflict in both directions using the accepted general conflict policy. Keep Z06 SLN available otherwise; do not classify it as lifecycle-unavailable. |
+| Z06-D08 | Accepted | Restore each of the four missing AE4 595 charges listed in §7, retaining N2Z 895 and all other model-qualified components. |
+| Z06-D09 | Accepted | Replace legacy DUW with DTC at 1,295 and all its relationships, including the GTR prohibition. Rename DUE to Royal Blue. Add SAI at 295 across all six configurations with its 3LZ V8X exclusion. Preserve raw source contradictions. |
+| Z06-D10 | Accepted | Display unavailable R88/RYQ/V8X/5V5/CF8 accessories as disabled, with unavailable-at-this-time presentation. Restore N3W as 3LZ standard equipment, separate from N2Z; selecting N2Z removes N3W from the configured equipment. |
+| Z06-D11 | Accepted | Do not permit PDB and standalone Z07 to coexist. Make Z07 nonselectable with PDB, or require a switch to PDD with notice before accepting Z07. The owner authorized either interaction; the combined 9,000-premium path is rejected. Do not silently substitute a package or infer approval for a PDF substitution. |
+| Z06-D12 | Accepted | Use USD and raw Price Schedule column E for option amounts. Destination is included once in base; R8E is separate at 2,600, rising to 3,000 with T0F/T0G. Permit AUP HAG and HVZ at 350 while preserving the guide qualifier inconsistency. Keep customer-form ordering scope and external approval/delivery disclosures without claiming external enforcement. Distinguish baseline informational equipment from the configured installed build, reflecting replacements such as FE6/XFR→FE7/XFS. |
+
+Previously accepted application-level dependency cleanup with alert/revert,
+independent-purchase preservation and explained conflict replacement offers remain
+design guidance. Explicit refusal exceptions, including D05's stripes, take
+precedence; D05's badge conflicts use replacement notice. D11 records the owner's
+permitted interaction alternatives without inventing a single chosen UI treatment.
+No business-decision item remains unaccepted. Implementation, final UI treatment
+within those alternatives and corrected-output validation are later work.
 
 ## 10. Implications, validation and handoff
 
@@ -490,5 +501,5 @@ Local reproducible extraction/probes and observations are in `.local/z06/`:
 Exact source rows and material outcomes are retained above for durable review.
 “Complete” is family/source coverage, not all-build combinatorial acceptance,
 visual browser QA, production validation or verification of proposed corrections.
-The next bounded task is owner decision review and Z06's structured handoff;
+Owner decision review is complete. The next bounded task is Z06's structured handoff;
 ZR1/ZR1X and schema consolidation do not start in this pass.

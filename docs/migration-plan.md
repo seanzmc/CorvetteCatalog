@@ -171,8 +171,11 @@ of six, now covers all 244 offerings, complete LZ interior expansion, connected
 package/price/removal behavior and guide/workbook/runtime discrepancies. Its
 54 package states match wheel-qualified charges, while missing caliper content,
 PCZ relationships, LPO/graphics restrictions, SBT and R6X charges remain explicit
-review items. This completes the behavior pass only: Z06 decision review and its
-structured handoff remain next, followed by ZR1 and ZR1X. No Z06 corrections,
+review findings. The owner subsequently accepted all twelve Z06 decisions, including
+explicit stripe refusal versus badge replacement notice, disabled unavailable
+accessories, N3W standard at 3LZ and removed by N2Z, and no PDB+Z07 coexistence
+(block Z07 or require a noticed switch to PDD). The behavior report logs the full
+accepted overlay. Z06 structured handoff remains next, followed by ZR1 and ZR1X. No Z06 corrections,
 schema consolidation, canonical-data changes or cutover are implemented.
 
 ## 5. Comparison and release contracts
