@@ -4,6 +4,7 @@ Run with the existing openpyxl environment from the repository root.
 This focused verifier protects the supplemental evidence and accounting added by
 the catch-up; it does not certify exhaustive builds or replace human source review.
 """
+import argparse
 import hashlib
 import io
 import json
@@ -17,6 +18,32 @@ def read(path):
     return json.loads((ROOT / path).read_text())
 def digest(content):
     return hashlib.sha256(content).hexdigest()
+
+def normalized_runtime(runtime):
+    # Only compact-order submission times are dynamic in this probe. Preserve
+    # every other field, JSON type and list position (including provenance).
+    runtime = json.loads(json.dumps(runtime))
+    snapshots = [row['state'] for row in runtime['foundations']]
+    snapshots.extend(row['state'] for row in runtime['seat_transitions'])
+    for case in runtime['connected_sequences']:
+        snapshots.append(case['initial'])
+        snapshots.extend(step['state'] for step in case['states'])
+    for snapshot in snapshots:
+        del snapshot['compact']['submitted_at']
+    return json.dumps(runtime, sort_keys=True, ensure_ascii=False)
+
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('generated_directory', type=Path,
+                    help='Fresh output directory from discovery_catchup.mjs')
+args = parser.parse_args()
+for model in ('stingray', 'grand-sport', 'grand-sport-x', 'z06'):
+    filename = f'{model}-runtime.json'
+    generated = json.loads((args.generated_directory / filename).read_text())
+    retained = read(f'docs/discovery/{filename}')
+    if normalized_runtime(generated) != normalized_runtime(retained):
+        raise SystemExit(f'{filename}: reproduced observations differ from committed evidence')
+    print(f'{model}: reproduced observations match committed evidence (excluding compact submitted_at)')
 
 manifest = read('baselines/2026-09-06/manifest.json')
 archive_path = ROOT / 'baselines/2026-09-06' / manifest['archive']['path']

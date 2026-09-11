@@ -210,13 +210,17 @@ that the existing form is correct. ZR1 and ZR1X remain unfinished model discover
 Run from the repository root using the existing Node and openpyxl environments:
 
 ```sh
-node scripts/discovery_catchup.mjs /tmp/catalog-discovery-new-run
-PYTHONDONTWRITEBYTECODE=1 /Users/seandm/Projects/27vette/.venv/bin/python scripts/verify_discovery_catchup.py
+node scripts/discovery_catchup.mjs .local/catalog-discovery-new-run
+PYTHONDONTWRITEBYTECODE=1 /Users/seandm/Projects/27vette/.venv/bin/python scripts/verify_discovery_catchup.py .local/catalog-discovery-new-run
 ```
 
 The probe refuses to overwrite output, reads the immutable archive and pinned
 reference harness, and uses stubbed network/DOM functions. It does not write into
-27vette. The verifier checks frozen source rows, complete option accounting and
+27vette. The verifier requires that generated directory and compares all four fresh
+runtime JSON files against the committed observations, ignoring only each snapshot's
+`compact.submitted_at` timestamp. Missing files or any other differences fail;
+object-key order is insignificant, but list order and JSON types are preserved.
+It then checks frozen source rows, complete option accounting and
 qualifiers, direct-rule translations, full choice universes, known stripe outcomes,
 context completeness, provenance and rejection evidence. It does not turn row
 preservation or arithmetic equality into manufacturer acceptance. Expected target
