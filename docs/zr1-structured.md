@@ -3,8 +3,9 @@
 September 10, 2026. Read the [behavior analysis](zr1-behavior.md) with the
 [source records](zr1-structured-records.json) and
 [executed observations](discovery/zr1-runtime.json). This is a model discovery
-handoff for owner review, not an accepted dataset, database schema or correction.
-All nine ZR1-D decisions remain open. Earlier-model approvals are not ZR1 approvals.
+handoff with all nine ZR1-D targets accepted September 11, 2026, including explicit
+TOM ownership and DUW removal corrections. It is not an implemented dataset or
+database schema. Two interaction details remain unresolved in the decision table.
 
 ## Record identity and scope
 
@@ -21,7 +22,7 @@ There are no duplicate nonempty RPOs within the 207 ZR1 offering records.
 | Availability | `zr1_ovs`: 828 option/configuration pairs; no variant overrides |
 | Guide correspondence | 171 coded matches / 684 status pairs; 26 uncoded equipment mappings; ten paints; 195 applicable repeated coded rows |
 | Guide disclosures | `guide_rows`: original wording and both model column scopes across the five family sheets, including ZR1X-only rows marked inapplicable |
-| Guide-only facts | `guide_only_dispositions`: 19; SAI open addition, six interior components, twelve service/emissions/territory codes outside customer scope for review |
+| Guide-only facts | `guide_only_dispositions`: 19; SAI addition accepted under D07 (frozen disposition remains `open_addition`), six interior components, twelve service/emissions/territory codes outside customer scope for review |
 | Interiors | `LZ_Interiors`, `model_interior_scope`, `interior_source_links`: 90 each; 127 component memberships; 58 raw chart combinations expand to exactly these 90 leaves |
 | Direct relationships | `zr1_rule_mapping`: 98; `direct_rule_translation`: 97 emitted, dormant CFC→GBA filtered; no extra derived triples |
 | Grouped constraints | Five groups / 44 member rows; nine exclusive groups / 24 members; missing DTC membership remains explicit |
@@ -54,7 +55,7 @@ is preserved; the working numeric interpretation remains column E plus qualifier
 | Accessory packages | Direct rows 21–26; price rows 6–11 | Interior 5!27:38, Exterior 5!22,30:31; both package/child orders, both bodies |
 | Delivery/plaque | Direct rows 4,27 | Exterior 5!10:11, Interior 5!55:56; refusal, supplier and charge output |
 | Interiors/belts | Direct rows 48–99; price rows 14–35; exact scoped leaves/components/color overrides | Interior 5!60:87 and Color and Trim charts; complete leaf/body, paint and belt observations |
-| Equipment/lifecycle/defaults | Option active/display behavior, availability, default rules, standardEquipment output | Full starting-choice observations, foundations, inactive source accounting and open ZR1-D01/02/09 |
+| Equipment/lifecycle/defaults | Option active/display behavior, availability, default rules, standardEquipment output | Full starting-choice observations, foundations, inactive source accounting and accepted ZR1-D01/02/09 |
 | Remaining independent accessories | Offering scope and four accessory exclusive groups | Complete active-choice sweep; covers, cap, script and suede-liner replacement sequence |
 
 The detailed source IDs, target IDs and rule IDs are retained on each row.
@@ -64,13 +65,17 @@ from zero pricing: SBT includes SC7 but still double-charges it. Static equipmen
 is independent from configured line items: ZTK demonstrates why those consumers
 cannot share an unqualified “installed equipment” meaning.
 
-## Open targets
+## Accepted targets
 
 [ZR1-D01–09](zr1-behavior.md#8-open-owner-decisions-and-expected-targets) preserve
-source facts, observed defects, proposed targets and expected future sequences.
-No proposed target was run against a modified form. Source/probe verification
-must not be described as corrected-runtime verification. The owner can review
-these decisions without another discovery implementation or schema change.
+source facts, observed defects, accepted targets and expected future sequences.
+The behavior document is the current owner-decision record. The source JSON is
+an unchanged discovery snapshot: its empty `owner_review` and original role and
+disposition wording describe the September 10 extraction, not current approval.
+It must be read with the September 11 decisions, including DUW removal despite
+the retained source listing. D05 interaction and D06 displaced-cover restoration
+remain unresolved as specified there. No accepted target was run against a
+modified form; source/probe verification is not corrected-runtime verification.
 
 ## Reproduce
 

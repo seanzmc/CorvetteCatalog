@@ -58,7 +58,7 @@ not required. All source relationships still need an explained disposition.
 | Grand Sport | [Analysis](grand-sport-behavior.md) | [Handoff](grand-sport-structured.md), [records](grand-sport-structured-records.json) | Catch-up verified; see model review below |
 | Grand Sport X | [Analysis](grand-sport-x-behavior.md) | [Handoff](grand-sport-x-structured.md), [records](grand-sport-x-structured-records.json) | Catch-up verified; see model review below |
 | Z06 | [Analysis](z06-behavior.md) | [Handoff](z06-structured.md), [records](z06-structured-records.json) | Catch-up verified; see model review below |
-| ZR1 | [Analysis](zr1-behavior.md) | [Handoff](zr1-structured.md), [records](zr1-structured-records.json) | Discovery executed; nine owner decisions open |
+| ZR1 | [Analysis](zr1-behavior.md) | [Handoff](zr1-structured.md), [records](zr1-structured-records.json) | Discovery executed; nine targets accepted; two interaction details unresolved |
 | ZR1X | Not started | Not started | After ZR1 |
 
 The older schema proposals, disposable catalog and migration-parity milestones
@@ -203,7 +203,7 @@ between different representations.
 These records catch up the identified uneven discovery categories. The remaining
 work for these four models is implementation and verification of the already
 accepted corrections after all six lanes and master-schema design, not a claim
-that the existing form is correct. ZR1 discovery is now executed with nine open owner decisions, as documented below. ZR1X remains unfinished.
+that the existing form is correct. ZR1 discovery is now executed with nine accepted targets and two unresolved interaction details, as documented below. ZR1X remains unfinished.
 
 ## Reproduce and verify this evidence
 
@@ -246,6 +246,9 @@ pricing, equipment, line items and actual order/recap projections. Zero requests
 The review records source omissions, lifecycle conflicts, standard equipment
 suppressed by inactive flags, SBT's duplicate pouch charge, four R6X/AE4 shortfalls,
 DTC group gaps, independent-purchase loss and static-versus-configured equipment.
-Nine proposed owner decisions remain open; no correction is silently accepted.
-ZR1-specific ZTK/J58/FE8 behavior and the guide's explicit DUW plus DTC listings
-are not imported into earlier lanes. See the handoff for reproduction and limits.
+All nine owner targets were accepted September 11, 2026. TOM survives ZTK removal
+only if selected before ZTK; package-only TOM is removed. DUW removal is now an
+explicit owner correction while the original DUW plus DTC source listings remain
+evidence. D05 conflict interaction and D06 displaced-cover restoration remain
+unresolved; no corrected runtime is claimed. ZR1-specific ZTK/J58/FE8 behavior
+is not imported into earlier lanes. See the handoff for reproduction and limits.
