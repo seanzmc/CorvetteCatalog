@@ -88,6 +88,43 @@ resolve, hashes agree and the structured handoff carries the ten fixed sections.
 | `docs/<lane>-behavior.md` | Family-by-family analysis; sections follow the model's families, not a fixed list. | Discovery |
 | `docs/<lane>-structured.md` | Ten fixed `##` sections named in the schema's `structured_sections`. | Discovery |
 
+### Drift found and resolved — September 11, 2026
+
+The first validator run reported 175 violations across the five lanes. All are
+resolved; this table is the record of what was inconsistent and how it was settled.
+
+| Drift | Lanes | Resolution |
+|---|---|---|
+| Owner decisions inside the record file (four lanes) vs a separate overlay (ZR1) | all | Split everywhere: evidence in `*-structured-records.json`, targets in `*-owner-decisions.json` |
+| Per-offering target fields (`target_disposition`, `decision_ids`, `target_card_state`, `target_name_color`) mixed into evidence dispositions | ST, GS, GSX, Z06 | Moved to overlay `offering_targets`, one row per offering; `target_card_state` dropped (identical everywhere; `compatibility-notice-policy.json#factory_unavailable_card` governs) |
+| Model-named sheet keys (`stingray_options`, `grandSport_options`, `grand_sport_x_rule_members`, `lt_interiors` / `LZ_Interiors`) | all | Kept as provenance; `sheet_roles` added for generic addressing |
+| Target enum spelled three ways (`retain_baseline_subject_to_relationship_decisions`, `retain_identity_subject_to_decision_overlay`; `visible_unavailable` / `visible_disabled`) plus one-off values | all | Five canonical values; one-off wording preserved in `note` |
+| `source_classification` one-offs: `legacy_only`, `legacy_without_primary_offering`, `dormant_duplicate`, `price_schedule_only` | ST, GS, GSX, Z06 | DUW cases → `workbook_only_legacy`; the other two are distinct real cases and became enum members |
+| Guide-only disposition wording (`component` / `interior_component`; `outside_baseline_scope` / `outside_customer_selection_scope[_review]`; `accepted_addition` / `open_addition`) | all | Four canonical values; the addition itself lives in the overlay |
+| `guide_disclosure` string vs `guide_disclosures` list; `disclosure` vs `guide_disclosure` | ZR1 | Single nullable `guide_disclosure` |
+| Decision records: `authority` / `baseline_issue` / `target_rule_removals` present in some lanes; free-text `review_state` in ST/GS | all | Fixed field set; ST/GS free text moved to `authority`, `review_state` enum |
+| Accepted additions: `price_evidence`/`price_status` (ST/GS) vs `currency`/`price_anchor`/`conflict` (GSX/Z06); none for ZR1 | all | Fixed field set; ST/GS anchor and currency taken from their own `price_evidence`; ZR1 SAI created from D07 |
+| Model-specific policy objects as new `owner_review` keys (`hp1_target`, `pdb_z07_interaction`, `displaced_cover_policy`) | GSX, Z06, ZR1 | Under `model_policies.<name>` |
+| `currency_status` present only in ST/GS | GSX, Z06, ZR1 | Required; ZR1 marked as shared-guide, not separately confirmed |
+| Accounting inline in records (ZR1) vs `discovery/*-accounting.json` | ZR1 | `discovery/zr1-accounting.json` created; extractor emits it |
+| Price classification names (`null_not_inferred_zero`, `rate_match_subject_to_qualifier`, `baseline_zero_no_schedule_rate`, `trim_qualified_standard`, `model_standard`, `model_body_trim_standard_not_other_model_purchase`) | all | Seven canonical values; `with_context` assigned by the same qualifier rule in every lane |
+| `option_prices` rows: `workbook_row` without `workbook_anchor`/`explanation`; `source_rates` without `row`, blanks as `""` | ZR1 | Aligned to the four-lane row shape |
+| `conditional_price_rows`: `_row` ints vs full price-rule objects | ZR1 | `_row` ints (rows are in `baseline_rows`) |
+| `duplicate_rpos_within_model`: option-id list (GS) vs count (ZR1 extractor) | GS, ZR1 | Option-id list |
+| `runtime_derived_relationships`: object (Z06), empty list (ZR1), absent (others) | all | Required object with counts; empty `records` states "none found" explicitly |
+| Nullable `rpo` in guide-only rows; `conflict` without `trim` | GS, Z06 | Schema nullable |
+| No `format` tag on accounting files | four lanes | Added |
+| `*-structured.md` outline: differing §4/§5/§10 titles; ZR1 with four unnumbered sections | ST, Z06, ZR1 | Ten fixed sections; ZR1 rebuilt from existing content |
+
+Deliberately left as is:
+
+- The two runtime probes (`scripts/discovery_catchup.mjs` for four lanes,
+  `scripts/zr1_discovery.mjs`) are separate code. Their outputs are already
+  consistent and hash-anchored; unify them when the ZR1X probe is written.
+- `discovery/zr1-runtime.json` keeps six original camelCase keys as a listed frozen
+  exception rather than being regenerated.
+- Behavior analyses keep model-specific section outlines; only the title is checked.
+
 Rules for the next lane (ZR1X) and for later edits:
 
 - Add the lane to `lanes.models` first; the validator then demands all six files.
