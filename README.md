@@ -31,6 +31,8 @@ When a guide and workbook disagree, record the discrepancy and its evidence. Nei
 - [Grand Sport X structured handoff: records, behavior, evidence and decisions](docs/grand-sport-x-structured.md)
 - [Z06 behavior: complete family analysis and source/runtime findings](docs/z06-behavior.md)
 - [Z06 structured handoff: records, behavior, evidence and accepted decisions](docs/z06-structured.md)
+- [ZR1 discovery: behavior, source accounting and open decisions](docs/zr1-behavior.md)
+- [ZR1 structured handoff](docs/zr1-structured.md)
 - [Earlier unvalidated database proposal: shared rules and model applications](docs/proposed-database-design.md)
 - [All six models: complete form relationship map and shared-rule analysis](docs/form-relationship-map.md)
 - [Workbook translation blueprint: actual rules, ownership and proposed consolidation](docs/workbook-translation-blueprint.md)
