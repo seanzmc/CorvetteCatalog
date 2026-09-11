@@ -17,8 +17,9 @@ with tarfile.open(root/'baselines/2026-09-06/workbook-runtime.tar.gz') as t:
         if name.endswith('.xlsx'): w=load_workbook(io.BytesIO(b),data_only=True)
         else:
             dest=out/name; dest.parent.mkdir(parents=True,exist_ok=True); dest.write_bytes(b)
-raw=next((root/'sources/raw').glob('*/*.xlsx'))
-assert hashlib.sha256(raw.read_bytes()).hexdigest()=='d3ca7d3a09c9fb89210b4ce584493b3ad8fb65ca35087c49d816d1cbf1a333d1'
+guide_sha256='d3ca7d3a09c9fb89210b4ce584493b3ad8fb65ca35087c49d816d1cbf1a333d1'
+raw=next((root/'sources/raw'/guide_sha256).glob('*.xlsx'))
+assert hashlib.sha256(raw.read_bytes()).hexdigest()==guide_sha256
 g=load_workbook(raw,rich_text=True,data_only=True)
 records={}
 for s in w:
