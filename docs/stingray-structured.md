@@ -1,8 +1,8 @@
 # Stingray structured model handoff
 
 **September 11 compatibility override:** read the [shared structured policy](compatibility-notice-policy.json)
-after this handoff's historical owner overlay. The record file references it at
-`owner_review.compatibility_notice_policy.$ref` (relative to the record file).
+after this handoff's historical owner overlay. The [owner overlay](stingray-owner-decisions.json)
+references it at `owner_review.compatibility_notice_policy.$ref` (relative to the overlay).
 It supersedes earlier compatibility-refusal UI targets, including ST-D06, not
 PCX's included-wheel constraints, model applicability, prices or ownership.
 Conflicting cards remain clickable with notice/confirm/cancel; factory-unavailable
@@ -28,6 +28,15 @@ or proposed target language in this handoff and the linked behavior/schema analy
 Frozen workbook rows, source disclosures and observed sequences remain historical
 evidence, including their old labels, prices and conflict actions. Accepted target
 changes are not implementation or runtime verification.
+
+**Handoff contract:** this lane now keeps evidence and decisions in separate files under the
+[common handoff contract](model-discovery.md#handoff-contract): frozen source rows and
+dispositions in [stingray-structured-records.json](stingray-structured-records.json), price and
+rule accounting in [discovery/stingray-accounting.json](discovery/stingray-accounting.json), executed
+observations in [discovery/stingray-runtime.json](discovery/stingray-runtime.json), and the accepted
+owner overlay (decision records, one target per offering, accepted additions, model policies) in
+[stingray-owner-decisions.json](stingray-owner-decisions.json). References below to `owner_review`,
+`accepted_additions` or per-offering targets in the record file now mean the owner overlay.
 
 ## 1. Record conventions and evidence
 
@@ -119,7 +128,7 @@ J6A, 719, QEB, EFR, FE1 and NGA; coupe includes BC7. See exact per-body states.
 | Historical/added options | Retire DUW; add DTC and SAI across all six configurations. Do not map DTC as a DUW alias. | ST-D01/02; accepted DTC 1,295 / SAI 295. |
 | Duplicate control | Flag duplicate option RPOs within each model for resolution; preserve raw evidence separately. | Owner's September 8 review instruction; baseline audit is empty. |
 
-## 4. Interior records and price ownership
+## 4. Price ownership and interpretation
 
 Exact eligibility is the 130 leaf IDs in the record file: 4 at 1LT, 40 at 2LT,
 86 at 3LT (71 ordinary and 15 R6X). The guide's 78 seat/trim/code combinations
@@ -146,7 +155,7 @@ expand through disclosed extras. **Do not generate a free cross-product.**
 These are interior/seat subtotals, not complete vehicle totals. The other 126
 leaves matched the additive coupe check. No corrected evaluator was executed.
 
-## 5. Relationships: conditions, consequences and removal
+## 5. Connected relationship records
 
 The relationship inventory retains baseline observations, including old PCX wheel
 substitutions and conflict directions. September 9 decisions in §8 govern the

@@ -1,8 +1,8 @@
 # Grand Sport structured model handoff
 
 **September 11 compatibility override:** read the [shared structured policy](compatibility-notice-policy.json)
-after this handoff's historical owner overlay. The record file references it at
-`owner_review.compatibility_notice_policy.$ref` (relative to the record file).
+after this handoff's historical owner overlay. The [owner overlay](grand-sport-owner-decisions.json)
+references it at `owner_review.compatibility_notice_policy.$ref` (relative to the overlay).
 It supersedes GS-D12/GS-D16's refusal UI and corresponding target checks below,
 not the full model-specific VPW/VPO exclusions. Conflicting cards remain clickable
 with notice/confirm/cancel; factory-unavailable cards remain inactive. Historical
@@ -28,6 +28,15 @@ or proposed target language in this handoff and the linked behavior/schema analy
 Frozen workbook rows, source disclosures and observed sequences remain historical
 evidence, including their old labels, prices and conflict actions. Accepted target
 changes are not implementation or runtime verification.
+
+**Handoff contract:** this lane now keeps evidence and decisions in separate files under the
+[common handoff contract](model-discovery.md#handoff-contract): frozen source rows and
+dispositions in [grand-sport-structured-records.json](grand-sport-structured-records.json), price and
+rule accounting in [discovery/grand-sport-accounting.json](discovery/grand-sport-accounting.json), executed
+observations in [discovery/grand-sport-runtime.json](discovery/grand-sport-runtime.json), and the accepted
+owner overlay (decision records, one target per offering, accepted additions, model policies) in
+[grand-sport-owner-decisions.json](grand-sport-owner-decisions.json). References below to `owner_review`,
+`accepted_additions` or per-offering targets in the record file now mean the owner overlay.
 
 ## 1. Record conventions and evidence
 

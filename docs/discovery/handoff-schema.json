@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "handoff-schema.json",
+  "title": "Model discovery handoff contract",
+  "description": "Every model lane retains exactly the files in `lanes.files` with these shapes. Validate with scripts/validate_handoffs.py. Extend this schema in the same change as any new key, enum value or file; do not add lane-specific keys ad hoc.",
+  "lanes": {
+    "models": ["stingray", "grand-sport", "grand-sport-x", "z06", "zr1"],
+    "files": {
+      "records": "docs/{lane}-structured-records.json",
+      "decisions": "docs/{lane}-owner-decisions.json",
+      "accounting": "docs/discovery/{lane}-accounting.json",
+      "runtime": "docs/discovery/{lane}-runtime.json",
+      "behavior": "docs/{lane}-behavior.md",
+      "structured": "docs/{lane}-structured.md"
+    },
+    "structured_sections": [
+      "1. Record conventions and evidence",
+      "2. Complete record sets and how to use them",
+      "3. Configurations and offering scope",
+      "4. Price ownership and interpretation",
+      "5. Connected relationship records",
+      "6. Selection and reconciliation policies",
+      "7. Presentation, physical content and operational boundaries",
+      "8. Decision overlay: source, baseline and target remain separate",
+      "9. Worked sequences and expected outcomes",
+      "10. Coverage and handoff boundary"
+    ],
+    "frozen_exceptions": {
+      "docs/discovery/zr1-runtime.json": {
+        "extra_top_level_keys": ["interiorContexts", "priceComparisons", "paintStates", "beltStates", "causeSequences", "contextReset"],
+        "reason": "Original ZR1 probe output retained unchanged; provenance.probe_sha256 anchors it to scripts/zr1_discovery.mjs. New lanes emit only the common runtime keys."
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "decision_id": {"type": "string", "pattern": "^[A-Z0-9]+-D[0-9]{2}$"},
+    "nullable_string": {"type": ["string", "null"]},
+    "string_list": {"type": "array", "items": {"type": "string"}},
+    "records": {
+      "type": "object",
+      "required": ["format", "model_key", "model_year", "role", "sources", "sheet_roles", "baseline_rows", "offering_dispositions", "guide_only_dispositions", "interior_source_links", "duplicate_rpos_within_model", "runtime_derived_relationships"],
+      "additionalProperties": false,
+      "properties": {
+        "format": {"const": "model-review-records-v2"},
+        "model_key": {"type": "string"},
+        "model_year": {"type": "integer"},
+        "role": {"type": "string"},
+        "sources": {
+          "type": "object",
+          "required": ["workbook_sha256", "guide_sha256", "runtime_commit", "workbook_row_locator", "guide_model_columns", "observed_provenance"],
+          "additionalProperties": false,
+          "properties": {
+            "workbook_sha256": {"$ref": "#/$defs/sha256"},
+            "guide_sha256": {"$ref": "#/$defs/sha256"},
+            "runtime_commit": {"$ref": "#/$defs/commit"},
+            "workbook_row_locator": {"type": "string"},
+            "guide_model_columns": {"$ref": "#/$defs/nullable_string"},
+            "observed_provenance": {"type": ["object", "null"]}
+          }
+        },
+        "sheet_roles": {
+          "description": "Generic role → owning worksheet key in baseline_rows. Consumers address sheets by role; baseline_rows keeps the original worksheet names as provenance.",
+          "type": "object",
+          "required": ["options", "availability", "variant_overrides", "rule_mapping", "rule_groups", "rule_group_members", "exclusive_groups", "exclusive_group_members", "price_rules", "interiors", "color_overrides"],
+          "additionalProperties": false,
+          "properties": {
+            "options": {"type": "string"}, "availability": {"type": "string"}, "variant_overrides": {"type": "string"},
+            "rule_mapping": {"type": "string"}, "rule_groups": {"type": "string"}, "rule_group_members": {"type": "string"},
+            "exclusive_groups": {"type": "string"}, "exclusive_group_members": {"type": "string"}, "price_rules": {"type": "string"},
+            "interiors": {"type": "string"}, "color_overrides": {"type": "string"}
+          }
+        },
+        "baseline_rows": {
+          "description": "Frozen workbook rows keyed by worksheet; every row keeps `_row` and the source headers. Verified against the frozen workbook by scripts/verify_discovery_catchup.py.",
+          "type": "object",
+          "required": ["variant_master", "model_variants", "model_interior_scope", "interior_components", "PriceRef", "rule_phrase_map", "runtime_rule_exceptions", "model_master", "model_registry_promotion", "model_workbook_sources", "context_section_master", "section_presentation", "runtime_steps", "order_summary_sections", "step_order_summary_map", "default_selection_rules", "section_master", "context_choice_copy", "asset_map"],
+          "additionalProperties": {"type": "array", "items": {"type": "object", "required": ["_row"]}}
+        },
+        "offering_dispositions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["record_id", "workbook_row", "rpo", "source_classification", "guide_anchors", "guide_disclosure"],
+            "additionalProperties": false,
+            "properties": {
+              "record_id": {"type": "string"},
+              "workbook_row": {"type": "integer"},
+              "rpo": {"$ref": "#/$defs/nullable_string"},
+              "source_classification": {"enum": ["coded_guide_match", "uncoded_equipment_match", "color_chart", "workbook_only_legacy", "dormant_duplicate", "price_schedule_only"]},
+              "guide_anchors": {"$ref": "#/$defs/string_list"},
+              "guide_disclosure": {"$ref": "#/$defs/nullable_string"}
+            }
+          }
+        },
+        "guide_only_dispositions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["guide_anchor", "rpo", "guide_disclosure", "source_classification"],
+            "additionalProperties": false,
+            "properties": {
+              "guide_anchor": {"type": "string"},
+              "rpo": {"$ref": "#/$defs/nullable_string"},
+              "guide_disclosure": {"$ref": "#/$defs/nullable_string"},
+              "source_classification": {"enum": ["omitted_offering", "interior_component", "outside_customer_selection_scope", "unmapped_uncoded_equipment"]}
+            }
+          }
+        },
+        "interior_source_links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "workbook", "guide", "components"],
+            "additionalProperties": false,
+            "properties": {"id": {"type": "string"}, "workbook": {"type": "string"}, "guide": {"type": "string"}, "components": {"$ref": "#/$defs/string_list"}}
+          }
+        },
+        "duplicate_rpos_within_model": {"description": "RPO → option_ids sharing it within the model.", "type": "object", "additionalProperties": {"$ref": "#/$defs/string_list"}},
+        "runtime_derived_relationships": {
+          "description": "Emitted relationships absent from direct workbook rows. Required even when empty so a missing section is never mistaken for an unexamined one.",
+          "type": "object",
+          "required": ["role", "workbook_direct_count", "emitted_direct_count", "records"],
+          "additionalProperties": false,
+          "properties": {
+            "role": {"type": "string"},
+            "workbook_direct_count": {"type": "integer"},
+            "emitted_direct_count": {"type": "integer"},
+            "records": {"type": "array", "items": {"type": "object"}}
+          }
+        },
+        "source_reconciliation": {"description": "Optional retained original reconciliation; Stingray keeps its copy in the accounting file's retained_original_supplemental.", "type": "object"},
+        "supplemental_observations": {"description": "Optional retained original local observations.", "type": "object"},
+        "observed_sequences": {"description": "Optional original hand-traced sequences retained from the first review.", "type": "array", "items": {"type": "object", "required": ["record_id", "evidence_file", "name", "states"]}},
+        "guide_rows": {"description": "Optional raw guide rows retained where the guide shares columns with another model.", "type": "array", "items": {"type": "object", "required": ["anchor", "sheet", "row"]}}
+      }
+    },
+    "decisions": {
+      "type": "object",
+      "required": ["format", "model_key", "model_year", "role", "source_records", "accounting_evidence", "runtime_evidence", "owner_review"],
+      "additionalProperties": false,
+      "properties": {
+        "format": {"const": "model-owner-decisions-v2"},
+        "model_key": {"type": "string"},
+        "model_year": {"type": "integer"},
+        "role": {"type": "string"},
+        "source_records": {"type": "string"},
+        "accounting_evidence": {"type": "string"},
+        "runtime_evidence": {"type": "string"},
+        "owner_review": {
+          "type": "object",
+          "required": ["review_date", "authority", "decision_document", "option_price_column", "currency_code", "currency_status", "records", "offering_targets", "accepted_additions", "model_specific_preservation", "model_policies", "compatibility_notice_policy", "unresolved_decisions"],
+          "additionalProperties": false,
+          "properties": {
+            "review_date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+            "authority": {"type": "string"},
+            "decision_document": {"type": "string"},
+            "option_price_column": {"type": "string"},
+            "currency_code": {"type": "string"},
+            "currency_status": {"type": "string"},
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["decision_id", "baseline_issue", "target", "review_state", "authority", "evidence_and_expected_sequence", "decision_document", "target_rule_removals"],
+                "additionalProperties": false,
+                "properties": {
+                  "decision_id": {"$ref": "#/$defs/decision_id"},
+                  "baseline_issue": {"$ref": "#/$defs/nullable_string"},
+                  "target": {"type": "string"},
+                  "review_state": {"enum": ["accepted", "open", "superseded"]},
+                  "authority": {"type": "string"},
+                  "evidence_and_expected_sequence": {"$ref": "#/$defs/nullable_string"},
+                  "decision_document": {"type": "string"},
+                  "target_rule_removals": {"type": "array", "items": {"type": "object"}}
+                }
+              }
+            },
+            "offering_targets": {
+              "description": "One entry per offering_dispositions record. The default target is retain_subject_to_decision_overlay with no decision links.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["record_id", "rpo", "target_disposition", "decision_ids", "target_name", "note"],
+                "additionalProperties": false,
+                "properties": {
+                  "record_id": {"type": "string"},
+                  "rpo": {"$ref": "#/$defs/nullable_string"},
+                  "target_disposition": {"enum": ["retain_subject_to_decision_overlay", "visible_unavailable", "retire", "retire_duplicate", "rename"]},
+                  "decision_ids": {"type": "array", "items": {"$ref": "#/$defs/decision_id"}},
+                  "target_name": {"$ref": "#/$defs/nullable_string"},
+                  "note": {"$ref": "#/$defs/nullable_string"}
+                }
+              }
+            },
+            "accepted_additions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["record_id", "rpo", "decision_id", "target_disposition", "configuration_ids", "price", "currency", "price_anchor", "price_status", "guide_anchor", "guide_disclosure", "legacy_option_id", "conflict", "related_guide_mentions"],
+                "additionalProperties": false,
+                "properties": {
+                  "record_id": {"type": "string"},
+                  "rpo": {"type": "string"},
+                  "decision_id": {"$ref": "#/$defs/decision_id"},
+                  "target_disposition": {"const": "add"},
+                  "configuration_ids": {"$ref": "#/$defs/string_list"},
+                  "price": {"type": "number"},
+                  "currency": {"type": "string"},
+                  "price_anchor": {"type": "string"},
+                  "price_status": {"type": "string"},
+                  "guide_anchor": {"type": "string"},
+                  "guide_disclosure": {"$ref": "#/$defs/nullable_string"},
+                  "legacy_option_id": {"$ref": "#/$defs/nullable_string"},
+                  "conflict": {"type": ["object", "null"], "required": ["rpo", "trim"], "additionalProperties": false, "properties": {"rpo": {"type": "string"}, "trim": {"$ref": "#/$defs/nullable_string"}}},
+                  "related_guide_mentions": {"type": "array"}
+                }
+              }
+            },
+            "model_specific_preservation": {"$ref": "#/$defs/string_list"},
+            "model_policies": {"description": "Named model-specific policy objects (e.g. hp1_target, pdb_z07_interaction, displaced_cover_policy). Keep them here, never as new owner_review keys.", "type": "object", "additionalProperties": {"type": "object"}},
+            "compatibility_notice_policy": {"type": "object", "required": ["$ref"], "additionalProperties": false, "properties": {"$ref": {"const": "compatibility-notice-policy.json"}}},
+            "unresolved_decisions": {"type": "array"}
+          }
+        }
+      }
+    },
+    "accounting": {
+      "type": "object",
+      "required": ["format", "model_key", "role", "guide_sha256", "option_prices", "direct_rule_translation", "existing_decision_document"],
+      "additionalProperties": false,
+      "properties": {
+        "format": {"const": "model-discovery-accounting-v1"},
+        "model_key": {"type": "string"},
+        "role": {"type": "string"},
+        "guide_sha256": {"$ref": "#/$defs/sha256"},
+        "option_prices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["option_id", "rpo", "workbook_anchor", "baseline_amount", "classification", "explanation", "source_rates", "conditional_price_rows"],
+            "additionalProperties": false,
+            "properties": {
+              "option_id": {"type": "string"},
+              "rpo": {"$ref": "#/$defs/nullable_string"},
+              "workbook_anchor": {"type": "string"},
+              "baseline_amount": {"type": ["number", "null"]},
+              "classification": {"enum": ["null_baseline_not_an_inferred_zero", "source_rate_match", "source_rate_match_with_context", "zero_without_schedule_rate", "qualified_base_plus_discount", "standard_equipment_not_purchase", "accepted_charge_owner_correction"]},
+              "explanation": {"type": "string"},
+              "source_rates": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["anchor", "row", "description", "qualifier", "amount"],
+                  "additionalProperties": false,
+                  "properties": {"anchor": {"type": "string"}, "row": {"type": "integer"}, "description": {"$ref": "#/$defs/nullable_string"}, "qualifier": {"$ref": "#/$defs/nullable_string"}, "amount": {"type": ["number", "null"]}}
+                }
+              },
+              "conditional_price_rows": {"description": "Workbook _row numbers in the price_rules sheet.", "type": "array", "items": {"type": "integer"}}
+            }
+          }
+        },
+        "direct_rule_translation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source_row", "rule_id", "source_id", "rule_type", "target_id", "runtime_disposition", "inactive_endpoints", "runtime_rows"],
+            "additionalProperties": false,
+            "properties": {
+              "source_row": {"type": "integer"},
+              "rule_id": {"type": "string"},
+              "source_id": {"type": "string"},
+              "rule_type": {"type": "string"},
+              "target_id": {"type": "string"},
+              "runtime_disposition": {"enum": ["emitted", "inactive_endpoint_filtered"]},
+              "inactive_endpoints": {"$ref": "#/$defs/string_list"},
+              "runtime_rows": {"type": "array", "items": {"type": "object"}}
+            }
+          }
+        },
+        "existing_decision_document": {"type": "string"},
+        "retained_original_supplemental": {"description": "Optional original local evidence retained unchanged (Stingray).", "type": "object"}
+      }
+    },
+    "runtime": {
+      "description": "Frozen probe output. No `format` key: these files are reproduced byte-for-byte (except compact.submitted_at) by the pinned probe and must not be edited by hand.",
+      "type": "object",
+      "required": ["model_key", "role", "provenance", "projection", "foundations", "starting_choice_observations", "connected_sequences", "not_applicable", "seat_transitions", "required_interior_rejection", "live_requests"],
+      "additionalProperties": false,
+      "properties": {
+        "model_key": {"type": "string"},
+        "role": {"type": "string"},
+        "provenance": {
+          "type": "object",
+          "required": ["reference_commit", "workbook_sha256", "guide_sha256", "form-app/app.js", "form-app/data.js", "original_harness_sha256", "exposed_harness_sha256", "probe_sha256"],
+          "additionalProperties": false,
+          "properties": {
+            "reference_commit": {"$ref": "#/$defs/commit"}, "workbook_sha256": {"$ref": "#/$defs/sha256"}, "guide_sha256": {"$ref": "#/$defs/sha256"},
+            "form-app/app.js": {"$ref": "#/$defs/sha256"}, "form-app/data.js": {"$ref": "#/$defs/sha256"},
+            "original_harness_sha256": {"$ref": "#/$defs/sha256"}, "exposed_harness_sha256": {"$ref": "#/$defs/sha256"}, "probe_sha256": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        "projection": {"type": "string"},
+        "foundations": {"type": "array", "items": {"type": "object", "required": ["state"]}},
+        "starting_choice_observations": {"type": "array", "items": {"type": "object", "required": ["id", "variant_id"]}},
+        "connected_sequences": {"type": "array", "items": {"type": "object", "required": ["id", "name", "source_anchors", "initial", "states"]}},
+        "not_applicable": {"type": "array"},
+        "seat_transitions": {"type": "array", "items": {"type": "object", "required": ["state"]}},
+        "required_interior_rejection": {"type": "array", "items": {"type": "object", "required": ["requests", "missing"]}},
+        "live_requests": {"const": 0}
+      }
+    }
+  }
+}

@@ -42,7 +42,7 @@
       "superseded_ui_decision_ids": ["Z06-D05", "Z06-D11"],
       "preserved_constraints": "Apply full Z06 stripe/package/badge conflicts in both directions. Stripes and badges both use the common notice; no incompatible combination is permitted.",
       "pdb_z07_interaction": {
-        "supersedes": "z06-structured-records.json#/owner_review/pdb_z07_interaction",
+        "supersedes": "z06-owner-decisions.json#/owner_review/model_policies/pdb_z07_interaction",
         "coexistence_allowed": false,
         "authorized_alternatives": ["Require switch to PDD with notice before accepting Z07"],
         "chosen_ui_alternative": "Require switch to PDD with notice before accepting Z07",
