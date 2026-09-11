@@ -7390,6 +7390,7 @@
     ]
   },
   "owner_review": {
+    "compatibility_notice_policy": {"$ref": "compatibility-notice-policy.json"},
     "review_date": "2026-09-10",
     "authority": "Explicit owner approval of all twelve Z06 decisions, including the stated refinements; merged PR #25",
     "decision_document": "z06-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate",

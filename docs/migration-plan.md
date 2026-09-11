@@ -15,8 +15,12 @@ ZR1 discovery was subsequently authorized and executed: [behavior](zr1-behavior.
 and [structured handoff](zr1-structured.md) retain all four configurations, source
 accounting and connected runtime evidence. All nine owner targets were accepted
 September 11, 2026, with TOM retained only when selected before ZTK and DUW
-removed from the future offering set. D05 conflict interaction and D06
-displaced-cover restoration remain unresolved details in the accepted decision record.
+removed from the future offering set. The subsequent owner clarification closes D05 with clickable compatibility styling
+and replacement notices, reserving fully inactive cards for factory unavailability;
+D06 keeps displaced covers deselected. All nine decisions are retained in the
+[structured owner overlay](zr1-owner-decisions.json). The [common interaction policy](model-discovery.md#common-compatibility-notice-policy--september-11-owner-decision)
+supersedes earlier differing compatibility UI treatments while retaining model rules.
+ZR1 discovery and decision capture are complete; corrections are not implemented.
 ZR1X is not started; schema and correction implementation remain paused.
 
 ## Historical roadmap and decisions

@@ -58,7 +58,7 @@ not required. All source relationships still need an explained disposition.
 | Grand Sport | [Analysis](grand-sport-behavior.md) | [Handoff](grand-sport-structured.md), [records](grand-sport-structured-records.json) | Catch-up verified; see model review below |
 | Grand Sport X | [Analysis](grand-sport-x-behavior.md) | [Handoff](grand-sport-x-structured.md), [records](grand-sport-x-structured-records.json) | Catch-up verified; see model review below |
 | Z06 | [Analysis](z06-behavior.md) | [Handoff](z06-structured.md), [records](z06-structured-records.json) | Catch-up verified; see model review below |
-| ZR1 | [Analysis](zr1-behavior.md) | [Handoff](zr1-structured.md), [records](zr1-structured-records.json) | Discovery executed; nine targets accepted; two interaction details unresolved |
+| ZR1 | [Analysis](zr1-behavior.md) | [Handoff](zr1-structured.md), [records](zr1-structured-records.json), [decisions](zr1-owner-decisions.json) | Discovery and structured decisions complete; nine targets and interaction details accepted |
 | ZR1X | Not started | Not started | After ZR1 |
 
 The older schema proposals, disposable catalog and migration-parity milestones
@@ -203,7 +203,7 @@ between different representations.
 These records catch up the identified uneven discovery categories. The remaining
 work for these four models is implementation and verification of the already
 accepted corrections after all six lanes and master-schema design, not a claim
-that the existing form is correct. ZR1 discovery is now executed with nine accepted targets and two unresolved interaction details, as documented below. ZR1X remains unfinished.
+that the existing form is correct. ZR1 discovery and its structured decision overlay are complete, as documented below. ZR1X remains unfinished.
 
 ## Reproduce and verify this evidence
 
@@ -249,6 +249,35 @@ DTC group gaps, independent-purchase loss and static-versus-configured equipment
 All nine owner targets were accepted September 11, 2026. TOM survives ZTK removal
 only if selected before ZTK; package-only TOM is removed. DUW removal is now an
 explicit owner correction while the original DUW plus DTC source listings remain
-evidence. D05 conflict interaction and D06 displaced-cover restoration remain
-unresolved; no corrected runtime is claimed. ZR1-specific ZTK/J58/FE8 behavior
+evidence. D05 uses the common compatibility-notice policy below; D06 keeps displaced covers
+deselected. All nine decisions are retained in the [owner overlay](zr1-owner-decisions.json);
+no corrected runtime is claimed. ZR1-specific ZTK/J58/FE8 behavior
 is not imported into earlier lanes. See the handoff for reproduction and limits.
+
+## Common compatibility-notice policy — September 11 owner decision
+
+The owner accepted one future interaction policy across model lanes. Compatible
+cards use normal styling. Cards conflicting with current selections use distinct
+compatibility-issue styling and remain clickable. Activating one shows a replacement
+notice identifying affected selections before changes are applied; confirmation
+applies the disclosed replacement and cancellation preserves the current build.
+Factory-unavailable offerings remain fully inactive and nonselectable, with the
+factory disclosure. This does not enable removed or model/body/trim-inapplicable
+offerings, waive prerequisites, or permit incompatible combinations.
+
+The machine-readable policy is retained in
+[compatibility-notice-policy.json](compatibility-notice-policy.json). Each completed
+model's structured owner overlay references it through
+`owner_review.compatibility_notice_policy.$ref`, relative to the containing file
+(ZR1 uses its separate owner-decisions file). Apply this shared overlay last;
+its model-qualified overrides identify superseded decision UI and explicitly
+select Z06's noticed PDD switch while retaining the historical alternatives.
+It supersedes earlier model-specific
+refusal-versus-replacement UI choices, including stripe refusal and the disabled
+compatibility alternative for Z06 PDB/Z07. Model-specific exclusions and permitted
+replacement targets remain authoritative (for example, Z06's noticed PDD switch
+does not authorize PDF). Earlier decision records and executed refusal observations
+remain historical evidence; this common policy governs the future interaction.
+Factory lifecycle restrictions remain distinct and continue to block acquisition.
+ZR1X will use this policy with its own facts when discovered. No UI implementation
+or corrected-runtime verification is claimed.

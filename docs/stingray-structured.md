@@ -1,5 +1,14 @@
 # Stingray structured model handoff
 
+**September 11 compatibility override:** read the [shared structured policy](compatibility-notice-policy.json)
+after this handoff's historical owner overlay. The record file references it at
+`owner_review.compatibility_notice_policy.$ref` (relative to the record file).
+It supersedes earlier compatibility-refusal UI targets, including ST-D06, not
+PCX's included-wheel constraints, model applicability, prices or ownership.
+Conflicting cards remain clickable with notice/confirm/cancel; factory-unavailable
+cards remain inactive. Historical decisions and observations below are retained;
+no corrected runtime is claimed.
+
 **September 10 discovery catch-up:** the [current completion review](model-discovery.md#stingray) supplements this historical analysis with retained source/price accounting, full starting-choice observations and additional connected behavior/output evidence. Read it before interpreting older statements about unfinished coverage. Original facts, observations and accepted decisions below remain unchanged.
 
 September 9, 2026. Model: **Stingray, 2027**. Status: **structured review input**.

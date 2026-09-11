@@ -1,11 +1,18 @@
 # ZR1 structured discovery handoff
 
+**September 11 shared policy:** the [owner overlay](zr1-owner-decisions.json)
+references the [common structured compatibility policy](compatibility-notice-policy.json)
+at `owner_review.compatibility_notice_policy.$ref` (relative to the overlay).
+Read that policy after each model's historical decisions; it governs compatibility
+UI only, preserving model-specific constraints and frozen evidence.
+
 September 10, 2026. Read the [behavior analysis](zr1-behavior.md) with the
 [source records](zr1-structured-records.json) and
 [executed observations](discovery/zr1-runtime.json). This is a model discovery
 handoff with all nine ZR1-D targets accepted September 11, 2026, including explicit
 TOM ownership and DUW removal corrections. It is not an implemented dataset or
-database schema. Two interaction details remain unresolved in the decision table.
+database schema. All interaction details are resolved and the accepted targets are retained in the
+[structured owner overlay](zr1-owner-decisions.json).
 
 ## Record identity and scope
 
@@ -69,13 +76,17 @@ cannot share an unqualified “installed equipment” meaning.
 
 [ZR1-D01–09](zr1-behavior.md#8-open-owner-decisions-and-expected-targets) preserve
 source facts, observed defects, accepted targets and expected future sequences.
-The behavior document is the current owner-decision record. The source JSON is
-an unchanged discovery snapshot: its empty `owner_review` and original role and
-disposition wording describe the September 10 extraction, not current approval.
-It must be read with the September 11 decisions, including DUW removal despite
-the retained source listing. D05 interaction and D06 displaced-cover restoration
-remain unresolved as specified there. No accepted target was run against a
-modified form; source/probe verification is not corrected-runtime verification.
+The [structured owner overlay](zr1-owner-decisions.json) retains all nine accepted
+records, the common compatibility-card policy and the no-restoration cover policy.
+The behavior decision table carries the same targets. No decision details remain open.
+
+The source JSON remains an unchanged discovery snapshot: its empty `owner_review`
+and original role/disposition wording describe the September 10 extraction, not
+current approval. Read it together with the separate owner overlay, including DUW
+removal despite the source listing. The extractor continues to reproduce only the
+source snapshot; it does not generate or overwrite owner decisions. No accepted
+target was run against a modified form; source/probe verification is not
+corrected-runtime verification.
 
 ## Reproduce
 

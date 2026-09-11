@@ -1,0 +1,59 @@
+{
+  "format": "common-owner-policy-v1",
+  "policy_id": "compatibility-notices",
+  "review_date": "2026-09-11",
+  "review_state": "accepted",
+  "authority": "September 11 owner clarification recorded in model-discovery.md#common-compatibility-notice-policy--september-11-owner-decision",
+  "role": "Accepted planning override; not source evidence, an executable ruleset, or corrected-runtime proof",
+  "scope": "Common future configurator interaction policy across model lanes; apply each model own compatibility and lifecycle facts",
+  "supersedes": "Earlier refusal-versus-replacement UI choices for compatibility conflicts; does not change prohibited combinations, model scope, or factory lifecycle facts",
+  "precedence": "Apply this policy after the model owner_review. Earlier decision targets, review states, interaction alternatives and expected sequences remain historical wherever their compatibility UI treatment conflicts with this policy. Model-specific constraints, permitted replacement targets, prices and ownership requirements remain authoritative.",
+  "compatible_card": {
+    "selectable": true,
+    "styling": "normal"
+  },
+  "compatibility_conflict_card": {
+    "selectable": true,
+    "styling": "distinct compatibility-issue styling, not fully inactive",
+    "activation": "Show replacement notice identifying incompatible selections and the changes needed before applying the new selection",
+    "confirm": "Apply the requested choice and disclosed compatible replacement changes",
+    "cancel": "Preserve current selections and charges"
+  },
+  "factory_unavailable_card": {
+    "selectable": false,
+    "styling": "fully inactive",
+    "activation": "No selection or charge; show factory-unavailable disclosure"
+  },
+  "preservation": "A clickable conflict card does not permit an invalid combination. Removed offerings and inapplicable model/body/trim offerings are not made available by this policy. Prerequisites are not waived.",
+  "model_overrides": {
+    "stingray": {
+      "superseded_ui_decision_ids": ["ST-D06"],
+      "preserved_constraints": "PCX cannot retain incompatible paid accessory wheels in place of included wheels. The notice must disclose the compatible replacement, not permit that prohibited package combination or invent a package credit."
+    },
+    "grand_sport": {
+      "superseded_ui_decision_ids": ["GS-D12", "GS-D16"],
+      "preserved_constraints": "Apply full model-specific VPW/VPO exclusions in both directions; replace the refusal exception with the common notice/confirm/cancel interaction."
+    },
+    "grand_sport_x": {
+      "superseded_ui_decision_ids": ["GSX-D06", "GSX-D12"],
+      "preserved_constraints": "Apply full Grand Sport X VPW/VPO exclusions in both directions; replace the refusal exception with the common notice/confirm/cancel interaction. Do not import Grand Sport offering identities."
+    },
+    "z06": {
+      "superseded_ui_decision_ids": ["Z06-D05", "Z06-D11"],
+      "preserved_constraints": "Apply full Z06 stripe/package/badge conflicts in both directions. Stripes and badges both use the common notice; no incompatible combination is permitted.",
+      "pdb_z07_interaction": {
+        "supersedes": "z06-structured-records.json#/owner_review/pdb_z07_interaction",
+        "coexistence_allowed": false,
+        "authorized_alternatives": ["Require switch to PDD with notice before accepting Z07"],
+        "chosen_ui_alternative": "Require switch to PDD with notice before accepting Z07",
+        "pdf_substitution_authorized": false,
+        "cancel": "Preserve the prior valid build and charges; do not silently substitute a package"
+      }
+    },
+    "zr1": {
+      "decision_ids": ["ZR1-D05"],
+      "preserved_constraints": "Retain ZR1 graphic exclusion sets and factory lifecycle restrictions; this shared policy does not transfer ZR1 equipment or displaced-cover ownership to another model."
+    }
+  },
+  "undiscovered_model_boundary": "ZR1X will use this common interaction policy with its own facts when discovered; no ZR1X discovery or implementation is authorized here."
+}

@@ -1,5 +1,16 @@
 # Z06 structured handoff
 
+**September 11 compatibility override:** read the [shared structured policy](compatibility-notice-policy.json)
+after this handoff's historical owner overlay. The record file references it at
+`owner_review.compatibility_notice_policy.$ref` (relative to the record file).
+It supersedes Z06-D05's stripe refusal and Z06-D11's nonselectable alternative,
+including corresponding target checks below. Its `model_overrides.z06.pdb_z07_interaction`
+supersedes the record file's historical interaction object: the chosen target is
+the noticed PDD switch, with cancellation preserving the prior build. PDB+Z07
+coexistence and PDF substitution remain unauthorized. Other compatibility cards
+use notice/confirm/cancel; factory-unavailable cards remain inactive. Historical
+decisions and observations are retained; no corrected runtime is claimed.
+
 **September 10 discovery catch-up:** the [current completion review](model-discovery.md#z06) supplements this historical analysis with retained source/price accounting, full starting-choice observations and additional connected behavior/output evidence. Read it before interpreting older statements about unfinished coverage. Original facts, observations and accepted decisions below remain unchanged.
 
 September 10, 2026. Complete model review handoff following the established

@@ -1,0 +1,94 @@
+{
+  "format": "model-owner-decisions-v1",
+  "model_key": "zr1",
+  "model_year": 2027,
+  "role": "Accepted target overlay; not frozen source facts, canonical data, or executed corrected behavior",
+  "source_records": "zr1-structured-records.json",
+  "runtime_evidence": "discovery/zr1-runtime.json",
+  "owner_review": {
+    "review_date": "2026-09-11",
+    "authority": "Explicit owner approval of ZR1-D01–09 followed by compatibility-card and displaced-cover decisions",
+    "records": [
+      {
+        "decision_id": "ZR1-D01",
+        "target": "Represent all guide-standard equipment; correct dormant CFC→GBA and EFR scope before restoring visibility.",
+        "review_state": "accepted",
+        "authority": "Explicit owner approvals and interaction clarifications, September 11, 2026",
+        "evidence_and_expected_sequence": "§4; convertible roof must allow all otherwise permitted paints; DY0/CFV/FE8 and 3LZ N3W must appear in appropriate equipment. N2Z replaces N3W in configured content.",
+        "decision_document": "zr1-behavior.md#8-open-owner-decisions-and-expected-targets"
+      },
+      {
+        "decision_id": "ZR1-D02",
+        "target": "Apply unavailable lifecycle disclosures to PCQ/VWT/R88/SLN and present applicable V8X disabled.",
+        "review_state": "accepted",
+        "authority": "Explicit owner approvals and interaction clarifications, September 11, 2026",
+        "evidence_and_expected_sequence": "§7; no acquisition/charge while unavailable, independently of baseline standard-equipment flags.",
+        "decision_document": "zr1-behavior.md#8-open-owner-decisions-and-expected-targets"
+      },
+      {
+        "decision_id": "ZR1-D03",
+        "target": "Charge SBT 2,525 with SC7 zero while included.",
+        "review_state": "accepted",
+        "authority": "Explicit owner approvals and interaction clarifications, September 11, 2026",
+        "evidence_and_expected_sequence": "§4; both coupe trims, either acquisition order, no 195 duplicate charge.",
+        "decision_document": "zr1-behavior.md#8-open-owner-decisions-and-expected-targets"
+      },
+      {
+        "decision_id": "ZR1-D04",
+        "target": "Add the missing 595 AE4 charge to four R6X component paths.",
+        "review_state": "accepted",
+        "authority": "Explicit owner approvals and interaction clarifications, September 11, 2026",
+        "evidence_and_expected_sequence": "§6; expected totals 1,590/2,085/2,485/2,980; no duplicate seat charge on other leaves.",
+        "decision_document": "zr1-behavior.md#8-open-owner-decisions-and-expected-targets"
+      },
+      {
+        "decision_id": "ZR1-D05",
+        "target": "Complete DTC membership in all three graphic exclusion groups. Show compatibility-conflict styling while keeping the card clickable; activation offers a replacement notice identifying affected selections. Confirm applies the replacement; cancel preserves the build. Factory-unavailable cards remain disabled.",
+        "review_state": "accepted",
+        "authority": "Explicit owner approvals and interaction clarifications, September 11, 2026",
+        "evidence_and_expected_sequence": "§5; SFZ/R88+DTC must not coexist; SB9 must have an explicit rule rather than accidental section replacement.",
+        "decision_document": "zr1-behavior.md#8-open-owner-decisions-and-expected-targets"
+      },
+      {
+        "decision_id": "ZR1-D06",
+        "target": "Preserve independent purchase intent through packages and make replacement/removal effects explicit. Retain TOM only if selected before ZTK; remove TOM with ZTK if ZTK auto-added it.",
+        "review_state": "accepted",
+        "authority": "Explicit owner approvals and interaction clarifications, September 11, 2026",
+        "evidence_and_expected_sequence": "TOM→ZTK→remove ZTK retains TOM at its standalone charge; fresh ZTK→remove ZTK removes automatic TOM and its charge. SC7/PEF/PDY/PCQ analogues retain independently acquired children. Previously displaced covers remain deselected after TOM/ZTK removal; do not restore their selections or charges automatically. The user may select a compatible cover again.",
+        "decision_document": "zr1-behavior.md#8-open-owner-decisions-and-expected-targets"
+      },
+      {
+        "decision_id": "ZR1-D07",
+        "target": "Add SAI with its V8X scope; rename DUE to Royal Blue; remove DUW from the future ZR1 offering set and retain DTC.",
+        "review_state": "accepted",
+        "authority": "Explicit owner approvals and interaction clarifications, September 11, 2026",
+        "evidence_and_expected_sequence": "Interior 5!41 and Exterior 5!54,56,62 remain original evidence listing DUW and DTC. DUW removal is an explicit owner correction, not a source fact. Reconcile affected relationships with retained DTC, including D05; DUW must not be selectable or charged in the future build.",
+        "decision_document": "zr1-behavior.md#8-open-owner-decisions-and-expected-targets"
+      },
+      {
+        "decision_id": "ZR1-D08",
+        "target": "Preserve ZR1-qualified base/options, R8E 3,000, ZTK+TOM 18,990 and standard UQT. Accept the documented numeric basis: base plus destination once, option schedule column E with D qualifiers, and customer-selection scope with external conditions retained as disclosures.",
+        "review_state": "accepted",
+        "authority": "Explicit owner approvals and interaction clarifications, September 11, 2026",
+        "evidence_and_expected_sequence": "§§2–3,7; do not apply ZR1X ZTK rate, Z06 recorder charge or other-model paid standard equipment.",
+        "decision_document": "zr1-behavior.md#8-open-owner-decisions-and-expected-targets"
+      },
+      {
+        "decision_id": "ZR1-D09",
+        "target": "Separate static trim information from resolved installed equipment.",
+        "review_state": "accepted",
+        "authority": "Explicit owner approvals and interaction clarifications, September 11, 2026",
+        "evidence_and_expected_sequence": "ZTK build shows J59/FEJ/XFS instead of J58/FE8/XFR in configured equipment; static information must be labeled and not mistaken for the build.",
+        "decision_document": "zr1-behavior.md#8-open-owner-decisions-and-expected-targets"
+      }
+    ],
+    "compatibility_notice_policy": {"$ref": "compatibility-notice-policy.json"},
+    "displaced_cover_policy": {
+      "review_state": "accepted",
+      "restore_automatically": false,
+      "expected_sequence": "Select WKR or RWJ; accept its displacement by ZTK; remove ZTK: displaced cover stays deselected and uncharged. If independently purchased TOM remains, its cover conflicts still apply.",
+      "independent_purchase_distinction": "Preserve independently acquired package children under D06; a cover removed for incompatibility is not a package child to restore."
+    },
+    "unresolved_decisions": []
+  }
+}
