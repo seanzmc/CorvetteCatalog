@@ -58,6 +58,18 @@
   limitation rather than inventing a remote or claiming PR delivery.
 
 ## Verification and review
+- Model discovery is governed by [the discovery completion criteria](docs/model-discovery.md).
+  Review every applicable family against the same questions, not equal test counts
+  or populated headings. Distinguish source-inspected facts, executed baseline
+  behavior, accepted targets and specific open decisions. Preserve supporting
+  evidence in the tracked handoff; `.local` is scratch, not its only location.
+- When a later model exposes a useful discovery check, assess its applicability
+  to earlier models and record the disposition. Do not silently change the meaning
+  of complete. A source finding with an explicit accepted target is not an
+  implementation failure; an unexamined relationship is not completed discovery.
+- Finish and review all six model lanes before consolidating the master schema.
+  Historical database proposals and disposable importer/parity milestones are
+  not the current task or authority to resume implementation.
 - Before editing, state the intended outcome, affected paths, preserved
   behavior, and smallest checks that can establish success. A brief progress
   update is sufficient; do not create a specification just for this purpose.

@@ -1,5 +1,7 @@
 # Z06 behavior: foundations and connected choices
 
+**September 10 discovery catch-up:** the [current completion review](model-discovery.md#z06) supplements this historical analysis with retained source/price accounting, full starting-choice observations and additional connected behavior/output evidence. Read it before interpreting older statements about unfinished coverage. Original facts, observations and accepted decisions below remain unchanged.
+
 September 10, 2026. **Complete family relationship analysis; all twelve owner decisions accepted.**
 Z06 is model four of six. Stingray, Grand Sport and Grand Sport X have behavior
 analyses and structured handoffs; GSX's final decision PR #24 is merged. ZR1 and

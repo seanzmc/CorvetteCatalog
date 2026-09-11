@@ -1,5 +1,7 @@
 # Grand Sport X structured model handoff
 
+**September 10 discovery catch-up:** the [current completion review](model-discovery.md#grand-sport-x) supplements this historical analysis with retained source/price accounting, full starting-choice observations and additional connected behavior/output evidence. Read it before interpreting older statements about unfinished coverage. Original facts, observations and accepted decisions below remain unchanged.
+
 September 10, 2026. Model: **Grand Sport X, 2027**. Status: **structured review input**.
 
 This handoff organizes the [complete behavior analysis](grand-sport-x-behavior.md)

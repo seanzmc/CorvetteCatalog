@@ -2,6 +2,11 @@
 
 A fresh project for relational Corvette product data, manufacturer order-guide intake, and configuration data for an order form and visualizer.
 
+**Current work: comprehensive model discovery, before master-schema design.**
+Use the [discovery index and completion criteria](docs/model-discovery.md) for
+current evidence and remaining work. Historical database/importer milestones below
+are preserved context, not authorization to resume schema or application work.
+
 ## Direction
 
 Build a clean application and schema in this repository. The existing 27vette project is a reference implementation and behavioral comparison baseline, not a codebase to clone wholesale.
@@ -36,6 +41,6 @@ When a guide and workbook disagree, record the discrepancy and its evidence. Nei
 Reference project: `/Users/seandm/Projects/27vette`.
 Reference workbook: `/Users/seandm/Projects/27vette/stingray_master.xlsx`.
 
-## Status
+## Historical implementation status
 
 Checkpoint A specification completed September 5, 2026. Checkpoint B's [disposable relational importer](catalog/README.md) is implemented and verified against the [frozen workbook and matching six-model runtime baseline](baselines/2026-09-06/README.md): all 15,134 source rows and 7,448 availability pairs are accounted for. The separately authorized [Checkpoint C brake intake pilot](sources/README.md#checkpoint-c-local-completion) preserves 26 review assertions, 19 unchanged and 7 ambiguous, with repeatable immutable staging. Checkpoint D now [generates and verifies all six contracts directly from the candidate catalog](catalog/README.md#checkpoint-d-direct-form-generation), preserving the frozen baseline and browser registry. The [schema-3 option consolidation](catalog/README.md#option-consolidation-schema-3) replaces six option tables with one model-owned option table, with source facts and six-model parity preserved. The SQLite database is a disposable candidate; no application, canonical-data change or deployment has been made. No changes were made to 27vette.

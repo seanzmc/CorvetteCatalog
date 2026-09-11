@@ -1,5 +1,8 @@
 # Proposed catalog database design
 
+**Historical, paused proposal.** Start with the [current discovery index](model-discovery.md).
+This document must not drive implementation or constrain unfinished model discovery.
+
 **Status after the behavior-first review:** this earlier cross-model proposal remains
 unvalidated. The [whole Stingray schema plan](stingray-schema-plan.md) is the current
 proposal for reviewing Stingray ownership; it does not approve sharing across models.

@@ -1,5 +1,9 @@
 # Disposable relational baseline
 
+**Historical implementation reference.** Current work is
+[comprehensive model discovery](../docs/model-discovery.md), not extending this
+candidate or cutting over from the workbook. Preserve this implementation as evidence.
+
 Checkpoint B imports the frozen canonical workbook directly into a SQLite
 candidate. It does not read runtime JSON, invoke 27vette code, generate Excel,
 accept manufacturer changes, or change canonical authority. The workbook archive
