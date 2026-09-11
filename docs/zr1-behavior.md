@@ -1,10 +1,12 @@
 # ZR1 behavior: foundations and connected choices
 
-September 10, 2026. ZR1 discovery is ready for owner review. Source facts and
+September 10, 2026 discovery; owner decisions accepted September 11, 2026. Source facts and
 frozen behavior are retained in the [structured handoff](zr1-structured.md),
 [records](zr1-structured-records.json) and [runtime observations](discovery/zr1-runtime.json).
-The open decisions below are proposals, not accepted corrections. No canonical
-workbook, application, database, production form or ZR1X lane was changed.
+The nine decisions in §8 are accepted future targets, including the owner’s TOM
+ownership and DUW removal corrections. Frozen findings below remain evidence,
+not corrected behavior. No canonical workbook, application, database, production
+form or ZR1X lane was changed.
 
 ## 1. Evidence and model scope
 
@@ -51,7 +53,7 @@ do not establish connected behavior or acceptance by themselves.
 TOM/ZTK do not change that rate. Qualified option amounts are read from guide
 column E with D qualifiers; the header alignment/currency history remains in
 [source provenance](../sources/README.md). These are source schedule comparisons,
-not tax-law verification or a newly accepted price basis.
+not tax-law verification. The future price basis is accepted separately in D08.
 
 J58, J6D, SOJ, T0E, EYT, NGA and black 719 begin selected. AQ9 starts at 1LZ;
 AH2 starts at 3LZ. Paint and interior remain unset. Body/trim change resets the
@@ -145,8 +147,8 @@ All 14 applicable stripe/paint pairs refuse the second conflicting selection in
 both orders and bodies: DUE/DUW/DTC/DPB with GTR; DPC/DT0 with GBK;
 DPG/DSY with G26; DPL/DSZ/DUK with GKZ/GPH. This is 56 observed attempts.
 There are no ZR1 DZU/DZX stingers. The guide explicitly lists **both DUW and DTC**
-(Exterior 5!56,62); keep both pending review rather than extending other models'
-DUW retirement. DUE's workbook name says Santorini Blue while its source says
+(Exterior 5!56,62). Both remain in frozen evidence; the September 11 D07
+owner correction removes DUW from the future target and retains DTC. DUE's workbook name says Santorini Blue while its source says
 Royal Blue (Exterior 5!54; `zr1_options!186`).
 
 SB9, SFZ and R88 have complete full-length stripe conflict disclosures in
@@ -232,21 +234,32 @@ executed. All 121 numeric and 86 null offering amounts are classified; a null
 source price is not a universal inferred zero. Standard amounts with same-code
 paid rates in other models are explicitly distinguished.
 
-## 8. Open owner decisions and expected targets
+<a id="8-open-owner-decisions-and-expected-targets"></a>
 
-None of these proposals has been accepted by the discovery request. Each would
-require implementation and corrected-runtime verification later.
+## 8. Accepted owner decisions and expected targets
 
-| ID | Proposed target / decision | Evidence and expected sequence |
+On September 11, 2026, the owner approved ZR1-D01–09 with two corrections:
+retain TOM only when selected before ZTK, removing package-only TOM with ZTK;
+and remove DUW as in the other models. These accepted targets supersede the
+original proposals and historical review-state wording in the frozen source JSON.
+The guide, workbook, generated source records and executed observations remain
+unchanged. Implementation and corrected-runtime verification are still required.
+
+D05's refusal-versus-noticed-replacement interaction and D06's displaced-cover
+restoration policy were not selected by this approval. Those specific interaction
+choices remain unresolved before implementation; the exclusions, independent
+purchase policy and explicit TOM sequences below are accepted.
+
+| ID | Accepted target / decision | Evidence and expected sequence |
 |---|---|---|
 | ZR1-D01 | Represent all guide-standard equipment; correct dormant CFC→GBA and EFR scope before restoring visibility. | §4; convertible roof must allow all otherwise permitted paints; DY0/CFV/FE8 and 3LZ N3W must appear in appropriate equipment. N2Z replaces N3W in configured content. |
 | ZR1-D02 | Apply unavailable lifecycle disclosures to PCQ/VWT/R88/SLN and present applicable V8X disabled. | §7; no acquisition/charge while unavailable, independently of baseline standard-equipment flags. |
 | ZR1-D03 | Charge SBT 2,525 with SC7 zero while included. | §4; both coupe trims, either acquisition order, no 195 duplicate charge. |
 | ZR1-D04 | Add the missing 595 AE4 charge to four R6X component paths. | §6; expected totals 1,590/2,085/2,485/2,980; no duplicate seat charge on other leaves. |
-| ZR1-D05 | Complete DTC membership in all three graphic exclusion groups; choose refusal versus noticed replacement interaction. | §5; SFZ/R88+DTC must not coexist; SB9 must have an explicit rule rather than accidental section replacement. |
-| ZR1-D06 | Preserve independent purchase intent through packages and make replacement/removal effects explicit. | TOM→ZTK→remove ZTK retains purchased TOM; SC7/PEF/PDY/PCQ analogues retain independently acquired children. Displaced conflicting covers require a separately explicit restoration policy. |
-| ZR1-D07 | Add SAI with its V8X scope; rename DUE to Royal Blue; retain both source-listed DUW and DTC pending explicit owner disposition. | Interior 5!41 and Exterior 5!54,56,62; no imported DUW retirement. |
-| ZR1-D08 | Preserve ZR1-qualified base/options, R8E 3,000, ZTK+TOM 18,990 and standard UQT; confirm price basis and operational scope. | §§2–3,7; do not apply ZR1X ZTK rate, Z06 recorder charge or other-model paid standard equipment. |
+| ZR1-D05 | Complete DTC membership in all three graphic exclusion groups; refusal versus noticed replacement remains an unresolved interaction choice. | §5; SFZ/R88+DTC must not coexist; SB9 must have an explicit rule rather than accidental section replacement. |
+| ZR1-D06 | Preserve independent purchase intent through packages and make replacement/removal effects explicit. Retain TOM only if selected before ZTK; remove TOM with ZTK if ZTK auto-added it. | TOM→ZTK→remove ZTK retains TOM at its standalone charge; fresh ZTK→remove ZTK removes automatic TOM and its charge. SC7/PEF/PDY/PCQ analogues retain independently acquired children. Displaced-cover restoration remains unresolved; TOM retention does not authorize restoring conflicting covers. |
+| ZR1-D07 | Add SAI with its V8X scope; rename DUE to Royal Blue; remove DUW from the future ZR1 offering set and retain DTC. | Interior 5!41 and Exterior 5!54,56,62 remain original evidence listing DUW and DTC. DUW removal is an explicit owner correction, not a source fact. Reconcile affected relationships with retained DTC, including D05; DUW must not be selectable or charged in the future build. |
+| ZR1-D08 | Preserve ZR1-qualified base/options, R8E 3,000, ZTK+TOM 18,990 and standard UQT. Accept the documented numeric basis: base plus destination once, option schedule column E with D qualifiers, and customer-selection scope with external conditions retained as disclosures. | §§2–3,7; do not apply ZR1X ZTK rate, Z06 recorder charge or other-model paid standard equipment. |
 | ZR1-D09 | Separate static trim information from resolved installed equipment. | ZTK build shows J59/FEJ/XFS instead of J58/FE8/XFR in configured equipment; static information must be labeled and not mistaken for the build. |
 
 ## 9. Completion review and cross-model applicability
@@ -254,14 +267,16 @@ require implementation and corrected-runtime verification later.
 Existence, applicability, selection/charges, reversal, build consumers and source
 versus target are covered together above. Full source rows and numeric qualifiers
 are retained; all direct and grouped relationships have family dispositions.
-Known baseline defects are investigated findings with open targets, not corrected
-behavior. This review does not claim exhaustive possible builds or approval of
-business corrections. Owner review remains open.
+Known baseline defects are investigated findings with accepted targets, not
+corrected behavior. All nine decision records are accepted under §8, with two
+interaction details still unresolved there. This review does not claim exhaustive
+possible builds or implemented corrections.
 
 New model differences were checked against earlier lanes: four configurations,
 standard J58/FE8, ZTK J59/FEJ, model-specific TOM, standard engine packages and
-explicit DUW+DTC coexistence in the source are ZR1 requirements. Earlier lanes
-must not inherit them. Earlier standard-equipment, lifecycle, price ownership,
+explicit DUW+DTC coexistence in the source are ZR1 evidence. D07 now explicitly
+removes DUW from the future target while preserving that source contradiction. Earlier lanes
+must not inherit ZR1-specific equipment behavior. Earlier standard-equipment, lifecycle, price ownership,
 independent-purchase and DTC concerns already have their own recorded decisions;
 this run supplies ZR1 evidence without reopening or changing those decisions.
 ZR1's single-column-family scope and repeated TOM identity reinforce the existing

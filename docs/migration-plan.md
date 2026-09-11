@@ -13,7 +13,10 @@ implementation, deployment or cutover is authorized by this work.
 
 ZR1 discovery was subsequently authorized and executed: [behavior](zr1-behavior.md)
 and [structured handoff](zr1-structured.md) retain all four configurations, source
-accounting and connected runtime evidence. Nine owner decisions remain open.
+accounting and connected runtime evidence. All nine owner targets were accepted
+September 11, 2026, with TOM retained only when selected before ZTK and DUW
+removed from the future offering set. D05 conflict interaction and D06
+displaced-cover restoration remain unresolved details in the accepted decision record.
 ZR1X is not started; schema and correction implementation remain paused.
 
 ## Historical roadmap and decisions
