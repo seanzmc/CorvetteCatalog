@@ -55,16 +55,12 @@ with tarfile.open(archive_path) as archive:
     raw = next((ROOT / 'sources/raw' / guide_hash).glob('*.xlsx'))
     assert digest(raw.read_bytes()) == guide_hash
     guide = load_workbook(raw, data_only=True)
-    for model, option_sheet, rule_sheet in [
-        ('stingray', 'stingray_options', 'rule_mapping'),
-        ('grand-sport', 'grandSport_options', 'grandSport_rule_mapping'),
-        ('grand-sport-x', 'grand_sport_x_options', 'grand_sport_x_rule_mapping'),
-        ('z06', 'z06_options', 'z06_rule_mapping'),
-    ]:
+    for model in ('stingray', 'grand-sport', 'grand-sport-x', 'z06'):
         handoff = read(f'docs/{model}-structured-records.json')
         accounting = read(f'docs/discovery/{model}-accounting.json')
         runtime = read(f'docs/discovery/{model}-runtime.json')
         baseline = handoff['baseline_rows']
+        option_sheet, rule_sheet = handoff['sheet_roles']['options'], handoff['sheet_roles']['rule_mapping']
         options = {r['option_id']: r for r in baseline[option_sheet]}
         assert accounting['guide_sha256'] == runtime['provenance']['guide_sha256'] == guide_hash
         assert digest(workbook_bytes) == runtime['provenance']['workbook_sha256'] == handoff['sources']['workbook_sha256']

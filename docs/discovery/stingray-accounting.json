@@ -1,4 +1,5 @@
 {
+  "format": "model-discovery-accounting-v1",
   "model_key": "stingray",
   "role": "Supplemental discovery accounting, not accepted replacement data",
   "guide_sha256": "d3ca7d3a09c9fb89210b4ce584493b3ad8fb65ca35087c49d816d1cbf1a333d1",

@@ -63,6 +63,9 @@
   or populated headings. Distinguish source-inspected facts, executed baseline
   behavior, accepted targets and specific open decisions. Preserve supporting
   evidence in the tracked handoff; `.local` is scratch, not its only location.
+- Model handoff files must validate against `docs/discovery/handoff-schema.json`
+  (`python3 scripts/validate_handoffs.py`). Do not add lane-specific keys, enum
+  values or files; extend the schema in the same change, for every lane.
 - When a later model exposes a useful discovery check, assess its applicability
   to earlier models and record the disposition. Do not silently change the meaning
   of complete. A source finding with an explicit accepted target is not an

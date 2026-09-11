@@ -1,11 +1,11 @@
 # Z06 structured handoff
 
 **September 11 compatibility override:** read the [shared structured policy](compatibility-notice-policy.json)
-after this handoff's historical owner overlay. The record file references it at
-`owner_review.compatibility_notice_policy.$ref` (relative to the record file).
+after this handoff's historical owner overlay. The [owner overlay](z06-owner-decisions.json)
+references it at `owner_review.compatibility_notice_policy.$ref` (relative to the overlay).
 It supersedes Z06-D05's stripe refusal and Z06-D11's nonselectable alternative,
 including corresponding target checks below. Its `model_overrides.z06.pdb_z07_interaction`
-supersedes the record file's historical interaction object: the chosen target is
+supersedes the overlay's historical `model_policies.pdb_z07_interaction` object: the chosen target is
 the noticed PDD switch, with cancellation preserving the prior build. PDB+Z07
 coexistence and PDF substitution remain unauthorized. Other compatibility cards
 use notice/confirm/cancel; factory-unavailable cards remain inactive. Historical
@@ -23,6 +23,15 @@ All twelve decisions are accepted. The owner permits either blocking Z07 while
 PDB is selected or requiring a noticed switch to PDD; the precise UI alternative
 is not selected. No PDB+Z07 coexistence or silent PDF substitution is authorized.
 This handoff does not implement corrections or establish corrected-runtime proof.
+
+**Handoff contract:** this lane now keeps evidence and decisions in separate files under the
+[common handoff contract](model-discovery.md#handoff-contract): frozen source rows and
+dispositions in [z06-structured-records.json](z06-structured-records.json), price and
+rule accounting in [discovery/z06-accounting.json](discovery/z06-accounting.json), executed
+observations in [discovery/z06-runtime.json](discovery/z06-runtime.json), and the accepted
+owner overlay (decision records, one target per offering, accepted additions, model policies) in
+[z06-owner-decisions.json](z06-owner-decisions.json). References below to `owner_review`,
+`accepted_additions` or per-offering targets in the record file now mean the owner overlay.
 
 ## 1. Record conventions and evidence
 
@@ -244,7 +253,7 @@ builds unless described as completed, with no paint/interior cost unless specifi
 | Z06-T24 | Valid configuration → incompatible seat, no replacement interior | Incomplete-interior submit rejected, no request. Bare AE4 price is not a completed build. Recap/order must reflect accepted equipment replacements; valid external submission remains untested. Focused rejection/equipment evidence. |
 | Z06-T25 | 5ZV/SIG, NWI, E60, accents, peer/independent accessories | Preserve connected behavior and scoped rates from Z06-O13–19/O29–30/O45–46; apply accepted conflict/cleanup notices where required. No invented prerequisite WUB purchase. |
 
-## 10. Verification, limitations and next boundary
+## 10. Coverage and handoff boundary
 
 Handoff checks verify frozen hashes and exact extraction; every retained workbook
 row and its source locator; complete model scope and offering dispositions;

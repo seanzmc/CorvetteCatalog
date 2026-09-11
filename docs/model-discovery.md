@@ -52,19 +52,62 @@ not required. All source relationships still need an explained disposition.
 
 ## Current model handoffs
 
-| Model | Behavior | Structured facts and decisions | Catch-up status |
-|---|---|---|---|
-| Stingray | [Analysis](stingray-behavior.md) | [Handoff](stingray-structured.md), [records](stingray-structured-records.json) | Catch-up verified; see model review below |
-| Grand Sport | [Analysis](grand-sport-behavior.md) | [Handoff](grand-sport-structured.md), [records](grand-sport-structured-records.json) | Catch-up verified; see model review below |
-| Grand Sport X | [Analysis](grand-sport-x-behavior.md) | [Handoff](grand-sport-x-structured.md), [records](grand-sport-x-structured-records.json) | Catch-up verified; see model review below |
-| Z06 | [Analysis](z06-behavior.md) | [Handoff](z06-structured.md), [records](z06-structured-records.json) | Catch-up verified; see model review below |
-| ZR1 | [Analysis](zr1-behavior.md) | [Handoff](zr1-structured.md), [records](zr1-structured-records.json), [decisions](zr1-owner-decisions.json) | Discovery and structured decisions complete; nine targets and interaction details accepted |
-| ZR1X | Not started | Not started | After ZR1 |
+Every lane keeps the same six files; see the [handoff contract](#handoff-contract).
+
+| Model | Behavior | Structured handoff | Evidence (frozen) | Owner overlay | Status |
+|---|---|---|---|---|---|
+| Stingray | [Analysis](stingray-behavior.md) | [Handoff](stingray-structured.md) | [records](stingray-structured-records.json) · [accounting](discovery/stingray-accounting.json) · [runtime](discovery/stingray-runtime.json) | [decisions](stingray-owner-decisions.json) | Catch-up verified; 12 accepted decisions |
+| Grand Sport | [Analysis](grand-sport-behavior.md) | [Handoff](grand-sport-structured.md) | [records](grand-sport-structured-records.json) · [accounting](discovery/grand-sport-accounting.json) · [runtime](discovery/grand-sport-runtime.json) | [decisions](grand-sport-owner-decisions.json) | Catch-up verified; 16 accepted decisions |
+| Grand Sport X | [Analysis](grand-sport-x-behavior.md) | [Handoff](grand-sport-x-structured.md) | [records](grand-sport-x-structured-records.json) · [accounting](discovery/grand-sport-x-accounting.json) · [runtime](discovery/grand-sport-x-runtime.json) | [decisions](grand-sport-x-owner-decisions.json) | Catch-up verified; 14 accepted decisions |
+| Z06 | [Analysis](z06-behavior.md) | [Handoff](z06-structured.md) | [records](z06-structured-records.json) · [accounting](discovery/z06-accounting.json) · [runtime](discovery/z06-runtime.json) | [decisions](z06-owner-decisions.json) | Catch-up verified; 12 accepted decisions |
+| ZR1 | [Analysis](zr1-behavior.md) | [Handoff](zr1-structured.md) | [records](zr1-structured-records.json) · [accounting](discovery/zr1-accounting.json) · [runtime](discovery/zr1-runtime.json) | [decisions](zr1-owner-decisions.json) | Discovery complete; 9 accepted decisions |
+| ZR1X | Not started | Not started | Not started | Not started | After ZR1; add `zr1x` to the contract's lane list when the lane opens |
 
 The older schema proposals, disposable catalog and migration-parity milestones
 remain historical reference. Finish the model handoffs, then separately review
 one coherent master-schema proposal. Do not build separate model schemas or resume
 the earlier database plan while discovery is active.
+
+## Handoff contract
+
+Model lanes drifted while the completion questions above were only prose: sheet
+keys, disposition enums, decision-record fields and even which files existed varied
+by lane, and ZR1 diverged furthest. The contract in
+[discovery/handoff-schema.json](discovery/handoff-schema.json) now fixes the file
+set, key names and enumerations. `python3 scripts/validate_handoffs.py` (also run by
+`tests/test_handoff_contract.py`) checks every lane, including the cross-file facts a
+schema cannot state: sheet roles resolve, one target per offering, decision links
+resolve, hashes agree and the structured handoff carries the ten fixed sections.
+
+| File | Role | Who writes it |
+|---|---|---|
+| `docs/<lane>-structured-records.json` (`model-review-records-v2`) | Frozen workbook rows keyed by original sheet name, `sheet_roles` for generic addressing, source dispositions, guide-only facts, interior links, retained original observations. No targets. | Extractor (`scripts/zr1_discovery.py` pattern); earlier lanes were migrated by hand |
+| `docs/discovery/<lane>-accounting.json` (`model-discovery-accounting-v1`) | Every option amount classified with schedule candidates; every direct rule's runtime translation. | Extractor / catch-up probe |
+| `docs/discovery/<lane>-runtime.json` | Frozen browser observations with probe/harness hashes; reproduced byte-for-byte except `compact.submitted_at`. Never hand-edited; ZR1's extra original keys are a listed frozen exception. | Probe (`scripts/discovery_catchup.mjs`, `scripts/zr1_discovery.mjs`) |
+| `docs/<lane>-owner-decisions.json` (`model-owner-decisions-v2`) | Accepted decision records, one `offering_targets` entry per offering, `accepted_additions`, `model_specific_preservation`, named `model_policies`, the shared compatibility-policy reference and `unresolved_decisions`. | Owner review, recorded by hand |
+| `docs/<lane>-behavior.md` | Family-by-family analysis; sections follow the model's families, not a fixed list. | Discovery |
+| `docs/<lane>-structured.md` | Ten fixed `##` sections named in the schema's `structured_sections`. | Discovery |
+
+Rules for the next lane (ZR1X) and for later edits:
+
+- Add the lane to `lanes.models` first; the validator then demands all six files.
+- Do not add keys, enum values or files ad hoc. Extend the schema in the same change,
+  state why the existing vocabulary cannot express the fact, and keep the value
+  meaningful for every lane (a required key that is empty for other lanes is still
+  better than an optional key that only one lane fills).
+- Evidence files never carry targets; the overlay never carries source rows.
+  `offering_targets` defaults to `retain_subject_to_decision_overlay`; every
+  non-default target must link a decision.
+- Model-specific policy objects go under `owner_review.model_policies.<name>`.
+- Canonical enumerations replaced the earlier per-lane wording on September 11, 2026
+  (`retain_baseline_subject_to_relationship_decisions` /
+  `retain_identity_subject_to_decision_overlay` → `retain_subject_to_decision_overlay`;
+  `visible_disabled` → `visible_unavailable`; `legacy_only` /
+  `legacy_without_primary_offering` → `workbook_only_legacy`; `trim_qualified_standard`
+  / `model_standard` / `model_body_trim_standard_not_other_model_purchase` →
+  `standard_equipment_not_purchase`; guide-only `accepted_addition` / `open_addition`
+  → `omitted_offering` with the addition itself in the overlay). Values, hashes and
+  row references were preserved; the ZR1 extractor reproduces its migrated files exactly.
 
 ## Catch-up completion review
 
@@ -250,7 +293,7 @@ All nine owner targets were accepted September 11, 2026. TOM survives ZTK remova
 only if selected before ZTK; package-only TOM is removed. DUW removal is now an
 explicit owner correction while the original DUW plus DTC source listings remain
 evidence. D05 uses the common compatibility-notice policy below; D06 keeps displaced covers
-deselected. All nine decisions are retained in the [owner overlay](zr1-owner-decisions.json);
+deselected. All nine decisions, one target per offering and the SAI addition are retained in the [owner overlay](zr1-owner-decisions.json);
 no corrected runtime is claimed. ZR1-specific ZTK/J58/FE8 behavior
 is not imported into earlier lanes. See the handoff for reproduction and limits.
 
@@ -267,9 +310,8 @@ offerings, waive prerequisites, or permit incompatible combinations.
 
 The machine-readable policy is retained in
 [compatibility-notice-policy.json](compatibility-notice-policy.json). Each completed
-model's structured owner overlay references it through
-`owner_review.compatibility_notice_policy.$ref`, relative to the containing file
-(ZR1 uses its separate owner-decisions file). Apply this shared overlay last;
+model's owner overlay (`<lane>-owner-decisions.json`) references it through
+`owner_review.compatibility_notice_policy.$ref`, relative to the containing file. Apply this shared overlay last;
 its model-qualified overrides identify superseded decision UI and explicitly
 select Z06's noticed PDD switch while retaining the historical alternatives.
 It supersedes earlier model-specific
