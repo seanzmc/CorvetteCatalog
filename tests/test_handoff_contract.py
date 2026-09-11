@@ -5,6 +5,7 @@ from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -48,6 +49,53 @@ class HandoffContractTests(unittest.TestCase):
                                 [{'record_id': 'x', 'workbook_row': 2, 'rpo': 'ABC', 'source_classification': 'made_up',
                                   'guide_anchors': []}], 'dispositions', SCHEMA, errors)
         self.assertEqual(sorted(e.split(': ', 1)[1][:12] for e in errors), ["'made_up' no", 'missing requ'])
+
+    def test_rule_source_fields_match_in_every_lane(self):
+        original_load = validate_handoffs.load
+        for lane in SCHEMA['lanes']['models']:
+            for field in ('source_row', 'rule_id', 'source_id', 'rule_type', 'target_id'):
+                with self.subTest(lane=lane, field=field):
+                    def changed_load(path):
+                        data = original_load(path)
+                        if path == f'docs/discovery/{lane}-accounting.json':
+                            row = data['direct_rule_translation'][0]
+                            row[field] = row[field] + (1 if field == 'source_row' else '_changed')
+                        return data
+                    with patch.object(validate_handoffs, 'load', side_effect=changed_load):
+                        code, _, err = run('--lane', lane)
+                    self.assertEqual(code, 1)
+                    self.assertIn(f'direct_rule_translation[0].{field} differs', err)
+
+    def test_duplicate_translation_cannot_replace_another_row(self):
+        original_load = validate_handoffs.load
+        def changed_load(path):
+            data = original_load(path)
+            if path == 'docs/discovery/zr1-accounting.json':
+                data['direct_rule_translation'][1] = data['direct_rule_translation'][0]
+            return data
+        with patch.object(validate_handoffs, 'load', side_effect=changed_load):
+            code, _, err = run('--lane', 'zr1')
+        self.assertEqual(code, 1)
+        self.assertIn('direct_rule_translation[1].source_row differs', err)
+
+    def test_schema_errors_are_reported_across_files_and_lanes(self):
+        original_load = validate_handoffs.load
+        def changed_load(path):
+            data = original_load(path)
+            if path == 'docs/stingray-owner-decisions.json':
+                del data['owner_review']
+            elif path == 'docs/discovery/stingray-accounting.json':
+                del data['option_prices']
+            elif path == 'docs/discovery/zr1-runtime.json':
+                return []
+            return data
+        with patch.object(validate_handoffs, 'load', side_effect=changed_load):
+            code, _, err = run()
+        self.assertEqual(code, 1)
+        self.assertIn("missing required key 'owner_review'", err)
+        self.assertIn("missing required key 'option_prices'", err)
+        self.assertIn("docs/discovery/zr1-runtime.json: expected ['object'], got list", err)
+        self.assertIn('3 handoff contract violation(s)', err)
 
     def test_unknown_lane_is_rejected(self):
         code, _, err = run('--lane', 'zr1x')

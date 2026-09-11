@@ -70,13 +70,20 @@ def validate_lane(lane, schema, errors):
         return
     data = {kind: load(files[kind]) for kind in ('records', 'decisions', 'accounting', 'runtime')}
     exceptions = schema['lanes']['frozen_exceptions'].get(files['runtime'], {}).get('extra_top_level_keys', [])
-    runtime = {k: v for k, v in data['runtime'].items() if k not in exceptions}
+    runtime = data['runtime']
+    if isinstance(runtime, dict):
+        runtime = {k: v for k, v in runtime.items() if k not in exceptions}
+    structurally_valid = True
     for kind, value in (('records', data['records']), ('decisions', data['decisions']), ('accounting', data['accounting']), ('runtime', runtime)):
         local = []
         check(schema['$defs'][kind], value, files[kind], schema, local)
-        errors.extend(local[:40])
-        if len(local) > 40:
-            errors.append(f'{files[kind]}: ... {len(local) - 40} more')
+        errors.extend(local)
+        if local:
+            structurally_valid = False
+    # Required-field accesses below depend on all four schema checks succeeding.
+    # Return only from this lane so main still reports violations in later lanes.
+    if not structurally_valid:
+        return
     records, decisions, accounting, runtime = data['records'], data['decisions'], data['accounting'], data['runtime']
     review = decisions['owner_review']
     if not all(d['model_key'] == records['model_key'] for d in (decisions, accounting, runtime)):
@@ -124,8 +131,19 @@ def validate_lane(lane, schema, errors):
     if {p['option_id'] for p in accounting['option_prices']} != option_ids:
         errors.append(f'{files["accounting"]}: option_prices do not cover exactly the option sheet')
     rule_sheet = records['sheet_roles'].get('rule_mapping')
-    if len(accounting['direct_rule_translation']) != len(records['baseline_rows'].get(rule_sheet, [])):
+    rule_rows = records['baseline_rows'].get(rule_sheet, [])
+    translations = accounting['direct_rule_translation']
+    if len(translations) != len(rule_rows):
         errors.append(f'{files["accounting"]}: direct_rule_translation count differs from {rule_sheet}')
+    # Both lists retain workbook order, including filtered direct rules. Compare
+    # provenance and endpoints, not runtime-derived or accepted target relations.
+    fields = {'source_row': '_row', 'rule_id': 'rule_id', 'source_id': 'source_id',
+              'rule_type': 'rule_type', 'target_id': 'target_id'}
+    for index, (translation, source) in enumerate(zip(translations, rule_rows)):
+        for field, source_field in fields.items():
+            if source_field not in source or translation[field] != source[source_field]:
+                errors.append(f'{files["accounting"]}: direct_rule_translation[{index}].{field} '
+                              f'differs from {rule_sheet}[{index}].{source_field}')
     derived = records['runtime_derived_relationships']
     emitted = sum(1 for r in accounting['direct_rule_translation'] if r['runtime_disposition'] == 'emitted')
     if derived['workbook_direct_count'] != len(accounting['direct_rule_translation']) or derived['emitted_direct_count'] != emitted + len(derived['records']):
