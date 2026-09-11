@@ -58,7 +58,7 @@ not required. All source relationships still need an explained disposition.
 | Grand Sport | [Analysis](grand-sport-behavior.md) | [Handoff](grand-sport-structured.md), [records](grand-sport-structured-records.json) | Catch-up verified; see model review below |
 | Grand Sport X | [Analysis](grand-sport-x-behavior.md) | [Handoff](grand-sport-x-structured.md), [records](grand-sport-x-structured-records.json) | Catch-up verified; see model review below |
 | Z06 | [Analysis](z06-behavior.md) | [Handoff](z06-structured.md), [records](z06-structured-records.json) | Catch-up verified; see model review below |
-| ZR1 | Not started | Not started | After the four-model catch-up |
+| ZR1 | [Analysis](zr1-behavior.md) | [Handoff](zr1-structured.md), [records](zr1-structured-records.json) | Discovery executed; nine owner decisions open |
 | ZR1X | Not started | Not started | After ZR1 |
 
 The older schema proposals, disposable catalog and migration-parity milestones
@@ -203,7 +203,7 @@ between different representations.
 These records catch up the identified uneven discovery categories. The remaining
 work for these four models is implementation and verification of the already
 accepted corrections after all six lanes and master-schema design, not a claim
-that the existing form is correct. ZR1 and ZR1X remain unfinished model discoveries.
+that the existing form is correct. ZR1 discovery is now executed with nine open owner decisions, as documented below. ZR1X remains unfinished.
 
 ## Reproduce and verify this evidence
 
@@ -225,3 +225,27 @@ qualifiers, direct-rule translations, full choice universes, known stripe outcom
 context completeness, provenance and rejection evidence. It does not turn row
 preservation or arithmetic equality into manufacturer acceptance. Expected target
 corrections remain in the model handoffs and have not been executed here.
+
+## ZR1 completion review
+
+[Behavior](zr1-behavior.md) · [Structured handoff](zr1-structured.md) ·
+[Runtime evidence](discovery/zr1-runtime.json)
+
+ZR1 has four configurations, not six. All 207 offerings, 828 availability pairs,
+90 interior leaves, 98 direct relationships, grouped constraints and 121 numeric
+plus 86 null option amounts are retained with source dispositions. ZR1 columns
+D:G are isolated from the adjacent ZR1X columns. All 684 coded status pairs,
+26 uncoded equipment mappings and 195 applicable repeated coded rows reconcile.
+
+Executed evidence covers 800 starting-choice observations, 354 connected cases /
+826 action states, 180 interior/body states, 90 interior price comparisons,
+900 paint states, 540 belt attempts, two D30 cause-removal orders, body/trim reset
+and four incomplete-interior rejection checks. Complete-context cases retain
+pricing, equipment, line items and actual order/recap projections. Zero requests.
+
+The review records source omissions, lifecycle conflicts, standard equipment
+suppressed by inactive flags, SBT's duplicate pouch charge, four R6X/AE4 shortfalls,
+DTC group gaps, independent-purchase loss and static-versus-configured equipment.
+Nine proposed owner decisions remain open; no correction is silently accepted.
+ZR1-specific ZTK/J58/FE8 behavior and the guide's explicit DUW plus DTC listings
+are not imported into earlier lanes. See the handoff for reproduction and limits.

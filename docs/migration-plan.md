@@ -11,6 +11,11 @@ and accepted decisions intact. Complete all six independent model discoveries
 before proposing one master schema. No DDL, canonical corrections, application
 implementation, deployment or cutover is authorized by this work.
 
+ZR1 discovery was subsequently authorized and executed: [behavior](zr1-behavior.md)
+and [structured handoff](zr1-structured.md) retain all four configurations, source
+accounting and connected runtime evidence. Nine owner decisions remain open.
+ZR1X is not started; schema and correction implementation remain paused.
+
 ## Historical roadmap and decisions
 
 Status: Checkpoint A specification completed September 5, 2026. Checkpoint B's disposable relational import is implemented and verified locally September 6, 2026. The owner separately authorized C after supplying a new export; its bounded brake intake is also verified locally. D's direct catalog generation and six-model form parity are implemented and verified locally September 6, 2026. E–H remain unauthorized. See [relational import evidence](../catalog/README.md), [source and schema specification](source-schema-specification.md) and [source intake results](../sources/README.md).
