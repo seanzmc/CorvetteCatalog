@@ -162,8 +162,8 @@ orders and bodies. **SFZ+DTC costs 1,545 and R88+DTC costs 1,990**: both coexist
 SB9 and DTC instead replace each other through section selection, so the missing
 explicit group member has a different observed consequence. For existing group
 members, graphic-first refuses the stripe; stripe-first silently replaces it
-with the graphic. The selection interaction needs owner review separately from
-which combinations are permitted. SFZ/SB9 and R88/SFZ were also checked both ways.
+with the graphic. These frozen interactions are superseded for the future target by the accepted
+compatibility-notice policy in §8; permitted combinations remain a separate fact. SFZ/SB9 and R88/SFZ were also checked both ways.
 EYK is refused after SFZ/R88; the reverse replaces EYK. SB9/EYK coexist.
 
 WKR and RWJ are prohibited with TOM, rather than receiving a Z06-style alternate
@@ -245,10 +245,12 @@ original proposals and historical review-state wording in the frozen source JSON
 The guide, workbook, generated source records and executed observations remain
 unchanged. Implementation and corrected-runtime verification are still required.
 
-D05's refusal-versus-noticed-replacement interaction and D06's displaced-cover
-restoration policy were not selected by this approval. Those specific interaction
-choices remain unresolved before implementation; the exclusions, independent
-purchase policy and explicit TOM sequences below are accepted.
+The subsequent September 11 owner clarification closes D05 and D06. Compatibility
+conflicts use visibly distinct, still-clickable cards and a replacement notice;
+fully inactive styling is reserved for factory-unavailable offerings. A previously
+displaced cover stays deselected after the conflicting selection is removed.
+The common interaction policy and all nine accepted decisions are retained in
+[zr1-owner-decisions.json](zr1-owner-decisions.json). No decision details remain open.
 
 | ID | Accepted target / decision | Evidence and expected sequence |
 |---|---|---|
@@ -256,8 +258,8 @@ purchase policy and explicit TOM sequences below are accepted.
 | ZR1-D02 | Apply unavailable lifecycle disclosures to PCQ/VWT/R88/SLN and present applicable V8X disabled. | §7; no acquisition/charge while unavailable, independently of baseline standard-equipment flags. |
 | ZR1-D03 | Charge SBT 2,525 with SC7 zero while included. | §4; both coupe trims, either acquisition order, no 195 duplicate charge. |
 | ZR1-D04 | Add the missing 595 AE4 charge to four R6X component paths. | §6; expected totals 1,590/2,085/2,485/2,980; no duplicate seat charge on other leaves. |
-| ZR1-D05 | Complete DTC membership in all three graphic exclusion groups; refusal versus noticed replacement remains an unresolved interaction choice. | §5; SFZ/R88+DTC must not coexist; SB9 must have an explicit rule rather than accidental section replacement. |
-| ZR1-D06 | Preserve independent purchase intent through packages and make replacement/removal effects explicit. Retain TOM only if selected before ZTK; remove TOM with ZTK if ZTK auto-added it. | TOM→ZTK→remove ZTK retains TOM at its standalone charge; fresh ZTK→remove ZTK removes automatic TOM and its charge. SC7/PEF/PDY/PCQ analogues retain independently acquired children. Displaced-cover restoration remains unresolved; TOM retention does not authorize restoring conflicting covers. |
+| ZR1-D05 | Complete DTC membership in all three graphic exclusion groups. Show compatibility-conflict styling while keeping the card clickable; activation offers a replacement notice identifying affected selections. Confirm applies the replacement; cancel preserves the build. Factory-unavailable cards remain disabled. | §5; SFZ/R88+DTC must not coexist; SB9 must have an explicit rule rather than accidental section replacement. |
+| ZR1-D06 | Preserve independent purchase intent through packages and make replacement/removal effects explicit. Retain TOM only if selected before ZTK; remove TOM with ZTK if ZTK auto-added it. | TOM→ZTK→remove ZTK retains TOM at its standalone charge; fresh ZTK→remove ZTK removes automatic TOM and its charge. SC7/PEF/PDY/PCQ analogues retain independently acquired children. Previously displaced covers remain deselected after TOM/ZTK removal; do not restore their selections or charges automatically. The user may select a compatible cover again. |
 | ZR1-D07 | Add SAI with its V8X scope; rename DUE to Royal Blue; remove DUW from the future ZR1 offering set and retain DTC. | Interior 5!41 and Exterior 5!54,56,62 remain original evidence listing DUW and DTC. DUW removal is an explicit owner correction, not a source fact. Reconcile affected relationships with retained DTC, including D05; DUW must not be selectable or charged in the future build. |
 | ZR1-D08 | Preserve ZR1-qualified base/options, R8E 3,000, ZTK+TOM 18,990 and standard UQT. Accept the documented numeric basis: base plus destination once, option schedule column E with D qualifiers, and customer-selection scope with external conditions retained as disclosures. | §§2–3,7; do not apply ZR1X ZTK rate, Z06 recorder charge or other-model paid standard equipment. |
 | ZR1-D09 | Separate static trim information from resolved installed equipment. | ZTK build shows J59/FEJ/XFS instead of J58/FE8/XFR in configured equipment; static information must be labeled and not mistaken for the build. |
@@ -268,8 +270,8 @@ Existence, applicability, selection/charges, reversal, build consumers and sourc
 versus target are covered together above. Full source rows and numeric qualifiers
 are retained; all direct and grouped relationships have family dispositions.
 Known baseline defects are investigated findings with accepted targets, not
-corrected behavior. All nine decision records are accepted under §8, with two
-interaction details still unresolved there. This review does not claim exhaustive
+corrected behavior. All nine decision records and their interaction details are accepted under §8
+and retained in the structured owner overlay. This review does not claim exhaustive
 possible builds or implemented corrections.
 
 New model differences were checked against earlier lanes: four configurations,
