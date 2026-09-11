@@ -1,5 +1,11 @@
 # ZR1 structured discovery handoff
 
+**September 11 shared policy:** the [owner overlay](zr1-owner-decisions.json)
+references the [common structured compatibility policy](compatibility-notice-policy.json)
+at `owner_review.compatibility_notice_policy.$ref` (relative to the overlay).
+Read that policy after each model's historical decisions; it governs compatibility
+UI only, preserving model-specific constraints and frozen evidence.
+
 September 10, 2026. Read the [behavior analysis](zr1-behavior.md) with the
 [source records](zr1-structured-records.json) and
 [executed observations](discovery/zr1-runtime.json). This is a model discovery

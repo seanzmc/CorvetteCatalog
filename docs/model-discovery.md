@@ -266,8 +266,13 @@ factory disclosure. This does not enable removed or model/body/trim-inapplicable
 offerings, waive prerequisites, or permit incompatible combinations.
 
 The machine-readable policy is retained in
-[zr1-owner-decisions.json](zr1-owner-decisions.json), under
-`owner_review.compatibility_notice_policy`. It supersedes earlier model-specific
+[compatibility-notice-policy.json](compatibility-notice-policy.json). Each completed
+model's structured owner overlay references it through
+`owner_review.compatibility_notice_policy.$ref`, relative to the containing file
+(ZR1 uses its separate owner-decisions file). Apply this shared overlay last;
+its model-qualified overrides identify superseded decision UI and explicitly
+select Z06's noticed PDD switch while retaining the historical alternatives.
+It supersedes earlier model-specific
 refusal-versus-replacement UI choices, including stripe refusal and the disabled
 compatibility alternative for Z06 PDB/Z07. Model-specific exclusions and permitted
 replacement targets remain authoritative (for example, Z06's noticed PDD switch
