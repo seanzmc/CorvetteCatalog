@@ -133,7 +133,9 @@ configured selections and static informational IDs.
 Color-source expansion and all 214 incompatible interior/paint pairs reconcile;
 the 900 runtime paint states agree with the source D30 applicability. Belt cases
 exercise ordinary paid alternatives, zero-price included belts and hard-exclusive
-asymmetrical interiors. For example, HVZ rejects 379 and retains free 3F9
+asymmetrical interiors. All 30 refusals match direct workbook exclusions; all 510
+allowed cases have the expected belt charge from option/conditional-price rows.
+For example, HVZ rejects 379 and retains free 3F9
 (C1066/C1069). HUQ+379 adds both 595 belt and 1,495 D30, while HUQ+3F9 does not add
 D30 (C400/C403). Two independent paint/belt cause-removal orders show D30 survives
 one remaining cause and disappears after the last cause is removed.
