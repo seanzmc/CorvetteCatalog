@@ -98,9 +98,9 @@ class HandoffContractTests(unittest.TestCase):
         self.assertIn('3 handoff contract violation(s)', err)
 
     def test_unknown_lane_is_rejected(self):
-        code, _, err = run('--lane', 'zr1x')
+        code, _, err = run('--lane', 'unknown-model')
         self.assertEqual(code, 1)
-        self.assertIn('zr1x: not listed', err)
+        self.assertIn('unknown-model: not listed', err)
 
     def test_runtime_frozen_exception_is_limited_to_listed_keys(self):
         runtime = json.loads((ROOT / 'docs/discovery/zr1-runtime.json').read_text())

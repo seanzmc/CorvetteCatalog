@@ -7,7 +7,9 @@ from openpyxl import load_workbook
 
 import sys
 lane=sys.argv[1]
-assert lane in {'zr1'}, 'Supply a supported lane'
+assert lane in {'zr1', 'zr1x'}, 'Supply a supported lane'
+guide_start=3 if lane=='zr1' else 7
+guide_end='G' if lane=='zr1' else 'K'
 root=Path(__file__).resolve().parents[1]; out=Path(sys.argv[2]).resolve()
 assert not (out/f'{lane}-structured-records.json').exists(), 'Choose a fresh output directory'
 out.mkdir(parents=True,exist_ok=True)
@@ -35,7 +37,8 @@ options=records[f'{lane}_options']; bycode=defaultdict(list)
 for r in options:
  if r['rpo']:bycode[r['rpo']].append(r)
 ovs={(r['option_id'],r['variant_id']):r for r in records[f'{lane}_ovs']}
-variants=['1lz_r07','3lz_r07','1lz_r67','3lz_r67']
+variants=(["1lz_r07","3lz_r07","1lz_r67","3lz_r67"] if lane=='zr1'
+          else ["1lz_s07","3lz_s07","1lz_s67","3lz_s67"])
 def symbol(cell):
  v=cell.value
  if isinstance(v,str):return re.sub(r'\d+','',v).strip()
@@ -45,8 +48,8 @@ for s in ['Interior 5','Exterior 5','Mechanical 5']:
  for row in g[s].iter_rows(min_row=4):
   code=str(row[0].value or row[1].value or '')
   if not code:continue
-  if all(symbol(c)=='--' for c in row[3:7]):continue
-  syms=[symbol(c) for c in row[3:7]]
+  if all(symbol(c)=='--' for c in row[guide_start:guide_start+4]):continue
+  syms=[symbol(c) for c in row[guide_start:guide_start+4]]
   coded[code]=(s,row[0].row,syms,str(row[2].value))
   if code not in bycode:missing.append([s,row[0].row,code,str(row[2].value)]);continue
   opt=next((o for o in bycode[code] if o['active']),bycode[code][0]); differences=[]
@@ -54,7 +57,7 @@ for s in ['Interior 5','Exterior 5','Mechanical 5']:
    status={'S':'standard','■':'standard','□':'standard','A':'available','A/D':'available','--':'unavailable'}[marker]
    wr=ovs[(opt['option_id'],v)];pairs+=1
    if wr['status']!=status:differences.append([v,status,wr['status'],wr['_row']])
-  entry=dict(guide=f'{s}!A{row[0].row}:G{row[0].row}',code=code,workbook_row=opt['_row'],active=opt['active'],symbols=syms,differences=differences)
+  entry=dict(guide=f'{s}!A{row[0].row}:{guide_end}{row[0].row}',code=code,workbook_row=opt['_row'],active=opt['active'],symbols=syms,differences=differences)
   primary.append(entry)
   if differences:mismatches.append(entry)
 extras=[{'row':r['_row'],'code':r['rpo'],'name':r['option_name']} for r in options if r['rpo'] not in coded]
@@ -62,9 +65,9 @@ duplicates=[]
 for s in ['Standard Equipment 5','Equipment Groups 5']:
  for row in g[s].iter_rows(min_row=4):
   code=str(row[0].value or row[1].value or '')
-  if code not in coded or all(symbol(c)=='--' for c in row[3:7]):continue
+  if code not in coded or all(symbol(c)=='--' for c in row[guide_start:guide_start+4]):continue
   source,n,syms,desc=coded[code]
-  duplicates.append(dict(guide=f'{s}!A{row[0].row}:G{row[0].row}',code=code,same_text=str(row[2].value)==desc,same_status=[symbol(c) for c in row[3:7]]==syms))
+  duplicates.append(dict(guide=f'{s}!A{row[0].row}:{guide_end}{row[0].row}',code=code,same_text=str(row[2].value)==desc,same_status=[symbol(c) for c in row[guide_start:guide_start+4]]==syms))
 report=dict(primary=primary,pairs=pairs,missing=missing,status_differences=mismatches,workbook_only_or_uncoded=extras,duplicate_occurrences=duplicates)
 (out/'remaining-coverage.json').write_text(json.dumps(report,indent=2))
 
@@ -141,6 +144,9 @@ for name in ['PriceRef','rule_phrase_map','runtime_rule_exceptions']:baseline[na
 baseline['color_overrides']=[r for r in records['color_overrides'] if r['interior_id'] in ids and r['option_id'] in option_ids]
 # Explicit, inspected uncoded equipment correspondence; no fuzzy-name acceptance.
 uncoded={25:('Interior 5',89),147:('Interior 5',6),148:('Interior 5',16),149:('Interior 5',17),150:('Interior 5',19),151:('Interior 5',20),152:('Interior 5',22),153:('Interior 5',24),154:('Interior 5',26),155:('Interior 5',59),156:('Interior 5',84),157:('Interior 5',94),158:('Interior 5',98),159:('Interior 5',101),160:('Interior 5',102),161:('Exterior 5',4),162:('Exterior 5',12),163:('Exterior 5',16),164:('Exterior 5',75),165:('Mechanical 5',4),166:('Mechanical 5',10),167:('Mechanical 5',34),168:('Mechanical 5',39),169:('Mechanical 5',42),170:('Mechanical 5',47),197:('Interior 5',51)}
+if lane=='zr1x':
+ # Explicit source correspondences checked against ZR1X's own option rows and H:K statuses.
+ uncoded={25:('Interior 5',89),141:('Interior 5',6),142:('Interior 5',16),143:('Interior 5',17),144:('Interior 5',19),145:('Interior 5',20),146:('Interior 5',22),147:('Interior 5',24),148:('Interior 5',26),149:('Interior 5',59),150:('Interior 5',84),151:('Interior 5',94),152:('Interior 5',98),153:('Interior 5',101),154:('Interior 5',102),155:('Exterior 5',4),156:('Exterior 5',12),157:('Exterior 5',16),158:('Exterior 5',75),159:('Mechanical 5',4),160:('Mechanical 5',10),161:('Mechanical 5',34),162:('Mechanical 5',39),163:('Mechanical 5',42),164:('Mechanical 5',47),196:('Interior 5',51)}
 guide_rows=[]
 for sn in ['Interior 5','Exterior 5','Mechanical 5','Standard Equipment 5','Equipment Groups 5']:
  for rr in g[sn].iter_rows(min_row=4):
@@ -152,8 +158,8 @@ for o in options:
  anchors=[x['guide'] for x in matches]
  classification='coded_guide_match'
  if o['_row'] in uncoded:
-  sn,n=uncoded[o['_row']];anchors=[f'{sn}!A{n}:G{n}'];classification='uncoded_equipment_match'
-  for v,c in zip(variants,list(g[sn][n])[3:7]):
+  sn,n=uncoded[o['_row']];anchors=[f'{sn}!A{n}:{guide_end}{n}'];classification='uncoded_equipment_match'
+  for v,c in zip(variants,list(g[sn][n])[guide_start:guide_start+4]):
    assert ovs[(o['option_id'],v)]['status']=={'S':'standard','■':'standard','□':'standard','A':'available','A/D':'available','--':'unavailable'}[symbol(c)]
  elif not anchors:
   assert o['rpo'] in set(paint_codes.values()),o
@@ -166,11 +172,12 @@ for rr in g['Price Schedule'].iter_rows(min_row=48):
  if rr[1].value:
   price_rows.setdefault(str(rr[1].value).strip(),[]).append(dict(anchor=f'Price Schedule!B{rr[0].row}:E{rr[0].row}',row=rr[0].row,description=rr[2].value,qualifier=rr[3].value,amount=rr[4].value))
 STANDARD_CODES=['B6P','ZZ3','D3V','SL9','DY0','CFV','C2Z','CFC','AH2']
+if lane=='zr1x':STANDARD_CODES.append('J59')
 EXPLANATION={'null_baseline_not_an_inferred_zero':'Preserve null source amount; scope/standard equipment and accepted decisions decide any future charge. Null is not zero.',
  'source_rate_match':'Matching amount is source evidence; it is not proof of resolved build totals.',
  'source_rate_match_with_context':'Matching amount is source evidence; candidate qualifiers and conditional-price rows retain context. It is not proof of resolved build totals.',
  'zero_without_schedule_rate':'Known baseline zero for standard/default/paint/inactive choices without a schedule rate; not a discovered price.',
- 'standard_equipment_not_purchase':'ZR1 model/body/trim standard equipment; a same-code paid rate for another model is not a ZR1 purchase.'}
+ 'standard_equipment_not_purchase':f'{lane.upper()} model/body/trim standard equipment; a same-code paid rate for another model is not a {lane.upper()} purchase.'}
 prices=[]
 for o in options:
  value=o['price'];candidates=price_rows.get(o['rpo'],[]) if o['rpo'] else []
@@ -191,11 +198,11 @@ for r in baseline[f'{lane}_rule_mapping']:
  translations.append(dict(source_row=r['_row'],rule_id=r['rule_id'],source_id=r['source_id'],rule_type=r['rule_type'],target_id=r['target_id'],runtime_disposition='emitted' if emitted else 'inactive_endpoint_filtered',inactive_endpoints=inactive,runtime_rows=emitted))
 raw_edges={triplet(r) for r in baseline[f'{lane}_rule_mapping']}
 derived=[r for r in contract['rules'] if triplet(r) not in raw_edges]
-missing_records=[dict(guide_anchor=f'{sn}!A{n}:G{n}',rpo=c,guide_disclosure=t,source_classification='omitted_offering' if c=='SAI' else 'interior_component' if c in ['TU7','N26','N2Z','36S','37S','38S'] else 'outside_customer_selection_scope') for sn,n,c,t in missing]
+missing_records=[dict(guide_anchor=f'{sn}!A{n}:{guide_end}{n}',rpo=c,guide_disclosure=t,source_classification='omitted_offering' if c=='SAI' else 'interior_component' if c in ['TU7','N26','N2Z','36S','37S','38S'] else 'outside_customer_selection_scope') for sn,n,c,t in missing]
 sheet_roles=dict(options=f'{lane}_options',availability=f'{lane}_ovs',variant_overrides=f'{lane}_variant_overrides',rule_mapping=f'{lane}_rule_mapping',rule_groups=f'{lane}_rule_groups',rule_group_members=f'{lane}_rule_group_members',exclusive_groups=f'{lane}_exclusive_groups',exclusive_group_members=f'{lane}_exclusive_members',price_rules=f'{lane}_price_rules',interiors='LZ_Interiors',color_overrides='color_overrides')
 assert all(v in baseline for v in sheet_roles.values())
 # Contract shapes: docs/discovery/handoff-schema.json. Owner decisions are never generated here.
-source=dict(format='model-review-records-v2',model_key=lane,model_year=2027,role='Frozen source and baseline evidence for model discovery; accepted targets live in the owner-decisions overlay, not here',sources=dict(workbook_sha256=manifest['files'][next(i for i,r in enumerate(manifest['files']) if r['path']=='stingray_master.xlsx')]['sha256'],guide_sha256=hashlib.sha256(raw.read_bytes()).hexdigest(),runtime_commit=manifest['reference_commit'],workbook_row_locator='baseline_rows key is source sheet; _row is original Excel row; fields retain source headers and nulls',guide_model_columns='D:G only; H:K retained as ZR1X context, not ZR1 facts',observed_provenance=None),sheet_roles=sheet_roles,baseline_rows=baseline,offering_dispositions=dispositions,guide_only_dispositions=missing_records,interior_source_links=interior_records,duplicate_rpos_within_model={c:[o['option_id'] for o in options if o['rpo']==c] for c,n in Counter(o['rpo'] for o in options if o['rpo']).items() if n>1},runtime_derived_relationships=dict(role='Frozen emitted relationships absent from direct workbook rows; explicit future translation ownership required, not new owner corrections',workbook_direct_count=len(translations),emitted_direct_count=sum(1 for r in translations if r['runtime_disposition']=='emitted')+len(derived),records=derived),source_reconciliation=dict(primary_status_comparison=primary,repeated_guide_occurrences=duplicates,interior_reconciliation=json.loads((out/'interior-reconciliation.json').read_text()),base_prices=[dict(variant_id=v['variant_id'],workbook_row=v['_row'],base=v['base_price'],guide_anchor=f'Price Schedule!F{n}:J{n}',guide_base=g['Price Schedule'].cell(n,6).value+g['Price Schedule'].cell(n,10).value) for v,n in zip(baseline['variant_master'],[34,36,35,37])]),guide_rows=guide_rows)
+source=dict(format='model-review-records-v2',model_key=lane,model_year=2027,role='Frozen source and baseline evidence for model discovery; accepted targets live in the owner-decisions overlay, not here',sources=dict(workbook_sha256=manifest['files'][next(i for i,r in enumerate(manifest['files']) if r['path']=='stingray_master.xlsx')]['sha256'],guide_sha256=hashlib.sha256(raw.read_bytes()).hexdigest(),runtime_commit=manifest['reference_commit'],workbook_row_locator='baseline_rows key is source sheet; _row is original Excel row; fields retain source headers and nulls',guide_model_columns=('D:G only; H:K retained as ZR1X context, not ZR1 facts' if lane=='zr1' else 'H:K only; D:G retained as ZR1 context, not ZR1X facts'),observed_provenance=None),sheet_roles=sheet_roles,baseline_rows=baseline,offering_dispositions=dispositions,guide_only_dispositions=missing_records,interior_source_links=interior_records,duplicate_rpos_within_model={c:[o['option_id'] for o in options if o['rpo']==c] for c,n in Counter(o['rpo'] for o in options if o['rpo']).items() if n>1},runtime_derived_relationships=dict(role='Frozen emitted relationships absent from direct workbook rows; explicit future translation ownership required, not new owner corrections',workbook_direct_count=len(translations),emitted_direct_count=sum(1 for r in translations if r['runtime_disposition']=='emitted')+len(derived),records=derived),source_reconciliation=dict(primary_status_comparison=primary,repeated_guide_occurrences=duplicates,interior_reconciliation=json.loads((out/'interior-reconciliation.json').read_text()),base_prices=[dict(variant_id=v['variant_id'],workbook_row=v['_row'],base=v['base_price'],guide_anchor=f'Price Schedule!F{n}:J{n}',guide_base=g['Price Schedule'].cell(n,6).value+g['Price Schedule'].cell(n,10).value) for v,n in zip(baseline['variant_master'],[34,36,35,37] if lane=='zr1' else [38,40,39,41])]),guide_rows=guide_rows)
 accounting=dict(format='model-discovery-accounting-v1',model_key=lane,role='Supplemental discovery accounting, not accepted replacement data',guide_sha256=source['sources']['guide_sha256'],option_prices=prices,direct_rule_translation=translations,existing_decision_document=f'../{lane}-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate')
 assert all(x['base']==x['guide_base'] for x in source['source_reconciliation']['base_prices'])
 # Preserve the committed contract migration's top-level field order.

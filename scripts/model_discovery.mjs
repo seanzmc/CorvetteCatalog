@@ -11,7 +11,7 @@ import {createHash} from 'node:crypto';
 
 const root=path.resolve(import.meta.dirname,'..');
 const lane=process.argv[2];
-const registryKeys={'stingray':'stingray','grand-sport':'grandSport','grand-sport-x':'grand_sport_x',z06:'z06',zr1:'zr1'};
+const registryKeys={'stingray':'stingray','grand-sport':'grandSport','grand-sport-x':'grand_sport_x',z06:'z06',zr1:'zr1',zr1x:'zr1x'};
 assert(Object.hasOwn(registryKeys,lane), 'Supply a supported lane');
 assert(process.argv[3], 'Supply a new output directory');
 const output=path.resolve(process.argv[3]);
@@ -95,7 +95,7 @@ try {
       sequences.push({id:`${model}-C${String(sequences.length+1).padStart(3,'0')}`,name,body,trim,source_anchors:[...new Set(anchors)],initial,states});
     }
     let frozenExtras={};
-    if(model==='zr1') {
+    if(model==='zr1'||model==='zr1x') {
     const middle='3LZ';
     const prohibited={DUE:['GTR'],DUW:['GTR'],DTC:['GTR'],DPB:['GTR'],DPC:['GBK'],DT0:['GBK'],DPG:['G26'],DSY:['G26'],DPL:['GKZ','GPH'],DSZ:['GKZ','GPH'],DUK:['GKZ','GPH']};
     for(const body of ['coupe','convertible']) {
@@ -125,12 +125,17 @@ try {
       run('independent accessory groups',body,middle,['RWH','WKR','RWJ','5ZD','5ZC','RIN','RIK','SL8','SXB','SXR','SXT']);
     }
     for(const v of variants) {
-      for(const actions of [
+      for(const actions of (model==='zr1'?[
         ['ZTK','T0E','J58','ZTK'],['TOM','ZTK','ZTK','T0E'],['J59','J58'],
         ['SIG','TOM','T0E','SIG'],['J6O','ZTK','ZTK'],['SOF','SOG','SOH','SU1','SOJ'],
         ['E60','E60'],['PBC','PBC'],['FA5','FA6','FA6'],['UQT'],
         ['SLN'],['ETV','ETV'],['B6P','ZZ3'],['PCQ','VWT','R88'],
-      ])run('ZR1 foundation and dependency round trip',v.body_style,v.trim_level,actions);
+      ]:[
+        ['ZTK','T0E','J59','ZTK'],['TOM','ZTK','ZTK','T0E'],['J59','J59'],
+        ['J6O','ZTK','ZTK'],['SOF','SOG','SOH','SU1','SOJ'],
+        ['E60','E60'],['PBC','PBC'],['FA5','FA6','FA6'],['UQT'],
+        ['SLN'],['ETV','ETV'],['B6P','ZZ3'],['PCQ','VWT','R88'],
+      ]))run(`${model.toUpperCase()} foundation and dependency round trip`,v.body_style,v.trim_level,actions);
     }
     for(const trim of ['1LZ','3LZ']) {
       run('dual roof and independent pouch','coupe',trim,['SC7','SBT','SBT']);
@@ -139,27 +144,40 @@ try {
     const interiorContexts=[],priceComparisons=[],paintStates=[],beltStates=[],causeSequences=[];
     const interiors=plain(rt.data.interiors),paints=['G26','G4Z','G8G','GBA','GBK','GEC','GKA','GKZ','GPH','GTR'],belts=['719','379','3N9','3A9','3F9','3M9'];
     const expectedPaint=new Set(records.source_reconciliation.interior_reconciliation.color_expected.map(x=>x.join('|')));
+    // ZR1X uses the common sequence shape for the same fully inspected interior
+    // families; ZR1 alone retains its original six frozen top-level exceptions.
+    function interiorCase(name,i,body,initial,states=[]) {
+      const link=records.interior_source_links.find(x=>x.id===i.interior_id);
+      sequences.push({id:`${model}-C${String(sequences.length+1).padStart(3,'0')}`,name,body,trim:i.trim_level,
+        source_anchors:[link.guide,link.workbook],initial,states});
+    }
     function setInterior(i,body='coupe') {
       start(body,i.trim_level,false);choose('G8G');
       if(!rt.state.selected.has(row(i.seat_code).option_id))choose(i.seat_code);
       rt.handleInterior(i);assert.equal(rt.state.selectedInterior,i.interior_id);
     }
     for(const i of interiors) {
-      for(const body of ['coupe','convertible']) {setInterior(i,body);interiorContexts.push({id:i.interior_id,body,state:snapshot()});}
+      for(const body of ['coupe','convertible']) {setInterior(i,body);interiorContexts.push({id:i.interior_id,body,state:snapshot()});if(model==='zr1x')interiorCase('interior/body context',i,body,snapshot());}
       setInterior(i);
       const seatRate=i.trim_level==='1LZ'?(i.seat_code==='AE4'?1095:0):({AH2:0,AE4:595,AUP:350}[i.seat_code]);
       const extras=(i.interior_components||[]).filter(x=>x.component_type!=='seat').reduce((n,x)=>n+x.price,0);
       const actual=rt.lineItems().filter(x=>x.type==='interior_component'||x.type==='selected_interior'||x.step_key==='seat').reduce((n,x)=>n+x.price,0);
       priceComparisons.push({id:i.interior_id,seatRate,componentTotal:extras,expected:seatRate+extras,actual,difference:actual-seatRate-extras});
-      for(const paint of paints) {setInterior(i);choose(paint);paintStates.push({id:i.interior_id,paint,expected_d30:expectedPaint.has(i.interior_id+'|'+paint),actual_d30:[...rt.computeAutoAdded().keys()].map(rpo).includes('D30'),total:rt.currentOrder().pricing.total_msrp});}
-      for(const belt of belts) {setInterior(i);const action=choose(belt);beltStates.push({id:i.interior_id,belt,action,selected:[...rt.state.selected].map(rpo),automatic:[...rt.computeAutoAdded().keys()].map(rpo),items:plain(rt.lineItems()).filter(x=>belts.includes(x.rpo)||x.rpo==='D30').map(x=>({rpo:x.rpo,price:x.price}))});}
+      for(const paint of paints) {setInterior(i);const initial=model==='zr1x'?snapshot():null;const action=choose(paint);if(model==='zr1x')interiorCase('interior paint',i,'coupe',initial,[{action,state:snapshot()}]);paintStates.push({id:i.interior_id,paint,expected_d30:expectedPaint.has(i.interior_id+'|'+paint),actual_d30:[...rt.computeAutoAdded().keys()].map(rpo).includes('D30'),total:rt.currentOrder().pricing.total_msrp});}
+      for(const belt of belts) {setInterior(i);const initial=model==='zr1x'?snapshot():null;const action=choose(belt);if(model==='zr1x')interiorCase('interior belt',i,'coupe',initial,[{action,state:snapshot()}]);beltStates.push({id:i.interior_id,belt,action,selected:[...rt.state.selected].map(rpo),automatic:[...rt.computeAutoAdded().keys()].map(rpo),items:plain(rt.lineItems()).filter(x=>belts.includes(x.rpo)||x.rpo==='D30').map(x=>({rpo:x.rpo,price:x.price}))});}
     }
     for(const actions of [['G26','379','G8G','3F9'],['G26','379','3F9','G8G']]) {
       const i=interiors.find(x=>x.interior_code==='HUQ'&&x.trim_level==='1LZ');setInterior(i);
-      const states=[];for(const code of actions)states.push({action:choose(code),state:snapshot()});causeSequences.push({name:'D30 independent paint and belt causes',actions,states});
+      const initial=model==='zr1x'?snapshot():null;const states=[];for(const code of actions)states.push({action:choose(code),state:snapshot()});if(model==='zr1x')interiorCase('D30 independent paint and belt causes',i,'coupe',initial,states);causeSequences.push({name:'D30 independent paint and belt causes',actions,states});
     }
     start('coupe','3LZ');choose('ZTK');const beforeReset=snapshot();rt.setBodyAndTrim('convertible','1LZ');const contextReset={before:beforeReset,after:snapshot()};
-    frozenExtras={interiorContexts,priceComparisons,paintStates,beltStates,causeSequences,contextReset};
+    if(model==='zr1')frozenExtras={interiorContexts,priceComparisons,paintStates,beltStates,causeSequences,contextReset};
+    else {
+      assert(paintStates.every(x=>x.expected_d30===x.actual_d30));
+      sequences.push({id:`${model}-C${String(sequences.length+1).padStart(3,'0')}`,name:'body/trim reset',body:'coupe',trim:'3LZ',
+        source_anchors:['variant_master',`${records.sheet_roles.options}!A109:K109`],initial:beforeReset,
+        states:[{action:{code:'convertible/1LZ',outcome:'attempted'},state:contextReset.after}]});
+    }
     } else {
     const middle=model==='z06'?'2LZ':'2LT';
     // Complete listed stripe/paint prohibitions: different models still retain their own anchors/results.

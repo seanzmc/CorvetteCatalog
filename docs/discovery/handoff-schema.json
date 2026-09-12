@@ -4,7 +4,7 @@
   "title": "Model discovery handoff contract",
   "description": "Every model lane retains exactly the files in `lanes.files` with these shapes. Validate with scripts/validate_handoffs.py. Extend this schema in the same change as any new key, enum value or file; do not add lane-specific keys ad hoc.",
   "lanes": {
-    "models": ["stingray", "grand-sport", "grand-sport-x", "z06", "zr1"],
+    "models": ["stingray", "grand-sport", "grand-sport-x", "z06", "zr1", "zr1x"],
     "files": {
       "records": "docs/{lane}-structured-records.json",
       "decisions": "docs/{lane}-owner-decisions.json",

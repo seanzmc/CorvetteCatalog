@@ -21,7 +21,7 @@ D06 keeps displaced covers deselected. All nine decisions are retained in the
 [structured owner overlay](zr1-owner-decisions.json). The [common interaction policy](model-discovery.md#common-compatibility-notice-policy--september-11-owner-decision)
 supersedes earlier differing compatibility UI treatments while retaining model rules.
 ZR1 discovery and decision capture are complete; corrections are not implemented.
-ZR1X is not started; schema and correction implementation remain paused.
+September 12: [ZR1X discovery](zr1x-behavior.md) and its [six-file handoff](zr1x-structured.md) now retain source accounting and frozen runtime evidence. All nine ZR1X owner decisions are open; no model-specific correction has been accepted. The runtime probe and ZR1/ZR1X extractor are unified, with parsed-value preservation and byte-reproduction gates. The later coherent six-model review, master schema and correction implementation remain paused.
 
 ## Historical roadmap and decisions
 

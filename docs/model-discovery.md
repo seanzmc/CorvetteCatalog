@@ -61,7 +61,7 @@ Every lane keeps the same six files; see the [handoff contract](#handoff-contrac
 | Grand Sport X | [Analysis](grand-sport-x-behavior.md) | [Handoff](grand-sport-x-structured.md) | [records](grand-sport-x-structured-records.json) · [accounting](discovery/grand-sport-x-accounting.json) · [runtime](discovery/grand-sport-x-runtime.json) | [decisions](grand-sport-x-owner-decisions.json) | Catch-up verified; 14 accepted decisions |
 | Z06 | [Analysis](z06-behavior.md) | [Handoff](z06-structured.md) | [records](z06-structured-records.json) · [accounting](discovery/z06-accounting.json) · [runtime](discovery/z06-runtime.json) | [decisions](z06-owner-decisions.json) | Catch-up verified; 12 accepted decisions |
 | ZR1 | [Analysis](zr1-behavior.md) | [Handoff](zr1-structured.md) | [records](zr1-structured-records.json) · [accounting](discovery/zr1-accounting.json) · [runtime](discovery/zr1-runtime.json) | [decisions](zr1-owner-decisions.json) | Discovery complete; 9 accepted decisions |
-| ZR1X | Not started | Not started | Not started | Not started | After ZR1; add `zr1x` to the contract's lane list when the lane opens |
+| ZR1X | [Analysis](zr1x-behavior.md) | [Handoff](zr1x-structured.md) | [records](zr1x-structured-records.json) · [accounting](discovery/zr1x-accounting.json) · [runtime](discovery/zr1x-runtime.json) | [decisions](zr1x-owner-decisions.json) | Discovery retained; 9 open owner decisions |
 
 The older schema proposals, disposable catalog and migration-parity milestones
 remain historical reference. Finish the model handoffs, then separately review
@@ -123,7 +123,7 @@ Deliberately left as is:
   exception. The unified probe still emits them for ZR1 only; their values were preserved during regeneration.
 - Behavior analyses keep model-specific section outlines; only the title is checked.
 
-Rules for the next lane (ZR1X) and for later edits:
+Rules for model lanes and later edits:
 
 - Add the lane to `lanes.models` first; the validator then demands all six files.
 - Do not add keys, enum values or files ad hoc. Extend the schema in the same change,
@@ -281,14 +281,14 @@ between different representations.
 These records catch up the identified uneven discovery categories. The remaining
 work for these four models is implementation and verification of the already
 accepted corrections after all six lanes and master-schema design, not a claim
-that the existing form is correct. ZR1 discovery and its structured decision overlay are complete, as documented below. ZR1X remains unfinished.
+that the existing form is correct. ZR1 discovery and its structured decision overlay are complete, as documented below. ZR1X discovery is retained below, with nine owner decisions still open.
 
 ## Reproduce and verify this evidence
 
 Run from the repository root using the existing Node and openpyxl environments:
 
 ```sh
-for lane in stingray grand-sport grand-sport-x z06 zr1; do
+for lane in stingray grand-sport grand-sport-x z06 zr1 zr1x; do
   node scripts/model_discovery.mjs "$lane" .local/catalog-discovery-new-run
 done
 PYTHONDONTWRITEBYTECODE=1 /Users/seandm/Projects/27vette/.venv/bin/python scripts/verify_discovery_catchup.py .local/catalog-discovery-new-run
@@ -342,6 +342,29 @@ deselected. All nine decisions, one target per offering and the SAI addition are
 no corrected runtime is claimed. ZR1-specific ZTK/J58/FE8 behavior
 is not imported into earlier lanes. See the handoff for reproduction and limits.
 
+## ZR1X completion review
+
+[Behavior](zr1x-behavior.md) · [Structured handoff](zr1x-structured.md) ·
+[Runtime evidence](discovery/zr1x-runtime.json) · [Open decisions](zr1x-owner-decisions.json)
+
+| Completion question | ZR1X answer and evidence |
+|---|---|
+| What exists? | All four configurations, 206 offerings, 824 availability rows, 90 interior leaves/127 components, standard equipment, ten paints and 19 classified guide-only records are retained. H:K guide accounting gives 680 coded matches, 26 uncoded correspondences and 194 repeated occurrences. See source records and behavior §§1–2. |
+| When does it apply? | All 203 active offerings are observed in all four variants (812 observations); inactive FEH/N3W/V8X remain source facts. E60 is 3LZ-only, J59 is standard, and UQT is display-only. Interior/paint/belt, body/trim and unavailable lifecycle differences are explicit in behavior §§3–6. |
+| What does selection do? | All option amounts and 96 direct rules, grouped/exclusive relationships, 33 price rules and six defaults are retained. ZTK adds FEZ/XFS/TOM for 14,495, retaining J59. Four R6X/AE4 shortfalls, SBT's extra 195 and DTC graphic gaps are observed, not silently corrected. |
+| What does change/removal do? | Both package/child and cover acquisition orders, four-variant ZTK/TOM round trips, mirror/D30 multiple causes, wheel defaults and a body/trim reset are executed. Independently selected TOM/children are lost through packages; displaced covers are not restored. See behavior §§3–6. |
+| What reaches the build? | 1,973 connected cases/2,259 action states retain selected/automatic identities, item amounts/routing, order sections, compact recap and informational equipment. All initial case contexts are complete; four required-interior rejections make zero requests. Static equipment is kept distinct from installed ZTK content. |
+| What is established? | Frozen source and observations are complete for the stated family coverage. Nine ZR1X decisions remain open; non-default proposals/additions require owner review. No ZR1/GSX decision is accepted for ZR1X by analogy. Current-app behavior, corrected targets and master-schema design remain unverified/out of scope. |
+
+The interior/body, paint, belt and reset checks already existed in earlier model
+handoffs: this pass changes ZR1X's representation to common runtime sequences,
+not the earlier lanes' completion standard. Earlier lanes retain their original
+supplemental evidence; ZR1 retains its six frozen extra keys. ZR1X has no new
+runtime keys or lane-specific enums. The five existing lanes reproduced with
+zero parsed differences after adding ZR1X support, excluding only submission
+timestamps and the actual unified-probe hash; their regenerated hashes identify
+the final probe. Byte reproduction then covers all six lanes.
+
 ## Common compatibility-notice policy — September 11 owner decision
 
 The owner accepted one future interaction policy across model lanes. Compatible
@@ -366,5 +389,5 @@ replacement targets remain authoritative (for example, Z06's noticed PDD switch
 does not authorize PDF). Earlier decision records and executed refusal observations
 remain historical evidence; this common policy governs the future interaction.
 Factory lifecycle restrictions remain distinct and continue to block acquisition.
-ZR1X will use this policy with its own facts when discovered. No UI implementation
+ZR1X references this policy with its own recorded facts and open owner decisions. No UI implementation
 or corrected-runtime verification is claimed.
