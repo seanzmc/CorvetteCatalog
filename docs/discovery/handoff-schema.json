@@ -28,7 +28,7 @@
     "frozen_exceptions": {
       "docs/discovery/zr1-runtime.json": {
         "extra_top_level_keys": ["interiorContexts", "priceComparisons", "paintStates", "beltStates", "causeSequences", "contextReset"],
-        "reason": "Original ZR1 probe output retained unchanged; provenance.probe_sha256 anchors it to scripts/zr1_discovery.mjs. New lanes emit only the common runtime keys."
+        "reason": "Original ZR1 extra values retained unchanged; provenance.probe_sha256 anchors regenerated evidence to scripts/model_discovery.mjs. New lanes emit only the common runtime keys."
       }
     }
   },

@@ -83,7 +83,7 @@ resolve, hashes agree and the structured handoff carries the ten fixed sections.
 |---|---|---|
 | `docs/<lane>-structured-records.json` (`model-review-records-v2`) | Frozen workbook rows keyed by original sheet name, `sheet_roles` for generic addressing, source dispositions, guide-only facts, interior links, retained original observations. No targets. | Extractor (`scripts/zr1_discovery.py` pattern); earlier lanes were migrated by hand |
 | `docs/discovery/<lane>-accounting.json` (`model-discovery-accounting-v1`) | Every option amount classified with schedule candidates; every direct rule's runtime translation. | Extractor / catch-up probe |
-| `docs/discovery/<lane>-runtime.json` | Frozen browser observations with probe/harness hashes; reproduced byte-for-byte except `compact.submitted_at`. Never hand-edited; ZR1's extra original keys are a listed frozen exception. | Probe (`scripts/discovery_catchup.mjs`, `scripts/zr1_discovery.mjs`) |
+| `docs/discovery/<lane>-runtime.json` | Frozen browser observations with probe/harness hashes; parsed values identical except `compact.submitted_at` and `provenance.probe_sha256`; bytes identical from commit `1dcac05` onward (normalizing only `compact.submitted_at`). Never hand-edited; ZR1's extra original keys are a listed frozen exception. | Probe (`scripts/model_discovery.mjs`) |
 | `docs/<lane>-owner-decisions.json` (`model-owner-decisions-v2`) | Accepted decision records, one `offering_targets` entry per offering, `accepted_additions`, `model_specific_preservation`, named `model_policies`, the shared compatibility-policy reference and `unresolved_decisions`. | Owner review, recorded by hand |
 | `docs/<lane>-behavior.md` | Family-by-family analysis; sections follow the model's families, not a fixed list. | Discovery |
 | `docs/<lane>-structured.md` | Ten fixed `##` sections named in the schema's `structured_sections`. | Discovery |
@@ -115,14 +115,12 @@ resolved; this table is the record of what was inconsistent and how it was settl
 | Nullable `rpo` in guide-only rows; `conflict` without `trim` | GS, Z06 | Schema nullable |
 | No `format` tag on accounting files | four lanes | Added |
 | `*-structured.md` outline: differing §4/§5/§10 titles; ZR1 with four unnumbered sections | ST, Z06, ZR1 | Ten fixed sections; ZR1 rebuilt from existing content |
+| Runtime reproduction claimed byte identity despite incompatible serializers and a changed probe hash | all five existing lanes | Unified record-per-line writer: parsed values identical except `compact.submitted_at` and `provenance.probe_sha256`; bytes identical from commit `1dcac05` onward (normalizing only `compact.submitted_at`). All five lanes had zero parsed differences before regeneration. |
 
 Deliberately left as is:
 
-- The two runtime probes (`scripts/discovery_catchup.mjs` for four lanes,
-  `scripts/zr1_discovery.mjs`) are separate code. Their outputs are already
-  consistent and hash-anchored; unify them when the ZR1X probe is written.
 - `discovery/zr1-runtime.json` keeps six original camelCase keys as a listed frozen
-  exception rather than being regenerated.
+  exception. The unified probe still emits them for ZR1 only; their values were preserved during regeneration.
 - Behavior analyses keep model-specific section outlines; only the title is checked.
 
 Rules for the next lane (ZR1X) and for later edits:
@@ -290,9 +288,19 @@ that the existing form is correct. ZR1 discovery and its structured decision ove
 Run from the repository root using the existing Node and openpyxl environments:
 
 ```sh
-node scripts/discovery_catchup.mjs .local/catalog-discovery-new-run
+for lane in stingray grand-sport grand-sport-x z06 zr1; do
+  node scripts/model_discovery.mjs "$lane" .local/catalog-discovery-new-run
+done
 PYTHONDONTWRITEBYTECODE=1 /Users/seandm/Projects/27vette/.venv/bin/python scripts/verify_discovery_catchup.py .local/catalog-discovery-new-run
 ```
+
+The unified probe replaces both original probes. The transition standard is
+"parsed values identical except compact.submitted_at and provenance.probe_sha256;
+bytes identical from commit 1dcac05 onward". `tests/test_model_discovery.py` runs
+every contracted lane and compares original bytes after normalizing only
+`compact.submitted_at`; probe-hash, ordering and formatting changes fail that gate.
+A probe change requires an explicit parsed-diff review and regenerated provenance,
+never a silent snapshot refresh.
 
 The probe refuses to overwrite output, reads the immutable archive and pinned
 reference harness, and uses stubbed network/DOM functions. It does not write into

@@ -1,5 +1,5 @@
 // Read-only behavior discovery against the immutable browser baseline.
-// Usage: node scripts/zr1_discovery.mjs OUTPUT_DIRECTORY [REFERENCE_REPO]
+// Usage: node scripts/model_discovery.mjs LANE OUTPUT_DIRECTORY [REFERENCE_REPO]
 // Existing observations are never overwritten by default; choose a new output directory.
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
@@ -10,11 +10,15 @@ import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 
 const root=path.resolve(import.meta.dirname,'..');
-assert(process.argv[2], 'Supply a new output directory');
-const output=path.resolve(process.argv[2]);
-const reference=process.argv[3] || '/Users/seandm/Projects/27vette';
+const lane=process.argv[2];
+const registryKeys={'stingray':'stingray','grand-sport':'grandSport','grand-sport-x':'grand_sport_x',z06:'z06',zr1:'zr1'};
+assert(Object.hasOwn(registryKeys,lane), 'Supply a supported lane');
+assert(process.argv[3], 'Supply a new output directory');
+const output=path.resolve(process.argv[3]);
+const reference=process.argv[4] || '/Users/seandm/Projects/27vette';
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'baselines/2026-09-06/manifest.json')));
 const hash=x=>createHash('sha256').update(x).digest('hex');
+const probeHash=hash(fs.readFileSync(import.meta.filename));
 const plain=x=>JSON.parse(JSON.stringify(x));
 const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'discovery-catchup-'));
 const prior=process.cwd();
@@ -34,10 +38,10 @@ try {
   fs.writeFileSync(path.join(scratch,'harness.mjs'),harness);
   process.chdir(scratch);
   const {loadRuntime}=await import(pathToFileURL(path.join(scratch,'harness.mjs')));
-  for(const [model,key] of [['zr1','zr1']]) {
+  for(const [model,key] of [[lane,registryKeys[lane]]]) {
     const file=path.join(output,model+'-runtime.json');assert(!fs.existsSync(file),'Refusing to overwrite '+file);
     const rt=loadRuntime();rt.activateModel(key,{shouldRender:false});
-    const records=JSON.parse(fs.readFileSync(path.join(root,'docs/zr1-structured-records.json')));
+    const records=JSON.parse(fs.readFileSync(path.join(root,'docs',model+'-structured-records.json')));
     const rpo=id=>rt.data.choices.find(x=>x.option_id===id)?.rpo || id;
     const row=code=>rt.activeChoiceRows().find(x=>x.rpo===code);
     function choose(code) {
@@ -90,6 +94,8 @@ try {
       const anchors=records.offering_dispositions.filter(r=>actions.includes(r.rpo)).flatMap(r=>r.guide_anchors);
       sequences.push({id:`${model}-C${String(sequences.length+1).padStart(3,'0')}`,name,body,trim,source_anchors:[...new Set(anchors)],initial,states});
     }
+    let frozenExtras={};
+    if(model==='zr1') {
     const middle='3LZ';
     const prohibited={DUE:['GTR'],DUW:['GTR'],DTC:['GTR'],DPB:['GTR'],DPC:['GBK'],DT0:['GBK'],DPG:['G26'],DSY:['G26'],DPL:['GKZ','GPH'],DSZ:['GKZ','GPH'],DUK:['GKZ','GPH']};
     for(const body of ['coupe','convertible']) {
@@ -153,6 +159,61 @@ try {
       const states=[];for(const code of actions)states.push({action:choose(code),state:snapshot()});causeSequences.push({name:'D30 independent paint and belt causes',actions,states});
     }
     start('coupe','3LZ');choose('ZTK');const beforeReset=snapshot();rt.setBodyAndTrim('convertible','1LZ');const contextReset={before:beforeReset,after:snapshot()};
+    frozenExtras={interiorContexts,priceComparisons,paintStates,beltStates,causeSequences,contextReset};
+    } else {
+    const middle=model==='z06'?'2LZ':'2LT';
+    // Complete listed stripe/paint prohibitions: different models still retain their own anchors/results.
+    const prohibited={DUE:['GTR'],DPB:['GTR'],DPC:['GBK'],DT0:['GBK'],DZU:['GBK'],DPG:['G26'],DSY:['G26'],DPL:['GKZ','GPH'],DSZ:['GKZ','GPH'],DUK:['GKZ','GPH'],DZX:['GKZ','GPH']};
+    for(const body of ['coupe','convertible']) {
+      for(const [stripe,paints] of Object.entries(prohibited))for(const paint of paints)
+        for(const reverse of [false,true])run('stripe/paint prohibition',body,middle,reverse?[stripe,paint]:[paint,stripe]);
+      if(model==='grand-sport-x')for(const reverse of [false,true])run('existing DTC/paint prohibition',body,middle,reverse?['DTC','GTR']:['GTR','DTC']);
+      for(const [packageCode,child] of [[model==='stingray'?'PCU':'PCQ','VWE'],['PEF','CAV'],['PDY','RYT'],['PDA','SNE']]) {
+        run('independent child before package and removal',body,middle,[child,packageCode,packageCode]);
+        run('package before child and removal',body,middle,[packageCode,child,packageCode]);
+      }
+      for(const roof of ['D84','D86'])if(body==='convertible') {
+        run('roof then conflicting paint',body,middle,[roof,'GBA']);
+        run('paint then conflicting roof',body,middle,['GBA',roof]);
+      }
+      for(const accent of ['EFY','EDU']) {
+        run('accent then paint',body,middle,[accent,'GBA']);
+        run('paint then accent',body,middle,['GBA',accent]);
+      }
+      if(body==='coupe') {
+        run('independent pouch before dual roof',body,middle,['SC7','SBT','SBT']);
+        run('dual roof before pouch',body,middle,['SBT','SC7','SBT']);
+      }
+      for(const graphic of ['VPW','VPO','SFZ']) {
+        run('graphic then stripe',body,middle,[graphic,'DPB']);
+        run('stripe then graphic',body,middle,['DPB',graphic]);
+      }
+    }
+    // Multiple causes must survive loss of either supplier, then disappear on last-cause loss.
+    for(const order of [['5JR','ZYC','5JR','ZYC'],['ZYC','5JR','ZYC','5JR']])
+      run('mirror multiple causes','coupe',model==='z06'?'3LZ':'3LT',order);
+    if(model!=='z06')for(const cover of ['BC4','BCP','BCS']) {
+      run('cover before appearance package','coupe',middle,[cover,'B6P','B6P',cover]);
+      run('appearance package before cover','coupe',middle,['B6P',cover,'B6P',cover]);
+      run('convertible prerequisite acquisition and loss','convertible',middle,[cover,'ZZ3',cover,'ZZ3']);
+    }
+    if(model==='stingray') {
+      for(const v of variants)run('Z51 equipment and removal',v.body_style,v.trim_level,['Z51','FE4','Z51']);
+      run('PCX paid alternatives and removal','coupe',middle,['PCX','5DO','SHW','PCX']);
+      run('PDV independent cap and removal','coupe',middle,['5ZD','PDV','PDV']);
+    } else if(model==='grand-sport') {
+      for(const v of variants) {
+        run('track package supply and removal',v.body_style,v.trim_level,['FEY','FEY']);
+        run('sport package brake dependency loss',v.body_style,v.trim_level,['FEB','J57','T0F','FEB']);
+      }
+    } else if(model==='grand-sport-x') {
+      for(const v of variants)run('FED equipment round trip',v.body_style,v.trim_level,['FED','FED']);
+    } else {
+      for(const v of variants)run('Z07 equipment round trip',v.body_style,v.trim_level,['Z07','J6D','Z07']);
+      run('PCZ content acquisition and removal','coupe',middle,['5DK','PCZ','SFZ','SHT','VPO','PCZ']);
+      run('convertible engine prerequisites','convertible',middle,['BCW','ZZ3','BCW','PBC','ZZ3']);
+    }
+    }
     const rejection=[],seatTransitions=[];
     for(const v of variants) {
       start(v.body_style,v.trim_level);const seatAction=choose('AE4');
@@ -163,6 +224,9 @@ try {
       rejection.push({variant_id:v.variant_id,missing:plain(rt.missingRequired()),requests:rt.fetchCalls.length});
     }
     assert.equal(rt.fetchCalls.length,0);
+    if(model==='zr1') {
+    const {interiorContexts,priceComparisons,paintStates,beltStates,causeSequences,contextReset}=frozenExtras;
+    const interiors=rt.data.interiors;
     assert.equal(interiors.length,90);
     assert.equal(options.length,800);
     assert.deepEqual([...new Set(options.map(x=>x.id))].sort(),records.baseline_rows.zr1_options.filter(x=>x.active&&x.display_behavior!=='hidden').map(x=>x.option_id).sort());
@@ -178,12 +242,13 @@ try {
       assert.equal(c.states[3].state.missing.length,0);
     }
 
+    }
     const data={model_key:records.model_key,role:'Supplemental frozen-baseline discovery; not corrected target verification',
       provenance:{reference_commit:manifest.reference_commit,workbook_sha256:records.sources.workbook_sha256,
         guide_sha256:records.sources.guide_sha256,...sourceHashes,original_harness_sha256:hash(originalHarness),
-        exposed_harness_sha256:hash(harness),probe_sha256:hash(fs.readFileSync(path.join(root,'scripts/zr1_discovery.mjs')))},
+        exposed_harness_sha256:hash(harness),probe_sha256:probeHash},
       projection:'Snapshots retain actual selected/automatic identities, item prices/types/routing, order pricing/section item projections, compact recap and informational equipment IDs. Copy and images remain in baseline_rows; no live customer data.',
-      interiorContexts,priceComparisons,paintStates,beltStates,causeSequences,contextReset,foundations,starting_choice_observations:options,connected_sequences:sequences,not_applicable: notApplicable,seat_transitions:seatTransitions,required_interior_rejection:rejection,live_requests:rt.fetchCalls.length};
+      ...frozenExtras,foundations,starting_choice_observations:options,connected_sequences:sequences,not_applicable: notApplicable,seat_transitions:seatTransitions,required_interior_rejection:rejection,live_requests:rt.fetchCalls.length};
     fs.writeFileSync(file,'{\n'+Object.entries(data).map(([k,v])=>'  '+JSON.stringify(k)+': '+(Array.isArray(v)?'[\n'+v.map(x=>'    '+JSON.stringify(x)).join(',\n')+'\n  ]':JSON.stringify(v))).join(',\n')+'\n}\n');
     console.log(model,options.length,'choice observations;',options.filter(x=>x.attempted).length,'actions;',sequences.length,'connected cases;', rejection.length,'rejection cases; zero requests');
   }

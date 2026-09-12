@@ -35,7 +35,7 @@ def normalized_runtime(runtime):
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('generated_directory', type=Path,
-                    help='Fresh output directory from discovery_catchup.mjs')
+                    help='Fresh output directory from model_discovery.mjs')
 args = parser.parse_args()
 for model in ('stingray', 'grand-sport', 'grand-sport-x', 'z06'):
     filename = f'{model}-runtime.json'
@@ -64,7 +64,7 @@ with tarfile.open(archive_path) as archive:
         options = {r['option_id']: r for r in baseline[option_sheet]}
         assert accounting['guide_sha256'] == runtime['provenance']['guide_sha256'] == guide_hash
         assert digest(workbook_bytes) == runtime['provenance']['workbook_sha256'] == handoff['sources']['workbook_sha256']
-        assert runtime['provenance']['probe_sha256'] == digest((ROOT / 'scripts/discovery_catchup.mjs').read_bytes())
+        assert runtime['provenance']['probe_sha256'] == digest((ROOT / 'scripts/model_discovery.mjs').read_bytes())
         assert runtime['provenance']['reference_commit'] == manifest['reference_commit']
         for member in ('form-app/app.js', 'form-app/data.js'):
             assert runtime['provenance'][member] == digest(archive.extractfile(member).read())
