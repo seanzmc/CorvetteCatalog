@@ -4,7 +4,7 @@
   "title": "Model discovery handoff contract",
   "description": "Every model lane retains exactly the files in `lanes.files` with these shapes. Validate with scripts/validate_handoffs.py. Extend this schema in the same change as any new key, enum value or file; do not add lane-specific keys ad hoc.",
   "lanes": {
-    "models": ["stingray", "grand-sport", "grand-sport-x", "z06", "zr1"],
+    "models": ["stingray", "grand-sport", "grand-sport-x", "z06", "zr1", "zr1x"],
     "files": {
       "records": "docs/{lane}-structured-records.json",
       "decisions": "docs/{lane}-owner-decisions.json",
@@ -28,7 +28,7 @@
     "frozen_exceptions": {
       "docs/discovery/zr1-runtime.json": {
         "extra_top_level_keys": ["interiorContexts", "priceComparisons", "paintStates", "beltStates", "causeSequences", "contextReset"],
-        "reason": "Original ZR1 probe output retained unchanged; provenance.probe_sha256 anchors it to scripts/zr1_discovery.mjs. New lanes emit only the common runtime keys."
+        "reason": "Original ZR1 extra values retained unchanged; provenance.probe_sha256 anchors regenerated evidence to scripts/model_discovery.mjs. New lanes emit only the common runtime keys."
       }
     }
   },
