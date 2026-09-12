@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -28,6 +29,18 @@ def normalized_bytes(content):
 
 
 class ModelDiscoveryReproductionTests(unittest.TestCase):
+    def test_zr1_extractor_reproduces_committed_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            result = subprocess.run(
+                [sys.executable, 'scripts/model_discovery.py', 'zr1', directory],
+                cwd=ROOT, capture_output=True, text=True, timeout=120)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            for filename, folder in [('zr1-structured-records.json', 'docs'),
+                                     ('zr1-accounting.json', 'docs/discovery')]:
+                self.assertTrue((Path(directory) / filename).read_bytes()
+                                == (ROOT / folder / filename).read_bytes(),
+                                f'{filename}: extractor bytes differ')
+
     def test_every_lane_reproduces_committed_bytes(self):
         schema = json.loads((ROOT / 'docs/discovery/handoff-schema.json').read_text())
         with tempfile.TemporaryDirectory() as directory:

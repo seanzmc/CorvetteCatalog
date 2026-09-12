@@ -81,7 +81,7 @@ resolve, hashes agree and the structured handoff carries the ten fixed sections.
 
 | File | Role | Who writes it |
 |---|---|---|
-| `docs/<lane>-structured-records.json` (`model-review-records-v2`) | Frozen workbook rows keyed by original sheet name, `sheet_roles` for generic addressing, source dispositions, guide-only facts, interior links, retained original observations. No targets. | Extractor (`scripts/zr1_discovery.py` pattern); earlier lanes were migrated by hand |
+| `docs/<lane>-structured-records.json` (`model-review-records-v2`) | Frozen workbook rows keyed by original sheet name, `sheet_roles` for generic addressing, source dispositions, guide-only facts, interior links, retained original observations. No targets. | Extractor (`scripts/model_discovery.py` pattern); earlier lanes were migrated by hand |
 | `docs/discovery/<lane>-accounting.json` (`model-discovery-accounting-v1`) | Every option amount classified with schedule candidates; every direct rule's runtime translation. | Extractor / catch-up probe |
 | `docs/discovery/<lane>-runtime.json` | Frozen browser observations with probe/harness hashes; parsed values identical except `compact.submitted_at` and `provenance.probe_sha256`; bytes identical from commit `1dcac05` onward (normalizing only `compact.submitted_at`). Never hand-edited; ZR1's extra original keys are a listed frozen exception. | Probe (`scripts/model_discovery.mjs`) |
 | `docs/<lane>-owner-decisions.json` (`model-owner-decisions-v2`) | Accepted decision records, one `offering_targets` entry per offering, `accepted_additions`, `model_specific_preservation`, named `model_policies`, the shared compatibility-policy reference and `unresolved_decisions`. | Owner review, recorded by hand |

@@ -214,7 +214,7 @@ not reopened. ZR1X still needs its own discovery.
 Reproduce from the repository root, using Python with openpyxl and Node:
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 /Users/seandm/Projects/27vette/.venv/bin/python scripts/zr1_discovery.py .local/zr1-source-new
+PYTHONDONTWRITEBYTECODE=1 /Users/seandm/Projects/27vette/.venv/bin/python scripts/model_discovery.py zr1 .local/zr1-source-new
 node scripts/model_discovery.mjs zr1 .local/zr1-runtime-new
 python3 scripts/validate_handoffs.py --lane zr1
 ```

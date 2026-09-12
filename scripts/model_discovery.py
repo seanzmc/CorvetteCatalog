@@ -2,16 +2,18 @@ import io, json, tarfile, hashlib
 from pathlib import Path
 from openpyxl import load_workbook
 
-# Read-only source extraction. Usage: python scripts/zr1_discovery.py NEW_OUTPUT_DIR
+# Read-only source extraction. Usage: python scripts/model_discovery.py LANE NEW_OUTPUT_DIR
 # Raw input bytes stay immutable; every retained row keeps its original Excel locator.
 
 import sys
-root=Path(__file__).resolve().parents[1]; out=Path(sys.argv[1]).resolve()
-assert not (out/'zr1-structured-records.json').exists(), 'Choose a fresh output directory'
+lane=sys.argv[1]
+assert lane in {'zr1'}, 'Supply a supported lane'
+root=Path(__file__).resolve().parents[1]; out=Path(sys.argv[2]).resolve()
+assert not (out/f'{lane}-structured-records.json').exists(), 'Choose a fresh output directory'
 out.mkdir(parents=True,exist_ok=True)
 manifest=json.loads((root/'baselines/2026-09-06/manifest.json').read_text())
 with tarfile.open(root/'baselines/2026-09-06/workbook-runtime.tar.gz') as t:
-    for name in ['stingray_master.xlsx','form-app/app.js','form-app/data.js','form-output/runtime/zr1-runtime-contract.json']:
+    for name in ['stingray_master.xlsx','form-app/app.js','form-app/data.js',f'form-output/runtime/{lane}-runtime-contract.json']:
         b=t.extractfile(name).read()
         assert hashlib.sha256(b).hexdigest()==next(x['sha256'] for x in manifest['files'] if x['path']==name)
         if name.endswith('.xlsx'): w=load_workbook(io.BytesIO(b),data_only=True)
@@ -29,10 +31,10 @@ for s in w:
 
 from collections import Counter,defaultdict
 import re
-options=records['zr1_options']; bycode=defaultdict(list)
+options=records[f'{lane}_options']; bycode=defaultdict(list)
 for r in options:
  if r['rpo']:bycode[r['rpo']].append(r)
-ovs={(r['option_id'],r['variant_id']):r for r in records['zr1_ovs']}
+ovs={(r['option_id'],r['variant_id']):r for r in records[f'{lane}_ovs']}
 variants=['1lz_r07','3lz_r07','1lz_r67','3lz_r67']
 def symbol(cell):
  v=cell.value
@@ -71,11 +73,11 @@ def plain(cell):
  v=cell.value
  if isinstance(v,str) or v is None:return v
  return ''.join(str(x) for x in v if isinstance(x,str) or not x.font.vertAlign)
-ids={r['interior_id'] for r in records['model_interior_scope'] if r['model_key']=='zr1'}
+ids={r['interior_id'] for r in records['model_interior_scope'] if r['model_key']==lane}
 ints=[r for r in records['LZ_Interiors'] if r['interior_id'] in ids]
 components=defaultdict(list)
 for r in records['interior_components']:
- if r['model_key']=='zr1':components[r['interior_id']].append(r)
+ if r['model_key']==lane:components[r['interior_id']].append(r)
 base={};raw_combos=set()
 for sheet,rows,cols in [('Color and Trim 1',range(5,13),range(5,18)),('Color and Trim 2',range(5,9),range(5,9))]:
  for n in rows:
@@ -104,7 +106,7 @@ for r in ints:
  for pn in (range(16,26) if sheet.endswith('1') else range(11,21)):
   if plain(s.cell(pn,col))=='--':color_expected.add((r['interior_id'],str(s.cell(pn,3).value)))
  interior_records.append({'id':r['interior_id'],'workbook':f"LZ_Interiors!A{r['_row']}:Q{r['_row']}",'guide':f'{sheet}!{s.cell(n,col).coordinate}','components':[c['rpo'] for c in cs]})
-paint_codes={r['option_id']:r['rpo'] for r in records['zr1_options'] if r['rpo'] in ['G26','G4Z','G8G','GBA','GBK','GEC','GKA','GKZ','GPH','GTR']}
+paint_codes={r['option_id']:r['rpo'] for r in records[f'{lane}_options'] if r['rpo'] in ['G26','G4Z','G8G','GBA','GBK','GEC','GKA','GKZ','GPH','GTR']}
 actual={(r['interior_id'],paint_codes[r['option_id']]) for r in records['color_overrides'] if r['interior_id'] in ids and r['option_id'] in paint_codes}
 expected_leaves=set()
 for (trim,seat,code),(sheet,n,col) in base.items():
@@ -125,16 +127,16 @@ assert not mismatches and not issues
 assert raw_combos==actual_combos and expected_leaves==actual_leaves
 assert color_expected==actual
 assert all(x['same_text'] and x['same_status'] for x in duplicates)
-variant_ids={r['variant_id'] for r in records['model_variants'] if r['model_key']=='zr1'}
+variant_ids={r['variant_id'] for r in records['model_variants'] if r['model_key']==lane}
 option_ids={r['option_id'] for r in options}
-baseline={k:v for k,v in records.items() if k.startswith('zr1_')}
+baseline={k:v for k,v in records.items() if k.startswith(f'{lane}_')}
 for name in ['model_master','model_registry_promotion','model_workbook_sources','model_variants','context_section_master','section_presentation','runtime_steps','order_summary_sections','step_order_summary_map','default_selection_rules','model_interior_scope','interior_components']:
- baseline[name]=[r for r in records[name] if r['model_key']=='zr1']
+ baseline[name]=[r for r in records[name] if r['model_key']==lane]
 baseline['variant_master']=[r for r in records['variant_master'] if r['variant_id'] in variant_ids]
 baseline['LZ_Interiors']=ints
 section_ids={r['section_id'] for r in options+ints+baseline['section_presentation']}
 baseline['section_master']=[r for r in records['section_master'] if r['section_id'] in section_ids]
-for name in ['context_choice_copy','asset_map']:baseline[name]=[r for r in records[name] if r['model_key'] in ('zr1','*')]
+for name in ['context_choice_copy','asset_map']:baseline[name]=[r for r in records[name] if r['model_key'] in (lane,'*')]
 for name in ['PriceRef','rule_phrase_map','runtime_rule_exceptions']:baseline[name]=records[name]
 baseline['color_overrides']=[r for r in records['color_overrides'] if r['interior_id'] in ids and r['option_id'] in option_ids]
 # Explicit, inspected uncoded equipment correspondence; no fuzzy-name acceptance.
@@ -158,7 +160,7 @@ for o in options:
   classification='color_chart';anchors=['Color and Trim 1!A16:Q25','Color and Trim 2!A11:H20']
  disclosures=[r['disclosure'] for r in guide_rows if any(a.split('!')[0]==r['sheet'] and int(re.search(r'!A(\d+)',a).group(1))==r['row'] for a in anchors if re.search(r'!A(\d+)',a))]
  assert len(disclosures)<=1,o
- dispositions.append(dict(record_id='zr1:'+o['option_id'],workbook_row=o['_row'],rpo=o['rpo'],source_classification=classification,guide_anchors=anchors,guide_disclosure=disclosures[0] if disclosures else None))
+ dispositions.append(dict(record_id=f'{lane}:'+o['option_id'],workbook_row=o['_row'],rpo=o['rpo'],source_classification=classification,guide_anchors=anchors,guide_disclosure=disclosures[0] if disclosures else None))
 price_rows={}
 for rr in g['Price Schedule'].iter_rows(min_row=48):
  if rr[1].value:
@@ -177,31 +179,33 @@ for o in options:
  elif any(r['amount']==value for r in candidates):classification='source_rate_match_with_context' if any(r['qualifier'] for r in candidates) else 'source_rate_match'
  elif value==0 and not candidates:classification='zero_without_schedule_rate'
  else:classification='unresolved_rate_difference'
- prices.append(dict(option_id=o['option_id'],rpo=o['rpo'],workbook_anchor=f"zr1_options!A{o['_row']}:K{o['_row']}",baseline_amount=value,classification=classification,explanation=EXPLANATION.get(classification),source_rates=candidates,conditional_price_rows=[r['_row'] for r in baseline['zr1_price_rules'] if r['target_option_id']==o['option_id']]))
+ prices.append(dict(option_id=o['option_id'],rpo=o['rpo'],workbook_anchor=f"zr1_options!A{o['_row']}:K{o['_row']}",baseline_amount=value,classification=classification,explanation=EXPLANATION.get(classification),source_rates=candidates,conditional_price_rows=[r['_row'] for r in baseline[f'{lane}_price_rules'] if r['target_option_id']==o['option_id']]))
 assert not [r for r in prices if r['classification']=='unresolved_rate_difference']
-contract=json.loads((out/'form-output/runtime/zr1-runtime-contract.json').read_text())
+contract=json.loads((out/f'form-output/runtime/{lane}-runtime-contract.json').read_text())
 triplet=lambda r:(r['source_id'],r['rule_type'],r['target_id'])
 translations=[]
-for r in baseline['zr1_rule_mapping']:
+for r in baseline[f'{lane}_rule_mapping']:
  emitted=[x for x in contract['rules'] if triplet(x)==triplet(r)]
  inactive=[o['option_id'] for o in options if not o['active'] and o['option_id'] in (r['source_id'],r['target_id'])]
  assert emitted or inactive,r
  translations.append(dict(source_row=r['_row'],rule_id=r['rule_id'],source_id=r['source_id'],rule_type=r['rule_type'],target_id=r['target_id'],runtime_disposition='emitted' if emitted else 'inactive_endpoint_filtered',inactive_endpoints=inactive,runtime_rows=emitted))
-raw_edges={triplet(r) for r in baseline['zr1_rule_mapping']}
+raw_edges={triplet(r) for r in baseline[f'{lane}_rule_mapping']}
 derived=[r for r in contract['rules'] if triplet(r) not in raw_edges]
 missing_records=[dict(guide_anchor=f'{sn}!A{n}:G{n}',rpo=c,guide_disclosure=t,source_classification='omitted_offering' if c=='SAI' else 'interior_component' if c in ['TU7','N26','N2Z','36S','37S','38S'] else 'outside_customer_selection_scope') for sn,n,c,t in missing]
-sheet_roles=dict(options='zr1_options',availability='zr1_ovs',variant_overrides='zr1_variant_overrides',rule_mapping='zr1_rule_mapping',rule_groups='zr1_rule_groups',rule_group_members='zr1_rule_group_members',exclusive_groups='zr1_exclusive_groups',exclusive_group_members='zr1_exclusive_members',price_rules='zr1_price_rules',interiors='LZ_Interiors',color_overrides='color_overrides')
+sheet_roles=dict(options=f'{lane}_options',availability=f'{lane}_ovs',variant_overrides=f'{lane}_variant_overrides',rule_mapping=f'{lane}_rule_mapping',rule_groups=f'{lane}_rule_groups',rule_group_members=f'{lane}_rule_group_members',exclusive_groups=f'{lane}_exclusive_groups',exclusive_group_members=f'{lane}_exclusive_members',price_rules=f'{lane}_price_rules',interiors='LZ_Interiors',color_overrides='color_overrides')
 assert all(v in baseline for v in sheet_roles.values())
 # Contract shapes: docs/discovery/handoff-schema.json. Owner decisions are never generated here.
-source=dict(format='model-review-records-v2',model_key='zr1',model_year=2027,role='Frozen source and baseline evidence for model discovery; accepted targets live in the owner-decisions overlay, not here',sources=dict(workbook_sha256=manifest['files'][next(i for i,r in enumerate(manifest['files']) if r['path']=='stingray_master.xlsx')]['sha256'],guide_sha256=hashlib.sha256(raw.read_bytes()).hexdigest(),runtime_commit=manifest['reference_commit'],workbook_row_locator='baseline_rows key is source sheet; _row is original Excel row; fields retain source headers and nulls',guide_model_columns='D:G only; H:K retained as ZR1X context, not ZR1 facts',observed_provenance=None),sheet_roles=sheet_roles,baseline_rows=baseline,offering_dispositions=dispositions,guide_only_dispositions=missing_records,interior_source_links=interior_records,duplicate_rpos_within_model={c:[o['option_id'] for o in options if o['rpo']==c] for c,n in Counter(o['rpo'] for o in options if o['rpo']).items() if n>1},runtime_derived_relationships=dict(role='Frozen emitted relationships absent from direct workbook rows; explicit future translation ownership required, not new owner corrections',workbook_direct_count=len(translations),emitted_direct_count=sum(1 for r in translations if r['runtime_disposition']=='emitted')+len(derived),records=derived),source_reconciliation=dict(primary_status_comparison=primary,repeated_guide_occurrences=duplicates,interior_reconciliation=json.loads((out/'interior-reconciliation.json').read_text()),base_prices=[dict(variant_id=v['variant_id'],workbook_row=v['_row'],base=v['base_price'],guide_anchor=f'Price Schedule!F{n}:J{n}',guide_base=g['Price Schedule'].cell(n,6).value+g['Price Schedule'].cell(n,10).value) for v,n in zip(baseline['variant_master'],[34,36,35,37])]),guide_rows=guide_rows)
-accounting=dict(format='model-discovery-accounting-v1',model_key='zr1',role='Supplemental discovery accounting, not accepted replacement data',guide_sha256=source['sources']['guide_sha256'],option_prices=prices,direct_rule_translation=translations,existing_decision_document='../zr1-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate')
+source=dict(format='model-review-records-v2',model_key=lane,model_year=2027,role='Frozen source and baseline evidence for model discovery; accepted targets live in the owner-decisions overlay, not here',sources=dict(workbook_sha256=manifest['files'][next(i for i,r in enumerate(manifest['files']) if r['path']=='stingray_master.xlsx')]['sha256'],guide_sha256=hashlib.sha256(raw.read_bytes()).hexdigest(),runtime_commit=manifest['reference_commit'],workbook_row_locator='baseline_rows key is source sheet; _row is original Excel row; fields retain source headers and nulls',guide_model_columns='D:G only; H:K retained as ZR1X context, not ZR1 facts',observed_provenance=None),sheet_roles=sheet_roles,baseline_rows=baseline,offering_dispositions=dispositions,guide_only_dispositions=missing_records,interior_source_links=interior_records,duplicate_rpos_within_model={c:[o['option_id'] for o in options if o['rpo']==c] for c,n in Counter(o['rpo'] for o in options if o['rpo']).items() if n>1},runtime_derived_relationships=dict(role='Frozen emitted relationships absent from direct workbook rows; explicit future translation ownership required, not new owner corrections',workbook_direct_count=len(translations),emitted_direct_count=sum(1 for r in translations if r['runtime_disposition']=='emitted')+len(derived),records=derived),source_reconciliation=dict(primary_status_comparison=primary,repeated_guide_occurrences=duplicates,interior_reconciliation=json.loads((out/'interior-reconciliation.json').read_text()),base_prices=[dict(variant_id=v['variant_id'],workbook_row=v['_row'],base=v['base_price'],guide_anchor=f'Price Schedule!F{n}:J{n}',guide_base=g['Price Schedule'].cell(n,6).value+g['Price Schedule'].cell(n,10).value) for v,n in zip(baseline['variant_master'],[34,36,35,37])]),guide_rows=guide_rows)
+accounting=dict(format='model-discovery-accounting-v1',model_key=lane,role='Supplemental discovery accounting, not accepted replacement data',guide_sha256=source['sources']['guide_sha256'],option_prices=prices,direct_rule_translation=translations,existing_decision_document=f'../{lane}-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate')
 assert all(x['base']==x['guide_base'] for x in source['source_reconciliation']['base_prices'])
+# Preserve the committed contract migration's top-level field order.
+source['runtime_derived_relationships']=source.pop('runtime_derived_relationships')
 # One record per line keeps evidence reviewable without changing JSON semantics.
 def encode(v,level=0):
  pad='  '*level
  if isinstance(v,dict) and any(isinstance(x,(dict,list)) for x in v.values()):return '{\n'+',\n'.join(pad+'  '+json.dumps(k)+': '+encode(x,level+1) for k,x in v.items())+'\n'+pad+'}'
  if isinstance(v,list):return '[\n'+',\n'.join(pad+'  '+json.dumps(x,ensure_ascii=False) for x in v)+'\n'+pad+']' if v else '[]'
  return json.dumps(v,ensure_ascii=False)
-(out/'zr1-structured-records.json').write_text(encode(source)+'\n')
-(out/'zr1-accounting.json').write_text(encode(accounting)+'\n')
+(out/f'{lane}-structured-records.json').write_text(encode(source)+'\n')
+(out/f'{lane}-accounting.json').write_text(encode(accounting)+'\n')
 print('Verified source accounting:',len(options),'offerings;',len(primary)*4,'coded status pairs;',len(duplicates),'repeated rows;',len(ints),'interiors;',len(translations),'direct rules;',len(derived),'derived rules')
