@@ -2,7 +2,8 @@
 
 Frozen source and browser evidence at reference `4fe92a4f078370c478f18484cad31bdafe58ad43`.
 This is discovery of the archived form, not verification of the current app.
-All ZR1X owner decisions below are open. No correction has been accepted or implemented.
+All nine ZR1X target decisions are reconciled with prior owner approvals as of
+September 13, 2026. No correction has been implemented.
 
 ## 1. Sources, identities and completeness
 
@@ -29,7 +30,7 @@ source structures, not unexamined substitutes for the direct-rule count.
 
 The 19 guide-only records comprise SAI, six interior component codes, and twelve
 service/emissions/order-type offerings outside the baseline customer-selection
-scope. This is an explicit scope disposition for owner review, not evidence that
+scope. This is an explicit disposition under the accepted customer-form scope, not evidence that
 the manufacturer removed those offerings. SAI is an omitted customer accessory;
 TU7/N26/N2Z/36S/37S/38S are represented through interior components.
 
@@ -54,8 +55,8 @@ Every option amount is classified: 118 numeric and 88 null; 65 direct rate match
 standard-equipment amounts that are not another model's purchase price. Null is
 not inferred zero. The accounting retains all same-code schedule candidates and
 their column-D qualifiers, even when another model has a different rate.
-Column E is the observed option-price basis. USD remains proposed for this lane,
-not separately confirmed by the owner (D08).
+Column E is the observed option-price basis. D08 carries forward the accepted USD
+and pricing method while retaining the ZR1X-specific amounts and qualifiers.
 
 Source distinctions include 3LZ-only E60 at 2,995 (Price Schedule row 50), standard
 UQT with no selectable purchase, ZR1X R8E at 2,600 (row 199), TOM at 12,995
@@ -74,8 +75,8 @@ it is absent from starting choices and informational equipment (D01).
 
 `zr1x-C296` and the corresponding other variants show a different ownership issue:
 TOM selected first costs 12,995; adding ZTK costs 14,495 in total; removing ZTK
-loses that independently selected TOM and returns to T0E. The future ownership
-proposal is D06, not an inherited accepted ZR1 decision.
+loses that independently selected TOM and returns to T0E. The accepted ownership
+target is reconciled D06, applying prior purchase-intent policy to this observed path.
 
 Both bodies exercise all five wheel choices, black/chrome lug nuts and locks,
 carbon wheels first, and exclusive center caps. SPZ requires SPY; S47 and SFE
@@ -90,7 +91,7 @@ CFC is standard on convertibles and visible in static equipment. Its emitted
 `CFC includes GBA` rule (mapping row 5) contradicts the guide's conditional trim
 description: Exterior 5!A9:K9 does not require black exterior paint. The archived
 display-only CFC is not acquired by the probe; correcting this latent relationship
-before promoting standard content is an open target, not a demonstrated forced
+before promoting standard content is an accepted target, not a demonstrated forced
 paint change. DY0 and CFV already appear in ZR1X static equipment; do not inherit
 ZR1's missing-visibility finding for those codes.
 
@@ -105,9 +106,10 @@ DTC is absent from all three grouped graphic exclusion memberships even though
 the guide names it. SFZ+DTC coexist for 1,545 (`zr1x-C075/C076`), and R88+DTC coexist
 for 1,990 (C105/C106), in both acquisition orders and both bodies. SB9 and DTC
 replace each other via their section (C045/C046); this does not prove the missing
-group relationship exists. D05 proposes complete membership with the common UI
-policy. DUW and DTC both exist in the source. Removing DUW from ZR1 is not authority
-to remove it here. DUE's workbook Santorini Blue name differs from the guide's
+group relationship exists. D05 records accepted complete membership with the common UI
+policy. DUW and DTC both exist in the source. Under the September 13 owner
+clarification, D07 carries forward DUW retirement while retaining DTC. This is an
+intentional target departure; both original source listings remain evidence. DUE's workbook Santorini Blue name differs from the guide's
 Royal Blue wording (Exterior 5 row 54); D07 keeps that discrepancy explicit.
 
 Both mirror cause-removal orders retain DRG until the last of 5JR/ZYC is removed.
@@ -120,7 +122,7 @@ TOM is refused after a conflicting cover, and a cover is refused after TOM.
 ZTK after a cover removes the cover; removing ZTK does not restore it or its charge
 (C125–C132 and convertible counterparts). Clicking selected TOM itself does not
 deselect that radio-like aero choice; T0E provides the ordinary replacement path.
-D06 proposes explicit purchase ownership and no automatic displaced-cover restoration.
+D06 records accepted explicit purchase ownership and no automatic displaced-cover restoration.
 
 ## 5. Interiors, belts and price consequences
 
@@ -162,12 +164,12 @@ body. Included children have zero charges; the package owns its amount. However,
 adding a package absorbs an independently purchased child; removing the package
 loses that child (C119–C124). Both coupe trims also exercise SC7 before/after SBT:
 SBT adds 2,720 instead of its 2,525 rate because included SC7 still charges 195
-(C347–C350). D03 fixes the duplicate-charge proposal; D06 separately addresses
+(C347–C350). D03 records the accepted duplicate-charge correction; D06 separately addresses
 independent purchase retention.
 
 Factory-unavailable disclosures exist for PCQ, VWT, R88, SLN and V8X. The first
 four are nevertheless selectable in applicable frozen contexts; V8X is globally
-inactive although its availability is 3LZ-only. D02 proposes consistent disabled
+inactive although its availability is 3LZ-only. D02 records accepted consistent disabled
 presentation for applicable unavailable offerings; unavailable lifecycle must not
 be confused with selectable compatibility conflicts.
 
@@ -176,7 +178,7 @@ R8C supplies CFX and conflicts with BV4 in both directions; PBC is a separate
 by the full active-offering sweep, with grouped liner/badge/cap cases for shared
 selection behavior. Dealer, subscription, emissions and region/order-type
 conditions remain source disclosures and explicitly excluded baseline purchase
-scope, pending D08; the probe does not execute those external workflows.
+scope, under accepted D08; the probe does not execute those external workflows.
 
 ## 7. Build output and limits
 
@@ -194,25 +196,49 @@ remain in the source file; the snapshots show their actual pricing/recap consume
 The current form, corrected targets, production submission and visual rendering
 have not been verified by this pass.
 
-## 8. Open owner decisions and expected targets
+<a id="8-open-owner-decisions-and-expected-targets"></a>
+
+## 8. Reconciled owner decisions and expected targets
 
 The [owner overlay](zr1x-owner-decisions.json) is the decision authority record.
-Every decision is **open**; proposed additions and non-default targets have no
-effect until the owner accepts them. The common compatibility UI policy is already
-accepted across models, but it does not accept these ZR1X facts or corrections.
+All nine decisions are **accepted targets reconciled with prior approvals**. On
+September 13 the owner clarified that these choices had already been made and
+requested reconciliation. The original discovery pass incorrectly treated each
+model as requiring repeat policy approval. The JSON `authority` fields identify
+prior decision records; the evidence below establishes ZR1X applicability.
+Acceptance does not claim corrected runtime execution.
 
-| Decision | Proposal or unresolved choice | Evidence |
+| ZR1X decision | Prior approval carried forward |
+|---|---|
+| D01 | [ZR1-D01](zr1-owner-decisions.json), [Z06-D10](z06-owner-decisions.json): standard equipment, CFC correction and N3W/N2Z scope |
+| D02 | [ZR1-D02](zr1-owner-decisions.json), [ST-D05](stingray-owner-decisions.json): applicable unavailable cards |
+| D03 | [ZR1-D03](zr1-owner-decisions.json), [Z06-D06](z06-owner-decisions.json): SBT/SC7 charge ownership |
+| D04 | [ZR1-D04](zr1-owner-decisions.json), [Z06-D08](z06-owner-decisions.json), [GS-D09](grand-sport-owner-decisions.json): additive AE4 charge |
+| D05 | [ZR1-D05](zr1-owner-decisions.json) and [common interaction policy](compatibility-notice-policy.json): full exclusions with notice/confirm/cancel |
+| D06 | [ZR1-D06 and cover policy](zr1-owner-decisions.json), [Z06-D06](z06-owner-decisions.json), [GS-D16](grand-sport-owner-decisions.json): independent purchase intent; no displaced-cover restoration |
+| D07 | [ZR1-D07](zr1-owner-decisions.json), [Z06-D09](z06-owner-decisions.json), [GS-D01/D02/D13](grand-sport-owner-decisions.json): SAI, DUE naming and DUW retirement |
+| D08 | [ST-D11/D12](stingray-owner-decisions.json), [GS-D14/D15](grand-sport-owner-decisions.json), [Z06-D12](z06-owner-decisions.json), [ZR1-D08](zr1-owner-decisions.json): currency, pricing method and customer scope; amounts stay model-qualified |
+| D09 | [ST-D10](stingray-owner-decisions.json), [ZR1-D09](zr1-owner-decisions.json): informational versus configured equipment |
+
+No new owner choice remains among these nine items. Source-specific differences
+are retained: FEH/FEZ suspension, standard J59, R8E 2,600, ZTK plus TOM 14,495,
+3LZ-only E60 and HP1/LT7 copy. The GSX engine-copy correction and ZR1 prices do
+not apply. DUW retirement is explicitly an owner-directed target departure from
+the retained guide listing, not a manufacturer deletion finding.
+
+| Decision | Accepted target | Evidence |
 |---|---|---|
-| ZR1X-D01 | Restore source-standard FEH/N3W in the correct configured scope; resolve CFC→GBA before promoting standard content | Mechanical 5!A45:K45; Interior 5!A80:K80; Exterior 5!A9:K9; options rows 64/165/188; mapping row 5; foundations |
+| ZR1X-D01 | Restore source-standard FEH/N3W in the correct configured scope; remove unsupported CFC→GBA before promoting standard content | Mechanical 5!A45:K45; Interior 5!A80:K80; Exterior 5!A9:K9; options rows 64/165/188; mapping row 5; foundations |
 | ZR1X-D02 | Apply factory-unavailable presentation to PCQ/VWT/R88/SLN and applicable V8X | Exterior 5 rows 22/28/31; Mechanical 5 row 36; Interior 5 row 42; starting-choice observations |
 | ZR1X-D03 | SBT costs 2,525 with included SC7 at zero | Exterior 5!A34:K34; C347–C350 |
 | ZR1X-D04 | Restore missing 595 AE4 charge on four R6X leaves | PriceRef rows 12/14/18/20/22; C1773/C1827/C1917/C1953 |
 | ZR1X-D05 | Complete DTC graphic exclusions under the common compatibility UI policy | Exterior 5 rows 26–28; group memberships; C045/C046/C075/C076/C105/C106 |
 | ZR1X-D06 | Preserve independently purchased TOM/children through packages; do not restore displaced covers automatically | C119–C132, C296/C309/C322/C335, C347–C350 |
-| ZR1X-D07 | Add SAI at 295 with V8X exclusion; rename DUE Royal Blue; decide DUW independently, retaining it provisionally | Interior 5 row 41; Price Schedule row 128; Exterior 5 rows 54/56/62 |
-| ZR1X-D08 | Confirm currency, model-qualified prices, HP1/LT7 copy and customer-selection boundary | Price Schedule rows 38–41/50/193/199/231/238–239; Mechanical 5 row 25; guide-only dispositions |
+| ZR1X-D07 | Add SAI at 295 with V8X exclusion; rename DUE Royal Blue; retire DUW and its active relationships while retaining DTC | Interior 5 row 41; Price Schedule row 128; Exterior 5 rows 54/56/62 |
+| ZR1X-D08 | Carry forward USD, pricing method and customer scope; preserve verified ZR1X rates and HP1/LT7 copy | Price Schedule rows 38–41/50/193/199/231/238–239; Mechanical 5 row 25; guide-only dispositions |
 | ZR1X-D09 | Distinguish static trim information from resolved configured equipment | Foundations and ZTK states C295/C308/C321/C334 |
 
 No master-schema design, migration, DDL, canonical change, deployment or cutover
 is authorized by this handoff. Source-derived requirements are inputs to a later
-six-model review after these open owner decisions are considered.
+coherent six-model review. That review remains a separate task; no repeated owner
+approval of these nine policies is pending.
