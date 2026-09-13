@@ -2,10 +2,11 @@
 
 A fresh project for relational Corvette product data, manufacturer order-guide intake, and configuration data for an order form and visualizer.
 
-**Current work: comprehensive model discovery, before master-schema design.**
-Use the [discovery index and completion criteria](docs/model-discovery.md) for
-current evidence and remaining work. Historical database/importer milestones below
-are preserved context, not authorization to resume schema or application work.
+**Current status: six-model discovery and consolidated review complete; master-schema proposal next.**
+Use the [consolidated review](docs/six-model-review.md) for findings and the next
+design task, and the [discovery index](docs/model-discovery.md) for model evidence.
+Historical database/importer milestones below are preserved context, not
+authorization to resume schema or application work.
 
 ## Direction
 
