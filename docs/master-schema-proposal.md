@@ -49,8 +49,9 @@ remain distinguishable even though one is retired in the target.
 - A nullable presentation or contextual lifecycle override means inherit; false
   explicitly overrides true.
   No other null acts as a wildcard. Empty applicability means nowhere.
-- Body/trim applicability is an explicit configuration set. Each scoped family
-  has `family_configuration(R, family_id, configuration_id)` with composite FKs.
+- Body/trim applicability is an explicit configuration set. Scoped facts use
+  the concrete per-family junctions defined below, not a polymorphic
+  `family_configuration` table or an untyped `family_id`.
   “All” expands to the actual six or four configurations. Paint, interior and
   selected options are conditions, not new body/trim configurations.
 - Source scope tokens, row order, dormant records and rich text remain evidence.
@@ -59,6 +60,42 @@ remain distinguishable even though one is retired in the target.
   different owners. Deterministic ordering must not silently settle a business
   contradiction. Unknown or ambiguous executable facts block affected release
   paths, not preservation of their evidence.
+
+### Typed configuration-scope junctions
+
+Each row below defines a separate relation. Its primary key is
+`(R, parent_id, configuration_id)`, using the concrete parent column shown;
+`(R, parent_id)` references that row's named parent relation `(R, id)`
+(`(R, binding_id)` for `visual_binding`), and `(R, configuration_id)` references
+`configuration(R, id)`. All key columns are
+non-null. Thus a scope cannot refer to a missing parent, another family, or a
+configuration in another revision/model-year, even when families reuse an ID.
+
+| Scope relation | Parent column | Parent relation |
+|---|---|---|
+| `requirement_configuration` | `requirement_id` | `requirement` |
+| `acquisition_configuration` | `acquisition_id` | `acquisition` |
+| `conflict_configuration` | `conflict_id` | `conflict` |
+| `replacement_plan_configuration` | `plan_id` | `replacement_plan` |
+| `option_rate_configuration` | `rate_id` | `option_rate` |
+| `equipment_substitution_configuration` | `substitution_id` | `equipment_substitution` |
+| `content_effect_configuration` | `effect_id` | `content_effect` |
+| `visual_binding_configuration` | `binding_id` | `visual_binding` |
+
+“Plus configurations”, “configuration scope”, “has scope” and the visual binding's
+“explicit configurations” below refer to these junctions. Each row owns only
+membership and its evidence/decision lineage (§7), not a copy of parent fields.
+No membership rows means the parent applies nowhere; all-scope requires one row
+per actual configuration. Conflict members and replacement actions inherit their
+parent's scope rather than owning independent scope sets. For example, an
+`acquisition_configuration` row cannot be justified by an `option_rate` with the
+same ID: its parent FK must resolve to `acquisition` in R.
+
+The already explicit `option_configuration`, `option_presentation_override`,
+`interior_configuration` and `component_rate` keys include their configuration
+and typed owner directly; they do not gain a second scope junction. Their owner
+and configuration FKs also include R. The option status matrix remains complete,
+including unavailable pairs; it is not reduced to positive scope memberships.
 
 ## 2. Foundation and ownership tables
 
