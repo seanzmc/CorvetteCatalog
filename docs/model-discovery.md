@@ -6,6 +6,10 @@ database implementation, a corrected runtime, or permission to cut over from the
 workbook. Model-specific packages and rules require different cases, not different
 definitions of completion.
 
+**September 13 schema proposal:** the [master-schema proposal](master-schema-proposal.md)
+is drafted for review, with six-lane walkthroughs. Discovery evidence and accepted
+decisions remain unchanged; no target evaluator or database implementation is claimed.
+
 **September 13 consolidated review:** [the six-model review](six-model-review.md)
 is complete and supports proceeding to one logical master-schema proposal. It
 records effective decision precedence, model-specific ownership and the remaining
