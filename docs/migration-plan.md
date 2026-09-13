@@ -9,8 +9,13 @@ and continuing validity, model-scoped purchase intent, single charge ownership,
 equipment/presentation separation, provenance and release boundaries. Six connected
 walkthroughs and a 72-decision coverage index retain the accepted lane differences.
 No DDL, target-data translation, evaluator or canonical change is implemented.
-Review the proposal before separately scoping a disposable relational foundation;
-authoring, deployment and cutover remain later work.
+Review corrections now make choice-group membership explicit and independent of
+presentation, type conflict members, define interior conflicts through dependency
+loss/revert, correct UQT charge wording and constrain release membership by model
+and year. The next design slice is the complete relationship diagram and
+representative populated tables with worked behavior traces, before assessing a
+disposable relational foundation. Authoring, deployment and cutover remain later
+work.
 
 ## Prior discovery direction and completion
 
