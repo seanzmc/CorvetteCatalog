@@ -61,7 +61,7 @@ Every lane keeps the same six files; see the [handoff contract](#handoff-contrac
 | Grand Sport X | [Analysis](grand-sport-x-behavior.md) | [Handoff](grand-sport-x-structured.md) | [records](grand-sport-x-structured-records.json) · [accounting](discovery/grand-sport-x-accounting.json) · [runtime](discovery/grand-sport-x-runtime.json) | [decisions](grand-sport-x-owner-decisions.json) | Catch-up verified; 14 accepted decisions |
 | Z06 | [Analysis](z06-behavior.md) | [Handoff](z06-structured.md) | [records](z06-structured-records.json) · [accounting](discovery/z06-accounting.json) · [runtime](discovery/z06-runtime.json) | [decisions](z06-owner-decisions.json) | Catch-up verified; 12 accepted decisions |
 | ZR1 | [Analysis](zr1-behavior.md) | [Handoff](zr1-structured.md) | [records](zr1-structured-records.json) · [accounting](discovery/zr1-accounting.json) · [runtime](discovery/zr1-runtime.json) | [decisions](zr1-owner-decisions.json) | Discovery complete; 9 accepted decisions |
-| ZR1X | [Analysis](zr1x-behavior.md) | [Handoff](zr1x-structured.md) | [records](zr1x-structured-records.json) · [accounting](discovery/zr1x-accounting.json) · [runtime](discovery/zr1x-runtime.json) | [decisions](zr1x-owner-decisions.json) | Discovery retained; 9 open owner decisions |
+| ZR1X | [Analysis](zr1x-behavior.md) | [Handoff](zr1x-structured.md) | [records](zr1x-structured-records.json) · [accounting](discovery/zr1x-accounting.json) · [runtime](discovery/zr1x-runtime.json) | [decisions](zr1x-owner-decisions.json) | Discovery complete; 9 decisions reconciled with prior approvals |
 
 The older schema proposals, disposable catalog and migration-parity milestones
 remain historical reference. Finish the model handoffs, then separately review
@@ -281,7 +281,7 @@ between different representations.
 These records catch up the identified uneven discovery categories. The remaining
 work for these four models is implementation and verification of the already
 accepted corrections after all six lanes and master-schema design, not a claim
-that the existing form is correct. ZR1 discovery and its structured decision overlay are complete, as documented below. ZR1X discovery is retained below, with nine owner decisions still open.
+that the existing form is correct. ZR1 discovery and its structured decision overlay are complete, as documented below. ZR1X discovery and its nine reconciled owner decisions are retained below. The coherent six-model review remains a separate next task.
 
 ## Reproduce and verify this evidence
 
@@ -345,7 +345,7 @@ is not imported into earlier lanes. See the handoff for reproduction and limits.
 ## ZR1X completion review
 
 [Behavior](zr1x-behavior.md) · [Structured handoff](zr1x-structured.md) ·
-[Runtime evidence](discovery/zr1x-runtime.json) · [Open decisions](zr1x-owner-decisions.json)
+[Runtime evidence](discovery/zr1x-runtime.json) · [Reconciled decisions](zr1x-owner-decisions.json)
 
 | Completion question | ZR1X answer and evidence |
 |---|---|
@@ -354,7 +354,7 @@ is not imported into earlier lanes. See the handoff for reproduction and limits.
 | What does selection do? | All option amounts and 96 direct rules, grouped/exclusive relationships, 33 price rules and six defaults are retained. ZTK adds FEZ/XFS/TOM for 14,495, retaining J59. Four R6X/AE4 shortfalls, SBT's extra 195 and DTC graphic gaps are observed, not silently corrected. |
 | What does change/removal do? | Both package/child and cover acquisition orders, four-variant ZTK/TOM round trips, mirror/D30 multiple causes, wheel defaults and a body/trim reset are executed. Independently selected TOM/children are lost through packages; displaced covers are not restored. See behavior §§3–6. |
 | What reaches the build? | 1,973 connected cases/2,259 action states retain selected/automatic identities, item amounts/routing, order sections, compact recap and informational equipment. All initial case contexts are complete; four required-interior rejections make zero requests. Static equipment is kept distinct from installed ZTK content. |
-| What is established? | Frozen source and observations are complete for the stated family coverage. Nine ZR1X decisions remain open; non-default proposals/additions require owner review. No ZR1/GSX decision is accepted for ZR1X by analogy. Current-app behavior, corrected targets and master-schema design remain unverified/out of scope. |
+| What is established? | Frozen source and observations are complete for the stated family coverage. Nine ZR1X decisions are reconciled with cited prior approvals under the September 13 owner clarification. Model-specific source facts remain separate; DUW retirement is an explicit target departure. No repeated policy approval remains pending. Current-app behavior, corrected targets and master-schema design remain unverified/out of scope. |
 
 The interior/body, paint, belt and reset checks already existed in earlier model
 handoffs: this pass changes ZR1X's representation to common runtime sequences,
@@ -389,5 +389,7 @@ replacement targets remain authoritative (for example, Z06's noticed PDD switch
 does not authorize PDF). Earlier decision records and executed refusal observations
 remain historical evidence; this common policy governs the future interaction.
 Factory lifecycle restrictions remain distinct and continue to block acquisition.
-ZR1X references this policy with its own recorded facts and open owner decisions. No UI implementation
-or corrected-runtime verification is claimed.
+ZR1X references this policy with its own recorded facts and nine owner decisions
+reconciled with prior approvals under the September 13 clarification. No repeated
+policy approval remains pending. No UI implementation or corrected-runtime
+verification is claimed.

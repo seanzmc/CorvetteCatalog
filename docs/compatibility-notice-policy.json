@@ -56,8 +56,8 @@
     },
     "zr1x": {
       "decision_ids": ["ZR1X-D05"],
-      "preserved_constraints": "Apply this common interaction policy to ZR1X facts only. ZR1X-D01 through D09 remain open; this shared policy does not accept their proposed corrections, additions, prices or ownership decisions. J59 is source-standard; ZTK uses FEZ/XFS/TOM. Do not transfer ZR1, Z06 or Grand Sport X decisions."
+      "preserved_constraints": "Apply this common interaction policy to ZR1X facts only. ZR1X-D01 through D09 reconcile prior approvals under the September 13 owner clarification; their authority and source applicability are recorded in zr1x-owner-decisions.json. J59 remains standard; ZTK uses FEZ/XFS/TOM. Preserve ZR1X rates and equipment rather than copying another model."
     }
   },
-  "undiscovered_model_boundary": "ZR1X discovery is retained in its six-file handoff. All nine ZR1X decisions remain open; the common UI policy does not accept them or authorize implementation."
+  "undiscovered_model_boundary": "All six model handoffs are retained. ZR1X decisions are reconciled with prior owner approvals; the coherent six-model review remains a separate next task. This policy does not authorize implementation."
 }

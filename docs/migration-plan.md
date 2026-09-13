@@ -21,7 +21,17 @@ D06 keeps displaced covers deselected. All nine decisions are retained in the
 [structured owner overlay](zr1-owner-decisions.json). The [common interaction policy](model-discovery.md#common-compatibility-notice-policy--september-11-owner-decision)
 supersedes earlier differing compatibility UI treatments while retaining model rules.
 ZR1 discovery and decision capture are complete; corrections are not implemented.
-September 12: [ZR1X discovery](zr1x-behavior.md) and its [six-file handoff](zr1x-structured.md) now retain source accounting and frozen runtime evidence. All nine ZR1X owner decisions are open; no model-specific correction has been accepted. The runtime probe and ZR1/ZR1X extractor are unified, with parsed-value preservation and byte-reproduction gates. The later coherent six-model review, master schema and correction implementation remain paused.
+September 12: [ZR1X discovery](zr1x-behavior.md) and its [six-file handoff](zr1x-structured.md) now retain source accounting and frozen runtime evidence. The initial handoff marked nine ZR1X decisions open; the September 13 reconciliation below supersedes that decision status. The runtime probe and ZR1/ZR1X extractor are unified, with parsed-value preservation and byte-reproduction gates.
+
+September 13: the owner clarified that these decisions had already been made and
+requested reconciliation with prior approvals. All nine [ZR1X decisions](zr1x-behavior.md#8-reconciled-owner-decisions-and-expected-targets)
+now cite the earlier approvals and retain independent ZR1X source applicability.
+DUW retirement is recorded as an owner-directed target departure, SAI is an accepted
+addition, and currency/pricing/scope policies are carried forward without importing
+another model's amounts or equipment. No new owner choice remains among these nine
+items. All six model discovery handoffs and decision records are complete; one
+coherent six-model review remains the next separately authorized task. Corrected
+runtime verification, master-schema implementation and cutover have not occurred.
 
 ## Historical roadmap and decisions
 
