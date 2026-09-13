@@ -76,6 +76,7 @@ configuration in another revision/model-year, even when families reuse an ID.
 | `requirement_configuration` | `requirement_id` | `requirement` |
 | `acquisition_configuration` | `acquisition_id` | `acquisition` |
 | `conflict_configuration` | `conflict_id` | `conflict` |
+| `choice_group_configuration` | `group_id` | `choice_group` |
 | `replacement_plan_configuration` | `plan_id` | `replacement_plan` |
 | `option_rate_configuration` | `rate_id` | `option_rate` |
 | `equipment_substitution_configuration` | `substitution_id` | `equipment_substitution` |
@@ -102,7 +103,7 @@ including unavailable pairs; it is not reduced to positive scope memberships.
 | Relation | Grain / key | Owned fields and constraints |
 |---|---|---|
 | `model` (global) | `model_id`; unique model key | Lane identity and name. |
-| `model_year` (global) | M; unique `(model_id, year)` | Model FK and year. No generated trim Cartesian product. |
+| `model_year` (global) | M; unique `(model_id, year)` and `(M, model_id, year)` | Model FK and year. No generated trim Cartesian product. |
 | `price_basis` (global, immutable) | Basis ID | Currency, unit/amount meaning, source evidence and resolution state. Sharing a USD basis never shares the amounts or qualifiers of a model-owned rate. |
 | `catalog_revision` (global) | R; unique `(M, revision_number)` and `(R, M)` | Parent revision in M, draft/frozen state, edit version. A frozen snapshot cannot be edited. |
 | Typed identity families | `(M, id)` for each domain kind | Stable identity; optional typed predecessor and continuity rationale. A version cannot change kind or model-year. |
@@ -182,9 +183,33 @@ Conditions belong to R; identical conditions across models are not shared facts.
 | `condition_member` | `(R, condition_id, clause_id, member_id)` | Exactly one typed option, interior or choice-group FK. State test is explicit intent or resolved selection for options, chosen for interior, occupied for group. `none_present` is evaluated over that same named state. Duplicate endpoint/state members prohibited. |
 | `requirement` | `(R, id)` plus configurations | Source option OR interior FK, source state test, activation-condition FK, satisfaction-condition FK, loss policy and notice/revert copy. Satisfaction is checked after eligible acquisition; it does not itself add a choice. |
 | `acquisition` | `(R, id)` plus configurations | Condition FK, target option FK, origin kind (`standard`, `default`, `included`, `dependency`), peer policy (`locked`, `yield_to_explicit`), intent policy (`absorb_prior`, `preserve_prior`), priority, disclosure. No amount. Standard/default roots and dependent additions have distinct origins. |
-| `conflict`, `conflict_member` | `(R, id)` plus configurations; `(R, conflict_id, option_id)` | Typed source option OR interior FK, activation condition and complete incompatible option set. Both acquisition directions are constrained; historical directional effects are evidence. Confirmed changes use explicit replacement plans below. |
-| `choice_group`, `choice_group_member` | `(R, id)`; `(R, group_id, option_id)` | Min/max and peer policy, with exactly one membership mode: explicit members or effective section FK. Effective-section membership applies overrides. Group owns cardinality; section does not duplicate it. |
-| `replacement_plan`, `replacement_action` | `(R, id)` plus configurations; `(R, plan_id, position)` | Trigger request endpoint and condition FK; ordered typed add/remove option actions, acquisition origin for additions, disclosure. Actions identify a permitted compatible solution; no arbitrary scripts or invented alternatives. |
+| `conflict`, `conflict_member` | `(R, id)` plus configurations; `(R, conflict_id, member_id)` | Typed source option OR interior FK, activation condition and nonempty incompatible member set. Each member has exactly one option OR interior FK in R, with duplicate typed endpoints prohibited. Option endpoints test resolved selection; interior endpoints test the chosen leaf. Both acquisition directions are constrained; historical directional effects are evidence. Option replacements use explicit plans; interior loss follows the cleanup/revert contract below. |
+| `choice_group`, `choice_group_member` | `(R, id)` plus configurations; `(R, group_id, option_id)` | Min/max and peer policy over explicit option members only. No section FK or runtime section-derived membership. Configuration-qualified groups have explicit scope; different contextual member sets use separately scoped groups. |
+| `replacement_plan`, `replacement_action` | `(R, id)` plus configurations; `(R, plan_id, position)` | Trigger request endpoint and condition FK; ordered add/remove option actions, acquisition origin for additions, disclosure. Interior changes are outside this action type and follow the dependency-loss/revert path below. Actions identify a permitted compatible solution; no arbitrary scripts or invented alternatives. |
+
+Section-based source groups are expanded during translation into explicit
+`choice_group_member` rows. Each expanded member and group scope retains evidence
+for the source group, effective section assignment/override and translation
+rationale. Later presentation moves do not change group membership or cardinality;
+a product-membership change requires an explicit, evidenced group edit. When
+source section membership varies by configuration, translation emits separately
+scoped groups with their corresponding explicit members.
+
+Conflict members support option–option, option–interior and interior–option
+endpoints directly; the source is not flipped to encode an otherwise unsupported
+member. The same incompatibility is checked in either selection order. Typing a
+conflict does not authorize choosing a replacement interior.
+
+Replacement plans edit options only. If a proposed option transition invalidates
+the chosen interior, the evaluator clears that leaf and its unsupported part
+causes through dependency-loss cleanup. Compatibility-driven removals are disclosed
+before confirmation under the common policy; cancel preserves the prior state.
+After a committed transition, cleanup recalculates charges and alerts with an
+option to revert the whole transition. It never picks another leaf through a
+replacement plan. The resulting missing-interior state is incomplete and cannot
+be submitted; independently owned options still follow their scoped validity and
+retention policies. This is the same dependency-loss/revert path used when an
+interior loses a prerequisite, not a silent interior substitution.
 
 All these facts have evidence and decision lineage (§7). Acquisition priorities
 are unique where competing sources select alternative defaults in the same group.
@@ -339,6 +364,9 @@ substitute for the explicit output-code effects.
 | `asset` (global), `asset_binding` | Asset ID; `(R, binding_id)` | Immutable media content/hash, media type/dimensions; binding has exactly one typed option/interior/configuration target, role, alt text, fit/position and precedence. |
 | `visual_scene`, `visual_layer`, `visual_binding` | `(R, scene_id)`; `(R, scene_id, layer_key)`; `(R, binding_id)` | Scene/view, ordered layers; asset FK, explicit configurations and condition FK. Visual conditions additionally allow typed resolved-installed-equipment tests. Unique precedence per layer. |
 
+Sections own presentation only; moving an option between sections cannot alter
+choice-group membership, cardinality or validity (§4).
+
 All mutable copy, ordering and bindings are revision-owned. Identical source media
 can share an immutable asset without sharing option meaning. Shared asset-map
 fallbacks are expanded into reviewed model-owned bindings; exact model assignments
@@ -357,8 +385,23 @@ front-end stack is selected by this logical proposal.
 | `source_disposition` | `(R, anchor_id, fragment_key)` | Unchanged/added/changed/removed/ambiguous/conflicting/not-applicable classification, rationale and decision set. Source coverage, not an executable rule or price store. |
 | Typed `*_translation` links | `(R, disposition_key, target_id)` per target kind | Composite FKs to disposition and concrete target row. Many-to-many mapping supports splits and corroboration; removed/evidence-only fragments may have no target with an explicit reason. No unenforced table-name/ID pointer. |
 | Typed `legacy_*_mapping` | `(R, namespace, legacy_key)` per exported kind | Target FK; stable runtime option/interior/configuration IDs, aliases and relevant rule references. New additions need explicit new consumer IDs. |
-| `release`, `release_model`, `release_artifact` (global) | Release ID; `(release_id, model_id)`; `(release_id, artifact_role, path)` | Declared model year; one frozen revision per lane in that year, explicit membership/order/aliases, immutable artifact hashes and manifest. Release default-model FK targets membership; unique paths/aliases within release. |
+| `release`, `release_model`, `release_artifact` (global) | Release ID; `(release_id, model_id)`; `(release_id, artifact_role, path)` | Declared model year; membership carries `year`, M and R with the composite FKs below enforcing the matching lane/year; one frozen revision per lane in that year, explicit membership/order/aliases, immutable artifact hashes and manifest. Release default-model FK targets membership; unique paths/aliases within release. |
 | `publication_pointer` (global) | Channel key | FK to a completed release; compare-and-swap version. Publication and rollback change the pointer, never frozen catalog facts. |
+
+Release membership is constrained through explicit composite keys:
+
+- `release` has unique `(release_id, year)` in addition to its primary key.
+- `release_model(release_id, model_id, year, M, R)` has primary key
+  `(release_id, model_id)` and all five columns are non-null.
+- Its `(release_id, year)` FK references `release(release_id, year)`.
+- Its `(M, model_id, year)` FK references the corresponding unique key on
+  `model_year`; M cannot stand for another lane or year.
+- Its `(R, M)` FK references `catalog_revision(R, M)`; the pinned revision
+  must belong to that exact model-year.
+
+Together these FKs reject a revision from the wrong model or declared release
+year. Frozen-state eligibility remains a release validation requirement; the
+composite FKs enforce identity, not lifecycle state.
 
 A draft copies a complete prior revision and uses an edit version for stale-edit
 refusal. Related accepted changes are one transaction. Freezing validates the
@@ -427,7 +470,7 @@ Six body/LT configurations and 130 leaves remain explicit.
 
 | Path | Logical records and result |
 |---|---|
-| Choose 1LT UQT, then switch to 2LT | Configuration reset, scoped standard acquisition and charge eligibility make UQT paid at 1LT (1,495), supplied at higher trims. No lingering purchase charge; missing interior still blocks submission. |
+| Choose 1LT UQT, then switch to 2LT | At 1LT, UQT has available status and a priced independent purchase amount of 1,495. At 2LT/3LT it has standard status and a scoped standard acquisition, whose standard-only cause is not charge eligible. The configuration reset removes the earlier purchase intent. No lingering purchase charge; missing interior still blocks submission. |
 | Select `3LT_R6X_AE4_HXO_N26_38S` | Seat option + R6X part + two components give 2,780, exactly +595 versus frozen defect. No balancing rate or doubled seat; ST-D03. |
 | G26/HUQ plus a D30-triggering belt, remove causes separately | Two conditions/acquisition causes, one D30 owner. Removing one retains the other; removing the last removes its charge. Valid belt defaults are resolved independently. |
 | Independent VWE → PCU → remove PCU | ST-S05/ST-T16 retained absorption consumes the prior child intent; package-only child disappears. Contrast paid PDV cap: full 750 package plus paid cap, then cap survives package removal under ST-D06. No blanket later-lane retention imported. |
@@ -532,10 +575,13 @@ inputs, not on hypothetical target FKs. No DDL or target evaluator was available
 to run; walkthroughs do not establish constraint enforcement, convergence,
 corrected-runtime parity, browser behavior or release/rollback reliability.
 
-After review of this proposal, the recommended next separately authorized task
-is a disposable relational foundation for revisions, identities, configurations,
-options, applicability and typed provenance, with a six-lane source translation
-sample and constraint tests. It should not begin the authoring UI or claim full
+Before implementation, the next design slice is a complete relationship diagram
+and representative populated tables, with worked selection, pricing, removal and
+build-output traces. These must demonstrate the keys and constraints above and
+make the design's complexity assessable. Only after that review should a separately
+authorized disposable relational foundation cover revisions, identities,
+configurations, options, applicability and typed provenance, with a six-lane
+source translation sample and constraint tests. It should not begin the authoring UI or claim full
 migration. Conditional rules, intent transitions and prices then need a bounded
 evaluator slice with independent expected targets from the retained evidence.
 Select physical storage/DDL and exact implementation scope in that task; SQLite,
