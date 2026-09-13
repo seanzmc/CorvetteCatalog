@@ -389,5 +389,7 @@ replacement targets remain authoritative (for example, Z06's noticed PDD switch
 does not authorize PDF). Earlier decision records and executed refusal observations
 remain historical evidence; this common policy governs the future interaction.
 Factory lifecycle restrictions remain distinct and continue to block acquisition.
-ZR1X references this policy with its own recorded facts and open owner decisions. No UI implementation
-or corrected-runtime verification is claimed.
+ZR1X references this policy with its own recorded facts and nine owner decisions
+reconciled with prior approvals under the September 13 clarification. No repeated
+policy approval remains pending. No UI implementation or corrected-runtime
+verification is claimed.
