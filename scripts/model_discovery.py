@@ -186,7 +186,7 @@ for o in options:
  elif any(r['amount']==value for r in candidates):classification='source_rate_match_with_context' if any(r['qualifier'] for r in candidates) else 'source_rate_match'
  elif value==0 and not candidates:classification='zero_without_schedule_rate'
  else:classification='unresolved_rate_difference'
- prices.append(dict(option_id=o['option_id'],rpo=o['rpo'],workbook_anchor=f"zr1_options!A{o['_row']}:K{o['_row']}",baseline_amount=value,classification=classification,explanation=EXPLANATION.get(classification),source_rates=candidates,conditional_price_rows=[r['_row'] for r in baseline[f'{lane}_price_rules'] if r['target_option_id']==o['option_id']]))
+ prices.append(dict(option_id=o['option_id'],rpo=o['rpo'],workbook_anchor=f"{lane}_options!A{o['_row']}:K{o['_row']}",baseline_amount=value,classification=classification,explanation=EXPLANATION.get(classification),source_rates=candidates,conditional_price_rows=[r['_row'] for r in baseline[f'{lane}_price_rules'] if r['target_option_id']==o['option_id']]))
 assert not [r for r in prices if r['classification']=='unresolved_rate_difference']
 contract=json.loads((out/f'form-output/runtime/{lane}-runtime-contract.json').read_text())
 triplet=lambda r:(r['source_id'],r['rule_type'],r['target_id'])

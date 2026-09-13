@@ -19,10 +19,16 @@ def read(path):
 def digest(content):
     return hashlib.sha256(content).hexdigest()
 
+# Committed evidence keeps the probe hash that produced it; the probe changes
+# without refreshing frozen observations, so anchor to a known historical hash.
+HISTORICAL_PROBE_SHA256 = 'a0e05ffe477b2eb42d2393f288b642b857c74e2b0261073cd61a8e3ceb44602d'
+
 def normalized_runtime(runtime):
-    # Only compact-order submission times are dynamic in this probe. Preserve
+    # Only compact-order submission times are dynamic in this probe, and the
+    # probe identity changes without refreshing frozen observations. Preserve
     # every other field, JSON type and list position (including provenance).
     runtime = json.loads(json.dumps(runtime))
+    runtime['provenance']['probe_sha256'] = '<probe>'
     snapshots = [row['state'] for row in runtime['foundations']]
     snapshots.extend(row['state'] for row in runtime['seat_transitions'])
     for case in runtime['connected_sequences']:
@@ -64,7 +70,7 @@ with tarfile.open(archive_path) as archive:
         options = {r['option_id']: r for r in baseline[option_sheet]}
         assert accounting['guide_sha256'] == runtime['provenance']['guide_sha256'] == guide_hash
         assert digest(workbook_bytes) == runtime['provenance']['workbook_sha256'] == handoff['sources']['workbook_sha256']
-        assert runtime['provenance']['probe_sha256'] == digest((ROOT / 'scripts/model_discovery.mjs').read_bytes())
+        assert runtime['provenance']['probe_sha256'] == HISTORICAL_PROBE_SHA256
         assert runtime['provenance']['reference_commit'] == manifest['reference_commit']
         for member in ('form-app/app.js', 'form-app/data.js'):
             assert runtime['provenance'][member] == digest(archive.extractfile(member).read())

@@ -112,5 +112,8 @@ python3 scripts/validate_handoffs.py
 ```
 
 The extractor and runtime probe refuse existing output files. Reproduction tests
-compare extractor bytes exactly and runtime bytes with only compact submission
-timestamps normalized. Do not hand-edit generated runtime evidence.
+compare extractor bytes exactly. Runtime reproduction uses the [pinned harness
+fixture](../tests/fixtures/README.md) without a local 27vette checkout; it verifies
+the current and historical probe hashes separately, then compares bytes allowing
+only that probe-identity change and compact submission timestamps. Frozen runtime
+evidence remains unchanged. Do not hand-edit generated runtime evidence.

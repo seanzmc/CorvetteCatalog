@@ -15,7 +15,7 @@ const registryKeys={'stingray':'stingray','grand-sport':'grandSport','grand-spor
 assert(Object.hasOwn(registryKeys,lane), 'Supply a supported lane');
 assert(process.argv[3], 'Supply a new output directory');
 const output=path.resolve(process.argv[3]);
-const reference=process.argv[4] || '/Users/seandm/Projects/27vette';
+const reference=process.argv[4];
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'baselines/2026-09-06/manifest.json')));
 const hash=x=>createHash('sha256').update(x).digest('hex');
 const probeHash=hash(fs.readFileSync(import.meta.filename));
@@ -32,7 +32,11 @@ try {
     assert.equal(hash(bytes),manifest.files.find(x=>x.path===member).sha256);
     sourceHashes[member]=hash(bytes);fs.writeFileSync(path.join(scratch,member),bytes);
   }
-  const originalHarness=execFileSync('git',['-C',reference,'show',manifest.reference_commit+':tests/lib/runtime-harness.mjs']);
+  const originalHarness=reference
+    ? execFileSync('git',['-C',reference,'show',manifest.reference_commit+':tests/lib/runtime-harness.mjs'])
+    : fs.readFileSync(path.join(root,'tests/fixtures/discovery-runtime-harness.mjs'));
+  assert.equal(hash(originalHarness),'3133fdea83e783c312297cc284f2cc015ff8f00f2ed96bf9d3e085a469612ac4',
+    'Discovery requires the exact pinned reference harness');
   const harness=originalHarness.toString().replace('  activeChoiceRows,','  activeChoiceRows, setBodyAndTrim, lineItems, standardEquipmentRows, handleInterior, disableReasonForInterior, validInteriorsForSelectedSeat, shouldHideChoice,');
   assert.notEqual(harness,originalHarness.toString());
   fs.writeFileSync(path.join(scratch,'harness.mjs'),harness);
