@@ -53,7 +53,11 @@
     "zr1": {
       "decision_ids": ["ZR1-D05"],
       "preserved_constraints": "Retain ZR1 graphic exclusion sets and factory lifecycle restrictions; this shared policy does not transfer ZR1 equipment or displaced-cover ownership to another model."
+    },
+    "zr1x": {
+      "decision_ids": ["ZR1X-D05"],
+      "preserved_constraints": "Apply this common interaction policy to ZR1X facts only. ZR1X-D01 through D09 remain open; this shared policy does not accept their proposed corrections, additions, prices or ownership decisions. J59 is source-standard; ZTK uses FEZ/XFS/TOM. Do not transfer ZR1, Z06 or Grand Sport X decisions."
     }
   },
-  "undiscovered_model_boundary": "ZR1X will use this common interaction policy with its own facts when discovered; no ZR1X discovery or implementation is authorized here."
+  "undiscovered_model_boundary": "ZR1X discovery is retained in its six-file handoff. All nine ZR1X decisions remain open; the common UI policy does not accept them or authorize implementation."
 }

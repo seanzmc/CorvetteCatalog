@@ -33,6 +33,8 @@ When a guide and workbook disagree, record the discrepancy and its evidence. Nei
 - [Z06 structured handoff: records, behavior, evidence and accepted decisions](docs/z06-structured.md)
 - [ZR1 discovery: behavior, source accounting and accepted targets](docs/zr1-behavior.md)
 - [ZR1 structured handoff](docs/zr1-structured.md)
+- [ZR1X discovery: frozen evidence and open owner decisions](docs/zr1x-behavior.md)
+- [ZR1X structured handoff](docs/zr1x-structured.md)
 - [Model handoff contract: required files, shapes and validator](docs/model-discovery.md#handoff-contract)
 - [Earlier unvalidated database proposal: shared rules and model applications](docs/proposed-database-design.md)
 - [All six models: complete form relationship map and shared-rule analysis](docs/form-relationship-map.md)
