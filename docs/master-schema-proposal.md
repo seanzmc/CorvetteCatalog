@@ -120,27 +120,10 @@ records must be translated with corrected latent rules before enabling previousl
 inactive equipment. A standard display-only UQT is not a paid purchase. Its
 priced option identity can still carry the 1LT purchase amount in LT lanes.
 
-```mermaid
-erDiagram
-    MODEL ||--o{ MODEL_YEAR : identifies
-    MODEL_YEAR ||--o{ CATALOG_REVISION : versions
-    CATALOG_REVISION ||--o{ CONFIGURATION : contains
-    CATALOG_REVISION ||--o{ OPTION : owns
-    CONFIGURATION ||--o{ OPTION_CONFIGURATION : qualifies
-    OPTION ||--o{ OPTION_CONFIGURATION : applies
-    CATALOG_REVISION ||--o{ INTERIOR : owns
-    INTERIOR ||--o{ INTERIOR_PART : contains
-    OPTION ||--o{ INTERIOR_PART : option_part
-    COMPONENT ||--o{ INTERIOR_PART : extra_part
-    CATALOG_REVISION ||--o{ CONDITION : owns
-    CONDITION ||--o{ ACQUISITION : activates
-    OPTION ||--o{ ACQUISITION : target
-    OPTION ||--o{ OPTION_RATE : charge_owner
-    RELEASE ||--o{ RELEASE_MODEL : pins
-    CATALOG_REVISION ||--o{ RELEASE_MODEL : snapshot
-```
-
-This diagram shows principal relations, not every FK or a physical database layout.
+The [complete relationship diagram and per-relation key/FK reference](master-schema-diagram.md)
+cover all relations named in §§1–7, including typed identity/translation templates
+and all nine scope junctions. Unspecified column sets and family expansions are
+listed as open rather than invented; this remains a logical, not physical, design.
 
 ## 3. Interiors and charge components
 
@@ -186,6 +169,15 @@ Conditions belong to R; identical conditions across models are not shared facts.
 | `conflict`, `conflict_member` | `(R, id)` plus configurations; `(R, conflict_id, member_id)` | Typed source option OR interior FK, activation condition and nonempty incompatible member set. Each member has exactly one option OR interior FK in R, with duplicate typed endpoints prohibited. Option endpoints test resolved selection; interior endpoints test the chosen leaf. Both acquisition directions are constrained; historical directional effects are evidence. Option replacements use explicit plans; interior loss follows the cleanup/revert contract below. |
 | `choice_group`, `choice_group_member` | `(R, id)` plus configurations; `(R, group_id, option_id)` | Min/max and peer policy over explicit option members only. No section FK or runtime section-derived membership. Configuration-qualified groups have explicit scope; different contextual member sets use separately scoped groups. |
 | `replacement_plan`, `replacement_action` | `(R, id)` plus configurations; `(R, plan_id, position)` | Trigger request endpoint and condition FK; ordered add/remove option actions, acquisition origin for additions, disclosure. Interior changes are outside this action type and follow the dependency-loss/revert path below. Actions identify a permitted compatible solution; no arbitrary scripts or invented alternatives. |
+
+A group endpoint's configuration scope is a prerequisite to its entire clause.
+If any group member is out of scope for the current configuration, the clause is
+false for both `any_present` and `none_present`, before evaluating other members.
+An out-of-scope group is not a vacant group; it cannot trigger an absence-based
+default or satisfy a vacancy requirement. In scope, both operators test the same
+occupied resolved-selection state. Conditions with differently scoped group
+endpoints must be split by configuration during translation. See the
+[resolved group-scope rule](master-schema-diagram.md#resolved-group-test-outside-configuration-scope).
 
 Section-based source groups are expanded during translation into explicit
 `choice_group_member` rows. Each expanded member and group scope retains evidence
@@ -575,10 +567,13 @@ inputs, not on hypothetical target FKs. No DDL or target evaluator was available
 to run; walkthroughs do not establish constraint enforcement, convergence,
 corrected-runtime parity, browser behavior or release/rollback reliability.
 
-Before implementation, the next design slice is a complete relationship diagram
-and representative populated tables, with worked selection, pricing, removal and
-build-output traces. These must demonstrate the keys and constraints above and
-make the design's complexity assessable. Only after that review should a separately
+The [relationship diagram slice](master-schema-diagram.md) now inventories all
+named relations and their keys/FKs, resolves the out-of-scope group test, and lists
+remaining structural ambiguities. Before implementation, the next separately
+authorized design slice is representative populated tables with worked selection,
+pricing, removal and build-output traces. These must demonstrate the keys and
+constraints above, resolve the relevant opens and make the design's complexity
+assessable. Only after that review should a separately
 authorized disposable relational foundation cover revisions, identities,
 configurations, options, applicability and typed provenance, with a six-lane
 source translation sample and constraint tests. It should not begin the authoring UI or claim full
