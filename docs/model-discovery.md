@@ -6,6 +6,12 @@ database implementation, a corrected runtime, or permission to cut over from the
 workbook. Model-specific packages and rules require different cases, not different
 definitions of completion.
 
+**September 13 consolidated review:** [the six-model review](six-model-review.md)
+is complete and supports proceeding to one logical master-schema proposal. It
+records effective decision precedence, model-specific ownership and the remaining
+design/translation obligations. Older “review remains next” statements below describe
+the preceding lane handoffs. No corrected runtime or schema implementation is claimed.
+
 ## Completion questions
 
 For every applicable family, the model handoff must answer:

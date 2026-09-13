@@ -33,6 +33,17 @@ items. All six model discovery handoffs and decision records are complete; one
 coherent six-model review remains the next separately authorized task. Corrected
 runtime verification, master-schema implementation and cutover have not occurred.
 
+September 13: the [consolidated six-model review](six-model-review.md) is complete.
+The 72 accepted decisions and all six family handoffs support proceeding to one
+logical master-schema proposal. The review resolves historical compatibility-policy
+precedence, preserves model-specific purchase ownership and rates, and identifies
+conditional acquisition, charge ownership, equipment projections and source-to-target
+translation requirements. The next task is the coherent schema proposal and its
+six-lane walkthroughs, not DDL or application implementation. Frozen evidence and
+accepted business decisions remain unchanged; a stale ZR1 decision-heading link
+was repaired in the review pointer and nine records. Corrected-output verification
+and cutover remain later work.
+
 ## Historical roadmap and decisions
 
 Status: Checkpoint A specification completed September 5, 2026. Checkpoint B's disposable relational import is implemented and verified locally September 6, 2026. The owner separately authorized C after supplying a new export; its bounded brake intake is also verified locally. D's direct catalog generation and six-model form parity are implemented and verified locally September 6, 2026. E–H remain unauthorized. See [relational import evidence](../catalog/README.md), [source and schema specification](source-schema-specification.md) and [source intake results](../sources/README.md).
