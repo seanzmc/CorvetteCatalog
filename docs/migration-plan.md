@@ -13,8 +13,8 @@ Review corrections now make choice-group membership explicit and independent of
 presentation, type conflict members, define interior conflicts through dependency
 loss/revert, correct UQT charge wording and constrain release membership by model
 and year. The [relationship diagram slice](master-schema-diagram.md) now covers
-every named relation, per-relation keys/FKs and all nine scope junctions; it resolves the
-out-of-scope group test and records unspecified structural details as open.
+every named relation, per-relation keys/FKs and all nine scope junctions; it keeps the
+out-of-scope group test and unspecified structural details open.
 The next separately authorized design slice is representative populated tables
 with worked behavior traces and resolution of the relevant structural opens,
 before assessing a disposable relational foundation. Authoring, deployment and

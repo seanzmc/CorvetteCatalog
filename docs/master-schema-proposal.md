@@ -170,14 +170,12 @@ Conditions belong to R; identical conditions across models are not shared facts.
 | `choice_group`, `choice_group_member` | `(R, id)` plus configurations; `(R, group_id, option_id)` | Min/max and peer policy over explicit option members only. No section FK or runtime section-derived membership. Configuration-qualified groups have explicit scope; different contextual member sets use separately scoped groups. |
 | `replacement_plan`, `replacement_action` | `(R, id)` plus configurations; `(R, plan_id, position)` | Trigger request endpoint and condition FK; ordered add/remove option actions, acquisition origin for additions, disclosure. Interior changes are outside this action type and follow the dependency-loss/revert path below. Actions identify a permitted compatible solution; no arbitrary scripts or invented alternatives. |
 
-A group endpoint's configuration scope is a prerequisite to its entire clause.
-If any group member is out of scope for the current configuration, the clause is
-false for both `any_present` and `none_present`, before evaluating other members.
-An out-of-scope group is not a vacant group; it cannot trigger an absence-based
-default or satisfy a vacancy requirement. In scope, both operators test the same
-occupied resolved-selection state. Conditions with differently scoped group
-endpoints must be split by configuration during translation. See the
-[resolved group-scope rule](master-schema-diagram.md#resolved-group-test-outside-configuration-scope).
+How an out-of-scope group endpoint affects `any_present` and `none_present`
+remains open, including mixed-endpoint clauses and absence-based defaults.
+Explicit group scope does not by itself establish a clause-wide prerequisite,
+vacancy semantics or a requirement to split conditions by configuration. See the
+[open group-scope question](master-schema-diagram.md#open-group-test-outside-configuration-scope)
+for the evidence needed before choosing translation or evaluator behavior.
 
 Section-based source groups are expanded during translation into explicit
 `choice_group_member` rows. Each expanded member and group scope retains evidence
@@ -568,7 +566,7 @@ to run; walkthroughs do not establish constraint enforcement, convergence,
 corrected-runtime parity, browser behavior or release/rollback reliability.
 
 The [relationship diagram slice](master-schema-diagram.md) now inventories all
-named relations and their keys/FKs, resolves the out-of-scope group test, and lists
+named relations and their keys/FKs, keeps the out-of-scope group test open, and lists
 remaining structural ambiguities. Before implementation, the next separately
 authorized design slice is representative populated tables with worked selection,
 pricing, removal and build-output traces. These must demonstrate the keys and

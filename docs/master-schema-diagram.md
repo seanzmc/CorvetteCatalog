@@ -671,7 +671,7 @@ Always has no clauses; conjunction has at least one. Concrete rule identity mapp
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Nonempty member set; clauses are ANDed; any_present or none_present. Group scope prerequisite is resolved below.
+Nonempty member set; clauses are ANDed; any_present or none_present. Out-of-scope group behavior remains open below (O9).
 
 ### `condition_member`
 
@@ -1264,22 +1264,23 @@ Immutable artifact hashes; no hash uniqueness or FK to asset is stated.
 
 Compare-and-swap version; completed-state eligibility is not an FK constraint.
 
-## Resolved: group test outside configuration scope
+## Open: group test outside configuration scope
 
-A `condition_member` that names a choice group can test that group only when
-`choice_group_configuration(R, group_id, current_configuration_id)` exists.
-Scope is a prerequisite to the **clause**, checked before its `any_present` or
-`none_present` operator. If any group member of that clause is out of scope, the
-clause is false for either operator; it is not an empty group whose vacancy makes
-`none_present` true. Other members cannot rescue that clause's failed scope
-prerequisite. In scope, the group tests occupied resolved option membership,
-and `none_present` applies to that same occupied state as specified in §4.
+`choice_group_configuration(R, group_id, current_configuration_id)` records
+explicit group scope. It does not establish how a `condition_member` naming an
+out-of-scope group affects its clause. In particular, an `any_present` clause
+mixing such a group with another present endpoint could differ under a
+clause-wide scope prerequisite versus endpoint-level evaluation. `none_present`
+also needs an explicit treatment of out-of-scope versus vacant groups, including
+the consequences for absence-based defaults and vacancy requirements.
 
-Consequently an out-of-scope group cannot activate an absence-based default or
-satisfy a requirement through a vacancy test. A condition is the conjunction of
-its clauses, so a false clause makes it false. Translation must split conditions
-by explicit configuration scope when their group endpoints have different scopes.
-This clarifies logical semantics only; no evaluator is supplied or verified.
+This slice does not select either behavior or require translation to split
+conditions by configuration. Resolution needs model-qualified source-to-baseline
+connected traces, distinguished from accepted target decisions, and representative
+populated conditions with worked outcomes for both operators, mixed endpoints,
+and in-scope occupied/vacant versus out-of-scope groups. Any departure not covered
+by an accepted target needs owner review. No such demonstration or evaluator
+validation is supplied here; this remains open before translation or implementation.
 
 ## Open
 
@@ -1349,6 +1350,10 @@ business-policy decisions. They prevent claiming this is a physical FK contract.
   revision and completed release eligibility are validation requirements, not
   predicates enforced by the listed identity FKs. No extra direct model, asset or
   version FK is added on that basis.
+- **O9 — Out-of-scope group conditions.** The
+  [group-scope question above](#open-group-test-outside-configuration-scope)
+  remains unresolved for both condition operators. Explicit scope FKs do not
+  settle clause truth or authorize a new cross-model product policy.
 
 The relationship-diagram slice is complete at the proposal's declared logical
 level, with these limits exposed. Representative populated tables and worked
