@@ -1,8 +1,9 @@
 # Stingray schema plan
 
-**Historical, paused model proposal.** The [current discovery index](model-discovery.md)
-controls the work. Finish all six model lanes before revisiting one master schema;
-the proposed structures below are not imposed on the discovery handoffs.
+**Historical model proposal, superseded for design by the
+[master-schema proposal](master-schema-proposal.md).** The observations below
+remain evidence; accepted overlays and the common compatibility policy control
+where older proposed behavior differs. No schema implementation is authorized.
 
 **September 9 review update:** the [Stingray](stingray-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate) and [Grand Sport](grand-sport-structured.md#8-decision-overlay-source-baseline-and-target-remain-separate) owner decisions supersede conflicting behavior/price proposals below. This earlier schema proposal remains paused; no schema implementation is authorized by those decisions.
 

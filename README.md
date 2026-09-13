@@ -2,9 +2,11 @@
 
 A fresh project for relational Corvette product data, manufacturer order-guide intake, and configuration data for an order form and visualizer.
 
-**Current status: six-model discovery and consolidated review complete; master-schema proposal next.**
-Use the [consolidated review](docs/six-model-review.md) for findings and the next
-design task, and the [discovery index](docs/model-discovery.md) for model evidence.
+**Current status: six-model master-schema proposal drafted for review.**
+Use the [master-schema proposal](docs/master-schema-proposal.md) for logical
+ownership, keys, rules, pricing and six-model walkthroughs; the
+[consolidated review](docs/six-model-review.md) and
+[discovery index](docs/model-discovery.md) retain the supporting evidence.
 Historical database/importer milestones below are preserved context, not
 authorization to resume schema or application work.
 
@@ -24,7 +26,8 @@ When a guide and workbook disagree, record the discrepancy and its evidence. Nei
 - [Working principles and lightweight PR policy](AGENTS.md)
 - [Migration and intake plan](docs/migration-plan.md)
 - [Stingray behavior: complete family relationship analysis and unresolved decisions](docs/stingray-behavior.md)
-- [Stingray whole-model schema plan: ownership and connected walkthrough](docs/stingray-schema-plan.md)
+- [Master-schema proposal: all six models, ownership and connected walkthroughs](docs/master-schema-proposal.md)
+- [Historical Stingray schema plan](docs/stingray-schema-plan.md)
 - [Stingray structured handoff: records, behavior, evidence and decisions](docs/stingray-structured.md)
 - [Grand Sport behavior: connected choices, source differences and schema implications](docs/grand-sport-behavior.md)
 - [Grand Sport structured handoff: records, behavior, evidence and decisions](docs/grand-sport-structured.md)

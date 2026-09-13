@@ -1,6 +1,18 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 10 discovery catch-up
+## Current direction — September 13 master-schema proposal
+
+The owner authorized the [master-schema proposal](master-schema-proposal.md)
+after the merged six-model review. The logical proposal is now drafted for review:
+model/year/revision ownership, typed keys and applicability, conditional acquisition
+and continuing validity, model-scoped purchase intent, single charge ownership,
+equipment/presentation separation, provenance and release boundaries. Six connected
+walkthroughs and a 72-decision coverage index retain the accepted lane differences.
+No DDL, target-data translation, evaluator or canonical change is implemented.
+Review the proposal before separately scoping a disposable relational foundation;
+authoring, deployment and cutover remain later work.
+
+## Prior discovery direction and completion
 
 The owner directed a consistent completion review and catch-up of Stingray,
 Grand Sport, Grand Sport X and Z06 before continuing ZR1/ZR1X. The authoritative
