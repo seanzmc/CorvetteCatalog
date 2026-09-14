@@ -12,10 +12,14 @@ No DDL, target-data translation, evaluator or canonical change is implemented.
 Review corrections now make choice-group membership explicit and independent of
 presentation, type conflict members, define interior conflicts through dependency
 loss/revert, correct UQT charge wording and constrain release membership by model
-and year. The next design slice is the complete relationship diagram and
-representative populated tables with worked behavior traces, before assessing a
-disposable relational foundation. Authoring, deployment and cutover remain later
-work.
+and year. The [relationship diagram slice](master-schema-diagram.md) now covers
+every named relation, per-relation keys/FKs and all nine scope junctions, settles
+which relations carry continuing identities and the freeze-time group scope
+constraint, and leaves column naming and allocation details open.
+The next separately authorized design slice is representative populated tables
+with worked behavior traces and resolution of the relevant structural opens,
+before assessing a disposable relational foundation. Authoring, deployment and
+cutover remain later work.
 
 ## Prior discovery direction and completion
 
