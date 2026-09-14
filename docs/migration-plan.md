@@ -16,10 +16,16 @@ and year. The [relationship diagram slice](master-schema-diagram.md) now covers
 every named relation, per-relation keys/FKs and all nine scope junctions, settles
 which relations carry continuing identities and the freeze-time group scope
 constraint, and leaves column naming and allocation details open.
-The next separately authorized design slice is representative populated tables
-with worked behavior traces and resolution of the relevant structural opens,
-before assessing a disposable relational foundation. Authoring, deployment and
-cutover remain later work.
+The [populated-tables and traces slice](master-schema-worked-examples.md) now
+illustrates paired identities/versions, scoped conditions, purchase ownership,
+pricing, cancellation/revert and static/installed/order outputs across all six
+lanes. Source IDs and accepted totals are retained; exact GSX LS6 and ZR1X CFC
+relationship retirements remain evidence-linked dispositions. The examples expose
+remaining key/allocation needs in their Open section, including replacement
+purchase ownership and the limits of a representative output subset. They do not
+resolve all physical design opens or certify a complete target catalog. Review
+those needs before separately authorizing a disposable relational foundation.
+Authoring, deployment and cutover remain later work.
 
 ## Prior discovery direction and completion
 

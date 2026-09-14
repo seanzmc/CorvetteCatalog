@@ -6,7 +6,9 @@ A fresh project for relational Corvette product data, manufacturer order-guide i
 Use the [master-schema proposal](docs/master-schema-proposal.md) for logical
 ownership, keys, rules, pricing and six-model walkthroughs, and the
 [relationship diagram and key/FK reference](docs/master-schema-diagram.md) for the
-complete relation inventory and structural opens; the
+complete relation inventory and structural opens. The
+[populated tables and worked traces](docs/master-schema-worked-examples.md)
+exercise those keys across all six lanes and expose remaining implementation needs; the
 [consolidated review](docs/six-model-review.md) and
 [discovery index](docs/model-discovery.md) retain the supporting evidence.
 Historical database/importer milestones below are preserved context, not
@@ -30,6 +32,7 @@ When a guide and workbook disagree, record the discrepancy and its evidence. Nei
 - [Stingray behavior: complete family relationship analysis and unresolved decisions](docs/stingray-behavior.md)
 - [Master-schema proposal: all six models, ownership and connected walkthroughs](docs/master-schema-proposal.md)
 - [Master-schema relationship diagram and per-relation keys/FKs](docs/master-schema-diagram.md)
+- [Master-schema populated tables and worked selection, pricing and output traces](docs/master-schema-worked-examples.md)
 - [Historical Stingray schema plan](docs/stingray-schema-plan.md)
 - [Stingray structured handoff: records, behavior, evidence and decisions](docs/stingray-structured.md)
 - [Grand Sport behavior: connected choices, source differences and schema implications](docs/grand-sport-behavior.md)
