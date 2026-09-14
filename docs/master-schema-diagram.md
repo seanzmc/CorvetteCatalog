@@ -44,6 +44,39 @@ configuration, option, interior, component, rule and presentation. Only the firs
 four have an unambiguous `(R, id)` version-to-identity mapping; the others are
 shown as family nodes with O1 rather than invented concrete subfamilies.
 
+### Identity membership
+
+Relations with a continuing typed `(M, id)` identity row, and the family each
+belongs to. Every version row of these relations carries M and holds two FKs:
+`(R, M)` → `catalog_revision(R, M)` and `(M, id)` → its identity family
+`(M, id)`. That pair is stated here once and not repeated per table.
+
+| Identity family | Relations with `(M, id)` identity rows |
+|---|---|
+| `CONFIGURATION_IDENTITY` | `configuration` |
+| `OPTION_IDENTITY` | `option` |
+| `INTERIOR_IDENTITY` | `interior` |
+| `COMPONENT_IDENTITY` | `component` |
+| `RULE_IDENTITY` | `condition`, `requirement`, `acquisition`, `conflict`, `choice_group`, `replacement_plan`, `option_rate`, `equipment_substitution`, `content_aspect`, `content_effect` |
+| `PRESENTATION_IDENTITY` | `step`, `section`, `summary_section`, `visual_scene` |
+
+Whether `RULE_IDENTITY` and `PRESENTATION_IDENTITY` are physically one table per
+family with a kind discriminator or one table per relation is a physical choice
+left to DDL; logically each relation's identity is distinct within its family and
+a version cannot change kind.
+
+All other revision-owned relations are **revision-only** and have no identity
+row: every scope junction and association (`option_configuration`,
+`interior_configuration`, `interior_part`, `interior_node_member`,
+`condition_clause`, `condition_member`, `conflict_member`, `choice_group_member`,
+`replacement_action`, `visual_layer`, `visual_binding`, `asset_binding`,
+`component_rate`, `context_copy`), per-option or per-configuration facts
+(`option_presentation`, `option_presentation_override`, `configuration_policy`,
+`emission_policy`, `step_summary`, `context_control`, `model_fact`,
+`interior_node`), singleton rows (`model_presentation`, `interaction_policy`),
+`source_disposition`, and the translation and legacy link templates. They are
+identified within R by their stated primary keys and copied by draft creation.
+
 ## Complete relationship diagram
 
 ```mermaid
@@ -468,7 +501,7 @@ Notation for the component typed identity family in §1, not an assigned physica
 | FK — optional same kind predecessor | `(predecessor_M†, predecessor_id†)` → `RULE_IDENTITY(M, id)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Notation for the rule typed identity family in §1, not an assigned physical table name. Separate concrete subfamilies and version mappings remain open (O1). Predecessor is optional, typed, reviewed and may refer to an earlier M; no facts inherit by fallback.
+Notation for the rule typed identity family in §1, not an assigned physical table name. Member relations are listed under [Identity membership](#identity-membership); physical table split is open (O1). Predecessor is optional, typed, reviewed and may refer to an earlier M; no facts inherit by fallback.
 
 ### `PRESENTATION_IDENTITY`
 
@@ -479,7 +512,7 @@ Notation for the rule typed identity family in §1, not an assigned physical tab
 | FK — optional same kind predecessor | `(predecessor_M†, predecessor_id†)` → `PRESENTATION_IDENTITY(M, id)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Notation for the presentation typed identity family in §1, not an assigned physical table name. Separate concrete subfamilies and version mappings remain open (O1). Predecessor is optional, typed, reviewed and may refer to an earlier M; no facts inherit by fallback.
+Notation for the presentation typed identity family in §1, not an assigned physical table name. Member relations are listed under [Identity membership](#identity-membership); physical table split is open (O1). Predecessor is optional, typed, reviewed and may refer to an earlier M; no facts inherit by fallback.
 
 ### `configuration`
 
@@ -554,7 +587,7 @@ No additional FK to option_presentation is stated. Null override inherits.
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-R owns the row; a direct catalog_revision FK and any continuing presentation identity are not specified (O1).
+R owns the row; revision-only, no identity row. Direct catalog_revision FK column is unspecified (O1).
 
 ### `model_fact`
 
@@ -565,7 +598,7 @@ R owns the row; a direct catalog_revision FK and any continuing presentation ide
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Continuing identity/owner FK details are open (O1).
+Revision-only, no identity row. Owner FK column details are open (O1).
 
 ### `interior`
 
@@ -637,7 +670,7 @@ Exactly one option or component endpoint; seat cannot repeat as a part.
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Acyclic hierarchy; parent column and root representation unspecified (O3). Presentation identity mapping open (O1).
+Acyclic hierarchy; parent column and root representation unspecified (O3). Revision-only, no identity row.
 
 ### `interior_node_member`
 
@@ -659,7 +692,7 @@ Acyclic hierarchy; parent column and root representation unspecified (O3). Prese
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Always has no clauses; conjunction has at least one. Concrete rule identity mapping open (O1).
+Always has no clauses; conjunction has at least one. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `condition_clause`
 
@@ -671,7 +704,7 @@ Always has no clauses; conjunction has at least one. Concrete rule identity mapp
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Nonempty member set; clauses are ANDed; any_present or none_present. Out-of-scope group behavior remains open below (O9).
+Nonempty member set; clauses are ANDed; any_present or none_present. Group endpoints are always in scope under the [group scope constraint](#group-scope-constraint-for-conditions).
 
 ### `condition_member`
 
@@ -685,6 +718,7 @@ Nonempty member set; clauses are ANDed; any_present or none_present. Out-of-scop
 | FK — fact evidence | `(evidence_set_id†)` → `evidence_set(set_id†)` |
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | Duplicate typed endpoint/state members prohibited within a clause; exact columns/encoding unspecified (O4). |
+| Freeze validation | For a group endpoint, every scoped parent referencing this condition has configuration scope ⊆ `choice_group_configuration` scope of `group_id`; see the [group scope constraint](#group-scope-constraint-for-conditions). |
 
 Exactly one typed endpoint. Option tests explicit intent or resolved selection; interior chosen; group occupied. Visual conditions additionally allow resolved-installed-equipment tests; representation is open (O5).
 
@@ -701,7 +735,7 @@ Exactly one typed endpoint. Option tests explicit intent or resolved selection; 
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Exactly one source endpoint; scoped. Rule identity mapping open (O1).
+Exactly one source endpoint; scoped. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `acquisition`
 
@@ -714,7 +748,7 @@ Exactly one source endpoint; scoped. Rule identity mapping open (O1).
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | Priorities unique where competing sources select alternative defaults in the same group; exact constraint columns/encoding unspecified (O4). |
 
-Scoped. No amount. No direct group FK is specified by the priority rule; rule identity mapping open (O1).
+Scoped. No amount. No direct group FK is specified by the priority rule. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `conflict`
 
@@ -728,7 +762,7 @@ Scoped. No amount. No direct group FK is specified by the priority rule; rule id
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Exactly one source; nonempty incompatible set, inherited scope for members. Rule identity mapping open (O1).
+Exactly one source; nonempty incompatible set, inherited scope for members. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `conflict_member`
 
@@ -753,7 +787,7 @@ Exactly one endpoint; options test resolved selection, interiors chosen leaf. No
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Scoped min/max over explicit option members. No section FK. Rule identity mapping open (O1).
+Scoped min/max over explicit option members. No section FK. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `choice_group_member`
 
@@ -776,7 +810,7 @@ Scoped min/max over explicit option members. No section FK. Rule identity mappin
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Scoped; trigger request endpoint exists but its type/key is unspecified (O3). No invented endpoint FK. Rule identity mapping open (O1).
+Scoped; trigger request endpoint exists but its type/key is unspecified (O3). No invented endpoint FK. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `replacement_action`
 
@@ -803,7 +837,7 @@ Ordered option actions only; additions have acquisition origin. No FK from origi
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | Duplicate priority per target rejected: logical (R, target option, priority); exact column names unspecified (O4). |
 
-Scoped; first applicable priority wins. Identity mapping open (O1).
+Scoped; first applicable priority wins. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `equipment_substitution`
 
@@ -817,7 +851,7 @@ Scoped; first applicable priority wins. Identity mapping open (O1).
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Scoped; neither charges nor acquires replacement. Identity mapping open (O1).
+Scoped; neither charges nor acquires replacement. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `content_aspect`
 
@@ -828,7 +862,7 @@ Scoped; neither charges nor acquires replacement. Identity mapping open (O1).
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Owns stable aspect key and label; no separate unique constraint is stated for that key. Identity mapping open (O1).
+Owns stable aspect key and label; no separate unique constraint is stated for that key. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `content_effect`
 
@@ -841,7 +875,7 @@ Owns stable aspect key and label; no separate unique constraint is stated for th
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | Unique replacement precedence per aspect when effects overlap; exact columns/encoding unspecified (O4). |
 
-Scoped. Identity mapping open (O1).
+Scoped. Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `emission_policy`
 
@@ -864,7 +898,7 @@ Summary destination is named but not explicitly typed as a summary_section FK (O
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Continuing presentation identity mapping open (O1).
+Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `section`
 
@@ -876,7 +910,7 @@ Continuing presentation identity mapping open (O1).
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Continuing presentation identity mapping open (O1).
+Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `summary_section`
 
@@ -887,7 +921,7 @@ Continuing presentation identity mapping open (O1).
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Continuing presentation identity mapping open (O1).
+Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `option_presentation`
 
@@ -920,7 +954,7 @@ Continuing presentation identity mapping open (O1).
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Continuing presentation identity mapping open (O1).
+Revision-only, no identity row.
 
 ### `context_copy`
 
@@ -944,7 +978,7 @@ Axis/value must occur in configurations; the value-validation representation is 
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Source-policy version is named, but no policy relation or version FK is defined. Direct revision FK/identity mapping open (O1).
+Source-policy version is named, but no policy relation or version FK is defined. Revision-only, no identity row. Direct revision FK column open (O1).
 
 ### `asset`
 
@@ -969,7 +1003,7 @@ Immutable media/hash. No uniqueness constraint on hash is explicitly stated.
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Exactly one typed target. Precedence is named, but no unique constraint stated. Continuing presentation identity mapping open (O1).
+Exactly one typed target. Precedence is named, but no unique constraint stated. Revision-only, no identity row.
 
 ### `visual_scene`
 
@@ -980,7 +1014,7 @@ Exactly one typed target. Precedence is named, but no unique constraint stated. 
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Continuing presentation identity mapping open (O1).
+Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `visual_layer`
 
@@ -1004,7 +1038,7 @@ Continuing presentation identity mapping open (O1).
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | Unique precedence per layer; logical (R, scene_id, layer_key, precedence), column allocation unspecified (O3/O4). |
 
-Scoped. Layer/asset/condition allocation follows the grouped visual relationship description; exact allocation remains open (O3). Identity mapping open (O1).
+Scoped. Layer/asset/condition allocation follows the grouped visual relationship description; exact allocation remains open (O3). Revision-only, no identity row.
 
 ### `requirement_configuration`
 
@@ -1055,6 +1089,7 @@ All key columns non-null. Empty scope means nowhere; all-scope requires every ac
 | FK — fact evidence | `(evidence_set_id†)` → `evidence_set(set_id†)` |
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
+| Freeze validation | This scope must contain the scope of every parent whose condition names `group_id`; see the [group scope constraint](#group-scope-constraint-for-conditions). |
 
 All key columns non-null. Empty scope means nowhere; all-scope requires every actual configuration. Membership owns lineage, not parent fields.
 
@@ -1195,7 +1230,7 @@ Proposal says Decision ID/version; exact names and composite-PK spelling remain 
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Source coverage, not executable content. R ownership is specified; direct revision FK is not (O1).
+Source coverage, not executable content. R ownership is specified; revision-only, direct revision FK column is not (O1).
 
 ### `TYPED_TRANSLATION`
 
@@ -1264,40 +1299,46 @@ Immutable artifact hashes; no hash uniqueness or FK to asset is stated.
 
 Compare-and-swap version; completed-state eligibility is not an FK constraint.
 
-## Open: group test outside configuration scope
+## Group scope constraint for conditions
 
-`choice_group_configuration(R, group_id, current_configuration_id)` records
-explicit group scope. It does not establish how a `condition_member` naming an
-out-of-scope group affects its clause. In particular, an `any_present` clause
-mixing such a group with another present endpoint could differ under a
-clause-wide scope prerequisite versus endpoint-level evaluation. `none_present`
-also needs an explicit treatment of out-of-scope versus vacant groups, including
-the consequences for absence-based defaults and vacancy requirements.
+`choice_group_configuration(R, group_id, configuration_id)` records explicit
+group scope. A condition never tests a group outside that scope because of a
+freeze-time subset constraint:
 
-This slice does not select either behavior or require translation to split
-conditions by configuration. Resolution needs model-qualified source-to-baseline
-connected traces, distinguished from accepted target decisions, and representative
-populated conditions with worked outcomes for both operators, mixed endpoints,
-and in-scope occupied/vacant versus out-of-scope groups. Any departure not covered
-by an accepted target needs owner review. No such demonstration or evaluator
-validation is supplied here; this remains open before translation or implementation.
+- For every `condition` referenced by a scoped parent (`requirement`,
+  `acquisition`, `conflict`, `replacement_plan`, `option_rate`,
+  `equipment_substitution`, `content_effect` or `visual_binding`), the parent's
+  configuration scope must be a subset of the configuration scope of every
+  `choice_group` named by any `condition_member` of that condition, directly or
+  through its clauses.
+- A revision containing a violating condition cannot be frozen. The constraint
+  is validated at freeze, not enforced by an ordinary FK; the diagram marks it
+  on `condition_member` and `choice_group_configuration`.
+- Consequently `any_present` and `none_present` keep their plain meaning over a
+  group endpoint: occupied or vacant within the current configuration. No
+  clause-wide scope prerequisite or endpoint-level out-of-scope special case is
+  needed, and absence-based defaults and vacancy requirements evaluate the same
+  named state.
+- When a source rule's group membership varies by configuration, translation
+  emits separately scoped groups and separately scoped conditions/parents so
+  each parent scope satisfies the subset rule. This follows the existing
+  separately-scoped-groups rule in proposal §4.
+
+This is a design rule for the target, not a product-policy decision; it does not
+change any accepted lane target.
 
 ## Open
 
 These are unresolved details of the proposal, not proposed additions or new
 business-policy decisions. They prevent claiming this is a physical FK contract.
 
-- **O1 — Typed identity expansion and direct revision ownership.** §1 names
-  continuing configuration, option, interior, component, rule and presentation
-  kinds; §2 says each domain kind. The exact rule/presentation subfamilies and
-  applicability to rates, aspects, bindings, singleton and association rows are
-  not enumerated. Some keys use `node_id`, `binding_id`, `scene_id`, `fact_id`,
-  option IDs, axes or only R rather than `(R, id)`. Their `(M, id)` identity mapping,
-  M columns, `(R, M)` owner FKs and identity lineage cannot be invented. The
-  template's predecessor FK is typed and includes predecessor M, but its column
-  names and any restriction to the same model across years are not specified.
-  Direct revision-owner FKs for other domain rows are not spelled out. No generic
-  untyped identity or extra surrogate key resolves this open by assumption.
+- **O1 — Identity column naming and physical split.** Identity membership is
+  settled under [Identity membership](#identity-membership). What remains open
+  is naming: the M and predecessor column names on version and identity rows,
+  whether a family is one physical table with a kind discriminator or one per
+  relation, any restriction of predecessor links to the same model across years,
+  and the direct revision-owner FK column on revision-only rows. No generic
+  untyped identity or extra surrogate key is assumed.
 - **O2 — Unnamed columns and global key spelling.** “Basis ID”, “Asset ID”,
   “Document ID”, “Set ID”, “Channel key” and similar descriptions do not declare
   literal column names. “Decision ID/version” implies a versioned key required by
@@ -1350,10 +1391,6 @@ business-policy decisions. They prevent claiming this is a physical FK contract.
   revision and completed release eligibility are validation requirements, not
   predicates enforced by the listed identity FKs. No extra direct model, asset or
   version FK is added on that basis.
-- **O9 — Out-of-scope group conditions.** The
-  [group-scope question above](#open-group-test-outside-configuration-scope)
-  remains unresolved for both condition operators. Explicit scope FKs do not
-  settle clause truth or authorize a new cross-model product policy.
 
 The relationship-diagram slice is complete at the proposal's declared logical
 level, with these limits exposed. Representative populated tables and worked
