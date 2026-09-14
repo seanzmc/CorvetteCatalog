@@ -6,13 +6,13 @@ Baseline: current `origin/main` at `9cd811451d31eb1cc42d3a00ab729e0cc94a5fa0`. F
 
 ## Reading the populated rows
 
-A dagger (`†`) is the diagram's existing notation alias, not a proposed column name. Unnamed payload is described as **logical facts**, never assigned new column names. M/R, `ex:` IDs, `USD-options`/`USD-base`, and `A:` anchor handles are example values: the handoffs do not allocate target revision/condition/substitution/plan IDs. Existing configuration, option, interior, rule and rate IDs below are copied exactly. No RPO serves as an FK. See Open O1/O2/O6 before allocating real target keys.
+A dagger (`†`) is the diagram's existing notation alias, not a proposed column name. Unnamed payload is described as **logical facts**, never assigned new column names. M/R, `ex:` IDs, `USD-options`/`USD-base`, and `A:` anchor handles are example values: the handoffs do not allocate target revision/condition/substitution/plan IDs. Existing configuration, option, interior, rule and rate IDs below are copied exactly. No RPO serves as an FK. The design resolutions under Open O1/O2/O6 define allocation; the illustrative values here remain fixtures.
 
 Each identity-bearing table row below explicitly displays **two records**: the continuing typed identity `(M, id)` and its version `(R, id)` carrying M, with owner FK `(R, M)`. The relation column determines the concrete kind; a condition and acquisition with the same spelling are not one identity. Configuration, option, interior use their named families; every other identity-bearing relation used here is in RULE_IDENTITY. No component or presentation identity-bearing relation is instantiated. There are no predecessor links in this one-year sample.
 
 Association tables have their full diagram PK and **no identity row**. `c = a, b` expands to two rows with those literal configuration IDs, not an array, wildcard, implicit all-scope or omitted unavailable pair. R always means the lane's R below. All endpoint FKs have that same R. This finite expansion keeps the 32 configuration and sampled status/scope rows readable.
 
-Every row's last cell gives its immutable evidence locator and governing decision(s). These are human-readable lineage, not newly allocated `evidence_set_id†`/`decision_set_id†` values. The evidence-set/decision-set containers are not instantiated; their physical linkage and version allocation remain O2/O7. Source JSON sheet locators mean `baseline_rows[sheet]` selected by `_row`, not JSON line numbers. Handoff identifiers such as GS-T06 and GS-P02 are searchable row IDs in the linked handoff. Amounts are exact USD; `USD-options` means accepted option purchase basis, `USD-base` means vehicle starting amount with destination once, excluding separately acquired R8E. Null source prices are preserved as evidence, never presumed free purchases.
+Every row's last cell gives its immutable evidence locator and governing decision(s). These are human-readable lineage, not newly allocated `evidence_set_id†`/`decision_set_id†` values. The evidence-set/decision-set containers are not instantiated; O2/O7 below specify their linkage and allocation; this sample does not populate them. Source JSON sheet locators mean `baseline_rows[sheet]` selected by `_row`, not JSON line numbers. Handoff identifiers such as GS-T06 and GS-P02 are searchable row IDs in the linked handoff. Amounts are exact USD; `USD-options` means accepted option purchase basis, `USD-base` means vehicle starting amount with destination once, excluding separately acquired R8E. Null source prices are preserved as evidence, never presumed free purchases.
 
 ## Lane ownership and configuration rows
 
@@ -27,7 +27,7 @@ The model key is the model_id example value. M and R are deliberately unique per
 | ZR1 | `zr1` | `M-ZR1-2027` | `R-ZR1-1` | 2027 | [zr1 source model_key/model_year](zr1-structured-records.json); [ZR1-D01/06/08/09](zr1-owner-decisions.json) |
 | ZR1X | `zr1x` | `M-ZR1X-2027` | `R-ZR1X-1` | 2027 | [zr1x source model_key/model_year](zr1x-structured-records.json); [ZR1X-D01/06/08/09](zr1x-owner-decisions.json) |
 
-`M-ST`/`R-ST` below abbreviate `M-ST-2027`/`R-ST-1`, likewise each lane. They are value aliases only. Both price-basis handles have currency USD and resolved meaning above; their required evidence is the lane price-basis decision and handoff §3/§4, with global linkage left open (O7).
+`M-ST`/`R-ST` below abbreviate `M-ST-2027`/`R-ST-1`, likewise each lane. They are value aliases only. Both price-basis handles have currency USD and resolved meaning above; their required evidence is the lane price-basis decision and handoff §3/§4, with global linkage specified in O7 below but not populated here.
 
 | configuration | Identity `(M, id)` | Version `(R, id)`; owner `(R, M)` | Logical facts | Evidence and decision |
 |---|---|---|---|---|
@@ -90,7 +90,7 @@ Authority: [ST handoff](stingray-structured.md), [owner overlay](stingray-owner-
 | `acquisition` | `(M-ST, rule_opt_pcx_001_includes_opt_sng_001)` | `(R-ST, rule_opt_pcx_001_includes_opt_sng_001)`; `(R-ST, M-ST)` | `condition_id†=ex:pcx`; `target_option_id†=opt_sng_001`; included, locked, absorb_prior; priority 1 | [rule_mapping!75–78](stingray-structured-records.json); ST-D06; common policy model_overrides.stingray |
 | `option_rate` | `(M-ST, pr_pcxsng_001)` | `(R-ST, pr_pcxsng_001)`; `(R-ST, M-ST)` | `condition_id†=ex:pcx`; `target_option_id†=opt_sng_001`; replacement USD 0.00; `basis_id†=USD-options`; priority 1 | [price_rules!14](stingray-structured-records.json); ST-D06/12 |
 | `conflict` | `(M-ST, ex:pcx-wheel)` | `(R-ST, ex:pcx-wheel)`; `(R-ST, M-ST)` | `source_option_id†=opt_pcx_001`; `source_interior_id†=null`; `activation_condition_id†=ex:always` | [rule_mapping!75–78](stingray-structured-records.json); ST-D06; common policy model_overrides.stingray |
-| `replacement_plan` | `(M-ST, ex:pcx-to-5do)` | `(R-ST, ex:pcx-to-5do)`; `(R-ST, M-ST)` | `condition_id†=ex:pcx`; request 5DO (trigger key allocation OPEN O3); disclose package and child removal | [rule_mapping!75–78](stingray-structured-records.json); ST-D06; common policy model_overrides.stingray |
+| `replacement_plan` | `(M-ST, ex:pcx-to-5do)` | `(R-ST, ex:pcx-to-5do)`; `(R-ST, M-ST)` | `condition_id†=ex:pcx`; `requested_option_id=opt_5do_001` (O3); disclose package and child removal | [rule_mapping!75–78](stingray-structured-records.json); ST-D06; common policy model_overrides.stingray |
 
 Revision-only associations (R = `R-ST`):
 
@@ -124,15 +124,15 @@ Revision-only associations (R = `R-ST`):
 | `conflict_member` | `(R, ex:pcx-wheel, 1)` | `option_id†=opt_5do_001`; `interior_id†=null` | [rule_mapping!75–78](stingray-structured-records.json); ST-D06; common policy model_overrides.stingray |
 | `replacement_plan_configuration` | `(R, ex:pcx-to-5do, c)` | `plan_id=ex:pcx-to-5do`; one row for each `c` in `1lt_c07`, `2lt_c07`, `3lt_c07`, `1lt_c67`, `2lt_c67`, `3lt_c67` | [rule_mapping!75–78](stingray-structured-records.json); ST-D06; common policy model_overrides.stingray |
 | `replacement_action` | `(R, ex:pcx-to-5do, 1)` | remove `option_id†=opt_pcx_001` | [rule_mapping!75–78](stingray-structured-records.json); ST-D06; common policy model_overrides.stingray |
-| `replacement_action` | `(R, ex:pcx-to-5do, 2)` | add `option_id†=opt_5do_001`; independent requested purchase (origin representation OPEN N2) | [rule_mapping!75–78](stingray-structured-records.json); ST-D06; common policy model_overrides.stingray |
-| `emission_policy` | `(R, opt_uqt_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [stingray_options!69](stingray-structured-records.json); ST-D06/10/12 |
-| `emission_policy` | `(R, opt_pcx_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [stingray_options!74](stingray-structured-records.json); ST-D06/10/12 |
-| `emission_policy` | `(R, opt_5do_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [stingray_options!114](stingray-structured-records.json); ST-D06/10/12 |
-| `emission_policy` | `(R, opt_5dg_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [stingray_options!115](stingray-structured-records.json); ST-D06/10/12 |
-| `emission_policy` | `(R, opt_sfz_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [stingray_options!78](stingray-structured-records.json); ST-D06/10/12 |
-| `emission_policy` | `(R, opt_sht_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [stingray_options!216](stingray-structured-records.json); ST-D06/10/12 |
-| `emission_policy` | `(R, opt_sng_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [stingray_options!58](stingray-structured-records.json); ST-D06/10/12 |
-| `emission_policy` | `(R, opt_qe6_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [stingray_options!240](stingray-structured-records.json); ST-D06/10/12 |
+| `replacement_action` | `(R, ex:pcx-to-5do, 2)` | add `option_id†=opt_5do_001`; `intent_effect=commit_purchase` (N2) | [rule_mapping!75–78](stingray-structured-records.json); ST-D06; common policy model_overrides.stingray |
+| `emission_policy` | `(R, opt_uqt_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [stingray_options!69](stingray-structured-records.json); ST-D06/10/12 |
+| `emission_policy` | `(R, opt_pcx_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [stingray_options!74](stingray-structured-records.json); ST-D06/10/12 |
+| `emission_policy` | `(R, opt_5do_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [stingray_options!114](stingray-structured-records.json); ST-D06/10/12 |
+| `emission_policy` | `(R, opt_5dg_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [stingray_options!115](stingray-structured-records.json); ST-D06/10/12 |
+| `emission_policy` | `(R, opt_sfz_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [stingray_options!78](stingray-structured-records.json); ST-D06/10/12 |
+| `emission_policy` | `(R, opt_sht_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [stingray_options!216](stingray-structured-records.json); ST-D06/10/12 |
+| `emission_policy` | `(R, opt_sng_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [stingray_options!58](stingray-structured-records.json); ST-D06/10/12 |
+| `emission_policy` | `(R, opt_qe6_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [stingray_options!240](stingray-structured-records.json); ST-D06/10/12 |
 
 ## GS populated relations
 
@@ -243,19 +243,19 @@ Revision-only associations (R = `R-GS`):
 | `requirement_configuration` | `(R, ex:el9-needs-z25-AH2, c)` | `requirement_id=ex:el9-needs-z25-AH2`; one row for each `c` in `3lt_e07`, `3lt_e67` | [lt_interiors!47,80](grand-sport-structured-records.json); GS-D05 |
 | `option_rate_configuration` | `(R, ex:el9-belt-AH2, c)` | `rate_id=ex:el9-belt-AH2`; one row for each `c` in `3lt_e07`, `3lt_e67` | [lt_interiors!47,80](grand-sport-structured-records.json); GS-D05 |
 | `option_rate_configuration` | `(R, ex:ae4-3lt, c)` | `rate_id=ex:ae4-3lt`; one row for each `c` in `3lt_e07`, `3lt_e67` | [lt_interiors!47](grand-sport-structured-records.json); GS-P02; GS-D05 |
-| `emission_policy` | `(R, opt_dmx_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!61](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_d84_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!142](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_g26_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!122](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_g4z_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!121](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_gbk_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!117](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_gkz_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!123](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_gph_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!120](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_z25_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!167](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_ae4_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!165](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_ah2_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!164](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_3f9_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!161](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_97a_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!67](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
-| `emission_policy` | `(R, opt_z15_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [grandSport_options!203](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_dmx_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!61](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_d84_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!142](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_g26_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!122](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_g4z_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!121](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_gbk_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!117](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_gkz_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!123](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_gph_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!120](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_z25_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!167](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_ae4_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!165](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_ah2_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!164](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_3f9_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!161](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_97a_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!67](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
+| `emission_policy` | `(R, opt_z15_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grandSport_options!203](grand-sport-structured-records.json); GS-D03/04/05/14/15/16 |
 
 ## GSX populated relations
 
@@ -321,17 +321,17 @@ Revision-only associations (R = `R-GSX`):
 | `acquisition_configuration` | `(R, grand_sport_x_rule_zz3_includes_sl9_92d15a5d1074, c)` | `acquisition_id=grand_sport_x_rule_zz3_includes_sl9_92d15a5d1074`; one row for each `c` in `1lt_g67`, `2lt_g67`, `3lt_g67` | [grand_sport_x_rule_mapping!81,83](grand-sport-x-structured-records.json); GSX-D14 |
 | `source_disposition` | `(R, A:GSX:grand_sport_x_rule_mapping:51, grand_sport_x_rule_ls6_includes_d3v_c7bc4b3df65b)` | retire executable relationship `opt_ls6_001` → `opt_d3v_001`; preserve source; zero active acquisition/translation targets | [grand_sport_x_rule_mapping!51](grand-sport-x-structured-records.json); GSX-D14 |
 | `source_disposition` | `(R, A:GSX:grand_sport_x_rule_mapping:82, grand_sport_x_rule_zz3_includes_ls6_b15b51ebf396)` | retire executable relationship `opt_zz3_001` → `opt_ls6_001`; preserve source; zero active acquisition/translation targets | [grand_sport_x_rule_mapping!82](grand-sport-x-structured-records.json); GSX-D14 |
-| `emission_policy` | `(R, opt_fed_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!129](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_j57_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!125](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_b4z_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!177](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_fe5_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!159](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_xft_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!178](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_xfr_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!73](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_ls6_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!171](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_zz3_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!44](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_bc7_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!47](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_sl9_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!46](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
-| `emission_policy` | `(R, opt_d3v_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [grand_sport_x_options!45](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_fed_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!129](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_j57_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!125](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_b4z_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!177](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_fe5_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!159](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_xft_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!178](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_xfr_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!73](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_ls6_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!171](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_zz3_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!44](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_bc7_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!47](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_sl9_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!46](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
+| `emission_policy` | `(R, opt_d3v_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [grand_sport_x_options!45](grand-sport-x-structured-records.json); GSX-D10/11/12/14 |
 | `option_rate_configuration` | `(R, grand_sport_x_pr_zz3_sl9_ce51294f94f9, c)` | `rate_id=grand_sport_x_pr_zz3_sl9_ce51294f94f9`; one row for each `c` in `1lt_g67`, `2lt_g67`, `3lt_g67` | [grand_sport_x_price_rules!26](grand-sport-x-structured-records.json); GSX-D14 |
 
 ## Z06 populated relations
@@ -369,7 +369,7 @@ Authority: [Z06 handoff](z06-structured.md), [owner overlay](z06-owner-decisions
 | `condition` | `(M-Z06, ex:roy)` | `(R-Z06, ex:roy)`; `(R-Z06, M-Z06)` | conjunction; clauses ANDed | [z06_rule_groups!3–4](z06-structured-records.json); Z06-D01/11 |
 | `condition` | `(M-Z06, ex:roz)` | `(R-Z06, ex:roz)`; `(R-Z06, M-Z06)` | conjunction; clauses ANDed | [z06_rule_groups!3–4](z06-structured-records.json); Z06-D01/11 |
 | `condition` | `(M-Z06, ex:j57)` | `(R-Z06, ex:j57)`; `(R-Z06, M-Z06)` | conjunction; clauses ANDed | [z06_rule_groups!3–4](z06-structured-records.json); Z06-D01/11 |
-| `choice_group` | `(M-Z06, z06_group_pdd_requires_carbon_wheel)` | `(R-Z06, z06_group_pdd_requires_carbon_wheel)`; `(R-Z06, M-Z06)` | optional occupancy min 0/max 1; replacement peer policy; PDD requirement enforces occupancy while active (OPEN N1 translation rationale) | [z06_rule_groups!3–4](z06-structured-records.json); Z06-D01/11 |
+| `choice_group` | `(M-Z06, z06_group_pdd_requires_carbon_wheel)` | `(R-Z06, z06_group_pdd_requires_carbon_wheel)`; `(R-Z06, M-Z06)` | optional occupancy min 0/max 1; replacement peer policy; PDD requirement enforces occupancy while active (N1 translation rationale below) | [z06_rule_groups!3–4](z06-structured-records.json); Z06-D01/11 |
 | `condition` | `(M-Z06, ex:carbon-wheel-occupied)` | `(R-Z06, ex:carbon-wheel-occupied)`; `(R-Z06, M-Z06)` | conjunction; clauses ANDed | [z06_rule_groups!3–4](z06-structured-records.json); Z06-D01/11 |
 | `requirement` | `(M-Z06, ex:pdd-needs-wheel)` | `(R-Z06, ex:pdd-needs-wheel)`; `(R-Z06, M-Z06)` | `source_option_id†=opt_pdd_001`; other source null; source resolved_selection; `activation_condition_id†=ex:always`; `satisfaction_condition_id†=ex:carbon-wheel-occupied`; dependency loss removes unsupported source with notice/revert | [z06_rule_groups!3–4](z06-structured-records.json); Z06-D01/11 |
 | `acquisition` | `(M-Z06, z06_rule_opt_pdb_001_includes_opt_j57_001)` | `(R-Z06, z06_rule_opt_pdb_001_includes_opt_j57_001)`; `(R-Z06, M-Z06)` | `condition_id†=ex:pdb`; `target_option_id†=opt_j57_001`; included, locked, preserve_prior; priority 1 | [z06_rule_mapping!35](z06-structured-records.json); Z06-D01/11/12 |
@@ -384,7 +384,7 @@ Authority: [Z06 handoff](z06-structured.md), [owner overlay](z06-owner-decisions
 | `acquisition` | `(M-Z06, z06_rule_opt_z07_001_includes_opt_xfs_001)` | `(R-Z06, z06_rule_opt_z07_001_includes_opt_xfs_001)`; `(R-Z06, M-Z06)` | `condition_id†=ex:z07`; `target_option_id†=opt_xfs_001`; included, locked, preserve_prior; priority 1 | [z06_rule_mapping!45](z06-structured-records.json); Z06-D01/11/12 |
 | `acquisition` | `(M-Z06, ex:j57-j6d)` | `(R-Z06, ex:j57-j6d)`; `(R-Z06, M-Z06)` | `condition_id†=ex:j57`; `target_option_id†=opt_j6d_001`; default, yield_to_explicit, preserve_prior; priority 1 | [z06_rule_mapping!36](z06-structured-records.json); Z06-D01 corrects missing J57 default |
 | `conflict` | `(M-Z06, ex:pdb-z07)` | `(R-Z06, ex:pdb-z07)`; `(R-Z06, M-Z06)` | `source_option_id†=opt_pdb_001`; `source_interior_id†=null`; `activation_condition_id†=ex:always` | [z06_options!242–243](z06-structured-records.json); Z06-D11; common policy model_overrides.z06 |
-| `replacement_plan` | `(M-Z06, ex:pdb-to-pdd)` | `(R-Z06, ex:pdb-to-pdd)`; `(R-Z06, M-Z06)` | `condition_id†=ex:pdb`; request Z07 (OPEN O3); notice PDD switch; do not commit standalone Z07 intent | [z06_options!242–243](z06-structured-records.json); Z06-D11; common policy model_overrides.z06 |
+| `replacement_plan` | `(M-Z06, ex:pdb-to-pdd)` | `(R-Z06, ex:pdb-to-pdd)`; `(R-Z06, M-Z06)` | `condition_id†=ex:pdb`; `requested_option_id=opt_z07_001` (O3); notice PDD switch; do not commit standalone Z07 intent | [z06_options!242–243](z06-structured-records.json); Z06-D11; common policy model_overrides.z06 |
 | `option_rate` | `(M-Z06, z06_pr_z07_j57_zero)` | `(R-Z06, z06_pr_z07_j57_zero)`; `(R-Z06, M-Z06)` | `condition_id†=ex:z07`; `target_option_id†=opt_j57_001`; replacement USD 0.00; `basis_id†=USD-options`; priority 1 | [z06_price_rules!6](z06-structured-records.json); Z06-D01/11/12 |
 | `option_rate` | `(M-Z06, z06_pr_pdb_j57_zero)` | `(R-Z06, z06_pr_pdb_j57_zero)`; `(R-Z06, M-Z06)` | `condition_id†=ex:pdb`; `target_option_id†=opt_j57_001`; replacement USD 0.00; `basis_id†=USD-options`; priority 2 | [z06_price_rules!7](z06-structured-records.json); Z06-D01/11/12 |
 | `option_rate` | `(M-Z06, z06_pr_pdb_j6d_zero)` | `(R-Z06, z06_pr_pdb_j6d_zero)`; `(R-Z06, M-Z06)` | `condition_id†=ex:pdb`; `target_option_id†=opt_j6d_001`; replacement USD 0.00; `basis_id†=USD-options`; priority 1 | [z06_price_rules!8](z06-structured-records.json); Z06-D01/11/12 |
@@ -477,7 +477,7 @@ Revision-only associations (R = `R-Z06`):
 | `conflict_member` | `(R, ex:pdb-z07, 1)` | `option_id†=opt_z07_001`; `interior_id†=null` | [z06_options!242–243](z06-structured-records.json); Z06-D11; common policy model_overrides.z06 |
 | `replacement_plan_configuration` | `(R, ex:pdb-to-pdd, c)` | `plan_id=ex:pdb-to-pdd`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [z06_options!242–243](z06-structured-records.json); Z06-D11; common policy model_overrides.z06 |
 | `replacement_action` | `(R, ex:pdb-to-pdd, 1)` | remove `option_id†=opt_pdb_001` | [z06_options!242–243](z06-structured-records.json); Z06-D11; common policy model_overrides.z06 |
-| `replacement_action` | `(R, ex:pdb-to-pdd, 2)` | add `option_id†=opt_pdd_001`; request replacement origin (OPEN N2) | [z06_options!242–243](z06-structured-records.json); Z06-D11; common policy model_overrides.z06 |
+| `replacement_action` | `(R, ex:pdb-to-pdd, 2)` | add `option_id†=opt_pdd_001`; `intent_effect=commit_purchase` on PDD, consuming the Z07 request (N2) | [z06_options!242–243](z06-structured-records.json); Z06-D11; common policy model_overrides.z06 |
 | `option_rate_configuration` | `(R, z06_pr_z07_j57_zero, c)` | `rate_id=z06_pr_z07_j57_zero`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [z06_price_rules!6](z06-structured-records.json); Z06-D01/11/12 |
 | `option_rate_configuration` | `(R, z06_pr_pdb_j57_zero, c)` | `rate_id=z06_pr_pdb_j57_zero`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [z06_price_rules!7](z06-structured-records.json); Z06-D01/11/12 |
 | `option_rate_configuration` | `(R, z06_pr_pdb_j6d_zero, c)` | `rate_id=z06_pr_pdb_j6d_zero`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [z06_price_rules!8](z06-structured-records.json); Z06-D01/11/12 |
@@ -501,27 +501,27 @@ Revision-only associations (R = `R-Z06`):
 | `equipment_substitution_configuration` | `(R, ex:T0E-T0F, c)` | `substitution_id=ex:T0E-T0F`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [z06_rule_mapping!35–52](z06-structured-records.json); Z06-R02/04; Z06-D01 |
 | `equipment_substitution_configuration` | `(R, ex:FE6-FE7, c)` | `substitution_id=ex:FE6-FE7`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [z06_rule_mapping!35–52](z06-structured-records.json); Z06-R02/04; Z06-D01 |
 | `equipment_substitution_configuration` | `(R, ex:XFR-XFS, c)` | `substitution_id=ex:XFR-XFS`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [z06_rule_mapping!35–52](z06-structured-records.json); Z06-R02/04; Z06-D01 |
-| `emission_policy` | `(R, opt_pdb_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!242](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_pdd_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!243](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_z07_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!131](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_j57_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!125](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_t0f_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!122](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_t0g_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!123](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_r8e_002)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!60](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_j6d_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!31](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_roy_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!239](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_roz_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!240](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_stz_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!241](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_j56_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!124](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_j6a_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!29](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_soe_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!233](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_t0e_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!121](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_cfz_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!128](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_fe6_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!58](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_fe7_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!59](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_xfr_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!61](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_xfs_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!65](z06-structured-records.json); Z06-D01/11/12 |
-| `emission_policy` | `(R, opt_cbf_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [z06_options!245](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_pdb_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!242](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_pdd_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!243](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_z07_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!131](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_j57_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!125](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_t0f_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!122](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_t0g_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!123](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_r8e_002)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!60](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_j6d_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!31](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_roy_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!239](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_roz_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!240](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_stz_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!241](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_j56_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!124](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_j6a_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!29](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_soe_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!233](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_t0e_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!121](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_cfz_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!128](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_fe6_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!58](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_fe7_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!59](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_xfr_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!61](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_xfs_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!65](z06-structured-records.json); Z06-D01/11/12 |
+| `emission_policy` | `(R, opt_cbf_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [z06_options!245](z06-structured-records.json); Z06-D01/11/12 |
 | `acquisition_configuration` | `(R, ex:standard-J56, c)` | `acquisition_id=ex:standard-J56`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [variant_master!20–25](z06-structured-records.json); Z06-R04; Z06-D01 |
 | `acquisition_configuration` | `(R, ex:standard-J6A, c)` | `acquisition_id=ex:standard-J6A`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [variant_master!20–25](z06-structured-records.json); Z06-R04; Z06-D01 |
 | `acquisition_configuration` | `(R, ex:standard-SOE, c)` | `acquisition_id=ex:standard-SOE`; one row for each `c` in `1lz_h07`, `2lz_h07`, `3lz_h07`, `1lz_h67`, `2lz_h67`, `3lz_h67` | [variant_master!20–25](z06-structured-records.json); Z06-R04; Z06-D01 |
@@ -594,16 +594,16 @@ Revision-only associations (R = `R-ZR1`):
 | `equipment_substitution_configuration` | `(R, ex:XFR-XFS, c)` | `substitution_id=ex:XFR-XFS`; one row for each `c` in `1lz_r07`, `3lz_r07`, `1lz_r67`, `3lz_r67` | [zr1_rule_mapping!39–45](zr1-structured-records.json); ZR1-D01/06/08/09 |
 | `equipment_substitution_configuration` | `(R, ex:J58-J59, c)` | `substitution_id=ex:J58-J59`; one row for each `c` in `1lz_r07`, `3lz_r07`, `1lz_r67`, `3lz_r67` | [zr1_rule_mapping!39–45](zr1-structured-records.json); ZR1-D01/06/08/09 |
 | `equipment_substitution_configuration` | `(R, ex:aero, c)` | `substitution_id=ex:aero`; one row for each `c` in `1lz_r07`, `3lz_r07`, `1lz_r67`, `3lz_r67` | [zr1_rule_mapping!39–45](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_ztk_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!114](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_tom_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!110](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_j58_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!111](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_j59_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!112](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_fe8_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!189](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_fej_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!190](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_xfr_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!58](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_xfs_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!59](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_t0e_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!109](zr1-structured-records.json); ZR1-D01/06/08/09 |
-| `emission_policy` | `(R, opt_r8e_002)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1_options!54](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_ztk_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!114](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_tom_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!110](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_j58_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!111](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_j59_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!112](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_fe8_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!189](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_fej_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!190](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_xfr_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!58](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_xfs_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!59](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_t0e_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!109](zr1-structured-records.json); ZR1-D01/06/08/09 |
+| `emission_policy` | `(R, opt_r8e_002)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1_options!54](zr1-structured-records.json); ZR1-D01/06/08/09 |
 | `acquisition_configuration` | `(R, ex:required-r8e, c)` | one row for c = `1lz_r07`, `3lz_r07`, `1lz_r67`, `3lz_r67` | [initial R8E / foundations](discovery/zr1-runtime.json); ZR1-D08 |
 | `acquisition_configuration` | `(R, ex:standard-T0E, c)` | one row for c = `1lz_r07`, `3lz_r07`, `1lz_r67`, `3lz_r67` | [initial T0E / foundations](discovery/zr1-runtime.json); ZR1-D09 |
 
@@ -675,18 +675,18 @@ Revision-only associations (R = `R-ZR1X`):
 | `equipment_substitution_configuration` | `(R, ex:aero, c)` | `substitution_id=ex:aero`; one row for each `c` in `1lz_s07`, `3lz_s07`, `1lz_s67`, `3lz_s67` | [zr1x_rule_mapping!38–43](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
 | `acquisition_configuration` | `(R, ex:standard-cfc, c)` | `acquisition_id=ex:standard-cfc`; one row for each `c` in `1lz_s67`, `3lz_s67` | [zr1x_rule_mapping!5](zr1x-structured-records.json); ZR1X-D01/09 |
 | `source_disposition` | `(R, A:ZR1X:zr1x_rule_mapping:5, zr1x_rule_cfc_includes_gba_dd934a80de02)` | retire executable relationship `opt_cfc_002` → `opt_gba_001`; preserve source; zero active acquisition/translation targets | [zr1x_rule_mapping!5](zr1x-structured-records.json); ZR1X-D01 |
-| `emission_policy` | `(R, opt_ztk_001)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!109](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_tom_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!108](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_j59_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!169](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_feh_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!188](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_fez_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!189](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_xfr_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!58](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_xfs_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!59](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_cfc_002)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!165](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_gba_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!96](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_g8g_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!95](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_t0e_001)` | code role: RPO when installed_equipment; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!107](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
-| `emission_policy` | `(R, opt_r8e_002)` | code role: RPO when resolved_selection; summary destination/order allocation OPEN O3; no standard-only price implication | [zr1x_options!54](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_ztk_001)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!109](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_tom_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!108](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_j59_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!169](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_feh_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!188](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_fez_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!189](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_xfr_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!58](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_xfs_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!59](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_cfc_002)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!165](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_gba_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!96](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_g8g_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!95](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_t0e_001)` | code role: RPO when installed_equipment; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!107](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
+| `emission_policy` | `(R, opt_r8e_002)` | code role: RPO when resolved_selection; summary destination/order populated during presentation translation under O3/N3; no standard-only price implication | [zr1x_options!54](zr1x-structured-records.json); ZR1X-D01/06/08/09 |
 | `acquisition_configuration` | `(R, ex:required-r8e, c)` | one row for c = `1lz_s07`, `3lz_s07`, `1lz_s67`, `3lz_s67` | [initial R8E / foundations](discovery/zr1x-runtime.json); ZR1X-D08 |
 | `acquisition_configuration` | `(R, ex:standard-T0E, c)` | one row for c = `1lz_s07`, `3lz_s07`, `1lz_s67`, `3lz_s67` | [initial T0E / foundations](discovery/zr1x-runtime.json); ZR1X-D09 |
 
@@ -935,39 +935,294 @@ is claimed for this formerly dormant path.
 
 ## Open
 
-These are needs exposed by the examples, not silent edits to the diagram or new
-owner business decisions. The populated rows intentionally stop short of a
-physical, freeze-ready catalog. All [diagram O1–O8](master-schema-diagram.md#open)
-remain visible with the following disposition:
+September 14 design resolution of O1–O8 and N1–N3. The specifications below
+replace the earlier unchosen alternatives in this document and the diagram's
+historical Open inventory. They are proposed design decisions for review, not
+new owner business decisions, implemented constraints, or approval to build the
+database. Existing example IDs remain readable fixtures. Naming a field does
+not allocate its real records or turn this subset into a complete catalog.
 
-| Open | Specific need exposed here | Treatment in this slice |
+| Item | Design disposition | Remaining execution evidence |
 |---|---|---|
-| O1 — continuing identity split/naming | Conditions, acquisitions, rates, groups, plans, substitutions and content aspects/effects all need distinct typed `(M, id)` records even where source rule IDs coincide. | Explicit paired identity/version rows shown. M/R and `ex:` allocation are example values; physical discriminator/table split and predecessor names remain unchosen. Revision-only scopes/dispositions do not receive identities. |
-| O2 — aliases/global IDs | USD basis handles and decision-set versions have no assigned target IDs in handoffs; choice of nullability cannot be derived from a paper row. | Preserve all dagger aliases; human lineage cites actual decision IDs instead of fabricating `review_decision.version†`. Only the scope/key nullability already specified by the diagram is assumed. |
-| O3 — replacement trigger and emission destination | PCX→5DO and PDB→PDD need the exact requested-option endpoint, separate from their precondition. Emission rows need destination/order allocation. | Request values are supplied in prose, not an invented trigger FK. Summary destination/order remains unallocated, so these output rows are semantic examples, not export-ready records. No presentation identity is silently implied. |
-| O4 — priority and typed uniqueness | PDB/Z07 can both price J57 zero in frozen evidence; the target prohibits coexistence. Two EL9 leaf conditions price one belt zero; only one leaf is chosen. | Explicit distinct sample priorities per target, identical overlapping amounts where applicable; no new price outcome. Allocation must remain stable across the full catalog, with typed endpoint/state duplicate checks. Source row ordering is not a business tie-break. |
-| O5 — visual state | No visual binding/condition is used. | Unforced; resolved-installed visual test representation remains open. No asset or visualizer claim. |
-| O6 — translation and ID allocation | Source rows split into new condition/acquisition/requirement/scope records; their IDs are not already allocated. Dispositions use exact rule IDs as fragment values; links to association targets would need complete composite keys. | `ex:` and anchor handles are explicit fixtures, never asserted to be existing target keys. Retired fragments have zero executable targets. Concrete translation/legacy families and final consumer mapping are deferred. |
-| O7 — evidence containers and global linkage | Every paired identity/version and association has a human evidence anchor and decision, but container versions, identity lineage and global price-basis evidence links are not specified. | No invented evidence columns or circular container lineage. Full target evidence-set/decision-set population remains a prerequisite for a physical sample; this document does not claim those FKs are satisfied. |
-| O8 — release eligibility | Passing this small subset check cannot certify all scopes, prices, output mappings or pinned policy versions of a full revision. | No release rows, frozen revisions or publication pointer; freeze eligibility is unverified beyond the stated paper subset check. |
-| N1 — source requires-any group translation | `z06_group_pdd_requires_carbon_wheel` is a source requirement set, not itself proof that a mandatory group is globally occupied. It must also reflect mutually exclusive factory wheels. | Example uses optional 0/1 group plus a PDD activation requirement, with all three source members and all six scopes. Final translation must retain cardinality/peer evidence from factory-wheel semantics and cannot infer global min=1 from `requires_any` alone. This representational choice is exposed for review. |
-| N2 — replacement action purchase ownership | Adding PDD as the replacement for requested Z07 must create durable PDD ownership without creating independent Z07 intent; adding requested 5DO must create independent intent. The diagram names an addition origin but does not define this request-transfer representation. | Row facts name the required result; no extra persistent intent relation, action-origin enum or trigger column is approved. Losing all package roots must remove included Z07/TOM; cancel/revert must preserve prior ownership exactly. |
-| N3 — sampled output closure | Z06's five CBF replacement edges, complete section defaults and every unrelated conflict/presentation row are not populated here. Emitting a complete build needs all of them and final code-role classification. | Tables/traces enumerate affected projections and supported totals; not a complete target export. Source-derived edges must be individually translated with anchors before an executable release, not generated by blanket includes closure. |
+| O1 | Concrete typed identities and ownership names specified below. | DDL FK and predecessor tests. |
+| O2 | Column naming, ID allocation and nullability conventions specified below. | Allocate actual global records and validate all mandatory links. |
+| O3 | Request, hierarchy, context, visual and emission endpoints specified below. | Populate presentation destinations/order from each lane; check constraints. |
+| O4 | Exact uniqueness scopes and precedence validation responsibilities specified below. | Full-catalog overlap checks and database rejection tests. |
+| O5 | Installed-equipment state restricted to visual consumers. | Positive visual and negative nonvisual condition tests. |
+| O6 | Typed translation expansion and consumer mapping contract specified below. | Complete source-to-target mapping and consumer inventory. |
+| O7 | Acyclic global evidence and decision linkage specified below. | Populate evidence containers; test missing evidence rejection. |
+| O8 | Freeze, completion and publication eligibility specified below. | Execute whole-revision and release validation. |
+| N1 | Optional wheel group plus conditional PDD requirement retained. | Exercise all three wheels across all six Z06 configurations. |
+| N2 | Replacement confirmation commits purchase intent on the accepted option. | Exercise confirm/cancel/revert and last-root removal. |
+| N3 | Representative examples remain partial; full output has an explicit completion contract. | Translate the missing rows and verify complete outputs before release. |
 
-The PCX example resolves apparent prose disagreement through the existing common
-policy's explicit precedence, rather than opening a new policy choice. The Z06
-example likewise uses its existing PDD notice decision, never PDF substitution.
-GSX-D14 and ZR1X-D01 retire only the exact source edges named above. No diagram,
-handoff, overlay, runtime snapshot, canonical workbook or executable catalog is
-changed by this slice.
+### O1 and O2 — keys, identity and nullability
+
+Use one concrete `<relation>_identity` table for each of the 18 relations in the
+[identity membership table](master-schema-diagram.md#identity-membership).
+This keeps ordinary typed FKs and avoids a shared kind-discriminator table.
+A condition and acquisition with the same source ID remain distinct identities.
+The physical database engine remains a separate implementation choice.
+
+Use `model_year_id` for M and `revision_id` for R everywhere. Continuing identity
+PKs are `(model_year_id, id)`; version PKs are `(revision_id, id)`, with both owner
+FKs already specified by the diagram. Identity rows have nullable paired
+`predecessor_model_year_id`/`predecessor_id` referencing their own concrete identity
+table. Both are null or both set. A predecessor must belong to the same model in
+an earlier year; it is a reviewed lineage link, never an automatic RPO match.
+Revision parent uses `parent_revision_id`, nullable only for a first revision,
+and must belong to the same model-year. Revision-only rows use `revision_id` and
+the diagram's full association key; no extra continuing identity is introduced.
+Every revision-only row has a direct revision FK or a mandatory parent FK that
+already proves revision ownership; do not duplicate it merely for consistency.
+
+Drop daggers from the named aliases (`basis_id`, `asset_id`, `document_id`,
+`anchor_id`, `set_id`, `channel_key` and role-specific endpoint names).
+`review_decision` uses `(decision_id, version)`; `decision_member` carries that
+complete key. These are immutable record versions, not versions inferred from
+a file timestamp. Evidence and decision sets are immutable membership sets:
+changed membership gets a new `set_id`, not a mutable version column.
+
+New target IDs are allocated once and retained in typed translation/mapping
+records; they do not depend on row order, RPO, current price or mutable labels.
+Existing source IDs may be retained within their concrete model-owned kind after
+collision checking. New IDs use an opaque UUID string; a split source fact gets
+one identity per distinct target meaning. Re-import reuses the stored mapping,
+not a fresh UUID. Draft copies retain identities. New global IDs use the same
+allocate-once rule; `USD-options`, `A:` and `ex:` remain paper aliases, not a claim
+that those allocations have happened. Source-document hash is a unique content
+attribute, not a requirement that its ID equal the hash.
+
+Keys and FKs are non-null by default. Exceptions are nullable decision sets,
+paired predecessors/first revision parent, unused XOR endpoints, an optional
+replacement option, removal-action intent_effect, hierarchy roots, and a summary destination/order pair when
+no summary output is emitted. A missing price in source evidence remains missing;
+it never becomes a zero purchase amount. An active purchasable target must have
+an evidenced price basis and complete applicable price before freeze.
+
+### O3 and N2 — requests, transactions and presentation endpoints
+
+`replacement_plan.requested_option_id` is a required same-revision option FK.
+Plans here handle option selection requests; they do not generalize interior or
+configuration reset into option replacements. Preconditions remain the separate
+`condition_id`. Plan scope, exact request and precondition must all match.
+More than one eligible plan for the same request is a validation error; source
+row order never chooses the winner.
+
+`replacement_action` retains `(revision_id, plan_id, position)` and its typed
+option FK. Add actions carry `intent_effect=commit_purchase`; remove actions
+carry no add intent effect. Included/dependent children are acquired by the
+existing acquisition rules, not by duplicate add actions. This deliberately
+limits replacement plans to explicit purchase transfers; no persistent purchase
+intent table or catch-all action-origin enum is added to the catalog.
+
+| Plan | Request FK | Confirmed root change | Derived children |
+|---|---|---|---|
+| ST `ex:pcx-to-5do` | `opt_5do_001` | Remove PCX ownership; commit independent 5DO ownership. | Remove unsupported PCX children under the existing absorbing policy. |
+| Z06 `ex:pdb-to-pdd` | `opt_z07_001` | Remove PDB ownership; commit independent PDD ownership. Consume the request without committing independent Z07. | PDD acquires Z07/T0F and their children through rooted rules. |
+
+The accepted addition receives the transaction's acquisition sequence; an already
+valid independent purchase retains its original sequence. Reconciliation removes
+obsolete causes, retains valid independent causes under each lane's policy, and
+charges each option owner once. Cancel changes no root or sequence. Revert
+restores the previous complete state. Removing PDD in the second example removes
+package-only Z07; any genuinely pre-existing independent Z07 is handled by its
+existing validity/retention rules, not fabricated by the replacement request.
+These are refinements of the [transaction contract](master-schema-proposal.md#runtime-state-and-transaction-contract)
+and common policy, with no change to the accepted example totals.
+
+The remaining O3 endpoint allocations are:
+
+- `interior_node.parent_node_id` is a nullable same-revision node FK; null is a
+  root. Freeze validation rejects cycles and unreachable/invalid leaf mappings.
+- `context_copy.axis` is `body` or `trim`; `value` must equal that axis on its
+  referenced configuration. Check this cross-row constraint during validation;
+  no new body/trim lookup hierarchy is needed.
+- `visual_layer` owns scene FK, layer key and display order. `visual_binding`
+  owns the full layer FK, asset FK, condition FK and precedence; its existing
+  configuration junction owns scope. Binding precedence is separate from layer order.
+- `emission_policy.summary_section_id` is a same-revision summary-section FK;
+  `summary_order` is explicit. Both are required for summary-emitting rows and
+  both null otherwise. Code emission and summary emission remain distinct roles.
+  Populate destinations and ordering from each lane's retained presentation
+  evidence; never route all example options to a newly invented common section.
+  Equal display orders use stable option ID as a display tie-break only.
+
+### O4 — uniqueness and competing rules
+
+Ordinary unique keys: `model(model_key)`; `source_document(content_sha256)`;
+`source_anchor(document_id, locator, fragment_key)` using preserved canonical
+locator/fragment strings; `option_rate(revision_id, target_option_id, priority)`;
+`visual_binding(revision_id, scene_id, layer_key, precedence)`.
+The source anchor's fragment key may be the empty string for a whole locator,
+never SQL null. This does not merge differing source documents or facts.
+
+Typed duplicate checks use the parent plus populated endpoint: interior parts
+use `(revision_id, interior_id, option_id)` or the component equivalent;
+condition members use `(revision_id, condition_id, clause_id, endpoint, state)`
+for each concrete endpoint kind; conflict members use `(revision_id, conflict_id,
+endpoint)` for each kind. Enforce XOR first and unique non-null endpoints with
+filtered indexes or equivalent constraints in the chosen engine. Endpoint state
+is part of condition identity; different legitimate tests are not duplicates.
+
+For acquisitions, validate unique priority per target **where scopes and
+conditions overlap**. Retain all supported causes; priority cannot erase package
+ownership. Contradictory peer/intent policies need an explicit evidenced resolution,
+otherwise freeze fails. Content replacement effects require distinct precedence
+per aspect where scopes/conditions overlap. Additive effects do not compete as
+replacements. These cross-row predicates require semantic validation, not a claim
+that an ordinary UNIQUE constraint proves overlap safety. Finite configuration
+scopes and the typed condition language define the inputs to that validation.
+
+Lower numeric priority wins, as in the existing examples. Source order is never
+business precedence. PDB/Z07 zero J57 rates can retain their distinct sample
+priorities because the accepted target forbids coexistence; zero amounts do not
+excuse conflicting nonzero rules elsewhere. Full-catalog priority allocation must
+preserve all evidenced winners and reject unexplained competing outcomes.
+
+### O5 — installed state is a visual input
+
+Allow `installed_equipment` in an option condition member only when every consumer
+of that condition is a visual binding. Option intent/resolved-selection, interior
+chosen and group occupied states keep their existing meanings. A condition shared
+with a rule/rate/content consumer cannot contain an installed-equipment test;
+create a separate typed condition if needed. Evaluate visual conditions after
+root resolution and equipment substitution, so they cannot feed back into price
+or selection. For example, ZR1 with ZTK shows XFS installed and XFR absent;
+after removal without another supporting root, XFR returns. A missing asset
+reports missing/fallback imagery without changing that state. No actual artwork
+or rendering coverage is asserted by this design test.
+
+### O6 and O7 — translation, consumer IDs and evidence
+
+For every revision-owned authored target relation in the diagram, use a concrete
+`<relation>_translation` when that relation is populated from source. Exclude
+translation/mapping links themselves: do not recursively translate provenance.
+Each link's PK is `(revision_id, anchor_id, fragment_key, <target PK without R>)`;
+its two FKs reference the complete disposition and complete typed target keys.
+This expansion includes identities' version rows, every scope junction, singleton
+facts and associations. No scalar `target_id` substitutes for a composite key.
+For example:
+
+| Family | Full link PK; both FKs include revision_id |
+|---|---|
+| `acquisition_translation` | `(revision_id, anchor_id, fragment_key, acquisition_id)` |
+| `acquisition_configuration_translation` | `(revision_id, anchor_id, fragment_key, acquisition_id, configuration_id)` |
+| `condition_member_translation` | `(revision_id, anchor_id, fragment_key, condition_id, clause_id, member_id)` |
+| `interaction_policy_translation` | `(revision_id, anchor_id, fragment_key)` |
+
+This rule closes the family/key design without requiring unused tables in the
+first implementation slice. A source split can link to several concrete families;
+corroborating anchors can link to the same target. The three retired fragments
+above keep zero executable translations. Continuing identity lineage is recorded
+on its identity evidence, not by treating a revision disposition as a global FK.
+
+Use `legacy_configuration_mapping`, `legacy_option_mapping` and
+`legacy_interior_mapping` for those exported kinds. Other exported reference
+kinds get their concrete `legacy_<relation>_mapping` only when consumer inventory
+shows they are needed, including each exported rule family. Each has PK
+`(revision_id, namespace, legacy_key)` and the target's complete same-revision FK.
+Multiple aliases are separate mapping rows; they cannot ambiguously map one key
+to two targets within the same kind/namespace. New consumer keys are allocated
+once in that namespace and collision-checked. Release model aliases use
+`release_model_alias(release_id, alias, model_id)`, PK `(release_id, alias)`, with
+FK `(release_id, model_id)` to membership. It is a release association with no
+continuing identity. No new runtime ID format or consumer interface is adopted
+before that consumer's mapping is inspected and tested.
+
+Every authored domain/version/association/identity row, including model and
+model_year, has non-null
+`evidence_set_id` and nullable `decision_set_id`. An identity's evidence records
+its creation/lineage; version evidence records the changing facts. Price basis
+and asset metadata also carry these links. `review_decision(decision_id, version)`
+has a required evidence-set FK; it does not require a decision about itself.
+Evidence sets contain one or more anchored source fragments. Decision sets contain
+one or more immutable decision versions; absence of a governing decision uses a
+null FK, not an empty set. Common-policy authority is a versioned decision member
+alongside the lane decisions; its explicit override precedence remains intact.
+
+Provenance terminates at immutable source documents/anchors. Those records own
+source hash, locator and acquisition metadata; they do not require evidence about
+themselves. Evidence/decision containers and their membership rows derive lineage
+from their members, not self-referencing evidence sets. Revision/release metadata
+records its pinned inputs and manifest; it is not a new product fact requiring
+recursive source translation. Design-authored structure cites the reviewed design
+revision plus the relevant source/owner decision. Do not label the September 14
+design as an accepted owner decision until review actually accepts it.
+
+### N1 — conditional factory-wheel requirement
+
+Retain `z06_group_pdd_requires_carbon_wheel` as a model-owned optional 0/1 group
+with ROY, ROZ and STZ and all six retained scopes. PDD activates the separate
+occupied-group requirement. The source `requires_any` establishes that activated
+requirement; the factory-wheel peer semantics establish maximum one. Outside PDD,
+this requirement does not impose minimum one globally. Other applicable package
+requirements continue to apply. Verify PDD with each member passes, PDD with none
+fails, and any two members fail the peer constraint. Presentation sections do not
+own this cardinality.
+
+### N3 and O8 — full output and release completion
+
+The representative examples do not become a release by resolving design choices.
+The missing Z06 CBF relationships are explicitly these five frozen IDs in
+[runtime_derived_relationships.records](z06-structured-records.json), each targeting
+`opt_cbf_001`:
+
+| Exact source fragment | Source option |
+|---|---|
+| `derived_opt_pdd_001_replaces_opt_cbf_001` | `opt_pdd_001` |
+| `derived_opt_pdf_001_replaces_opt_cbf_001` | `opt_pdf_001` |
+| `derived_opt_t0f_001_replaces_opt_cbf_001` | `opt_t0f_001` |
+| `derived_opt_t0g_001_replaces_opt_cbf_001` | `opt_t0g_001` |
+| `derived_opt_z07_001_replaces_opt_cbf_001` | `opt_z07_001` |
+
+Translate each into its own evidenced conflict and request/confirmation removal
+behavior under the common policy, preserving effective configuration scope and
+any more specific accepted exception. They remove incompatible CBF ownership;
+they are not equipment-substitution-only rows. Each source fragment must link to
+its condition, conflict/member, plan/actions and scopes using the O6 keys. The
+pinned source-code and frozen emitted anchors are both required; the table above
+identifies the fragments but does not claim those target rows are populated.
+No general inclusion-closure algorithm is authorized to invent further edges.
+
+A full translated revision must account for every source disposition, complete
+applicability matrix, defaults, rules and charge owners, interior requirements,
+presentation destinations/order, code-emission classification and consumer keys.
+Full outputs must be checked against independently evidenced expected builds,
+including the unchanged portions omitted from these traces. Source discrepancies
+remain accepted departures or explicit unresolved blockers. This is required
+translation/verification work, not another open business decision.
+
+`release.default_model_id` is nullable while drafting and mandatory for a completed
+release; `(release_id, default_model_id)` references release membership. Release
+aliases use the O6 association; artifact paths are unique on `(release_id, path)`.
+A manifest pins immutable evaluator and format identifiers with content digests,
+the exact compatibility decision/version, and every referenced asset ID/hash.
+Store these pins as manifest data validated against the inputs/artifacts; no
+mutable external version registry or redundant product FK is needed. A human
+version label without immutable content identification is insufficient.
+
+Freeze validates the whole revision's keys, typed endpoints, evidence, scopes,
+prices, precedence, rooted rules and complete consumer mappings. Completion checks
+all six model memberships, matching years, frozen revisions, default membership,
+unique aliases/paths, generated artifacts and matching manifest/version/media pins.
+Validate and commit each state transition against the same immutable snapshot;
+concurrent draft edits invalidate the attempt. A publication pointer can reference
+only a completed release and changes through compare-and-swap after generation
+and validation succeed. FK existence alone never proves these predicates.
+
+The remaining work is now explicit: populate the omitted translation/evidence/
+presentation records, implement the constraints/evaluator, and execute full-output
+and release checks in separately authorized slices. The design resolutions do not
+claim those obligations passed or authorize implementation, publication or cutover.
 
 ## Validation boundary
 
-Validation checks document links/anchors, source IDs and row locators, paired
-identity/version ownership, typed local references and finite scope expansion,
-the illustrated group subset, and arithmetic against accepted handoff amounts.
-`python3 scripts/validate_handoffs.py` validates the unchanged input contract;
-`git diff --check` checks the final documentation diff. These checks do not execute
-a target evaluator, enforce physical FKs, prove notice/revert browser behavior,
-or certify an entire translated release. The remaining structural needs above
-must be addressed in the separately authorized implementation design.
+Document review checks references, source IDs/locators, typed identity ownership,
+finite scope expansion, sample priority uniqueness and arithmetic against retained
+handoffs. The new design is checked for consistency with those examples and the
+proposal; the five CBF IDs are compared with the frozen derived relationship list.
+`python3 scripts/validate_handoffs.py` checks the unchanged input contract;
+`git diff --check` checks the final documentation diff. No target evaluator,
+physical FK enforcement, browser behavior, complete export or freeze/publication
+transition is executed by these checks.

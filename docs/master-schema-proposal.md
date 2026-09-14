@@ -571,13 +571,17 @@ corrected-runtime parity, browser behavior or release/rollback reliability.
 
 The [relationship diagram slice](master-schema-diagram.md) now inventories all
 named relations and their keys/FKs, settles identity membership and the group
-scope constraint, and lists remaining naming/allocation opens. The
+scope constraint, and links the naming/allocation resolutions. The
 [populated tables and worked traces](master-schema-worked-examples.md) now exercise
 those keys with all six lanes, explicit identity/version rows, scoped group
 conditions, pricing, cancellation/revert and build-output projections. Their
-[Open section](master-schema-worked-examples.md#open) records the specific naming,
-allocation and constraint needs exposed by the examples; the rows are not a
-complete or freeze-ready target catalog. Only after that review should a separately
+[Open section](master-schema-worked-examples.md#open) now specifies design
+resolutions for O1–O8 and N1–N3: typed identity tables, key/nullability conventions,
+request-to-purchase transfer, endpoint allocation, uniqueness and visual-state
+checks, translation/evidence linkage and release eligibility. It supplements the
+original logical inventory, including typed release aliases. The rows remain a
+representative subset; full translation and executed checks are still required.
+Only after that review should a separately
 authorized disposable relational foundation cover revisions, identities,
 configurations, options, applicability and typed provenance, with a six-lane
 source translation sample and constraint tests. It should not begin the authoring UI or claim full
