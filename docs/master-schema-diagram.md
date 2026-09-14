@@ -412,13 +412,19 @@ erDiagram
 
 The common evidence/decision edges above apply to every revision-owned authored
 fact, including scope, association, translation and legacy-mapping rows (§7).
-They do not invent source anchors as product identities. Review decisions and
-price bases carry evidence; the two OPEN edges indicate unresolved evidence
-representation, not confirmed evidence-set FKs (O7).
-Rule/presentation version-to-identity edges, unspecified replacement triggers,
-and lineage for global/identity rows cannot be expanded into concrete FKs without
-settling the open items below. These omissions from concrete edges are explicit,
-not implied absence of the relationships.
+They do not make source anchors product identities. Under the
+[O6/O7 resolution](master-schema-worked-examples.md#o6-and-o7--translation-consumer-ids-and-evidence),
+review decisions, price bases and assets have required evidence-set FKs; price
+bases and assets also have nullable decision-set FKs. Global domain and continuing
+identity rows carry the evidence/decision links specified there, with lineage
+terminating at immutable source documents/anchors rather than recursive containers.
+The [O3 resolution](master-schema-worked-examples.md#o3-and-n2--requests-transactions-and-presentation-endpoints)
+defines the required same-revision requested-option FK shown for replacement plans,
+separate from their condition FK. Rule/presentation version-to-identity edges
+remain compact family notation: expand them using the concrete identity tables
+specified by [O1](master-schema-worked-examples.md#o1-and-o2--keys-identity-and-nullability).
+These are specified design relationships, not unresolved OPEN edges; actual target
+population and FK enforcement remain unimplemented.
 
 ## Key and FK table per relation
 

@@ -1176,14 +1176,39 @@ The missing Z06 CBF relationships are explicitly these five frozen IDs in
 | `derived_opt_t0g_001_replaces_opt_cbf_001` | `opt_t0g_001` |
 | `derived_opt_z07_001_replaces_opt_cbf_001` | `opt_z07_001` |
 
-Translate each into its own evidenced conflict and request/confirmation removal
-behavior under the common policy, preserving effective configuration scope and
-any more specific accepted exception. They remove incompatible CBF ownership;
-they are not equipment-substitution-only rows. Each source fragment must link to
-its condition, conflict/member, plan/actions and scopes using the O6 keys. The
-pinned source-code and frozen emitted anchors are both required; the table above
-identifies the fragments but does not claim those target rows are populated.
-No general inclusion-closure algorithm is authorized to invent further edges.
+Translate each into an individually evidenced conflict under the common policy,
+preserving effective configuration scope and any more specific accepted exception.
+Selecting one of these sources against CBF removes incompatible CBF ownership
+after confirmation; these are not equipment-substitution-only rows. Individual
+source accounting does **not** require a separate replacement plan per fragment.
+Use the O6 full-key links for each fragment's condition, conflict/member and scope,
+and for the plans/actions implementing its request directions. Several fragments
+may link to the same combined plan/action records; retain every contributing
+anchor rather than duplicating executable behavior.
+
+For a CBF request against an existing package build, allocate plans by the complete
+disclosed removal transaction, not by each resolved incompatible endpoint. PDD
+resolves PDD/Z07/T0F; PDF resolves PDF/Z07/T0G (retained
+`z06_rule_mapping` rows 37–42). Their nested conflicts must participate in one
+eligible plan for that request, not three. Where different removal sets need
+separate plans, their preconditions must be mutually exclusive using explicit
+intent `any_present`/`none_present` clauses and applicable scope. Include all
+independently owned incompatible roots in that partition: merely testing PDD
+intent does not exclude an additional retained Z07 or aero purchase. Remove the
+roots needed to eliminate every conflicting cause, commit CBF once, and reconcile
+unsupported children through the existing rooted rules. Never remove only a
+locked child while retaining its incompatible parent.
+
+Before freeze, check CBF requests against PDD and PDF, standalone Z07 with either
+aero, standalone T0F/T0G, and valid retained-independent-root combinations in every
+effective configuration. Require exactly one eligible complete plan when a
+replacement is needed, no remaining incompatible cause after confirmation, and
+unchanged prior ownership/charges on cancel or whole-state restoration on revert.
+Check the reverse source requests against CBF as well. These are target-population
+and validation obligations, not executed transition results. The pinned source-code
+and frozen emitted anchors are both required; the table above identifies the
+fragments but does not claim those target rows are populated. No general
+inclusion-closure algorithm is authorized to invent further edges.
 
 A full translated revision must account for every source disposition, complete
 applicability matrix, defaults, rules and charge owners, interior requirements,
