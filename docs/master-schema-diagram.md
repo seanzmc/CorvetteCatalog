@@ -6,6 +6,15 @@ prepared from `origin/main` at `a85368e2924cabf64ff57fc1db176f9e9c3c321e`.
 Logical documentation for review only: no populated rows, worked traces, DDL,
 importer, evaluator, canonical-data changes or implementation approval.
 
+September 14 update: the [worked-example resolutions](master-schema-worked-examples.md#open)
+supply the naming, endpoint, evidence and lifecycle design decisions exposed by
+this original logical inventory. Read its dagger/M/R notation through those
+resolutions. Statements below that a physical detail is unspecified describe the
+original diagram slice; the linked resolutions now govern those details. The
+family nodes remain compact notation, not generic physical tables. The O6
+`release_model_alias` association supplements the original release inventory.
+No DDL or executable validation is implied.
+
 ## Reading the diagram and keys
 
 This inventories every named relation in proposal §§1–7, including **all nine**
@@ -155,10 +164,15 @@ erDiagram
     TYPED_LEGACY_MAPPING
     release
     release_model
+    release_model_alias
     release_artifact
     publication_pointer
-    evidence_set |o..o{ review_decision : "OPEN evidence representation O7"
-    evidence_set |o..o{ price_basis : "OPEN evidence representation O7"
+    evidence_set |o..o{ review_decision : "required fact evidence O7"
+    release_model |o..o{ release_model_alias : "member aliases"
+    evidence_set |o..o{ asset : "required fact evidence O7"
+    decision_set |o..o{ asset : "nullable decisions"
+    decision_set |o..o{ price_basis : "nullable decisions"
+    evidence_set |o..o{ price_basis : "required fact evidence O7"
     CONCRETE_TARGET
     CONCRETE_EXPORTED_TARGET
     model |o..o{ model_year : "model"
@@ -270,6 +284,7 @@ erDiagram
     option |o..o{ choice_group_member : "option"
     evidence_set |o..o{ choice_group_member : "fact evidence"
     decision_set |o..o{ choice_group_member : "nullable decisions"
+    option |o..o{ replacement_plan : "requested option"
     condition |o..o{ replacement_plan : "condition"
     evidence_set |o..o{ replacement_plan : "fact evidence"
     decision_set |o..o{ replacement_plan : "nullable decisions"
@@ -293,6 +308,7 @@ erDiagram
     content_aspect |o..o{ content_effect : "content_aspect"
     evidence_set |o..o{ content_effect : "fact evidence"
     decision_set |o..o{ content_effect : "nullable decisions"
+    summary_section |o..o{ emission_policy : "summary destination"
     option |o..o{ emission_policy : "option"
     evidence_set |o..o{ emission_policy : "fact evidence"
     decision_set |o..o{ emission_policy : "nullable decisions"
@@ -396,13 +412,19 @@ erDiagram
 
 The common evidence/decision edges above apply to every revision-owned authored
 fact, including scope, association, translation and legacy-mapping rows (§7).
-They do not invent source anchors as product identities. Review decisions and
-price bases carry evidence; the two OPEN edges indicate unresolved evidence
-representation, not confirmed evidence-set FKs (O7).
-Rule/presentation version-to-identity edges, unspecified replacement triggers,
-and lineage for global/identity rows cannot be expanded into concrete FKs without
-settling the open items below. These omissions from concrete edges are explicit,
-not implied absence of the relationships.
+They do not make source anchors product identities. Under the
+[O6/O7 resolution](master-schema-worked-examples.md#o6-and-o7--translation-consumer-ids-and-evidence),
+review decisions, price bases and assets have required evidence-set FKs; price
+bases and assets also have nullable decision-set FKs. Global domain and continuing
+identity rows carry the evidence/decision links specified there, with lineage
+terminating at immutable source documents/anchors rather than recursive containers.
+The [O3 resolution](master-schema-worked-examples.md#o3-and-n2--requests-transactions-and-presentation-endpoints)
+defines the required same-revision requested-option FK shown for replacement plans,
+separate from their condition FK. Rule/presentation version-to-identity edges
+remain compact family notation: expand them using the concrete identity tables
+specified by [O1](master-schema-worked-examples.md#o1-and-o2--keys-identity-and-nullability).
+These are specified design relationships, not unresolved OPEN edges; actual target
+population and FK enforcement remain unimplemented.
 
 ## Key and FK table per relation
 
@@ -432,10 +454,11 @@ families require the O1 expansion into concrete kinds.
 | Key / constraint | Definition |
 |---|---|
 | Primary key | `(basis_id†)` |
-| Foreign keys | None explicitly specified; see notes where relationship details are open. |
+| FK — required evidence | `(evidence_set_id)` → `evidence_set(set_id)` |
+| FK — nullable decisions | `(decision_set_id)` → `decision_set(set_id)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Immutable. Source evidence is required, but its FK representation is unspecified (O7). Currency is a value; no currency relation is named.
+Immutable. Source evidence uses the required set FK (O7). Currency is a value; no currency relation is named.
 
 ### `catalog_revision`
 
@@ -670,7 +693,7 @@ Exactly one option or component endpoint; seat cannot repeat as a part.
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Acyclic hierarchy; parent column and root representation unspecified (O3). Revision-only, no identity row.
+Acyclic hierarchy; parent_node_id is null for a root and otherwise references a same-revision node (O3). Revision-only, no identity row.
 
 ### `interior_node_member`
 
@@ -806,11 +829,12 @@ Scoped min/max over explicit option members. No section FK. Has a continuing ide
 |---|---|
 | Primary key | `(R, id)` |
 | FK **[R]** — condition | `(R, condition_id†)` → `condition(R, id)` |
+| FK **[R]** — requested option | `(R, requested_option_id)` → `option(R, id)` |
 | FK — fact evidence | `(evidence_set_id†)` → `evidence_set(set_id†)` |
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Scoped; trigger request endpoint exists but its type/key is unspecified (O3). No invented endpoint FK. Has a continuing identity row ([Identity membership](#identity-membership)).
+Scoped; exact requested-option endpoint and condition must both match (O3). Has a continuing identity row ([Identity membership](#identity-membership)).
 
 ### `replacement_action`
 
@@ -823,7 +847,7 @@ Scoped; trigger request endpoint exists but its type/key is unspecified (O3). No
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Ordered option actions only; additions have acquisition origin. No FK from origin to acquisition is specified. Inherits plan scope.
+Ordered option actions only; additions use intent_effect=commit_purchase; removals leave that field null. Children come from rooted acquisitions, not extra plan additions (N2). Inherits plan scope.
 
 ### `option_rate`
 
@@ -883,11 +907,12 @@ Scoped. Has a continuing identity row ([Identity membership](#identity-membershi
 |---|---|
 | Primary key | `(R, option_id)` |
 | FK **[R]** — option | `(R, option_id)` → `option(R, id)` |
+| FK **[R]** — summary destination | `(R, summary_section_id)` → `summary_section(R, id)` |
 | FK — fact evidence | `(evidence_set_id†)` → `evidence_set(set_id†)` |
 | FK — nullable decisions | `(decision_set_id†)` → `decision_set(set_id†)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Summary destination is named but not explicitly typed as a summary_section FK (O3).
+Summary destination and summary_order are both set for summary emission and both null otherwise (O3); code emission remains a distinct role.
 
 ### `step`
 
@@ -985,7 +1010,8 @@ Source-policy version is named, but no policy relation or version FK is defined.
 | Key / constraint | Definition |
 |---|---|
 | Primary key | `(asset_id†)` |
-| Foreign keys | None explicitly specified; see notes where relationship details are open. |
+| FK — required evidence | `(evidence_set_id)` → `evidence_set(set_id)` |
+| FK — nullable decisions | `(decision_set_id)` → `decision_set(set_id)` |
 | Unique constraints | None specified beyond the primary key. |
 
 Immutable media/hash. No uniqueness constraint on hash is explicitly stated.
@@ -1198,10 +1224,10 @@ Anchor ID is the global reference used by evidence_member and source_disposition
 | Key / constraint | Definition |
 |---|---|
 | Primary key | `(decision_id†, version†)` |
-| Foreign keys | None explicitly specified; see notes where relationship details are open. |
+| FK — required evidence | `(evidence_set_id)` → `evidence_set(set_id)` |
 | Unique constraints | None specified beyond the primary key. |
 
-Proposal says Decision ID/version; exact names and composite-PK spelling remain open (O2). Evidence is required; linkage representation is unspecified (O7).
+Immutable `(decision_id, version)` with required evidence, no self-decision linkage (O2/O7).
 
 ### `decision_set`
 
@@ -1275,9 +1301,19 @@ Declared year, pinned versions/media/manifest. No additional version or media FK
 | FK — release | `(release_id, year)` → `release(release_id, year)` |
 | FK — model_year | `(M, model_id, year)` → `model_year(M, model_id, year)` |
 | FK **[R]** — catalog_revision | `(R, M)` → `catalog_revision(R, M)` |
-| Unique constraints | Aliases unique within release; exact alias columns/encoding unspecified (O4). |
+| Unique constraints | Alias uniqueness is enforced by release_model_alias (O6). |
 
 release_id, model_id, year, M, R are all non-null. One revision per lane in declared year. No additional direct model FK is stated or needed for that composite path.
+
+### `release_model_alias`
+
+| Key / constraint | Definition |
+|---|---|
+| Primary key | `(release_id, alias)` |
+| FK — member | `(release_id, model_id)` → `release_model(release_id, model_id)` |
+
+All columns required. Multiple aliases for a member use separate rows; one alias
+cannot name two members in a release. Release metadata, no continuing identity.
 
 ### `release_artifact`
 
@@ -1329,69 +1365,24 @@ change any accepted lane target.
 
 ## Open
 
-These are unresolved details of the proposal, not proposed additions or new
-business-policy decisions. They prevent claiming this is a physical FK contract.
+The original O1–O8 questions now have explicit design dispositions in the
+[worked examples](master-schema-worked-examples.md#open). The inventory above
+retains its original logical notation; use the following resolutions for the
+concrete contract rather than interpreting a dagger as an unresolved choice:
 
-- **O1 — Identity column naming and physical split.** Identity membership is
-  settled under [Identity membership](#identity-membership). What remains open
-  is naming: the M and predecessor column names on version and identity rows,
-  whether a family is one physical table with a kind discriminator or one per
-  relation, any restriction of predecessor links to the same model across years,
-  and the direct revision-owner FK column on revision-only rows. No generic
-  untyped identity or extra surrogate key is assumed.
-- **O2 — Unnamed columns and global key spelling.** “Basis ID”, “Asset ID”,
-  “Document ID”, “Set ID”, “Channel key” and similar descriptions do not declare
-  literal column names. “Decision ID/version” implies a versioned key required by
-  `decision_member`, but its exact PK spelling is not stated. Daggers retain these
-  uncertainties. The table is complete at the named logical-key level, not an
-  invented exact-column specification. FK nullability is generally unstated
-  except the explicit nullable decisions, predecessor/typed alternatives and
-  optional replacement roles; dotted lines do not settle it.
-- **O3 — Relationship allocation.** Replacement-plan trigger request type/key is
-  unspecified. Hierarchy parent/root columns are unspecified. The grouped visual
-  scene/layer/binding row names asset, configurations, condition and per-layer
-  precedence without fully assigning columns; the diagram shows the described
-  layer/binding path but does not finalize that allocation. `context_copy` uses
-  axis and configuration keys, but its value-to-body/trim validation mechanism is
-  unstated. Emission summary destination is not explicitly a summary-section FK.
-  No trigger endpoint, extra lookup table or polymorphic pointer is invented.
-- **O4 — Logical uniqueness versus exact unique-column sets.** The proposal
-  leaves column names/encoding open for model key, source document hash,
-  document/locator/fragment identity, interior-part typed target uniqueness,
-  condition endpoint/state duplicates, conflict endpoint duplicates, competing
-  acquisition priority, option-rate priority, overlapping content replacement
-  precedence, visual per-layer precedence and release aliases. The tables retain
-  each stated rule, including its scope, without pretending an ordinary UNIQUE
-  constraint necessarily enforces conditional/overlap rules. A stable aspect key
-  or immutable media hash is not silently declared unique.
-- **O5 — Visual condition state.** §6 permits typed resolved-installed-equipment
-  tests in visual conditions while §4's option states list intent and resolved
-  selection. The endpoint remains a typed option; allowed-state representation
-  and validation restricting that test to visual use remain unspecified. No new
-  condition/member family or recursive expression relation is invented.
-- **O6 — Translation and legacy family expansion.** §7 names templates, not a
-  closed list of concrete tables. `disposition_key` must carry `anchor_id` and
-  `fragment_key` with R to reference the stated disposition PK. A target association
-  may need several columns, so `target_id` cannot universally mean one scalar ID.
-  Exact per-kind translation PK expansion, concrete target keys/column names,
-  legacy exported-kind inventory (including which rules), alias representation
-  and new consumer-ID allocation remain open. Each eventual link must reference
-  its concrete target with the full R-qualified key. No wildcard FK is executable.
-- **O7 — Global evidence linkage.** Price-basis source evidence and review-decision
-  evidence are required, but their FK/set representation is not defined. §7's
-  every-authored-fact evidence rule and nullable decision-set rule are expanded
-  for domain rows; whether/how they cover global metadata, typed identities and
-  the evidence/decision containers themselves is unspecified. Do not manufacture
-  circular lineage, omit required evidence or infer an extra evidence relation.
-- **O8 — Release details beyond the explicit FKs.** The release default-model
-  reference must include release ID and reference `release_model` membership;
-  local default column name/nullability is unspecified. Paths are unique within
-  release; aliases' physical representation is not. Pinned evaluator/format/policy
-  versions and media references have no enumerated relation/FK schema. Frozen
-  revision and completed release eligibility are validation requirements, not
-  predicates enforced by the listed identity FKs. No extra direct model, asset or
-  version FK is added on that basis.
+| Original item | Current resolution |
+|---|---|
+| O1 — identity split and naming | [Concrete identity tables, ownership and predecessor rules](master-schema-worked-examples.md#o1-and-o2--keys-identity-and-nullability) |
+| O2 — global keys and nullability | [Allocate-once IDs, immutable sets and explicit null exceptions](master-schema-worked-examples.md#o1-and-o2--keys-identity-and-nullability) |
+| O3 — endpoint allocation | [Typed request, confirmed purchase transfer, hierarchy/context and output destinations](master-schema-worked-examples.md#o3-and-n2--requests-transactions-and-presentation-endpoints) |
+| O4 — uniqueness and precedence | [Concrete keys and separate overlap validation](master-schema-worked-examples.md#o4--uniqueness-and-competing-rules) |
+| O5 — visual state | [Installed-equipment tests limited to visual consumers](master-schema-worked-examples.md#o5--installed-state-is-a-visual-input) |
+| O6 — translation and legacy families | [Full target-key expansion, consumer mapping and release aliases](master-schema-worked-examples.md#o6-and-o7--translation-consumer-ids-and-evidence) |
+| O7 — global evidence | [Required fact evidence and terminating container lineage](master-schema-worked-examples.md#o6-and-o7--translation-consumer-ids-and-evidence) |
+| O8 — release eligibility | [Manifest pins, full-revision validation and atomic lifecycle transitions](master-schema-worked-examples.md#n3-and-o8--full-output-and-release-completion) |
 
-The relationship-diagram slice is complete at the proposal's declared logical
-level, with these limits exposed. Representative populated tables and worked
-behavior traces remain a separate design slice before any implementation.
+N1 retains the optional Z06 wheel group with an activated PDD requirement; N2
+settles replacement purchase ownership; N3 defines the omitted population and
+full-output obligations. These are design resolutions for review. Actual target
+population, constraint enforcement and release eligibility remain unverified;
+implementation requires its own authorized task.
