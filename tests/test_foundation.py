@@ -183,6 +183,31 @@ class FoundationTests(unittest.TestCase):
             finally:
                 db.close()
 
+    def test_model_master_ownership_mismatch_rolls_back_import(self):
+        scratch = f.ROOT / ".local"
+        scratch.mkdir(exist_ok=True)
+        for lane in (f.LANES[0], f.LANES[-1]):
+            for field, wrong in (("model_key", "wrong-model"), ("model_year", "2028")):
+                with self.subTest(lane=lane, field=field), tempfile.TemporaryDirectory(dir=scratch) as directory:
+                    for source_lane in f.LANES:
+                        name = f"{source_lane}-structured-records.json"
+                        Path(directory, name).write_bytes((f.ROOT / "docs" / name).read_bytes())
+                    path = Path(directory, f"{lane}-structured-records.json")
+                    data = json.loads(path.read_bytes())
+                    # Configurations still agree with the header; only the cited
+                    # model-master identity is stale.
+                    data["baseline_rows"]["model_master"][0][field] = wrong
+                    path.write_text(json.dumps(data))
+                    db = f.connect(":memory:")
+                    try:
+                        f.create_schema(db)
+                        before = list(db.iterdump())
+                        with self.assertRaisesRegex(ValueError, f"model_master {field} mismatch: {lane}"):
+                            f.import_samples(db, directory)
+                        self.assertEqual(list(db.iterdump()), before)
+                    finally:
+                        db.close()
+
     def test_all_version_owners_reject_cross_model_and_cross_year(self):
         other_year = "stingray-2028-test"
         model = self.db.execute("SELECT model_id FROM model_year WHERE model_year_id = ?", (self.m,)).fetchone()[0]

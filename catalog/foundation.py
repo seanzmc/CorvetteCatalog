@@ -188,6 +188,11 @@ def import_samples(connection, source_dir=ROOT / "docs"):
                         source_path=source_path, acquired_at=datetime.now(timezone.utc).isoformat()))
             rows = data["baseline_rows"]
             model_row, = rows["model_master"]
+            if model_row["model_key"] != data["model_key"]:
+                raise ValueError(f"model_master model_key mismatch: {lane}")
+            # Workbook model-master years are text; handoff header years are integers.
+            if str(model_row["model_year"]) != str(data["model_year"]):
+                raise ValueError(f"model_master model_year mismatch: {lane}")
             _, evidence = _evidence(connection, document_id, f"baseline_rows/model_master/_row={model_row['_row']}")
             model_id = _allocated(connection, "model", "model_id", dict(model_key=data["model_key"]),
                                   dict(name=model_row["model_label"]) | evidence)
