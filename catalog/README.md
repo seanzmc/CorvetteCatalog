@@ -1,8 +1,80 @@
 # Disposable relational baseline
 
+## Disposable master-schema foundation
+
+The September 15 foundation implements the bounded structural slice in
+[proposal §9](../docs/master-schema-proposal.md#9-review-outcome-and-next-bounded-work),
+using the [O1–O4/O6–O7 resolutions](../docs/master-schema-worked-examples.md#open).
+It is independent of the historical importer below. Run from the repository root
+with Python's standard library; no new dependencies:
+
+```sh
+python3 -m catalog.foundation
+python3 -m unittest discover -s tests -p test_foundation.py -v
+```
+
+The command creates or reuses `.local/foundation/catalog.sqlite`. Every foundation
+connection goes through `catalog.foundation.connect`, which enables and verifies
+`PRAGMA foreign_keys=ON`. Tests exercise initial and reopened file connections.
+The historical `catalog.schema` path is unchanged.
+
+**Implemented structure:** model/year and draft-only revisions; all 18 separate
+typed identity/version pairs; structural endpoints and ordinary uniqueness;
+eight rule/content scope junctions plus direct option/interior applicability;
+condition clauses/members and explicit choice-group membership; documents,
+anchors, evidence, decision-version membership and dispositions. Every version
+references both its complete revision/model-year owner and its complete typed
+model-year/identity key. RPO is not unique.
+
+**Sample:** each of the six `docs/*-structured-records.json` files contributes its
+own `opt_uvb_001` (UVB, HD Rear Vision Camera), all its actual `variant_master`
+configurations and every UVB availability row: 6/6/6/6/4/4 for
+ST/GS/GSX/Z06/ZR1/ZR1X. UVB is standard in each lane's base trim and unavailable
+in the higher trims. Six model-owned options and 32 configuration/status pairs
+retain their IDs and values. Matching source IDs do not create global sharing.
+No source price is copied, and unavailable rows are retained.
+
+Only the three populated revision-owned relations get translation tables:
+`configuration_translation`, `option_translation` and
+`option_configuration_translation`. The last retains **both** target IDs; each
+link references the full revision/anchor/fragment disposition key. The documents
+are tracked handoff JSON files hashed from their actual bytes; locators preserve
+`baseline_rows/<sheet>/_row=<Excel row>`. These are not raw-workbook hashes.
+Global UUIDs are allocated once and retrieved by declared natural keys; source
+IDs remain in identity/version/translation rows. Re-import checks existing facts
+and reuses immutable evidence membership. Changed source hashes are rejected,
+not refreshed. The entire six-lane import is atomic.
+
+**Enforcement:** `foundation_schema.statements()` emits standard `CREATE TABLE`,
+explicit non-null primary keys, composite FKs, `UNIQUE` and `CHECK`. No rowid-based
+keys, triggers, generated IDs or engine-specific DDL clauses. Only SQLite has
+been executed; PRAGMAs and initial database detection are SQLite adapter code.
+`foundation.validate` checks FK integrity, nonempty evidence/decision containers,
+parent revision order, all 18 families' same-model/earlier-year predecessors and
+group-scope containment for every implemented condition consumer (both requirement
+conditions and every clause/group). Empty scope means nowhere. Cross-row rules
+run before import commits and must run inside future write transactions; raw SQL
+can bypass Python validation. No authoring/write service is supplied here.
+
+**Boundary:** version tables are a structural projection, not complete business
+records. Price columns/bases (including configuration/option/option_rate amounts),
+evaluator policies, presentation payloads, visual bindings, consumer exports and
+release operations are excluded. Visual-binding scope must join the validator
+when that relation is added. Unpopulated families have no translation tables or
+fabricated source rows; synthetic fixtures exist only in tests. General editing
+of immutable records and freeze enforcement are later authoring work. Revisions
+are draft-only, and structural validation does not establish release eligibility.
+
+Fifteen focused tests reconcile exact sample fields and locators and prove
+positive/negative constraints, all 18 ownership/predecessor families, nonempty
+provenance, restart/re-import equality and last-lane failure rollback. They do not
+prove corrected runtime behavior, prices, complete migration or release readiness.
+
+## Historical baseline implementation
+
 **Historical implementation reference.** Current work is
-[comprehensive model discovery](../docs/model-discovery.md), not extending this
-candidate or cutting over from the workbook. Preserve this implementation as evidence.
+the separate foundation above, not extending this candidate or cutting over from
+the workbook. Preserve this implementation as evidence.
 
 Checkpoint B imports the frozen canonical workbook directly into a SQLite
 candidate. It does not read runtime JSON, invoke 27vette code, generate Excel,
