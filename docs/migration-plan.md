@@ -1,6 +1,32 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 13 master-schema proposal
+## Current direction — September 15 disposable relational foundation
+
+Following merged PR #39, the owner authorized SQLite and the bounded foundation
+in [proposal §9](master-schema-proposal.md#9-review-outcome-and-next-bounded-work).
+The [implemented foundation](../catalog/README.md#disposable-master-schema-foundation)
+creates model/year/revisions, all 18 typed identity/version pairs, structural
+endpoints, applicability scopes and evidence. Its six-lane UVB sample retains
+source option/configuration IDs: six model-owned options, 32 configurations and
+all 32 status rows, including unavailable pairs. Only the three populated
+revision-owned relations receive typed translation tables.
+
+Fifteen focused tests pass: per-connection FK enforcement, composite and
+model/year rejection, same-model earlier-year predecessors, persisted UUID
+reuse on re-import, atomic failure, source reconciliation, provenance and group
+scope containment. DDL uses standard table/key/check constructs; SQLite is the
+only engine executed. Cross-row predecessor and scope rules use Python validation.
+The disposable file is `.local/foundation/catalog.sqlite`; the older baseline
+candidate and frozen source evidence are unchanged.
+
+This is a structural projection, not the full authored domain. Price fields and
+bases, evaluator policies, presentation payloads, visual bindings, full source
+population, consumer mapping and release operations are not implemented.
+The next separately bounded task remains the proposal's conditional-rule,
+intent-transition and pricing evaluator slice with evidence-derived targets;
+it has not started. No authoring UI, canonical-data change, deployment or cutover.
+
+## Prior direction — September 13 master-schema proposal
 
 The owner authorized the [master-schema proposal](master-schema-proposal.md)
 after the merged six-model review. The logical proposal is now drafted for review:

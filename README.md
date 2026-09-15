@@ -2,7 +2,12 @@
 
 A fresh project for relational Corvette product data, manufacturer order-guide intake, and configuration data for an order form and visualizer.
 
-**Current status: six-model master-schema proposal drafted for review.**
+**Current status: disposable SQLite relational foundation implemented and locally verified.**
+The [foundation sample](catalog/README.md#disposable-master-schema-foundation)
+implements typed structural keys and provenance with one option/applicability
+sample per lane. Full translation, evaluation, prices and release operations
+remain later work; the workbook remains canonical.
+
 Use the [master-schema proposal](docs/master-schema-proposal.md) for logical
 ownership, keys, rules, pricing and six-model walkthroughs, and the
 [relationship diagram and key/FK reference](docs/master-schema-diagram.md) for the
