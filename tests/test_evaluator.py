@@ -93,6 +93,37 @@ class EvaluatorTests(unittest.TestCase):
         self.charges(s.state, 73495)
         self.assertNotIn('opt_uqt_002', s.state.resolved)
 
+    def test_current_configuration_preserves_whole_state_and_undo(self):
+        # Reuse the E04 interior and independent-belt ownership case.
+        s = self.session('grand_sport', '3lt_e07')
+        self.buy(s, 'opt_3f9_001', 'opt_g26_001')
+        prior = s.state
+        self.act(s, 'interior', '3LT_AE4_EL9')
+        original = s.state
+        self.assertEqual(original.intent, ('opt_3f9_001', 'opt_g26_001'))
+        self.assertEqual(original.interior_id, '3LT_AE4_EL9')
+
+        self.assertIs(s.evaluator.transition(original, 'configure', '3lt_e07'), original)
+        for _ in range(2):  # A redundant event and its retry are both inert.
+            preview = s.preview('configure', '3lt_e07')
+            self.assertIs(s.state, original)
+            self.assertEqual(preview.candidate, original)
+            self.assertEqual(preview.added, frozenset())
+            self.assertEqual(preview.removed, frozenset())
+            self.assertEqual(preview.removed_intent, frozenset())
+            self.assertFalse(preview.interior_changed)
+            self.assertIs(s.cancel(), original)
+            self.assertIs(self.act(s, 'configure', '3lt_e07'), original)
+        self.assertEqual(s.revert(), prior)
+
+        # An actual context change still clears both intent and interior.
+        self.act(s, 'interior', '3LT_AE4_EL9')
+        self.assertEqual(self.act(s, 'configure', '2lt_e07'),
+                         s.evaluator.state('2lt_e07'))
+        self.assertEqual(s.state.intent, ())
+        self.assertIsNone(s.state.interior_id)
+        self.assertEqual(s.revert(), original)
+
     def test_e02_pcx_replacement_and_absorption(self):
         # ST-O26/D06 and common policy: frozen coexistence 90,680 is rejected.
         s = self.session('stingray', '2lt_c07')

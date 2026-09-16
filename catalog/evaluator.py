@@ -291,6 +291,8 @@ class Evaluator:
             raise EvaluationError('State belongs to another revision')
         config, intent, interior = before.configuration_id, list(before.intent), before.interior_id
         if action == 'configure':
+            if target == config:
+                return before
             policy, = [r for r in self.rows['configuration_policy'] if r['configuration_id'] == config]
             if policy['context_reset_policy'] != 'clear_intent':
                 raise EvaluationError('Unsupported context reset policy')
