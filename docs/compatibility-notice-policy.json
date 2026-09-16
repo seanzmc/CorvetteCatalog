@@ -25,6 +25,48 @@
     "activation": "No selection or charge; show factory-unavailable disclosure"
   },
   "preservation": "A clickable conflict card does not permit an invalid combination. Removed offerings and inapplicable model/body/trim offerings are not made available by this policy. Prerequisites are not waived.",
+  "direct_dependency_removal": {
+    "decision_id": "COMMON-DIRECT-REMOVAL-2026-09-15",
+    "review_date": "2026-09-15",
+    "review_state": "accepted",
+    "authority": "Owner approval in PR #41 follow-up: apply the proposed D84 notice/confirm/cancel solution to analogous unresolved conflict interactions.",
+    "scope": "All six lanes; explicit removal of a customer-removable option required or acquired by other selected options or an interior.",
+    "locked_meaning": "Cannot commit an invalid parent/child combination. Does not by itself disable a request that can be resolved by disclosed removal of its supporting sources.",
+    "candidate": "Honor the requested removal. Remove its independent intent, if any, and the selected dependent sources/supporting roots needed to prevent reacquisition or an unsatisfied requirement. Reconcile unsupported descendants and charges. Preserve unrelated choices, including paint; do not break a condition by arbitrarily changing another endpoint.",
+    "multiple_causes": "Account for every live cause and invalidated dependent. Disclose the complete removal set in one transaction; do not remove only one source and silently reacquire the requested option from another.",
+    "confirm": "Commit the disclosed candidate atomically. Explicit removal ends independent ownership of the requested option; prior independent intent does not protect it from that request.",
+    "cancel": "Preserve the entire previous committed state, including intent, causes, interior and charges.",
+    "revert": "Restore the entire previous committed state.",
+    "source_removal_distinction": "Removing only a package or dependency trigger retains independently owned children when still valid, according to the accepted lane ownership policy; children without another live cause disappear.",
+    "interior": "If the removed option is required by the chosen interior, disclose clearing that leaf and its unsupported causes. Do not choose a replacement leaf; missing required interior remains incomplete and cannot submit.",
+    "limits": "Does not make factory-unavailable, inapplicable or standard-only informational content customer-removable. Does not waive mandatory configuration equipment, invent replacement products, package credits or prices, or authorize a new alternative where no valid removal transaction exists.",
+    "grand_sport_d84": {
+      "configuration_id": "2lt_e67",
+      "initial_selected_codes": [
+        "G26",
+        "97A",
+        "Z15",
+        "DMX",
+        "D84"
+      ],
+      "request_remove_option_id": "opt_d84_001",
+      "remove_option_ids": [
+        "opt_d84_001",
+        "opt_dmx_001"
+      ],
+      "retain_option_ids": [
+        "opt_g26_001",
+        "opt_97a_001",
+        "opt_z15_001"
+      ],
+      "initial_context_usd": 107175,
+      "candidate_context_usd": 104585,
+      "cancel_context_usd": 107175,
+      "confirm_context_usd": 104585,
+      "revert_context_usd": 107175,
+      "ownership": "Same result with dependency-only or prior independent D84. Confirmation removes independent D84 intent if present; revert restores its original ownership."
+    }
+  },
   "model_overrides": {
     "stingray": {
       "superseded_ui_decision_ids": ["ST-D06"],

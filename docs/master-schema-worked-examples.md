@@ -795,13 +795,16 @@ rendered notices, order exports and visualizer manifests are outside this slice.
   cause, retains independent D84 and its **1,295** charge, and totals **105,880**.
   Cancel retains the original state; confirm commits the corresponding candidate;
   revert restores DMX, the previous D84 ownership and **107,175**.
-- **Open owner decision — direct D84 removal (outside E03 acceptance):** the rule
-  above governs loss of the trigger, not removal of D84 while DMX and a listed
-  paint still require it. No accepted decision selects rejection, reacquisition,
-  or removal of a specific trigger, including what happens to independent D84
-  intent. Do not encode any of those alternatives as an acceptance fixture until
-  that candidate/committed outcome is decided. An invalid dependency combination
-  remains prohibited; this open interaction does not waive the requirement.
+- **Direct D84 removal (E03, accepted September 15):** from the same **107,175**
+  context, request removal of D84. Preview removal of D84 and DMX, retaining
+  G26/97A/Z15, for **104,585**; committed state stays **107,175** until confirmation.
+  Confirm removes both, including any independent D84 intent. Cancel preserves
+  the original state; revert restores both options, their original causes and
+  independent intent, and **107,175**. The result is the same for dependency-only
+  and independently selected D84: direct removal explicitly ends its ownership.
+  Do not reacquire D84, disable this request merely because it is locked, or
+  remove/change paint instead. Authority: the common policy's accepted
+  `direct_dependency_removal` decision.
 - **Interior validity (E04):** clearing EL9 does not invent a replacement
   interior. Required-interior validity stays false until an eligible leaf is
   chosen.
@@ -819,6 +822,29 @@ rendered notices, order exports and visualizer manifests are outside this slice.
   applicable defaults/replacements must fail the candidate with committed state
   intact. Minimal synthetic invalid-input tests may prove these algorithm guards;
   label them synthetic, not source-derived business targets.
+
+### Related conflict interactions — September 15 clarification
+
+The accepted common `direct_dependency_removal` policy resolves the same
+interaction ambiguity across lanes; it does not copy identities or product facts.
+All six owner overlays already reference that policy and have empty
+`unresolved_decisions` lists. Earlier blocked-card observations remain historical.
+This audit covers the analogous cases in the proposal and worked examples:
+
+| Relationship | Documented resolution |
+|---|---|
+| GS/GSX conditional stripe → D84 | Direct D84 removal discloses removal of each active stripe source requiring it; retain paint. Independently owned D84 survives stripe-only removal if valid, but not an explicit D84 removal. E03 supplies the exact GS numeric fixture. |
+| Hash → Z15; interior EL9 → Z25/3F9 | Direct removal of a required child discloses removal of dependent hash selections or clearing the affected interior and unsupported causes. No arbitrary paint change or replacement interior; missing required interior is incomplete. |
+| ST PCX children; GSX FED → XFR and ZZ3 children | A customer-removable child request must disclose removal of the package roots needed to honor it, including other affected children/charges. `locked` alone does not require refusal. Standard-only equipment is not thereby made directly removable. Preserve lane-specific ownership policies. |
+| Z06 nested PDD → Z07 → equipment | A permitted direct child-removal request resolves all affected supporting roots in one disclosed transaction. Do not leave an invalid parent or reacquire the requested child; preserve mandatory configuration equipment. Existing Z07-request/PDB→PDD behavior remains the named replacement, not permission to substitute PDF. |
+| ZR1/ZR1X ZTK → TOM | Direct TOM removal discloses removal of ZTK and its unsupported causes, and clears any independent TOM intent. ZTK-only removal still retains valid independent TOM. Displaced covers remain deselected; no automatic restoration. |
+| CBF against Z06 package/aero roots; other option/option conflicts | Apply the existing complete-removal transaction in both directions, including all conflicting independent roots. The common policy supersedes historical refusal UI; retain exact conflict scope and approved replacement products. |
+
+Where a concrete source relationship or compatible replacement is not yet
+translated, that remains implementation/evidence work. The interaction policy is
+settled; it does not certify every removal set or price without source inspection.
+These additional examples document policy coverage, not an expansion of E01–E08
+into full catalog execution. Direct D84 removal is now included in E03.
 
 ### Implementation boundary for the following step
 
@@ -925,9 +951,11 @@ three convertible configurations, with no coupe fallback.
 The accepted correction is **105,880 frozen + 1,295 missing D84 = 107,175**.
 The numerically identical 105,880 in the last row is a different, explicitly named
 build (D84 without DMX), not reuse of the defective frozen selection set. Direct
-D84 removal while DMX and a listed paint remain is an open owner decision under
-[the selected-case controls](#required-controls-within-those-cases); GS-D04/16
-do not select its candidate/committed outcome. Static trim information is not rewritten by the
+D84 removal while DMX and a listed paint remain now follows the September 15
+accepted [selected-case control](#required-controls-within-those-cases): disclose
+removal of D84 and DMX, keep G26/97A/Z15, and commit **104,585** only on confirmation.
+This also removes prior independent D84 intent; cancel/revert preserves/restores
+that original ownership. This later common-policy clarification supplements GS-D04/16. Static trim information is not rewritten by the
 stripe selection, and the body-color roof baseline is not proof of installed
 Carbon Flash roof treatment.
 
