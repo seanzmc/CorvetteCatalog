@@ -73,7 +73,7 @@ The September 16 source slice populates the inputs for
 Run from the repository root using the standard library:
 
 ```sh
-python3 -m catalog.evaluator_sources
+python3 -m catalog.evaluator_sources --cases
 python3 -m unittest discover -s tests -p test_evaluator_sources.py -v
 ```
 
@@ -225,6 +225,83 @@ required interior is reported separately. These are context totals, not complete
 quotes. Paint/completeness rules and option relationships outside this selected
 closure are not translated. No full-catalog validity, generic authoring/release
 validator, UI, export, deployment or canonical-data change is implemented.
+
+## Complete offering population
+
+`import_catalog` in `catalog/evaluator_sources.py` expands the offering data
+across all six lanes. `import_cases` preserves the original E01–E08 fixture.
+
+```sh
+python3 -m catalog.evaluator_sources
+python3 -m catalog.evaluator_sources --database .local/foundation/fresh-offerings.sqlite
+python3 -m unittest tests.test_catalog_offerings tests.test_evaluator_sources tests.test_evaluator tests.test_foundation
+```
+
+The default destination is **`.local/foundation/catalog-offerings.sqlite`**.
+Use a fresh file for changed schema or translation recipes; existing matching
+imports can be reopened. There is no in-place migration of earlier drafts.
+
+| Lane | Source options | Accepted additions | Interior leaves | Applicability pairs | Source contextual rates |
+|---|---:|---:|---:|---:|---:|
+| Stingray | 242 | 2 | 130 | 1,464 | 52 |
+| Grand Sport | 241 | 2 | 132 | 1,458 | 55 |
+| Grand Sport X | 239 | 1 | 132 | 1,440 | 51 |
+| Z06 | 244 | 2 | 130 | 1,476 | 72 |
+| ZR1 | 207 | 1 | 90 | 832 | 34 |
+| ZR1X | 206 | 1 | 90 | 828 | 33 |
+| Total | 1,379 | 9 | 704 | 7,498 | 297 |
+
+**Source and accepted target:** every source option identity survives, including
+uncoded equipment, retired DUW and the retired GS T0E duplicate. Nine additions
+use persisted UUIDs linked to accepted-addition records: DTC in ST/GS/Z06 and SAI
+in every lane. GSX/ZR1/ZR1X retain their existing DTC identities. Applicable
+factory-unavailable offerings cannot acquire or charge; missing disabled prices
+remain unknown, never zero. Accepted standard-equipment restorations retain their
+original applicability matrices. DUE uses Royal Blue in the five lanes with that
+accepted correction. GS/GSX Z25 carries the accepted 1,995 content price.
+
+Null-price equipment and GS/GSX hash marks have explicit no-separate-charge
+classifications; an unexpected active purchase-price omission fails the import.
+All 297 source rates retain their IDs, targets, amounts, typed option/interior
+conditions and body/trim scopes. Existing case precedence comes first, followed
+by remaining workbook row order. This draft ordering does **not** establish
+general overlap correctness; that remains a semantic validation boundary.
+Three decision-linked rates add the accepted SC7-at-zero-with-SBT correction in
+Z06/ZR1/ZR1X, bringing the populated rate total to 300. The other three lanes
+already have that source rate. All six preserve the standalone pouch charge.
+
+**Interior ownership:** typed `interior_part` and `component_rate` relations add
+700 non-seat parts, 33 model-owned components and 112 configuration-qualified
+component rates. Every leaf owns its seat through one FK, even where the source
+component list omitted AE4. R6X is an option-backed part; suede, stitching and
+two-tone extras have independent exact rates. Source interior inclusion rows
+supply belts and GS launch-edition content; GSX-D02 supplies the missing GSX Z25
+acquisition. No stored interior total, residual, combined seat/R6X rate, or duplicate
+seat line is executed. The four defective AE4/R6X paths now contribute 1,590,
+2,085, 2,780 and 2,285 in LT lanes; LZ equivalents are 1,590, 2,085, 2,980 and
+2,485. Frozen defect evidence is unchanged.
+
+The evaluator reads these part/rate relations and source configuration-specific
+selectability overrides. E01–E08 still execute with their original expected
+charge lines in both the case fixture and the complete offering population.
+
+**Validation and boundary:** independent tests reconcile all option IDs, names,
+lifecycle, default amounts and matrices; all contextual rate endpoints, amounts
+and scopes; and all interior seats, parts and extra rates. Every interior is
+priced in each permitted configuration, with explicit corrected-charge tests
+across six lanes. Reopened-file re-import preserves every allocation and row;
+changed pinned input is rejected and a late failure rolls back the entire import.
+Typed FK/monetary checks and full provenance validation remain in force.
+
+This completes **offering data**, not all catalog behavior. General acquisitions,
+requirements, defaults, choice groups, conflicts, substitutions and replacement
+policies still use the bounded case recipes; other accepted behavior corrections
+(including new-offering conflicts, lifecycle-dependent package behavior, and
+full GS/GSX hash/roof rules) remain to be translated and tested. Presentation,
+disclosures, navigation, visual bindings and exports are not populated consumers.
+Every evaluator state retains `partial_catalog_not_submission_ready`. Complete
+offering counts and interior pricing are not complete quote, semantic-overlap,
+release, UI or cutover proof. No frozen evidence or canonical workbook changed.
 
 ## Historical baseline implementation
 

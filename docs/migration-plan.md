@@ -1,6 +1,37 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 16 bounded evaluator
+## Current direction — September 16 complete offering population
+
+The authorized population expansion is implemented in
+[`catalog/evaluator_sources.py`](../catalog/evaluator_sources.py). The
+[complete offering importer](../catalog/README.md#complete-offering-population)
+retains all 1,379 source option identities, adds nine accepted DTC/SAI identities,
+and populates 704 interiors, 7,498 applicability pairs and all 297 source
+contextual rates plus three accepted SC7/SBT rate corrections. Retirements,
+unavailable states, accepted naming/restoration decisions, GS/GSX Z25 pricing,
+and model-qualified interior charge owners remain
+separate from frozen baseline facts. The original eight-case fixture remains
+available for independent regression checks.
+
+Typed interior parts/component rates and contextual selectability overrides
+extend the disposable schema and evaluator only as needed to consume these
+offerings. The four known AE4/R6X defects are corrected by one seat owner, with
+no stored total or balancing residual. Every scoped interior is exercised;
+all six lanes reconcile against retained handoffs rather than counts alone.
+Validation: the broader suite passed 135 tests in 182 seconds before the final
+ZR1X name and three SC7 rate refinements; all 76 affected source/evaluator/
+foundation tests passed on the final implementation in 16 seconds. Fresh and
+reopened CLI imports, six-lane handoff validation and diff checks pass. Existing
+`rule_inventory.py` ResourceWarnings remain without test failures.
+
+This checkpoint completes offering population, while general behavior beyond
+E01–E08 and interior price ownership remains bounded. Full option-rule/default/
+conflict translation, remaining accepted behavior corrections, semantic overlap,
+release operations and consumers remain subsequent work. The database remains
+draft and every result is `partial_catalog_not_submission_ready`; the workbook
+and frozen sources are unchanged. No merge, deployment or cutover is authorized.
+
+## Prior direction — September 16 bounded evaluator
 
 Following merged PR #39, the owner authorized SQLite and the bounded foundation
 in [proposal §9](master-schema-proposal.md#9-review-outcome-and-next-bounded-work).

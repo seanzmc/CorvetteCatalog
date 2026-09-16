@@ -1,8 +1,8 @@
 """Portable structural DDL for the disposable master-schema foundation.
 
 This is a projection of the reviewed logical design, not a complete catalog.
-Draft rows may omit payloads until translated. The bounded evaluator source
-slice supplies prices and policies; presentation and releases remain absent.
+Draft rows may omit payloads until translated. Complete offerings and bounded
+behavior supply prices and policies; presentation and releases remain absent.
 Typed ownership and endpoint keys are concrete.
 """
 
@@ -28,6 +28,10 @@ TRANSLATIONS = {
 
 # Only families populated by the bounded source importer receive translation links.
 TRANSLATIONS.update({
+    "component": ("component_id",),
+    "interior_part": ("interior_id", "part_key"),
+    "component_rate": ("component_id", "configuration_id"),
+    "option_presentation_override": ("option_id", "configuration_id"),
     "interior": ("interior_id",), "interior_configuration": ("interior_id", "configuration_id"),
     "condition": ("condition_id",), "condition_clause": ("condition_id", "clause_id"),
     "condition_member": ("condition_id", "clause_id", "member_id"),
@@ -101,6 +105,9 @@ def statements():
         key("set_id"), key("anchor_id"), "PRIMARY KEY (set_id, anchor_id)",
         fk("set_id", "evidence_set", "set_id"), fk("anchor_id", "source_anchor", "anchor_id"),
     ])
+    # Full offering import repeatedly resolves sets by anchor, the reverse of
+    # the primary key. Keep those provenance lookups indexed as volume grows.
+    yield 'CREATE INDEX evidence_member_by_anchor ON evidence_member (anchor_id, set_id);'
     yield table("review_decision", [
         key("decision_id"), "version INTEGER NOT NULL CHECK (version > 0)",
         key("evidence_set_id"), "PRIMARY KEY (decision_id, version)",
@@ -215,6 +222,27 @@ def statements():
         key("revision_id"), *endpoint("interior_id", "interior"),
         *endpoint("configuration_id", "configuration"),
         "PRIMARY KEY (revision_id, interior_id, configuration_id)", *EVIDENCE,
+    ])
+    yield table("interior_part", [
+        key("revision_id"), *endpoint("interior_id", "interior"), key("part_key"),
+        *endpoint("option_id", "option", True), *endpoint("component_id", "component", True),
+        key("role"), "display_order INTEGER NOT NULL",
+        "PRIMARY KEY (revision_id, interior_id, part_key)",
+        "CHECK ((option_id IS NULL) <> (component_id IS NULL))",
+        "UNIQUE (revision_id, interior_id, option_id)",
+        "UNIQUE (revision_id, interior_id, component_id)", *EVIDENCE,
+    ])
+    yield table("component_rate", [
+        key("revision_id"), *endpoint("component_id", "component"),
+        *endpoint("configuration_id", "configuration"), *money("amount_minor"),
+        "CHECK (amount_minor IS NOT NULL)",
+        "PRIMARY KEY (revision_id, component_id, configuration_id)", *EVIDENCE,
+    ])
+    yield table("option_presentation_override", [
+        key("revision_id"), *endpoint("option_id", "option"),
+        *endpoint("configuration_id", "configuration"),
+        "customer_selectable INTEGER NOT NULL CHECK (customer_selectable IN (0, 1))",
+        "PRIMARY KEY (revision_id, option_id, configuration_id)", *EVIDENCE,
     ])
     for parent, column in SCOPES.items():
         yield table(f"{parent}_configuration", [
