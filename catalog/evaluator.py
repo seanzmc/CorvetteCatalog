@@ -362,7 +362,9 @@ class Evaluator:
             conflicts = self.conflicts(config, intent, interior, causes)
             if conflicts:
                 left, right = conflicts[0]
-                requested_roots = {target} if action == 'select' else {'interior:' + (target or '')}
+                # A removal requests nothing, so neither conflict side is preferred.
+                requested_roots = ({target} if action == 'select' else
+                                   {'interior:' + (target or '')} if action == 'interior' else set())
                 left_roots = roots.get(left, {left})
                 right_roots = roots.get(right, {right})
                 if requested_roots.intersection(left_roots) and not requested_roots.intersection(right_roots):
