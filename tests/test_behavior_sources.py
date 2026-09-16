@@ -246,6 +246,54 @@ class BehaviorTests(unittest.TestCase):
                 state = self.select(ev, ev.state(config), 'GTR', stripe)
                 self.assertTrue({'GTR', stripe}.issubset(self.codes(ev, state)))
 
+    def test_stripe_conflicts_follow_superseding_notice_policy_in_both_directions(self):
+        # September 11 compatibility-notice-policy.json supersedes GS-D12,
+        # GSX-D06 and Z06-D05 refusal UI while retaining their exclusion sets.
+        for model, config in (('grand_sport', '1lt_e67'), ('grand_sport_x', '1lt_g67'), ('z06', '1lz_h67')):
+            ev = self.ev(model)
+            for stripe in 'DPB DPC DPG DPL DPT DSY DSZ DT0 DTC DTH DUB DUE DUK DZU DZV DZX'.split():
+                for graphic in ('VPW', 'VPO'):
+                    for first, second in ((stripe, graphic), (graphic, stripe)):
+                        with self.subTest(model=model, first=first, second=second):
+                            session = Session(ev, config)
+                            session.confirm(session.preview('select', self.oid(ev, first)))
+                            before = session.state
+                            preview = session.preview('select', self.oid(ev, second))
+                            self.assertEqual(session.state, before)
+                            self.assertIn(self.oid(ev, first), preview.removed)
+                            self.assertIn(self.oid(ev, first), preview.removed_intent)
+                            self.assertIn(self.oid(ev, second), preview.added)
+                            self.assertNotIn(self.oid(ev, first), preview.candidate.resolved)
+                            self.assertEqual(session.cancel(), before)
+                            # Cancel invalidates the offer, not just its display.
+                            with self.assertRaisesRegex(EvaluationError, 'Stale or foreign preview'):
+                                session.confirm(preview)
+                            confirmed = session.confirm(session.preview('select', self.oid(ev, second)))
+                            self.assertEqual(confirmed, preview.candidate)
+                            self.assertEqual(session.revert(), before)
+
+    def test_graphic_conflicts_trace_both_exclusions_and_policy_override(self):
+        for lane, decision in (('grand-sport', 'GS-D12'), ('grand-sport-x', 'GSX-D06'), ('z06', 'Z06-D05')):
+            ev = self.ev(lane.replace('-', '_'))
+            expected = {('docs/' + lane + '-owner-decisions.json', 'owner_review/records/decision_id=' + decision),
+                        ('docs/compatibility-notice-policy.json', 'precedence'),
+                        ('docs/compatibility-notice-policy.json', 'model_overrides/' + lane.replace('-', '_'))}
+            for code in ('VPW', 'VPO'):
+                row, = self.db.execute('''SELECT c.* FROM conflict c JOIN conflict_translation t
+                    ON t.revision_id=c.revision_id AND t.conflict_id=c.id
+                    JOIN source_anchor a USING(anchor_id) JOIN source_document d USING(document_id)
+                    WHERE c.revision_id=? AND c.source_option_id=? AND d.source_path=? AND a.locator=?''',
+                    (ev.revision_id, self.oid(ev, code), 'docs/' + lane + '-owner-decisions.json',
+                     'owner_review/records/decision_id=' + decision))
+                evidence = {tuple(r) for r in self.db.execute('''SELECT d.source_path, a.locator FROM evidence_member m
+                    JOIN source_anchor a USING(anchor_id) JOIN source_document d USING(document_id)
+                    WHERE m.set_id=?''', (row['evidence_set_id'],))}
+                translated = {tuple(r) for r in self.db.execute('''SELECT d.source_path, a.locator FROM conflict_translation t
+                    JOIN source_anchor a USING(anchor_id) JOIN source_document d USING(document_id)
+                    WHERE t.revision_id=? AND t.conflict_id=?''', (ev.revision_id, row['id']))}
+                self.assertTrue(expected.issubset(evidence), expected - evidence)
+                self.assertTrue(expected.issubset(translated), expected - translated)
+
     def test_z06_cbf_removes_complete_package_roots_and_cancel_revert(self):
         ev = self.ev('z06')
         for codes in [('PDD',), ('PDF',), ('Z07', 'T0F'), ('Z07', 'T0G'), ('T0F',), ('T0G',), ('T0F', 'PDD')]:

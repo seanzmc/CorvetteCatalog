@@ -388,10 +388,10 @@ class BehaviorLane(s.OfferingLane):
     def corrections(self):
         """Accepted targets; original workbook rules remain immutable evidence."""
         lane = self.lane
-        def conflict(source, targets, decision, scope=None):
+        def conflict(source, targets, decision, scope=None, policy_anchors=()):
             anchor = self.decision(decision)
             self.conflict('accepted/' + source + '/' + decision, self.oid(source), [self.oid(t) for t in targets.split()],
-                          [anchor, self.option_anchor(source)], scope)
+                          [anchor, self.option_anchor(source), *policy_anchors], scope)
         def include(source, target, decision, peer='locked', origin='included', scope=None):
             anchors = [self.decision(decision), self.option_anchor(source), self.option_anchor(target)]
             self.acquisition('accepted/' + source + '/' + target, target, self.when([self.oid(source)], anchors=anchors),
@@ -414,8 +414,13 @@ class BehaviorLane(s.OfferingLane):
         if lane in ('grand-sport', 'grand-sport-x', 'z06'):
             stripes = 'DPB DPC DPG DPL DPT DSY DSZ DT0 DTC DTH DUB DUE DUK DZU DZV DZX'
             decision = {'grand-sport': 'GS-D12', 'grand-sport-x': 'GSX-D06', 'z06': 'Z06-D05'}[lane]
-            conflict('VPW', stripes + (' SHT VPO Z15' if lane != 'z06' else ' PCZ SHT VPO'), decision)
-            conflict('VPO', stripes + (' PDA SNE VPW Z15' if lane != 'z06' else ' EYK PDA SNE VPW'), decision)
+            # These decisions retain the exclusions, but their refusal UI was
+            # superseded on September 11. Stripes, badges and packages all use
+            # notice/confirm/cancel; confirmation must never permit coexistence.
+            policy = [self.e.anchor(s.POLICY, 'precedence'),
+                      self.e.anchor(s.POLICY, 'model_overrides/' + self.data['model_key'])]
+            conflict('VPW', stripes + (' SHT VPO Z15' if lane != 'z06' else ' PCZ SHT VPO'), decision, policy_anchors=policy)
+            conflict('VPO', stripes + (' PDA SNE VPW Z15' if lane != 'z06' else ' EYK PDA SNE VPW'), decision, policy_anchors=policy)
         if lane in ('grand-sport', 'grand-sport-x'):
             decision = 'GS-D04' if lane == 'grand-sport' else 'GSX-D04'
             for stripe, paints in [('DMX', 'G26 G4Z GBK GKZ GPH'), ('DMV', 'G26 G4Z GBK GKZ GPH'),
