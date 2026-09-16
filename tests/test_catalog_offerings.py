@@ -180,6 +180,35 @@ class CatalogOfferingTests(test_evaluator.EvaluatorTests):
                 self.assertEqual(state.total_minor - ev.state(config).total_minor, contribution * 100)
                 self.assertIn('opt_z25_001', state.resolved)
 
+    def test_no_charge_source_price_changes_fail_in_fresh_imports(self):
+        # Synthetic prices only modify temporary copies, never source evidence.
+        for lane, code, importers in [
+            ('grand-sport-x', 'XFR', (s.import_cases, s.import_catalog)),
+            ('stingray', 'UVB', (s.import_catalog,)),
+        ]:
+            with tempfile.TemporaryDirectory() as directory:
+                path = Path(directory)
+                for name in [f'{l}-{suffix}.json' for l in f.LANES for suffix in ('structured-records', 'owner-decisions')] + [s.DESIGN, s.POLICY]:
+                    shutil.copyfile(f.ROOT / 'docs' / name, path / name)
+                target = path / f'{lane}-structured-records.json'
+                data = json.loads(target.read_bytes())
+                row, = [r for r in data['baseline_rows'][data['sheet_roles']['options']] if r['rpo'] == code]
+                self.assertIsNone(row['price'])
+                for amount in (0, 100):
+                    row['price'] = amount
+                    target.write_text(json.dumps(data))
+                    for importer in importers:
+                        with self.subTest(lane=lane, code=code, amount=amount, importer=importer.__name__):
+                            db = f.connect(':memory:')
+                            try:
+                                f.create_schema(db)
+                                with self.assertRaisesRegex(ValueError, f'No-charge classification source changed: {lane}/{code}'):
+                                    importer(db, path)
+                                for table, in db.execute("SELECT name FROM sqlite_master WHERE type = 'table'"):
+                                    self.assertEqual(db.execute(f'SELECT COUNT(*) FROM "{table}"').fetchone()[0], 0, table)
+                            finally:
+                                db.close()
+
     def test_late_full_import_failure_rolls_back_and_pins_sources(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory)

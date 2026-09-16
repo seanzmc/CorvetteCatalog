@@ -424,7 +424,9 @@ class OfferingLane(Lane):
             # selectable flag; the flag is not evidence of a purchase price.
             included_only = self.lane == 'z06' and row['rpo'] in {'CFX', 'DRG', 'TR7', 'XFS'}
             no_charge = row['rpo'] in EQUIPMENT_NO_CHARGE[self.lane] or row['rpo'] in hashes or included_only or classification == 'uncoded_equipment_match'
-            if amount is None and no_charge:
+            if no_charge:
+                if amount is not None:
+                    raise ValueError(f'No-charge classification source changed: {self.lane}/{row["rpo"] or oid}')
                 mode = 'no_separate_charge'
             elif amount is not None:
                 mode = 'priced'
