@@ -1,8 +1,9 @@
 """Portable structural DDL for the disposable master-schema foundation.
 
-This is a projection of the reviewed logical design, not a complete catalog:
-price payloads/bases, evaluator policies, presentation payloads and releases
-are deliberately absent. Typed ownership and endpoint keys are concrete.
+This is a projection of the reviewed logical design, not a complete catalog.
+Draft rows may omit payloads until translated. The bounded evaluator source
+slice supplies prices and policies; presentation and releases remain absent.
+Typed ownership and endpoint keys are concrete.
 """
 
 IDENTITY_RELATIONS = (
@@ -24,6 +25,29 @@ TRANSLATIONS = {
     "configuration": ("configuration_id",), "option": ("option_id",),
     "option_configuration": ("option_id", "configuration_id"),
 }
+
+# Only families populated by the bounded source importer receive translation links.
+TRANSLATIONS.update({
+    "interior": ("interior_id",), "interior_configuration": ("interior_id", "configuration_id"),
+    "condition": ("condition_id",), "condition_clause": ("condition_id", "clause_id"),
+    "condition_member": ("condition_id", "clause_id", "member_id"),
+    "acquisition": ("acquisition_id",), "requirement": ("requirement_id",),
+    "choice_group": ("group_id",), "choice_group_member": ("group_id", "option_id"),
+    "conflict": ("conflict_id",), "conflict_member": ("conflict_id", "member_id"),
+    "replacement_plan": ("plan_id",), "replacement_action": ("plan_id", "position"),
+    "option_rate": ("rate_id",), "equipment_substitution": ("substitution_id",),
+    "interaction_policy": (), "configuration_policy": ("configuration_id",),
+})
+TRANSLATIONS.update({f"{parent}_configuration": (column, "configuration_id")
+                     for parent, column in SCOPES.items() if parent != "content_effect"})
+
+
+def money(column):
+    # Integer minor units avoid SQLite NUMERIC's floating-point conversion.
+    return [f"{column} BIGINT CHECK ({column} >= 0 AND {column} = CAST({column} AS BIGINT))", key("basis_id", True),
+            fk("basis_id", "price_basis", "basis_id"),
+            f"CHECK (({column} IS NULL AND basis_id IS NULL) OR "
+            f"({column} IS NOT NULL AND basis_id IS NOT NULL))"]
 
 
 def key(name, nullable=False):
@@ -122,6 +146,13 @@ def statements():
             *EVIDENCE,
         ])
 
+    yield table("price_basis", [
+        key("basis_id"), "currency VARCHAR(3) NOT NULL",
+        "minor_units_per_unit INTEGER NOT NULL CHECK (minor_units_per_unit = 100)",
+        "amount_meaning VARCHAR(64) NOT NULL CHECK (amount_meaning IN ('vehicle_destination_included', 'option_purchase'))",
+        "resolution_state VARCHAR(32) NOT NULL CHECK (resolution_state = 'accepted')",
+        "PRIMARY KEY (basis_id)", "UNIQUE (currency, amount_meaning)", *EVIDENCE,
+    ])
     payloads = {
         "configuration": ["body VARCHAR(64) NOT NULL", "trim VARCHAR(64) NOT NULL",
                           "enabled INTEGER NOT NULL CHECK (enabled IN (0, 1))",
@@ -129,7 +160,7 @@ def statements():
         "option": ["rpo VARCHAR(255)", "name VARCHAR(2048) NOT NULL",
                    "customer_selectable INTEGER NOT NULL CHECK (customer_selectable IN (0, 1))",
                    "lifecycle VARCHAR(32) NOT NULL CHECK (lifecycle IN ('active', 'factory_unavailable', 'retired'))"],
-        "interior": endpoint("seat_option_id", "option"),
+        "interior": endpoint("seat_option_id", "option") + ["code VARCHAR(64)", "enabled INTEGER CHECK (enabled IN (0, 1))"],
         "component": [key("kind"), key("code"), "UNIQUE (revision_id, kind, code)"],
         "condition": ["mode VARCHAR(32) NOT NULL CHECK (mode IN ('always', 'conjunction'))"],
         "requirement": source_endpoints() + endpoint("activation_condition_id", "condition")
@@ -147,6 +178,25 @@ def statements():
         "content_effect": endpoint("condition_id", "condition") + endpoint("aspect_id", "content_aspect"),
         "section": endpoint("step_id", "step"),
     }
+    payloads["configuration"] += money("starting_amount_minor")
+    payloads["option"] += money("purchase_amount_minor") + [
+        "charge_mode VARCHAR(32) CHECK (charge_mode IN ('priced', 'no_separate_charge'))",
+        "CHECK (charge_mode <> 'no_separate_charge' OR (purchase_amount_minor IS NULL AND basis_id IS NULL))",
+    ]
+    payloads["option_rate"] += money("amount_minor")
+    payloads["acquisition"] += [
+        "origin_kind VARCHAR(32) CHECK (origin_kind IN ('standard', 'default', 'included', 'dependency'))",
+        "peer_policy VARCHAR(32) CHECK (peer_policy IN ('locked', 'yield_to_explicit'))",
+        "intent_policy VARCHAR(32) CHECK (intent_policy IN ('absorb_prior', 'preserve_prior'))",
+        "priority INTEGER CHECK (priority > 0)",
+    ]
+    payloads["requirement"] += [
+        "source_state VARCHAR(32) CHECK (source_state IN ('resolved_selection', 'chosen'))",
+        "CHECK ((source_option_id IS NOT NULL AND source_state = 'resolved_selection') OR "
+        "(source_interior_id IS NOT NULL AND source_state = 'chosen'))",
+        "loss_policy VARCHAR(64) CHECK (loss_policy = 'remove_source_with_notice_revert')",
+    ]
+    payloads["choice_group"] += ["peer_policy VARCHAR(32) CHECK (peer_policy = 'replace')"]
     for relation in IDENTITY_RELATIONS:
         yield table(relation, [
             key("revision_id"), key("model_year_id"), key("id"),
@@ -194,20 +244,52 @@ def statements():
         *[f"UNIQUE (revision_id, condition_id, clause_id, {column}, state)"
           for column in ("option_id", "interior_id", "group_id")], *EVIDENCE,
     ])
+    yield table("conflict_member", [
+        key("revision_id"), *endpoint("conflict_id", "conflict"), key("member_id"),
+        *endpoint("option_id", "option", True), *endpoint("interior_id", "interior", True),
+        "PRIMARY KEY (revision_id, conflict_id, member_id)",
+        "CHECK ((option_id IS NOT NULL AND interior_id IS NULL) OR (option_id IS NULL AND interior_id IS NOT NULL))",
+        "UNIQUE (revision_id, conflict_id, option_id)", "UNIQUE (revision_id, conflict_id, interior_id)", *EVIDENCE,
+    ])
+    yield table("replacement_action", [
+        key("revision_id"), *endpoint("plan_id", "replacement_plan"),
+        "position INTEGER NOT NULL CHECK (position > 0)", *endpoint("option_id", "option"),
+        "action VARCHAR(16) NOT NULL CHECK (action IN ('add', 'remove'))",
+        "intent_effect VARCHAR(32)", "PRIMARY KEY (revision_id, plan_id, position)",
+        "CHECK ((action = 'remove' AND intent_effect IS NULL) OR "
+        "(action = 'add' AND intent_effect IS NOT NULL AND intent_effect = 'commit_purchase'))", *EVIDENCE,
+    ])
+    yield table("interaction_policy", [
+        key("revision_id"), "PRIMARY KEY (revision_id)", fk("revision_id", "catalog_revision", "revision_id"),
+        "conflict_action VARCHAR(32) NOT NULL CHECK (conflict_action = 'notice_confirm_cancel')",
+        "direct_removal_action VARCHAR(64) NOT NULL CHECK (direct_removal_action = 'remove_requested_and_supporting_sources')",
+        "cancel_action VARCHAR(32) NOT NULL CHECK (cancel_action = 'preserve_whole_state')",
+        "revert_action VARCHAR(32) NOT NULL CHECK (revert_action = 'restore_whole_state')", *EVIDENCE,
+    ])
+    yield table("configuration_policy", [
+        key("revision_id"), *endpoint("configuration_id", "configuration"),
+        "PRIMARY KEY (revision_id, configuration_id)",
+        "interior_minimum INTEGER NOT NULL CHECK (interior_minimum = 1)",
+        "interior_maximum INTEGER NOT NULL CHECK (interior_maximum = 1)",
+        "context_reset_policy VARCHAR(32) NOT NULL CHECK (context_reset_policy = 'clear_intent')",
+        "invalid_interior_action VARCHAR(32) NOT NULL CHECK (invalid_interior_action = 'clear_with_notice_revert')", *EVIDENCE,
+    ])
     yield table("source_disposition", [
         key("revision_id"), key("anchor_id"), key("fragment_key"),
-        "disposition VARCHAR(32) NOT NULL CHECK (disposition = 'baseline_sample')",
+        "disposition VARCHAR(32) NOT NULL CHECK (disposition IN ('baseline_sample', 'accepted_target'))",
         "PRIMARY KEY (revision_id, anchor_id, fragment_key)",
         fk("revision_id", "catalog_revision", "revision_id"),
         fk("anchor_id", "source_anchor", "anchor_id"), *EVIDENCE,
     ])
     for relation, columns in TRANSLATIONS.items():
         target_columns = ("id",) if relation in IDENTITY_RELATIONS else columns
+        suffix = (", " + ", ".join(columns)) if columns else ""
+        target_suffix = (", " + ", ".join(target_columns)) if target_columns else ""
         yield table(f"{relation}_translation", [
             key("revision_id"), key("anchor_id"), key("fragment_key"),
-            *[key(column) for column in columns],
-            f"PRIMARY KEY (revision_id, anchor_id, fragment_key, {', '.join(columns)})",
+            *["position INTEGER NOT NULL" if column == "position" else key(column) for column in columns],
+            f"PRIMARY KEY (revision_id, anchor_id, fragment_key{suffix})",
             fk("revision_id, anchor_id, fragment_key", "source_disposition", "revision_id, anchor_id, fragment_key"),
-            fk("revision_id, " + ", ".join(columns), relation, "revision_id, " + ", ".join(target_columns)),
+            fk("revision_id" + suffix, relation, "revision_id" + target_suffix),
             *EVIDENCE,
         ])

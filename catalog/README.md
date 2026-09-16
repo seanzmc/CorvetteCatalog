@@ -34,7 +34,7 @@ in the higher trims. Six model-owned options and 32 configuration/status pairs
 retain their IDs and values. Matching source IDs do not create global sharing.
 No source price is copied, and unavailable rows are retained.
 
-Only the three populated revision-owned relations get translation tables:
+The UVB command populates three revision-owned translation families:
 `configuration_translation`, `option_translation` and
 `option_configuration_translation`. The last retains **both** target IDs; each
 link references the full revision/anchor/fragment disposition key. The documents
@@ -56,19 +56,92 @@ conditions and every clause/group). Empty scope means nowhere. Cross-row rules
 run before import commits and must run inside future write transactions; raw SQL
 can bypass Python validation. No authoring/write service is supplied here.
 
-**Boundary:** version tables are a structural projection, not complete business
-records. Price columns/bases (including configuration/option/option_rate amounts),
-evaluator policies, presentation payloads, visual bindings, consumer exports and
-release operations are excluded. Visual-binding scope must join the validator
-when that relation is added. Unpopulated families have no translation tables or
-fabricated source rows; synthetic fixtures exist only in tests. General editing
-of immutable records and freeze enforcement are later authoring work. Revisions
-are draft-only, and structural validation does not establish release eligibility.
+**Boundary:** this command remains a structural UVB sample. The shared DDL now
+also supports the bounded source slice below. Draft payload columns can remain
+null in structural fixtures; `evaluator_sources.validate_sources` requires the
+populated slice's prices and policies. Presentation, visual bindings, consumer
+exports, general editing, freeze and release operations remain unimplemented.
 
-Fifteen focused tests reconcile exact sample fields and locators and prove
-positive/negative constraints, all 18 ownership/predecessor families, nonempty
-provenance, restart/re-import equality and last-lane failure rollback. They do not
-prove corrected runtime behavior, prices, complete migration or release readiness.
+Sixteen foundation tests reconcile sample fields/locators and check typed keys,
+FK enforcement, predecessor rules, provenance, group scopes and atomic re-import.
+These are structural checks, not corrected-runtime or release proof.
+
+## Evaluator case source population — step 3
+
+The September 16 source slice populates the inputs for
+[E01–E08](../docs/master-schema-worked-examples.md#first-evaluator-slice--evidence-derived-acceptance-targets).
+Run from the repository root using the standard library:
+
+```sh
+python3 -m catalog.evaluator_sources
+python3 -m unittest discover -s tests -p test_evaluator_sources.py -v
+```
+
+This creates/reuses **`.local/foundation/evaluator-sources.sqlite`** through the
+same FK-enforcing connection factory. It leaves the earlier foundation file and
+historical baseline candidate untouched. There is no automatic schema migration:
+use a fresh disposable file when changing DDL or pinned inputs. Changed input
+hashes or recorded facts are rejected rather than silently refreshed. The complete
+import, including the underlying foundation and new allocations, is one transaction.
+
+### Translated coverage and source reconciliation
+
+| Cases | Populated facts and accepted interpretations |
+|---|---|
+| E01–E02 / ST | UQT standard roots in the four source override configurations and context-reset policy; PCX's four retained inclusion IDs and zero rates, absorbing ownership, PCX/5DO conflict and purchase-transfer actions. Independent QE6 keeps its own 1,095 amount. |
+| E03–E04 / GS | DMX AND ANY of five exact paints, convertible-only D84 acquisition and continuing requirement; 97A/Z15 and DMX/Z15 validity; both EL9 leaves with typed seat ownership, 3LT eligibility, Z25/3F9 acquisition and requirements. GS-D05 assigns source leaf 1,995 to Z25 instead of its frozen zero; AE4 uses its 595 3LT source rate; 3F9's Z25 rate is zero. No residual/component charge. |
+| E05 / GSX | FED/XFR source inclusion, explicit no-separate-charge XFR, XFT substitution and standard J57/B4Z/FE5/LS6/XFT roots. |
+| E06 / Z06 | PDB/PDD/Z07/T0F inclusions, carbon-wheel source groups including STZ, explicit wheel membership and requirements, J57/J6D corrected default, PDB/Z07 conflict and PDD purchase transfer, contextual package/wheel/R8E rates, standard roots and equipment substitutions. The J6D soft default excludes PDB's locked acquisition scope; the Z07/T0F soft default excludes PDD's locked cause. |
+| E07–E08 / ZR1 and ZR1X | Each lane's ZTK children and TOM requirement, preserve-prior intent, separate R8E defaults, standard roots and equipment substitutions. Restored FE8/FEH lifecycle is decision-linked; TOM stays 12,995, with distinct retained IDs. Local ZTK prices remain 5,995 versus 1,500. |
+
+The projection contains 32 configurations, 72 options (including the six original
+UVB samples), two interiors, 55 acquisitions, 11 requirements and 29 rates.
+These counts describe scope, not proof of parity. The recipes explicitly select
+source rows; they do not import every rule attached to every referenced option.
+Supplemental PDB wheel membership, STZ rates, Z07→T0F and T0F→CFZ preserve the
+selected groups and reverse/request-transfer context without requiring the full
+catalog. Covers, alternative aero/package families, CBF expansion, other interiors
+and full 54-state Z06 coverage remain outside this projection.
+
+**Money:** `starting_amount_minor`, `purchase_amount_minor` and `amount_minor`
+are exact nonnegative integer cents, with a `basis_id` FK. The two immutable USD
+bases distinguish vehicle price including destination once from option purchase
+price. Null and zero differ. `charge_mode=no_separate_charge` is a finite,
+evidenced equipment/hash classification; an unexpected null purchase rate fails.
+Acquisition does not imply a zero charge. No floating-point price calculation is
+used. SQL checks reject fractional/negative amounts and unmatched amount/basis
+pairs; Python validation also checks the basis meaning for each owner.
+
+**Rules and ownership:** typed clauses/members preserve AND, ANY and absence
+conditions. Coexisting CFZ and belt acquisition causes have distinct priorities;
+both remain supported causes. Acquisitions carry origin, peer policy, intent policy and priority;
+requirements carry source state and loss policy. Replacement actions distinguish
+remove from add/`commit_purchase`, including Z07 request → PDD purchase transfer.
+The revision interaction policy encodes the approved notice/confirm/cancel,
+direct dependency removal and whole-state revert semantics. Configurations carry
+reset and required-interior policies. These are inputs, not executed transitions.
+
+**Provenance:** all newly populated revision-owned families, including singleton
+policies and composite scope/member/action rows, have concrete translation tables
+with complete target FKs. Source IDs remain unchanged. New typed identities use
+UUIDs allocated once via source-fragment translation links; `ex:` aliases are not
+stored as identities. Hashed source documents include the six handoffs, accepted
+lane overlays, common policy and worked design. Evidence sets are immutable;
+decision sets link accepted lane decisions and both shared-policy decisions at
+explicit version 1. Original frozen observations and source documents are unchanged.
+
+**Validation:** source tests independently compare IDs, applicability, exact
+amounts, price owners, conditions/scopes, ownership, request transfer and equipment
+substitution. They exercise reopened-file re-import equality, late-failure rollback,
+typed composite FK rejection, missing prices, money constraints, decision evidence
+and the real Z06 group-scope subset. The foundation tests retain cross-model/year
+and predecessor checks. All use fresh disposable databases.
+
+**Not implemented:** the evaluator, transition/cancel/revert execution, charge
+resolution, convergence and semantic overlap validation, UI, exports, publication
+or canonical cutover. The UVB-only structural rows remain unpriced and unused by
+the cases. This subset is not a selectable full catalog or a release candidate;
+passing source tests does not prove E01–E08's runtime totals or behavior.
 
 ## Historical baseline implementation
 

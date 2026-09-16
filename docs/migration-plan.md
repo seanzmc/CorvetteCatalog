@@ -1,6 +1,6 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 15 disposable relational foundation
+## Current direction — September 16 evaluator source inputs
 
 Following merged PR #39, the owner authorized SQLite and the bounded foundation
 in [proposal §9](master-schema-proposal.md#9-review-outcome-and-next-bounded-work).
@@ -19,9 +19,9 @@ only engine executed. Cross-row predecessor and scope rules use Python validatio
 The disposable file is `.local/foundation/catalog.sqlite`; the older baseline
 candidate and frozen source evidence are unchanged.
 
-This is a structural projection, not the full authored domain. Price fields and
-bases, evaluator policies, presentation payloads, visual bindings, full source
-population, consumer mapping and release operations are not implemented.
+The original foundation was a structural projection. Step 3 below extends the
+same DDL with the selected cases' price and policy payloads; presentation,
+visual bindings, full catalog population, consumers and releases remain later work.
 PR #40 is merged. The owner reports the environment baseline restored in the
 review worktree: Python 3.14 virtual environment, existing pinned requirements,
 and access to the ignored raw guide; 76 tests passed in approximately 160 seconds.
@@ -36,10 +36,30 @@ The shared machine-readable compatibility policy records this resolution and
 applies the same interaction to analogous dependent-option conflicts across all
 six lanes. The worked examples document that coverage and the unchanged factory,
 mandatory-equipment and model-specific replacement limits.
-Conditional-rule, intent-transition and pricing evaluator implementation has not
-started. Its next bounded scope is the selected cases and necessary dependency
-closure, not full source population. No authoring UI, canonical-data change,
-deployment or cutover.
+PR #41 merged with these targets and the direct-removal clarification.
+Step 3 now implements their [bounded source population](../catalog/README.md#evaluator-case-source-population--step-3)
+in `catalog/evaluator_sources.py`, using a separate ignored
+`.local/foundation/evaluator-sources.sqlite` file. Prices use exact integer USD
+cents and evidenced bases. The slice adds typed conditions, ownership policies,
+requirements, carbon-wheel groups, purchase-transfer actions, substitutions and
+complete typed translation provenance, preserving source IDs and accepted decisions.
+It includes 32 configurations, 72 options including the original UVB samples,
+two GS EL9 leaves, 55 acquisitions, 11 requirements and 29 contextual rates.
+Source tests reconcile values/scopes/relationships rather than relying on counts;
+re-import preserves allocations and a failed import rolls back the whole slice.
+Frozen sources, original observations and the canonical workbook are unchanged.
+Validation on the final implementation: 89 full-suite tests passed in 155 seconds
+using the established Python 3.14/openpyxl environment, including 16 foundation
+and 13 source tests. Fresh/reopened CLI re-import, six-lane handoff validation
+and diff checks also pass.
+
+**Step 4 — conditional-rule, intent-transition and pricing evaluator — not started.**
+The next bounded work is execution against the independently authored E01–E08
+acceptance targets, including cause ownership, exact charge lines, confirm/cancel/
+revert, negative scope, multiple causes and failure behavior. Source population
+checks are not evaluator or corrected-runtime proof. Full-catalog translation,
+semantic overlap/release validation, UI, canonical-data change, deployment and
+cutover remain outside this slice.
 
 ## Prior direction — September 13 master-schema proposal
 

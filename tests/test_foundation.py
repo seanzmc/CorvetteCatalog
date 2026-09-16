@@ -9,7 +9,7 @@ import unittest
 from uuid import UUID
 
 from catalog import foundation as f
-from catalog.foundation_schema import IDENTITY_RELATIONS, statements
+from catalog.foundation_schema import IDENTITY_RELATIONS, TRANSLATIONS, statements
 
 
 def insert(connection, table, **values):
@@ -60,8 +60,7 @@ class FoundationTests(unittest.TestCase):
         tables = {r[0] for r in self.db.execute("SELECT name FROM sqlite_master WHERE type = 'table'")}
         self.assertEqual({t.removesuffix("_identity") for t in tables if t.endswith("_identity")}, expected)
         self.assertTrue(expected <= tables)
-        self.assertEqual({t for t in tables if t.endswith("_translation")}, {
-            "configuration_translation", "option_translation", "option_configuration_translation"})
+        self.assertEqual({t for t in tables if t.endswith("_translation")}, {name + "_translation" for name in TRANSLATIONS})
         for table in tables:
             info = self.db.execute(f"PRAGMA table_info({table})").fetchall()
             primary = [r for r in info if r[5]]
