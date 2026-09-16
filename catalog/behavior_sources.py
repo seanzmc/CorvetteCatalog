@@ -522,7 +522,8 @@ class BehaviorLane(s.OfferingLane):
             effect('car_cover_version', 'WKR/high-wing', 'high-wing version', [['WKR'], wings[self.lane]], ['WKR'])
         if self.lane in ('grand-sport', 'grand-sport-x'):
             effect('roof_stripe', 'D84/stripe', 'center stripe omitted from roof',
-                   [['D84'], ['DMU', 'DMV', 'DMW', 'DMX', 'DMY']], ['D84', 'DMX'], self.scope('convertible'))
+                   [['D84'], ['DMU', 'DMV', 'DMW', 'DMX', 'DMY']],
+                   ['D84', 'DMU', 'DMV', 'DMW', 'DMX', 'DMY'], self.scope('convertible'))
         if self.lane in ('grand-sport', 'grand-sport-x', 'z06'):
             effect('rocker_splitter_finish', 'EFR/CFV', 'visible carbon fiber replaces Carbon Flash on rockers and splitter',
                    [['EFR'], ['CFV']], ['EFR', 'CFV'])

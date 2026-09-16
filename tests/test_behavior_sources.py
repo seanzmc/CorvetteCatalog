@@ -341,6 +341,38 @@ class BehaviorTests(unittest.TestCase):
             self.assertIn('body-color nacelles, A-pillars and header with black exterior paint', [r.value for r in state.content])
             self.assertNotIn('Carbon Flash nacelles, A-pillars and header', [r.value for r in state.content])
 
+    def test_roof_effect_retains_every_stripe_source(self):
+        stripes = ('DMU', 'DMV', 'DMW', 'DMX', 'DMY')
+        for lane in ('grand-sport', 'grand-sport-x'):
+            data = json.loads((f.ROOT / 'docs' / (lane + '-structured-records.json')).read_text())
+            ev = self.ev(data['model_key'])
+            sheet = data['sheet_roles']['options']
+            rows = {r['rpo']: r for r in data['baseline_rows'][sheet]}
+            expected = {f'baseline_rows/{sheet}/_row={rows[c]["_row"]}' for c in ('D84', *stripes)}
+            for stripe in stripes:
+                self.assertIn('roof will not include stripe', rows[stripe]['description'])
+            effect, = [r for r in ev.rows['content_effect'] if r['value'] == 'center stripe omitted from roof']
+            condition = self.db.execute('SELECT * FROM condition WHERE revision_id=? AND id=?',
+                                        (ev.revision_id, effect['condition_id'])).fetchone()
+            for relation, key, row in (('content_effect', 'effect_id', effect), ('condition', 'condition_id', condition)):
+                with self.subTest(lane=lane, relation=relation):
+                    evidence = {r[0] for r in self.db.execute('''SELECT a.locator FROM evidence_member m
+                        JOIN source_anchor a USING(anchor_id) WHERE m.set_id=?''', (row['evidence_set_id'],))}
+                    translated = {r[0] for r in self.db.execute(f'''SELECT a.locator FROM {relation}_translation t
+                        JOIN source_anchor a USING(anchor_id) WHERE t.revision_id=? AND t.{key}=?''',
+                        (ev.revision_id, row['id']))}
+                    self.assertTrue(expected.issubset(evidence), expected - evidence)
+                    self.assertTrue(expected.issubset(translated), expected - translated)
+            for config, cfg in ev.configs.items():
+                for stripe in stripes:
+                    with self.subTest(lane=lane, config=config, stripe=stripe):
+                        codes = ('G26', '97A', stripe)
+                        if cfg['body'] == 'convertible':
+                            codes += ('D84',)
+                        state = self.select(ev, ev.state(config), *codes)
+                        self.assertEqual('center stripe omitted from roof' in [r.value for r in state.content],
+                                         cfg['body'] == 'convertible')
+
     def test_color_override_retains_every_cause_but_one_charge(self):
         ev = self.ev('stingray')
         state = ev.transition(ev.state('1lt_c07'), 'interior', '1LT_AQ9_HUQ')
