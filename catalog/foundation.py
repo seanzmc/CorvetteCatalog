@@ -168,72 +168,76 @@ def import_samples(connection, source_dir=ROOT / "docs"):
     hash. All source prices, frozen evidence and accepted overlays stay untouched.
     """
     with connection:
-        for lane in LANES:
-            path = Path(source_dir) / f"{lane}-structured-records.json"
-            raw = path.read_bytes()
-            data = json.loads(raw)
-            source_path = f"docs/{path.name}"
-            digest = hashlib.sha256(raw).hexdigest()
-            old = connection.execute("SELECT content_sha256 FROM source_document WHERE source_path = ?",
-                                     (source_path,)).fetchall()
-            if any(row[0] != digest for row in old):
-                raise ValueError(f"source changed; do not refresh the existing sample: {source_path}")
-            document = connection.execute("SELECT document_id FROM source_document WHERE content_sha256 = ?",
-                                          (digest,)).fetchone()
-            if document:
-                document_id = document[0]
-            else:
-                document_id = str(uuid4())
-                _insert(connection, "source_document", dict(document_id=document_id, content_sha256=digest,
-                        source_path=source_path, acquired_at=datetime.now(timezone.utc).isoformat()))
-            rows = data["baseline_rows"]
-            model_row, = rows["model_master"]
-            if model_row["model_key"] != data["model_key"]:
-                raise ValueError(f"model_master model_key mismatch: {lane}")
-            # Workbook model-master years are text; handoff header years are integers.
-            if str(model_row["model_year"]) != str(data["model_year"]):
-                raise ValueError(f"model_master model_year mismatch: {lane}")
-            _, evidence = _evidence(connection, document_id, f"baseline_rows/model_master/_row={model_row['_row']}")
-            model_id = _allocated(connection, "model", "model_id", dict(model_key=data["model_key"]),
-                                  dict(name=model_row["model_label"]) | evidence)
-            model_year_id = _allocated(connection, "model_year", "model_year_id",
-                                       dict(model_id=model_id, year=data["model_year"]), evidence)
-            revision_id = _allocated(connection, "catalog_revision", "revision_id",
-                                     dict(model_year_id=model_year_id, revision_number=1),
-                                     dict(parent_revision_id=None, state="draft", edit_version=1))
-            configurations = rows["variant_master"]
-            if len({r["variant_id"] for r in configurations}) != len(configurations):
-                raise ValueError(f"duplicate configuration IDs: {lane}")
-            for row in configurations:
-                if row["model_year"] != data["model_year"]:
-                    raise ValueError(f"configuration model-year mismatch: {lane}")
-                anchor, evidence = _evidence(connection, document_id, f"baseline_rows/variant_master/_row={row['_row']}")
-                _version(connection, "configuration", revision_id, model_year_id, row["variant_id"],
-                         dict(body=row["body_style"], trim=row["trim_level"],
-                              enabled=int(row["active"]), chooser_order=row["display_order"]), evidence)
-                _translate(connection, "configuration", revision_id, anchor,
-                           dict(configuration_id=row["variant_id"]), evidence)
-            option_sheet = data["sheet_roles"]["options"]
-            option, = [r for r in rows[option_sheet] if r["option_id"] == SAMPLE_OPTION_ID]
-            if option["active"] is not True:
-                raise ValueError(f"sample no longer active: {lane}")
-            anchor, evidence = _evidence(connection, document_id, f"baseline_rows/{option_sheet}/_row={option['_row']}")
-            _version(connection, "option", revision_id, model_year_id, option["option_id"],
-                     dict(rpo=option["rpo"], name=option["option_name"],
-                          customer_selectable=int(option["selectable"]), lifecycle="active"), evidence)
-            _translate(connection, "option", revision_id, anchor, dict(option_id=option["option_id"]), evidence)
-            availability_sheet = data["sheet_roles"]["availability"]
-            availability = [r for r in rows[availability_sheet] if r["option_id"] == SAMPLE_OPTION_ID]
-            if (len(availability) != len(configurations) or
-                {r["variant_id"] for r in availability} != {r["variant_id"] for r in configurations}):
-                raise ValueError(f"incomplete or duplicate sample applicability: {lane}")
-            for row in availability:
-                anchor, evidence = _evidence(connection, document_id, f"baseline_rows/{availability_sheet}/_row={row['_row']}")
-                target = dict(option_id=row["option_id"], configuration_id=row["variant_id"])
-                _ensure(connection, "option_configuration", dict(revision_id=revision_id) | target,
-                        dict(status=row["status"]) | evidence)
-                _translate(connection, "option_configuration", revision_id, anchor, target, evidence)
-        validate(connection)
+        _import_samples(connection, source_dir)
+
+
+def _import_samples(connection, source_dir):
+    for lane in LANES:
+        path = Path(source_dir) / f"{lane}-structured-records.json"
+        raw = path.read_bytes()
+        data = json.loads(raw)
+        source_path = f"docs/{path.name}"
+        digest = hashlib.sha256(raw).hexdigest()
+        old = connection.execute("SELECT content_sha256 FROM source_document WHERE source_path = ?",
+                                 (source_path,)).fetchall()
+        if any(row[0] != digest for row in old):
+            raise ValueError(f"source changed; do not refresh the existing sample: {source_path}")
+        document = connection.execute("SELECT document_id FROM source_document WHERE content_sha256 = ?",
+                                      (digest,)).fetchone()
+        if document:
+            document_id = document[0]
+        else:
+            document_id = str(uuid4())
+            _insert(connection, "source_document", dict(document_id=document_id, content_sha256=digest,
+                    source_path=source_path, acquired_at=datetime.now(timezone.utc).isoformat()))
+        rows = data["baseline_rows"]
+        model_row, = rows["model_master"]
+        if model_row["model_key"] != data["model_key"]:
+            raise ValueError(f"model_master model_key mismatch: {lane}")
+        # Workbook model-master years are text; handoff header years are integers.
+        if str(model_row["model_year"]) != str(data["model_year"]):
+            raise ValueError(f"model_master model_year mismatch: {lane}")
+        _, evidence = _evidence(connection, document_id, f"baseline_rows/model_master/_row={model_row['_row']}")
+        model_id = _allocated(connection, "model", "model_id", dict(model_key=data["model_key"]),
+                              dict(name=model_row["model_label"]) | evidence)
+        model_year_id = _allocated(connection, "model_year", "model_year_id",
+                                   dict(model_id=model_id, year=data["model_year"]), evidence)
+        revision_id = _allocated(connection, "catalog_revision", "revision_id",
+                                 dict(model_year_id=model_year_id, revision_number=1),
+                                 dict(parent_revision_id=None, state="draft", edit_version=1))
+        configurations = rows["variant_master"]
+        if len({r["variant_id"] for r in configurations}) != len(configurations):
+            raise ValueError(f"duplicate configuration IDs: {lane}")
+        for row in configurations:
+            if row["model_year"] != data["model_year"]:
+                raise ValueError(f"configuration model-year mismatch: {lane}")
+            anchor, evidence = _evidence(connection, document_id, f"baseline_rows/variant_master/_row={row['_row']}")
+            _version(connection, "configuration", revision_id, model_year_id, row["variant_id"],
+                     dict(body=row["body_style"], trim=row["trim_level"],
+                          enabled=int(row["active"]), chooser_order=row["display_order"]), evidence)
+            _translate(connection, "configuration", revision_id, anchor,
+                       dict(configuration_id=row["variant_id"]), evidence)
+        option_sheet = data["sheet_roles"]["options"]
+        option, = [r for r in rows[option_sheet] if r["option_id"] == SAMPLE_OPTION_ID]
+        if option["active"] is not True:
+            raise ValueError(f"sample no longer active: {lane}")
+        anchor, evidence = _evidence(connection, document_id, f"baseline_rows/{option_sheet}/_row={option['_row']}")
+        _version(connection, "option", revision_id, model_year_id, option["option_id"],
+                 dict(rpo=option["rpo"], name=option["option_name"],
+                      customer_selectable=int(option["selectable"]), lifecycle="active"), evidence)
+        _translate(connection, "option", revision_id, anchor, dict(option_id=option["option_id"]), evidence)
+        availability_sheet = data["sheet_roles"]["availability"]
+        availability = [r for r in rows[availability_sheet] if r["option_id"] == SAMPLE_OPTION_ID]
+        if (len(availability) != len(configurations) or
+            {r["variant_id"] for r in availability} != {r["variant_id"] for r in configurations}):
+            raise ValueError(f"incomplete or duplicate sample applicability: {lane}")
+        for row in availability:
+            anchor, evidence = _evidence(connection, document_id, f"baseline_rows/{availability_sheet}/_row={row['_row']}")
+            target = dict(option_id=row["option_id"], configuration_id=row["variant_id"])
+            _ensure(connection, "option_configuration", dict(revision_id=revision_id) | target,
+                    dict(status=row["status"]) | evidence)
+            _translate(connection, "option_configuration", revision_id, anchor, target, evidence)
+    validate(connection)
 
 
 def main():
