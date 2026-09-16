@@ -22,9 +22,18 @@ candidate and frozen source evidence are unchanged.
 This is a structural projection, not the full authored domain. Price fields and
 bases, evaluator policies, presentation payloads, visual bindings, full source
 population, consumer mapping and release operations are not implemented.
-The next separately bounded task remains the proposal's conditional-rule,
-intent-transition and pricing evaluator slice with evidence-derived targets;
-it has not started. No authoring UI, canonical-data change, deployment or cutover.
+PR #40 is merged. The owner reports the environment baseline restored in the
+review worktree: Python 3.14 virtual environment, existing pinned requirements,
+and access to the ignored raw guide; 76 tests passed in approximately 160 seconds.
+That full-suite result was not rerun for this documentation-only target selection.
+
+Step 2 now selects [eight evidence-derived evaluator cases across all six lanes](master-schema-worked-examples.md#first-evaluator-slice--evidence-derived-acceptance-targets),
+including exact charge checkpoints, ownership, cancellation/revert, scope and
+negative controls. Baseline observations remain separate from accepted corrections.
+Conditional-rule, intent-transition and pricing evaluator implementation has not
+started. Its next bounded scope is the selected cases and necessary dependency
+closure, not full source population. No authoring UI, canonical-data change,
+deployment or cutover.
 
 ## Prior direction — September 13 master-schema proposal
 
