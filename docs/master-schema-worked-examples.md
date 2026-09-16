@@ -786,11 +786,25 @@ rendered notices, order exports and visualizer manifests are outside this slice.
   triggers the roof dependency; no five-paint conjunction or DMX-or-paint shortcut.
   Repeat the condition in coupe scope: no D84 acquisition. These controls assert
   predicate/acquisition results, not invented full-build prices or validity.
-- **Continuing validity (E03/E04):** removal of required D84 while its triggering
-  DMX/paint remains cannot leave a valid committed dependency violation; the
-  accepted cleanup must disclose the affected source and permit revert. Clearing
-  EL9 does not invent a replacement interior. Required-interior validity stays
-  false until an eligible leaf is chosen.
+- **Trigger removal and ownership (E03):** follow GS-D04 and the owner's PR #41
+  clarification: package/dependency-only content disappears when its last cause
+  is removed; independently selected content remains if still valid. From the
+  G26/97A/DMX/D84 context at **107,175**, previewing DMX removal leaves committed
+  state unchanged. With dependency-only D84, the candidate removes DMX and D84
+  and totals **104,585**. With prior independent D84, it removes DMX and its D84
+  cause, retains independent D84 and its **1,295** charge, and totals **105,880**.
+  Cancel retains the original state; confirm commits the corresponding candidate;
+  revert restores DMX, the previous D84 ownership and **107,175**.
+- **Open owner decision — direct D84 removal (outside E03 acceptance):** the rule
+  above governs loss of the trigger, not removal of D84 while DMX and a listed
+  paint still require it. No accepted decision selects rejection, reacquisition,
+  or removal of a specific trigger, including what happens to independent D84
+  intent. Do not encode any of those alternatives as an acceptance fixture until
+  that candidate/committed outcome is decided. An invalid dependency combination
+  remains prohibited; this open interaction does not waive the requirement.
+- **Interior validity (E04):** clearing EL9 does not invent a replacement
+  interior. Required-interior validity stays false until an eligible leaf is
+  chosen.
 - **Group/default ordering (E06):** ROY and ROZ each satisfy
   `z06_group_pdd_requires_carbon_wheel`; a package-only empty group needs an
   eligible default before final validity. Explicit ROZ displaces ROY; recomputing
@@ -910,9 +924,10 @@ three convertible configurations, with no coupe fallback.
 
 The accepted correction is **105,880 frozen + 1,295 missing D84 = 107,175**.
 The numerically identical 105,880 in the last row is a different, explicitly named
-build (D84 without DMX), not reuse of the defective frozen selection set. Removing
-D84 while DMX and a listed paint remain cannot leave the source valid: disclose
-cleanup/revert under GS-D04/16. Static trim information is not rewritten by the
+build (D84 without DMX), not reuse of the defective frozen selection set. Direct
+D84 removal while DMX and a listed paint remain is an open owner decision under
+[the selected-case controls](#required-controls-within-those-cases); GS-D04/16
+do not select its candidate/committed outcome. Static trim information is not rewritten by the
 stripe selection, and the body-color roof baseline is not proof of installed
 Carbon Flash roof treatment.
 

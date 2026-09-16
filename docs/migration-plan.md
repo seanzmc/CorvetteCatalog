@@ -30,6 +30,9 @@ That full-suite result was not rerun for this documentation-only target selectio
 Step 2 now selects [eight evidence-derived evaluator cases across all six lanes](master-schema-worked-examples.md#first-evaluator-slice--evidence-derived-acceptance-targets),
 including exact charge checkpoints, ownership, cancellation/revert, scope and
 negative controls. Baseline observations remain separate from accepted corrections.
+E03 specifies trigger-removal results for dependency-only and independent D84;
+direct D84 removal while its trigger remains is an explicit open owner decision,
+excluded from the executable acceptance targets.
 Conditional-rule, intent-transition and pricing evaluator implementation has not
 started. Its next bounded scope is the selected cases and necessary dependency
 closure, not full source population. No authoring UI, canonical-data change,
