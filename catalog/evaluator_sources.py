@@ -1,10 +1,11 @@
-"""Populate only E01–E08 inputs; no configuration or pricing evaluator.
+"""Populate complete offerings or the preserved E01–E08 source fixture.
 
 Translation recipes are source selectors plus accepted design interpretations.
 Source IDs survive; split/design identities are UUIDs reused through typed links.
 Money uses integer USD cents. This is a partial draft, never a release catalog.
 """
 from collections import defaultdict
+import argparse
 from contextlib import closing
 from datetime import datetime, timezone
 from decimal import Decimal
@@ -17,6 +18,7 @@ from catalog import foundation as f
 from catalog.foundation_schema import IDENTITY_RELATIONS, SCOPES, TRANSLATIONS
 
 DATABASE = f.ROOT / '.local/foundation/evaluator-sources.sqlite'
+CATALOG_DATABASE = f.ROOT / '.local/foundation/catalog-offerings.sqlite'
 DESIGN = 'master-schema-worked-examples.md'
 POLICY = 'compatibility-notice-policy.json'
 OPTIONS = {
@@ -35,6 +37,18 @@ NO_CHARGE = {
     'z06': {'FE6', 'FE7', 'XFR', 'XFS'},
     'zr1': {'XFR', 'XFS'}, 'zr1x': {'XFR', 'XFS'},
 }
+# Inspected null-price equipment identities. This is a classification, never a
+# fallback for an unexpectedly missing purchasable price. Uncoded equipment is
+# separately classified by the handoff offering disposition.
+EQUIPMENT_NO_CHARGE = {
+    'stingray': set('UVB UQS K7A DWK UV6 UQH UVA UFG K7B UG1 KI3 KQV AL9 AT9 AHE AHH AQA AP9 DYX UFT UTJ UTV UTU IWE DRG TR7 CFX J55 V08 G96 QTU M1N G0K B4Z AJ7 UHY UEU UKT TQ5 UHX DRZ UD7 TDM CJ2 JL9 U80 G0J NPP T4L LS6 A2X A7K N38 XFN M1L VHM NK4 U5G IVE UE1 U2K VV4 PPW'.split()),
+    'grand-sport': set('UVB UQS K7A DWK UV6 UQH UVA UFG K7B UG1 KI3 KQV AL9 AT9 AHE AHH AQA AP9 DYX UFT UTJ UTV UTU IWE DRG TR7 CFX XFR XFS AJ7 UHY UEU UKT TQ5 UHX DRZ UD7 TDM CJ2 U80 NPP T4L LS6 A2X A7K N38 VHM V08 M1N G0K B4Z XFT NK4 FEA IVE PPW'.split()),
+    'grand-sport-x': set('UVB UQS K7A DWK UV6 UQH UVA UFG K7B UG1 KI3 KQV AL9 AT9 AHE AHH AQA AP9 DYX UFT UTJ UTV UTU IWE DRG TR7 CFX XFR AJ7 UHY UEU UKT TQ5 UHX DRZ UD7 TDM FE5 MLG HP1 CJ2 U80 NPP T4L LS6 A2X A7K N38 VHM G0K B4Z XFT NK4 U2K UE1 VV4 U5G IVE PPW'.split()),
+    'z06': set('DWK K7A UQS UV6 UVB AHE AHH AL9 AP9 AQA AT9 DYX K7B KI3 KQV UFG UFT UG1 UQH UTJ UTU UTV UVA IWE FE6 FE7 XFR N3W AJ7 DRZ TDM TQ5 UD7 UEU UHX UHY UKT A2X A7K B4Z CJ2 G0K LT6 M1M N38 NPP T4L U80 VHM WUB NK4 IVE PPW U2K U5G UE1 VV4'.split()),
+    'zr1': set('UV6 UVB UQS K7A DWK UQH UVA UFG K7B UG1 KI3 KQV AL9 AT9 AHE AHH AQA AP9 DYX UFT UTJ UTV UTU IWE DRG TR7 CFX XFR XFS UQT AJ7 UHY UEU UKT TQ5 UHX DRZ UD7 TDM CJ2 U80 WUB NPP T4L A2X A7K N38 VHM G0K B4Z LT7 M1K NK4 IVE PPW U2K U5G UE1 VV4'.split()),
+    'zr1x': set('UV6 UVB UQS K7A DWK UQH UVA UFG K7B UG1 KI3 KQV AL9 AT9 AHE AHH AQA AP9 DYX UFT UTJ UTV UTU IWE DRG TR7 CFX XFR XFS UQT AJ7 UHY UEU UKT TQ5 UHX DRZ UD7 TDM CJ2 U80 WUB NPP T4L A2X A7K N38 VHM G0K B4Z CFC HP1 LT7 MLP NK4 IVE PPW U2K U5G UE1 VV4'.split()),
+}
+
 DECISIONS = {
     'stingray': ('ST-D06', 'ST-D10', 'ST-D12'),
     'grand-sport': ('GS-D03', 'GS-D04', 'GS-D05', 'GS-D14', 'GS-D15', 'GS-D16'),
@@ -55,9 +69,11 @@ def cents(value):
 
 
 class Evidence:
-    def __init__(self, db, directory):
+    def __init__(self, db, directory, *, complete=False):
         self.db, self.directory = db, Path(directory)
+        self.complete = complete
         self.documents = {}
+        self.anchors = {}
         self.sets = {}
 
     def document(self, name):
@@ -78,14 +94,21 @@ class Evidence:
         return row[0] if row else datetime.now(timezone.utc).isoformat()
 
     def anchor(self, name, locator):
-        return f._evidence(self.db, self.document(name), locator)[0]
+        key = (name, locator)
+        if key not in self.anchors:
+            self.anchors[key] = f._evidence(self.db, self.document(name), locator)[0]
+        return self.anchors[key]
 
     def evidence(self, anchors, decisions=None):
         anchors = tuple(sorted(set(anchors)))
         if not anchors:
             raise ValueError('Missing source evidence')
         if anchors not in self.sets:
-            candidates = self.db.execute('SELECT set_id FROM evidence_member WHERE anchor_id = ?', (anchors[0],))
+            # The common design anchor belongs to thousands of sets. Start at
+            # the most selective source anchor rather than random UUID order.
+            first = min(anchors, key=lambda anchor: self.db.execute(
+                'SELECT COUNT(*) FROM evidence_member WHERE anchor_id = ?', (anchor,)).fetchone()[0])
+            candidates = self.db.execute('SELECT set_id FROM evidence_member WHERE anchor_id = ?', (first,))
             found = None
             for candidate in candidates:
                 members = tuple(r[0] for r in self.db.execute('SELECT anchor_id FROM evidence_member WHERE set_id = ? ORDER BY anchor_id', (candidate[0],)))
@@ -105,7 +128,7 @@ class Evidence:
         review = json.loads((self.directory / name).read_bytes())['owner_review']
         records = {r['decision_id']: r for r in review['records']}
         members = []
-        for identifier in DECISIONS[lane]:
+        for identifier in records if self.complete else DECISIONS[lane]:
             if records[identifier]['review_state'] != 'accepted':
                 raise ValueError(f'Unaccepted decision: {identifier}')
             anchor = self.anchor(name, 'owner_review/records/decision_id=' + identifier)
@@ -284,7 +307,7 @@ class Lane:
                 {'action': action, 'option_id': self.oid(code), 'intent_effect': 'commit_purchase' if action == 'add' else None},
                 anchors, target={'plan_id': plan, 'position': position})
 
-    def foundation(self):
+    def configuration_foundation(self):
         # Add price payloads to existing structural configurations exactly once.
         for config in self.configs:
             values = {'starting_amount_minor': cents(config['base_price']), 'basis_id': self.bases['vehicle_destination_included']}
@@ -302,6 +325,9 @@ class Lane:
         self.put('interaction_policy', 'common', {'conflict_action': 'notice_confirm_cancel',
             'direct_removal_action': 'remove_requested_and_supporting_sources', 'cancel_action': 'preserve_whole_state',
             'revert_action': 'restore_whole_state'}, [common], target={})
+
+    def foundation(self):
+        self.configuration_foundation()
         for code, row in self.options.items():
             amount = row['price']
             if code in NO_CHARGE[self.lane]:
@@ -331,6 +357,242 @@ class Lane:
                 self.put('option_configuration', row['option_id'] + '/' + availability['variant_id'],
                     {'status': availability['status']}, [self.anchor(self.roles['availability'], availability)],
                     target={'option_id': row['option_id'], 'configuration_id': availability['variant_id']})
+
+
+class OfferingLane(Lane):
+    """Complete offering data; relationship execution is still the case slice.
+
+    Keep source identities, including uncoded and retired rows. RPO lookup is
+    only for the existing recipes; it cannot collapse duplicate source rows.
+    """
+
+    def __init__(self, db, evidence, lane, bases):
+        super().__init__(db, evidence, lane, bases)
+        self.design = evidence.anchor(DESIGN, 'reading-the-populated-rows')
+        self.review_name = lane + '-owner-decisions.json'
+        self.review = json.loads((evidence.directory / self.review_name).read_bytes())['owner_review']
+        self.offerings = {r['option_id']: r for r in self.rows[self.roles['options']]}
+        if len(self.offerings) != len(self.rows[self.roles['options']]):
+            raise ValueError(f'Duplicate source option identity: {lane}')
+        self.targets = {r['record_id']: r for r in self.review['offering_targets']}
+        expected = {self.data['model_key'] + ':' + oid for oid in self.offerings}
+        if set(self.targets) != expected or len(self.targets) != len(self.review['offering_targets']):
+            raise ValueError(f'Incomplete offering decision accounting: {lane}')
+        self.options = {}
+        for row in self.offerings.values():
+            code = row['rpo']
+            if not code or self.target(row)['target_disposition'] == 'retire_duplicate':
+                continue
+            if code in self.options:
+                raise ValueError(f'Ambiguous source option selector: {lane}/{code}')
+            self.options[code] = row
+        self.interior_rows = {r['interior_id']: r for r in self.rows[self.roles['interiors']]}
+        self.rate_order = []
+
+    def target(self, row):
+        return self.targets[self.data['model_key'] + ':' + row['option_id']]
+
+    def review_anchor(self, collection, identifier):
+        return self.e.anchor(self.review_name, f'owner_review/{collection}/record_id={identifier}')
+
+    def oid(self, code):
+        return code if code in self.offerings else super().oid(code)
+
+    def option_anchor(self, code):
+        return self.anchor(self.roles['options'], self.offerings[self.oid(code)])
+
+    def foundation(self):
+        self.configuration_foundation()
+        dispositions = {r['record_id']: r for r in self.data['offering_dispositions']}
+        restorations = {
+            'z06': {'N3W'}, 'zr1': {'N3W', 'DY0', 'CFV', 'CFC', 'FE8'},
+            'zr1x': {'N3W', 'FEH'},
+        }
+        hashes = {'17A', '20A', '55A', '75A', '97A', 'DX4'} if self.lane in ('grand-sport', 'grand-sport-x') else set()
+        for oid, row in self.offerings.items():
+            target = self.target(row)
+            disposition = target['target_disposition']
+            if disposition not in {'retain_subject_to_decision_overlay', 'rename', 'retire', 'retire_duplicate', 'visible_unavailable'}:
+                raise ValueError(f'Unsupported offering disposition: {disposition}')
+            lifecycle = ('retired' if disposition in ('retire', 'retire_duplicate') else
+                         'factory_unavailable' if disposition == 'visible_unavailable' else 'active')
+            if not row['active'] and lifecycle == 'active' and row['rpo'] not in restorations.get(self.lane, set()):
+                raise ValueError(f'Inactive source lacks accepted restoration: {self.lane}/{oid}')
+            amount = row['price']
+            classification = dispositions[self.data['model_key'] + ':' + oid]['source_classification']
+            # Z06's included-only disclosure rows retain a true workbook
+            # selectable flag; the flag is not evidence of a purchase price.
+            included_only = self.lane == 'z06' and row['rpo'] in {'CFX', 'DRG', 'TR7', 'XFS'}
+            no_charge = row['rpo'] in EQUIPMENT_NO_CHARGE[self.lane] or row['rpo'] in hashes or included_only or classification == 'uncoded_equipment_match'
+            if amount is None and no_charge:
+                mode = 'no_separate_charge'
+            elif amount is not None:
+                mode = 'priced'
+            elif lifecycle != 'active':
+                # A disabled historical offering may have an unknown purchase
+                # rate. It is neither free nor eligible for acquisition.
+                mode = None
+            else:
+                raise ValueError(f'Missing purchase price: {self.lane}/{oid}')
+            anchors = [self.option_anchor(oid), self.review_anchor('offering_targets', target['record_id'])]
+            name = row['option_name']
+            if target.get('target_name') and target['target_name'] != 'Royal Blue':
+                name = target['target_name']
+            elif row['rpo'] == 'DUE' and self.lane != 'stingray':
+                # GSX-D07/Z06-D09 carry the rename in their decision records,
+                # although their per-offering target still says retain.
+                name = name.replace('Santorini Blue', 'Royal Blue')
+            if row['rpo'] == 'Z25' and self.lane in ('grand-sport', 'grand-sport-x'):
+                leaf = self.interior_rows['3LT_AE4_EL9']
+                amount = leaf['Price']
+                anchors.append(self.anchor(self.roles['interiors'], leaf))
+            self.put('option', oid, {'rpo': row['rpo'], 'name': name,
+                'customer_selectable': int(row['selectable']), 'lifecycle': lifecycle, 'charge_mode': mode,
+                'purchase_amount_minor': cents(amount), 'basis_id': self.bases['option_purchase'] if amount is not None else None}, anchors, retained=oid)
+            matrix = [r for r in self.rows[self.roles['availability']] if r['option_id'] == oid]
+            if len(matrix) != len(self.configs) or {r['variant_id'] for r in matrix} != set(self.scope()):
+                raise ValueError(f'Incomplete applicability: {self.lane}/{oid}')
+            for availability in matrix:
+                self.put('option_configuration', oid + '/' + availability['variant_id'],
+                    {'status': availability['status']}, [self.anchor(self.roles['availability'], availability)],
+                    target={'option_id': oid, 'configuration_id': availability['variant_id']})
+        for addition in self.review['accepted_additions']:
+            if addition['currency'] != 'USD' or addition['target_disposition'] != 'add' or addition['rpo'] in self.options:
+                raise ValueError(f'Invalid or duplicate accepted addition: {addition["record_id"]}')
+            if set(addition['configuration_ids']) != set(self.scope()):
+                raise ValueError(f'Incomplete accepted addition scope: {addition["record_id"]}')
+            anchor = self.review_anchor('accepted_additions', addition['record_id'])
+            oid = self.put('option', addition['record_id'], {
+                'rpo': addition['rpo'], 'name': addition['guide_disclosure'].split('\n')[0].removeprefix('NEW!').strip(),
+                'customer_selectable': 1, 'lifecycle': 'active', 'charge_mode': 'priced',
+                'purchase_amount_minor': cents(addition['price']), 'basis_id': self.bases['option_purchase']}, [anchor])
+            for config in self.scope():
+                self.put('option_configuration', addition['record_id'] + '/' + config,
+                    {'status': 'available'}, [anchor], target={'option_id': oid, 'configuration_id': config})
+        for row in self.rows[self.roles['variant_overrides']]:
+            if row['active']:
+                self.put('option_presentation_override', row['option_id'] + '/' + row['variant_id'],
+                    {'customer_selectable': int(row['selectable'])}, [self.anchor(self.roles['variant_overrides'], row)],
+                    target={'option_id': row['option_id'], 'configuration_id': row['variant_id']})
+
+    def interiors(self):
+        """Translate seats once, option-backed parts, and model-owned extras.
+
+        The frozen leaf Price is never a balancing amount. AE4 is always owned
+        by its seat option, including the four defective R6X source paths.
+        """
+        scopes = {r['interior_id']: r for r in self.rows['model_interior_scope']}
+        if set(scopes) != set(self.interior_rows) or len(scopes) != len(self.rows['model_interior_scope']):
+            raise ValueError(f'Incomplete interior scope accounting: {self.lane}')
+        components = {}
+        for identifier, row in self.interior_rows.items():
+            sr = scopes[identifier]
+            if sr['model_key'] != self.data['model_key'] or row['Trim'].split('_')[0].lower() != sr['trim_level'].lower():
+                raise ValueError(f'Wrong interior lane or trim: {identifier}')
+            anchors = [self.anchor(self.roles['interiors'], row), self.anchor('model_interior_scope', sr)]
+            self.put('interior', identifier, {'seat_option_id': self.oid(row['Seat']), 'code': row['Interior Code'],
+                'enabled': int(str(sr['active']).lower() == 'true')}, anchors, retained=identifier)
+            for config in self.scope(trim=sr['trim_level']):
+                self.put('interior_configuration', identifier + '/' + config, {}, anchors,
+                    target={'interior_id': identifier, 'configuration_id': config})
+        for row in self.rows['interior_components']:
+            if str(row['active']).lower() != 'true':
+                continue
+            identifier = row['interior_id']
+            leaf = self.interior_rows[identifier]
+            if row['model_key'] != self.data['model_key']:
+                raise ValueError('Cross-model interior part')
+            if row['component_type'] == 'seat':
+                if row['rpo'] != leaf['Seat']:
+                    raise ValueError('Interior seat component disagrees with leaf')
+                continue  # Seat FK already owns this part and charge.
+            anchors = [self.anchor('interior_components', row)]
+            option, component = None, None
+            if row['rpo'] in self.options:
+                option = self.oid(row['rpo'])
+            else:
+                key = (row['component_type'], row['rpo'])
+                if key not in components:
+                    # Use the complete membership evidence, so shared components
+                    # do not depend on the first encountered leaf's identity.
+                    members = [r for r in self.rows['interior_components']
+                               if (r['component_type'], r['rpo']) == key and str(r['active']).lower() == 'true']
+                    component = self.put('component', '/'.join(key), {'kind': key[0], 'code': key[1]},
+                        [self.anchor('interior_components', r) for r in members])
+                    components[key] = component
+                    for config in self.configs:
+                        used = [r for r in members if scopes[r['interior_id']]['trim_level'].lower() == config['trim_level'].lower()]
+                        if not used:
+                            continue
+                        rates = [r for r in self.rows['PriceRef'] if r['Code'] == key[1]
+                                 and str(r['OptionType']).lower().replace('_', '') == row['price_ref_type'].lower().replace('_', '')
+                                 and (r['Trim'] is None or r['Trim'].lower() == config['trim_level'].lower())]
+                        specific = [r for r in rates if r['Trim'] is not None]
+                        rate, = specific or rates
+                        self.put('component_rate', '/'.join(key) + '/' + config['variant_id'],
+                            {'amount_minor': cents(rate['Price']), 'basis_id': self.bases['option_purchase']},
+                            [self.anchor('PriceRef', rate)] + [self.anchor('interior_components', r) for r in used],
+                            target={'component_id': component, 'configuration_id': config['variant_id']})
+                component = components[key]
+            self.put('interior_part', identifier + '/' + row['rpo'], {
+                'option_id': option, 'component_id': component, 'role': row['component_type'],
+                'display_order': int(row['display_order'])}, anchors,
+                target={'interior_id': identifier, 'part_key': row['rpo']})
+        # Interior-owned belts and launch-edition content are part of the
+        # offering's price closure. Keep their source inclusion identities;
+        # broader option-to-option behavior is still outside this import.
+        for row in self.rows[self.roles['rule_mapping']]:
+            if row['source_id'] not in self.interior_rows or row['rule_type'] != 'includes':
+                continue
+            if self.lane == 'grand-sport' and row['source_id'] in ('3LT_AE4_EL9', '3LT_AH2_EL9'):
+                continue  # Already translated by the GS E04 recipe.
+            self.include(row['source_id'], row['target_id'], interior=True,
+                         scope=self.scope(trim=scopes[row['source_id']]['trim_level']))
+        if self.lane == 'grand-sport-x':
+            # GSX-D02 corrects the absent Z25 inclusion without inventing an
+            # interior residual. The leaf retains its independently owned seat.
+            for seat in ('AE4', 'AH2'):
+                identifier = f'3LT_{seat}_EL9'
+                leaf = self.interior_rows[identifier]
+                anchor = self.anchor(self.roles['interiors'], leaf)
+                condition = self.condition((('any_present', (('interior_id', identifier, 'chosen'),)),), [anchor])
+                self.acquisition(identifier + '/Z25', 'Z25', condition, [anchor], scope=self.scope(trim='3lt'))
+
+    def source_rates(self, row_numbers):
+        # Preserve the case slice's documented precedence before filling the
+        # remaining source rates in workbook order. This is draft precedence;
+        # general overlap/release validation remains a separate checkpoint.
+        self.rate_order.extend(row_numbers)
+
+    def all_rates(self):
+        sheet = self.roles['price_rules']
+        rows = {r['_row']: r for r in self.rows[sheet]}
+        priorities = defaultdict(int)
+        for number in dict.fromkeys(self.rate_order + list(rows)):
+            row = rows[number]
+            if row['price_rule_type'] != 'override':
+                raise ValueError('Unsupported source rate kind')
+            anchor = self.anchor(sheet, row)
+            endpoint = row['condition_option_id']
+            if endpoint in self.offerings:
+                condition = self.selected(endpoint)
+            elif endpoint in self.interior_rows:
+                condition = self.condition((('any_present', (('interior_id', endpoint, 'chosen'),)),), [anchor])
+            else:
+                raise ValueError(f'Unknown price condition endpoint: {endpoint}')
+            target = row['target_option_id']
+            priorities[target] += 1
+            self.rate(row['price_rule_id'], target, condition, row['price_value'], [anchor], priorities[target],
+                      self.scope(row.get('body_style_scope'), row.get('trim_level_scope')), row['price_rule_id'])
+        decision = {'z06': 'Z06-D06', 'zr1': 'ZR1-D03', 'zr1x': 'ZR1X-D03'}.get(self.lane)
+        if decision:
+            # The other three lanes already contain this zero rate. These
+            # accepted corrections add the missing rate, not a package credit.
+            target = self.oid('SC7')
+            priorities[target] += 1
+            anchor = self.e.anchor(self.review_name, 'owner_review/records/decision_id=' + decision)
+            self.rate('accepted/SBT/SC7', 'SC7', self.selected('SBT'), 0,
+                      [anchor, self.option_anchor('SC7')], priorities[target], self.scope(body='coupe'))
 
 
 def stingray(lane):
@@ -441,7 +703,7 @@ def zr(lane):
     lane.substitution('TOM', 'T0E', 'TOM')
 
 
-def validate_sources(db):
+def validate_sources(db, *, allow_sample_option=True):
     """Validate translated payloads, not runtime convergence or release coverage."""
     f.validate(db)
     for relation, columns in {
@@ -454,9 +716,21 @@ def validate_sources(db):
     }.items():
         if db.execute(f'SELECT 1 FROM {relation} WHERE ' + ' OR '.join(c + ' IS NULL' for c in columns)).fetchone():
             raise ValueError(f'Incomplete {relation} payload')
-    if db.execute('''SELECT 1 FROM option o WHERE id <> ? AND
+    if db.execute('''SELECT 1 FROM option o WHERE id <> ? AND lifecycle = 'active' AND
         (charge_mode IS NULL OR (charge_mode = 'priced' AND purchase_amount_minor IS NULL))''', (f.SAMPLE_OPTION_ID,)).fetchone():
         raise ValueError('Missing classified purchase price')
+    if not allow_sample_option and db.execute("SELECT 1 FROM option WHERE lifecycle = 'active' AND charge_mode IS NULL").fetchone():
+        raise ValueError('Missing classified purchase price')
+    if db.execute('''SELECT 1 FROM interior_part p JOIN interior i
+        ON i.revision_id = p.revision_id AND i.id = p.interior_id
+        WHERE p.option_id = i.seat_option_id''').fetchone():
+        raise ValueError('Interior part repeats its seat owner')
+    if db.execute('''SELECT 1 FROM interior_part p JOIN interior_configuration s
+        ON s.revision_id = p.revision_id AND s.interior_id = p.interior_id
+        WHERE p.component_id IS NOT NULL AND NOT EXISTS
+        (SELECT 1 FROM component_rate r WHERE r.revision_id = p.revision_id
+         AND r.component_id = p.component_id AND r.configuration_id = s.configuration_id)''').fetchone():
+        raise ValueError('Missing scoped interior component rate')
     for row in db.execute('SELECT revision_id, id, mode FROM condition'):
         clauses = db.execute('SELECT clause_id FROM condition_clause WHERE revision_id = ? AND condition_id = ?', tuple(row[:2])).fetchall()
         if (row['mode'] == 'always') != (len(clauses) == 0):
@@ -465,7 +739,8 @@ def validate_sources(db):
             if not db.execute('SELECT 1 FROM condition_member WHERE revision_id = ? AND condition_id = ? AND clause_id = ?', (*row[:2], clause[0])).fetchone():
                 raise ValueError('Empty condition clause')
     for relation, meaning in [('configuration', 'vehicle_destination_included'),
-                              ('option', 'option_purchase'), ('option_rate', 'option_purchase')]:
+                              ('option', 'option_purchase'), ('option_rate', 'option_purchase'),
+                              ('component_rate', 'option_purchase')]:
         if db.execute(f"""SELECT 1 FROM {relation} p JOIN price_basis b USING (basis_id)
             WHERE b.currency <> 'USD' OR b.amount_meaning <> ?""", (meaning,)).fetchone():
             raise ValueError(f'Wrong price basis for {relation}')
@@ -481,10 +756,20 @@ def validate_sources(db):
 
 
 def import_cases(db, source_dir=f.ROOT / 'docs'):
+    """Preserved E01–E08 fixture, independently usable for regression checks."""
+    _import(db, source_dir, complete=False)
+
+
+def import_catalog(db, source_dir=f.ROOT / 'docs'):
+    """Complete offering data with the bounded behavior recipes; not a release."""
+    _import(db, source_dir, complete=True)
+
+
+def _import(db, source_dir, *, complete):
     """One transaction, including allocation; a changed pinned input is refused."""
     with db:
-        f._import_samples(db, source_dir)
-        evidence = Evidence(db, source_dir)
+        f._import_samples(db, source_dir, include_sample_option=not complete)
+        evidence = Evidence(db, source_dir, complete=complete)
         basis_anchors = [evidence.anchor(DESIGN, 'reading-the-populated-rows')]
         policy = json.loads((Path(source_dir) / POLICY).read_bytes())
         if policy['review_state'] != 'accepted' or policy['direct_dependency_removal']['review_state'] != 'accepted':
@@ -500,21 +785,31 @@ def import_cases(db, source_dir=f.ROOT / 'docs'):
                 {'minor_units_per_unit': 100, 'resolution_state': 'accepted'} | evidence.evidence(basis_anchors, evidence.decisions('stingray')))
         for name, populate in [('stingray', stingray), ('grand-sport', grand_sport),
                               ('grand-sport-x', grand_sport_x), ('z06', z06), ('zr1', zr), ('zr1x', zr)]:
-            lane = Lane(db, evidence, name, bases)
+            lane = (OfferingLane if complete else Lane)(db, evidence, name, bases)
             lane.foundation()
             populate(lane)
-        validate_sources(db)
+            if complete:
+                lane.interiors()
+                lane.all_rates()
+        validate_sources(db, allow_sample_option=not complete)
 
 
 def main():
-    DATABASE.parent.mkdir(parents=True, exist_ok=True)
-    with closing(f.connect(DATABASE)) as db:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--cases', action='store_true', help='Populate only the original E01–E08 fixture')
+    parser.add_argument('--database', type=Path, help='Fresh disposable SQLite path (existing matching imports may be reopened)')
+    args = parser.parse_args()
+    database = args.database or (DATABASE if args.cases else CATALOG_DATABASE)
+    database.parent.mkdir(parents=True, exist_ok=True)
+    with closing(f.connect(database)) as db:
         if not db.execute("SELECT name FROM sqlite_master WHERE type = 'table'").fetchone():
             f.create_schema(db)
-        import_cases(db)
+        (import_cases if args.cases else import_catalog)(db)
         counts = {t: db.execute(f'SELECT COUNT(*) FROM {t}').fetchone()[0]
-                  for t in ('configuration', 'option', 'interior', 'acquisition', 'requirement', 'option_rate')}
-        print(json.dumps({'database': str(DATABASE), 'counts': counts, 'validation': 'source structure passed; evaluator not implemented'}, indent=2))
+                  for t in ('configuration', 'option', 'interior', 'interior_part', 'component', 'component_rate',
+                            'option_configuration', 'acquisition', 'requirement', 'option_rate')}
+        print(json.dumps({'database': str(database), 'counts': counts,
+                          'validation': 'source structure passed; general option behavior remains E01–E08; not submission ready'}, indent=2))
 
 
 if __name__ == '__main__':

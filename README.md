@@ -2,15 +2,17 @@
 
 A fresh project for relational Corvette product data, manufacturer order-guide intake, and configuration data for an order form and visualizer.
 
-**Current status: disposable SQLite foundation, source inputs and E01–E08 evaluator implemented.**
+**Current status: complete six-lane offering data and a bounded evaluator.**
 The [foundation sample](catalog/README.md#disposable-master-schema-foundation)
 implements typed structural keys and provenance. The
 [step 3 source slice](catalog/README.md#evaluator-case-source-population--step-3)
 adds prices, scoped relationships and ownership policies for eight accepted cases
 across six lanes. The [step 4 evaluator](catalog/README.md#bounded-evaluator--step-4)
 executes their ownership, pricing and preview/confirm/cancel/revert targets.
-Full catalog translation and release operations remain later work; the workbook
-remains canonical.
+The [complete offering population](catalog/README.md#complete-offering-population)
+extends this to 1,388 options, 704 interiors and all source contextual prices.
+General rule/default/conflict translation beyond the case slice and release
+operations remain later work; the workbook remains canonical.
 
 Use the [master-schema proposal](docs/master-schema-proposal.md) for logical
 ownership, keys, rules, pricing and six-model walkthroughs, and the

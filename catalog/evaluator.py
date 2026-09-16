@@ -1,4 +1,4 @@
-"""Disposable, database-driven evaluator for the E01–E08 source slice.
+"""Disposable evaluator for E01–E08 behavior and complete interior price owners.
 
 No authoring writes, full-catalog validity, rendering, or submission API. All
 amounts are integer minor units. A Session previews and commits whole states.
@@ -64,7 +64,8 @@ class Evaluator:
 
     def __init__(self, db, revision_id):
         self.revision_id = revision_id
-        tables = ('configuration', 'option', 'interior', 'condition',
+        tables = ('configuration', 'option', 'interior', 'interior_part', 'component_rate',
+                  'option_presentation_override', 'condition',
                   'condition_clause', 'condition_member', 'option_configuration',
                   'interior_configuration', 'choice_group_member', 'conflict_member',
                   'replacement_action', 'configuration_policy', 'interaction_policy',
@@ -156,6 +157,11 @@ class Evaluator:
             seat = self.interiors[interior]['seat_option_id']
             if seat not in blocked:
                 base.append(Cause(seat, 'interior', interior, frozenset({'interior:' + interior})))
+            for part in self.rows['interior_part']:
+                if part['interior_id'] == interior and part['option_id'] and part['option_id'] not in blocked:
+                    base.append(Cause(part['option_id'], 'interior', interior, frozenset({'interior:' + interior})))
+        if any(not self.eligible(c.option_id, config) for c in base):
+            raise EvaluationError('Interior or intent targets ineligible option')
         causes, seen = tuple(base), set()
         for _ in range(256):
             signature = frozenset(causes)
@@ -221,6 +227,9 @@ class Evaluator:
             raise EvaluationError('Duplicate independent intent')
         if any(not self.eligible(o, config) or not self.options[o]['customer_selectable'] for o in intent):
             raise EvaluationError('Ineligible or cross-revision intent')
+        if any(r['configuration_id'] == config and r['option_id'] in intent and not r['customer_selectable']
+               for r in self.rows['option_presentation_override']):
+            raise EvaluationError('Context makes option nonselectable')
         if interior and (interior not in self.interiors or not self.interiors[interior]['enabled'] or (interior, config) not in self.interior_scopes):
             raise EvaluationError('Ineligible interior')
         causes, _ = self.closure(config, intent, interior)
@@ -268,6 +277,16 @@ class Evaluator:
             rate = min(rates, key=lambda r: r['priority']) if rates else None
             amount, basis = (rate['amount_minor'], rate['basis_id']) if rate else (option['purchase_amount_minor'], option['basis_id'])
             charges.append(Charge('option', oid, self._money(amount, basis, 'option_purchase'), basis, rate['id'] if rate else None))
+        for part in self.rows['interior_part']:
+            if part['interior_id'] != interior or not part['component_id']:
+                continue
+            rates = [r for r in self.rows['component_rate']
+                     if r['component_id'] == part['component_id'] and r['configuration_id'] == config]
+            if len(rates) != 1:
+                raise EvaluationError('Missing or ambiguous interior component rate')
+            rate = rates[0]
+            charges.append(Charge('component', part['component_id'],
+                self._money(rate['amount_minor'], rate['basis_id'], 'option_purchase'), rate['basis_id']))
         standard = frozenset(o for (o, c), status in self.statuses.items() if c == config and status == 'standard')
         return State(self.revision_id, config, tuple(intent), interior, causes, frozenset(roots), frozenset(installed), standard, tuple(charges), tuple(issues))
 

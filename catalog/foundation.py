@@ -171,7 +171,7 @@ def import_samples(connection, source_dir=ROOT / "docs"):
         _import_samples(connection, source_dir)
 
 
-def _import_samples(connection, source_dir):
+def _import_samples(connection, source_dir, *, include_sample_option=True):
     for lane in LANES:
         path = Path(source_dir) / f"{lane}-structured-records.json"
         raw = path.read_bytes()
@@ -217,6 +217,8 @@ def _import_samples(connection, source_dir):
                           enabled=int(row["active"]), chooser_order=row["display_order"]), evidence)
             _translate(connection, "configuration", revision_id, anchor,
                        dict(configuration_id=row["variant_id"]), evidence)
+        if not include_sample_option:
+            continue
         option_sheet = data["sheet_roles"]["options"]
         option, = [r for r in rows[option_sheet] if r["option_id"] == SAMPLE_OPTION_ID]
         if option["active"] is not True:
