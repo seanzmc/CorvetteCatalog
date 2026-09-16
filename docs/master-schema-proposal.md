@@ -214,6 +214,19 @@ Conflicts and requirements are final validity constraints regardless of whether
 an endpoint entered through user selection, a package, an interior or a default.
 A locked package child cannot be displaced while leaving an invalid parent active.
 The replacement plan can remove that parent when authorized by the common policy.
+The September 15 accepted `direct_dependency_removal` clarification in the
+[common policy](compatibility-notice-policy.json) applies across all six lanes:
+`locked` protects validity, not an unconditional disabled-card interaction.
+An explicit customer removal request previews removal of the requested option's
+own intent and all removable supporting/dependent sources needed to honor it.
+Disclose the complete consequences; confirm commits, cancel preserves state,
+and revert restores it. Do not silently reacquire the explicitly removed option
+or change an unrelated paint to break a condition. Independent child retention
+applies when its parent is removed, not when that child is explicitly removed.
+Clear an invalidated interior with disclosure, never select another leaf.
+Factory availability, mandatory configuration equipment and standard-only
+informational content retain their existing restrictions. This policy authorizes
+source removal, not invented replacement products or arbitrary alternatives.
 
 **Concrete translation of a condition.** In GS, a DMX roof acquisition has only
 convertible configurations, clause 1 = resolved DMX, clause 2 = any resolved

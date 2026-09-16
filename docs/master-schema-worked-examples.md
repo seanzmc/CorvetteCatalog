@@ -712,6 +712,173 @@ A concrete translation family is unnecessary for a retired fragment with zero
 targets; any eventual linkage to replacement associations must use their complete
 composite keys (O6).
 
+## First evaluator slice — evidence-derived acceptance targets
+
+Selected September 15 after merged PR #40. This section bounds the next evaluator
+implementation to **eight cases across six lanes**. It selects the existing traces
+below as acceptance targets; it does not implement them or accept new business
+rules. Case IDs here identify tests, not catalog identities. Source IDs and
+model/year ownership remain those in the linked populated rows and handoffs.
+
+### Evidence and comparison contract
+
+Expected values must be authored from the retained source rows, recorded sequences
+and accepted decisions **before** executing the target evaluator. Do not derive
+expected results from the translated database or regenerate them from evaluator
+output. Read each lane's owner overlay, then the
+[common compatibility policy](compatibility-notice-policy.json); older refusal
+language in ST-T14 and Z06-T06 is superseded by notice/confirm/cancel.
+
+Each case below has two separately reported comparisons:
+
+- **Baseline facts/parity:** source identities, applicability, amounts and any
+  explicitly retained observed checkpoints. Preserve defective observations too;
+  they remain evidence, not passing target values.
+- **Accepted target:** decision-linked changes to ownership, resolved selections,
+  installed equipment and prices. Passing a target does not mean the old runtime
+  produced it. Proposal-defined cancel/revert and reconciliation behavior also
+  needs new execution proof even when its price matches the baseline.
+
+All amounts below are exact USD in the named configuration. Base includes
+destination once. Totals exclude unspecified paid choices, and are **context
+totals, not submission-ready quotes**; missing required paint/interior remains
+invalid. Store/compare money exactly, without floating-point tolerances. Each
+price assertion must compare charge owner and amount as well as the sum:
+known zero, explicit `no_separate_charge`, standard-only content and unknown
+rates are distinct. No blanket null-to-zero conversion is permitted.
+
+For every numbered case, use its linked trace for the affected source IDs,
+acquisition causes, equipment substitutions and absent codes. Compare independent
+intent, rooted causes, chosen interior, resolved selections, installed equipment,
+charge lines and validity separately. These are evaluator state assertions;
+rendered notices, order exports and visualizer manifests are outside this slice.
+
+### Selected cases and exact checkpoints
+
+| Case | Context and required sequence | Numeric target and evidence boundary |
+|---|---|---|
+| E01 — ST UQT reset | `1lt_c07`: select `opt_uqt_002`; switch to `2lt_c07`; return to `1lt_c07`. Standard-only UQT at 2LT has no purchase charge; the old purchase intent is not restored. | **74,990 → 80,595 → 73,495**. Baseline parity: ST-T02 / ST-O07, `stingray_options!69`, `stingray_variant_overrides!2:5`. [Full trace](#st-uqt-ownership-and-pcx-replacement). |
+| E02 — ST PCX replacement | `2lt_c07`, independent QE6, then PCX. Request 5DO; cancel; retry/confirm; revert; separately remove PCX. Confirmation commits independent 5DO and removes PCX plus unsupported 5DG/SFZ/SHT/SNG. QE6 remains. | Committed **86,285**, candidate **86,085**; cancel **86,285**; confirm **86,085**; revert **86,285**; PCX removal **81,690**. Preserve ST-O26's PCX checkpoint; reject frozen coexistence **90,680**. ST-D06 plus common ST override authorize the replacement, with no package credit. [Full trace](#st-uqt-ownership-and-pcx-replacement). |
+| E03 — GS conditional roof | `2lt_e67`, G26 + 97A; add DMX; cancel proposed DMX removal; commit removal; revert. D84 is acquired only when DMX AND ANY(G26,G4Z,GBK,GKZ,GPH) holds in convertible scope. Repeat with independently purchased D84 before DMX. | **104,585 → 107,175 → 107,175 → 104,585 → 107,175**. Independent-D84 run ends at **105,880** after DMX removal. GS-T06 / GS-O38 froze **105,880 without D84**; GS-D03/04/16 require the extra **1,295**, yielding **107,175** with DMX. The two 105,880 states have different owners/selections. [Full trace](#gs-two-clause-roof-dependency-and-el9-charge-owner). |
+| E04 — GS EL9 charge ownership | `3lt_e07`: choose `3LT_AE4_EL9`; cancel clear; clear; revert. Independently start with `3LT_AH2_EL9` as the zero-seat-price control. Interior owns its seat once; acquire Z25 and locked zero-priced 3F9. | AE4 contribution **1,995 + 595 + 0 = 2,590**, context **102,835**. AH2 contribution **1,995**, context **102,240**. Clear removes leaf-only causes/contribution, returns context **100,245** and invalid missing-interior state; revert restores **102,835**. GS-P02 / GS-O40/41 and GS-D05 replace the frozen **595 seat + 1,400 residual** allocation; no residual or duplicate seat line. [Full trace](#gs-two-clause-roof-dependency-and-el9-charge-owner). |
+| E05 — GSX FED round trip | `1lt_g07`: add FED; cancel removal; remove; revert. XFR has a FED cause; XFT is restored when FED is removed. J57/B4Z/FE5/LS6 remain standard. | **112,195 → 112,695 → 112,695 → 112,195 → 112,695**. Price round trip is retained parity from `grand-sport-x-foundations-records.json`, `observed_sequences[0].states`; GSX-T03/T24 and GSX-D11 govern installed versus static equipment. FED is the sole **500** owner; no separate tire charge. [Full trace](#gsx-fed-tires-and-exact-ls6-relationship-retirement). |
+| E06 — Z06 request transfer and rate | `2lz_h07`, PDB/ROY. Request Z07; cancel; retry/confirm PDD; choose ROZ; revert wheel change; remove PDD from the package-only ROY run. PDD owns the confirmed purchase; requested Z07 is acquired, not independent intent. | **148,895**, candidate **158,790**; cancel **148,895**; confirm **158,790**; ROZ **159,790**; revert **158,790**; removal **132,895**. Z06-T04–06/P01–04 preserve package rates; Z06-D11 plus common override reject coexistence **167,790**. Z06-D01 repairs J6D output without changing totals. PDD/ROZ is **26,495**, ROZ line **0**, R8E **3,000**; removal restores R8E **2,600**. [Full trace](#z06-pdb-request-replacement-wheel-rate-and-scoped-group). |
+| E07 — ZR1 retained TOM | `1lz_r07`: buy `opt_tom_001`, then ZTK; cancel ZTK removal; remove; revert. Separate fresh ZTK-only run then remove; clicking locked acquired TOM must not create independent intent. | Starting **200,195**; TOM **213,190**; ZTK **219,185**; cancel **219,185**; remove **213,190**; revert **219,185**. Package-only run **219,185 → 200,195**. ZR1-D06 supplies the retention correction; ZR1-D08 preserves **5,995 + 12,995 = 18,990**, including one paid TOM even when acquired. [Full trace](#zr1-independent-tom-survives-ztk). |
+| E08 — ZR1X local ownership/rates | `1lz_s07`: repeat E07 with local `opt_tom_002` and local ZTK/R8E. Keep standard J59; ZTK substitutes FEZ/XFS for FEH/XFR. | Starting **229,995**; TOM **242,990**; ZTK **244,490**; cancel **244,490**; remove **242,990**; revert **244,490**. Package-only run **244,490 → 229,995**. ZR1X-D06/D08/D09 require independent retention and installed output, with **1,500 + 12,995 = 14,495** and R8E **2,600**. Never use E07's TOM ID, rates or brake substitution. [Full trace](#zr1x-local-rate-and-cfc-disposition). |
+
+### Required controls within those cases
+
+- **Transactions (E02–E08):** preview/cancel preserves every committed state
+  field, including ownership sequence and charges. Confirm applies the complete
+  candidate atomically; revert restores the immediately preceding committed
+  state, not just its total. Removal/revert controls use the exact prior contexts
+  above, not a mixture of separate runs. Candidate evaluation must be repeatable
+  without manufacturing additional independent intent or charges.
+- **Selection order (E02/E06):** also start with the conflicting choice first,
+  then request PCX/PDB. No order may commit PCX+5DO or PDB+standalone Z07;
+  cancellation leaves the prior valid state. Confirmed reverse requests follow
+  the same accepted compatibility policy and retain only valid independent
+  ownership. Do not infer an unapproved PDF substitution. The forward totals
+  above are not evidence for a different reverse build; derive its charge lines
+  from that build's retained source rates before using a numeric expectation.
+- **Conditional truth and scope (E03):** exercise each of the five listed paints
+  as the one true alternative, no DMX, and no listed paint. Only the conjunction
+  triggers the roof dependency; no five-paint conjunction or DMX-or-paint shortcut.
+  Repeat the condition in coupe scope: no D84 acquisition. These controls assert
+  predicate/acquisition results, not invented full-build prices or validity.
+- **Trigger removal and ownership (E03):** follow GS-D04 and the owner's PR #41
+  clarification: package/dependency-only content disappears when its last cause
+  is removed; independently selected content remains if still valid. From the
+  G26/97A/DMX/D84 context at **107,175**, previewing DMX removal leaves committed
+  state unchanged. With dependency-only D84, the candidate removes DMX and D84
+  and totals **104,585**. With prior independent D84, it removes DMX and its D84
+  cause, retains independent D84 and its **1,295** charge, and totals **105,880**.
+  Cancel retains the original state; confirm commits the corresponding candidate;
+  revert restores DMX, the previous D84 ownership and **107,175**.
+- **Direct D84 removal (E03, accepted September 15):** from the same **107,175**
+  context, request removal of D84. Preview removal of D84 and DMX, retaining
+  G26/97A/Z15, for **104,585**; committed state stays **107,175** until confirmation.
+  Confirm removes both, including any independent D84 intent. Cancel preserves
+  the original state; revert restores both options, their original causes and
+  independent intent, and **107,175**. The result is the same for dependency-only
+  and independently selected D84: direct removal explicitly ends its ownership.
+  Do not reacquire D84, disable this request merely because it is locked, or
+  remove/change paint instead. Authority: the common policy's accepted
+  `direct_dependency_removal` decision.
+- **Interior validity (E04):** clearing EL9 does not invent a replacement
+  interior. Required-interior validity stays false until an eligible leaf is
+  chosen.
+- **Group/default ordering (E06):** ROY and ROZ each satisfy
+  `z06_group_pdd_requires_carbon_wheel`; a package-only empty group needs an
+  eligible default before final validity. Explicit ROZ displaces ROY; recomputing
+  defaults must not undo that choice. Retain the foundation's cross-configuration
+  subset validator; a passing coupe trace does not prove all group scopes valid.
+- **Cause and price isolation (E03/E07/E08):** compare independent-first and
+  package/dependency-only removal. Two causes give one charge owner. Acquisition
+  never implies free pricing: TOM stays paid; Z06 package wheel zero requires its
+  explicit rate. Missing applicable price is an error, not zero. Cross-lane IDs,
+  configuration eligibility and rates must not leak between evaluations.
+- **Evaluator failure behavior:** repeated-state/nonconvergence or ambiguous
+  applicable defaults/replacements must fail the candidate with committed state
+  intact. Minimal synthetic invalid-input tests may prove these algorithm guards;
+  label them synthetic, not source-derived business targets.
+
+### Related conflict interactions — September 15 clarification
+
+The accepted common `direct_dependency_removal` policy resolves the same
+interaction ambiguity across lanes; it does not copy identities or product facts.
+All six owner overlays already reference that policy and have empty
+`unresolved_decisions` lists. Earlier blocked-card observations remain historical.
+This audit covers the analogous cases in the proposal and worked examples:
+
+| Relationship | Documented resolution |
+|---|---|
+| GS/GSX conditional stripe → D84 | Direct D84 removal discloses removal of each active stripe source requiring it; retain paint. Independently owned D84 survives stripe-only removal if valid, but not an explicit D84 removal. E03 supplies the exact GS numeric fixture. |
+| Hash → Z15; interior EL9 → Z25/3F9 | Direct removal of a required child discloses removal of dependent hash selections or clearing the affected interior and unsupported causes. No arbitrary paint change or replacement interior; missing required interior is incomplete. |
+| ST PCX children; GSX FED → XFR and ZZ3 children | A customer-removable child request must disclose removal of the package roots needed to honor it, including other affected children/charges. `locked` alone does not require refusal. Standard-only equipment is not thereby made directly removable. Preserve lane-specific ownership policies. |
+| Z06 nested PDD → Z07 → equipment | A permitted direct child-removal request resolves all affected supporting roots in one disclosed transaction. Do not leave an invalid parent or reacquire the requested child; preserve mandatory configuration equipment. Existing Z07-request/PDB→PDD behavior remains the named replacement, not permission to substitute PDF. |
+| ZR1/ZR1X ZTK → TOM | Direct TOM removal discloses removal of ZTK and its unsupported causes, and clears any independent TOM intent. ZTK-only removal still retains valid independent TOM. Displaced covers remain deselected; no automatic restoration. |
+| CBF against Z06 package/aero roots; other option/option conflicts | Apply the existing complete-removal transaction in both directions, including all conflicting independent roots. The common policy supersedes historical refusal UI; retain exact conflict scope and approved replacement products. |
+
+Where a concrete source relationship or compatible replacement is not yet
+translated, that remains implementation/evidence work. The interaction policy is
+settled; it does not certify every removal set or price without source inspection.
+These additional examples document policy coverage, not an expansion of E01–E08
+into full catalog execution. Direct D84 removal is now included in E03.
+
+### Implementation boundary for the following step
+
+Translate only the complete dependency closure needed by E01–E08 and their
+controls: configurations/options/applicability, the two GS interior leaves and
+seat ownership, typed conditions/clauses/members, acquisitions, continuing
+requirements, conflicts, group membership/defaults, replacement actions,
+equipment substitutions, and default/context price amounts and bases. Carry
+source IDs, exact scopes and decision-linked typed translation provenance for
+newly populated relations. New target-only IDs are allocated once; the `ex:`
+notation above remains illustrative. Do not transplant it as source identity.
+
+Price and policy payloads currently omitted from the structural foundation need
+implementation, but **all remaining families/full catalog population is not a
+prerequisite**. Component rates are needed only if inspected interior parts in
+this closure contain non-option charges; AE4 itself is an option charge, never a
+second component charge. Source-qualified monetary facts must accompany every
+new price field. No new physical naming decision is made by this target selection.
+
+The GSX-D14 relationship-retirement and ZR1X CFC traces below remain deferred,
+as do other paints/interiors/packages, full 54-state Z06 pricing coverage, CBF
+expansion, cover replacement, content/presentation rendering, consumer mappings,
+visual bindings, publication/recovery and release qualification. Preserve their
+existing decisions; this subset must not be reported as complete migration or
+all-lane behavioral parity. If a selected case requires one of those facts to
+resolve its actual dependencies, include that necessary fact with evidence and
+state the scope impact rather than stubbing it as free or absent.
+
+**Completion of step 2:** targets and exclusions are reviewable here. No new
+runtime, target database population or executable evaluator tests are delivered.
+The next authorized implementation must turn these expectations into independent
+fixtures and demonstrate the affected transitions; paper arithmetic is not that
+proof.
+
 ## Worked traces
 
 All steps are paper evaluation against the populated rows and retained handoff
@@ -783,9 +950,12 @@ three convertible configurations, with no coupe fallback.
 
 The accepted correction is **105,880 frozen + 1,295 missing D84 = 107,175**.
 The numerically identical 105,880 in the last row is a different, explicitly named
-build (D84 without DMX), not reuse of the defective frozen selection set. Removing
-D84 while DMX and a listed paint remain cannot leave the source valid: disclose
-cleanup/revert under GS-D04/16. Static trim information is not rewritten by the
+build (D84 without DMX), not reuse of the defective frozen selection set. Direct
+D84 removal while DMX and a listed paint remain now follows the September 15
+accepted [selected-case control](#required-controls-within-those-cases): disclose
+removal of D84 and DMX, keep G26/97A/Z15, and commit **104,585** only on confirmation.
+This also removes prior independent D84 intent; cancel/revert preserves/restores
+that original ownership. This later common-policy clarification supplements GS-D04/16. Static trim information is not rewritten by the
 stripe selection, and the body-color roof baseline is not proof of installed
 Carbon Flash roof treatment.
 
