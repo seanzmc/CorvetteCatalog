@@ -1,6 +1,6 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 16 evaluator source inputs
+## Current direction — September 16 bounded evaluator
 
 Following merged PR #39, the owner authorized SQLite and the bounded foundation
 in [proposal §9](master-schema-proposal.md#9-review-outcome-and-next-bounded-work).
@@ -53,13 +53,26 @@ using the established Python 3.14/openpyxl environment, including 16 foundation
 and 13 source tests. Fresh/reopened CLI re-import, six-lane handoff validation
 and diff checks also pass.
 
-**Step 4 — conditional-rule, intent-transition and pricing evaluator — not started.**
-The next bounded work is execution against the independently authored E01–E08
-acceptance targets, including cause ownership, exact charge lines, confirm/cancel/
-revert, negative scope, multiple causes and failure behavior. Source population
-checks are not evaluator or corrected-runtime proof. Full-catalog translation,
-semantic overlap/release validation, UI, canonical-data change, deployment and
-cutover remain outside this slice.
+**Step 4 — conditional-rule, intent-transition and pricing evaluator — implemented.**
+PR #42 merged the source inputs. `catalog/evaluator.py` now reads that revision
+snapshot and executes the independently authored E01–E08 targets, including
+rooted causes, exact charge owners, installed-equipment substitutions, ordered
+independent intent, scoped conditions, confirm/cancel/revert and direct D84
+removal. E02/E06 reverse-order conflicts and E07/E08 independent-first versus
+package-only ownership are covered. Synthetic guards reject ambiguous defaults
+or replacements, nonconvergence, missing prices and invalid scope without
+modifying committed state. The [evaluator API and boundaries](../catalog/README.md#bounded-evaluator--step-4)
+document the implementation; no evaluator rule is hard-coded by model or RPO.
+
+Validation: all 107 tests passed in 158 seconds in the established Python 3.14/
+openpyxl environment, including the 18 evaluator tests; diff checks pass. The
+existing `rule_inventory.py` unclosed-database ResourceWarnings remain.
+Every result remains explicitly incomplete for submission because the catalog
+is partial; required-interior state is reported independently. Passing these
+selected runtime targets does not establish complete catalog parity or release
+readiness. Full-catalog translation, semantic overlap/release validation, UI,
+canonical-data change, deployment and cutover remain outside this slice. No
+subsequent checkpoint has been started.
 
 ## Prior direction — September 13 master-schema proposal
 

@@ -137,11 +137,94 @@ typed composite FK rejection, missing prices, money constraints, decision eviden
 and the real Z06 group-scope subset. The foundation tests retain cross-model/year
 and predecessor checks. All use fresh disposable databases.
 
-**Not implemented:** the evaluator, transition/cancel/revert execution, charge
-resolution, convergence and semantic overlap validation, UI, exports, publication
-or canonical cutover. The UVB-only structural rows remain unpriced and unused by
-the cases. This subset is not a selectable full catalog or a release candidate;
-passing source tests does not prove E01–E08's runtime totals or behavior.
+**Boundary:** source checks alone do not prove runtime behavior. The evaluator
+below executes the selected targets. The UVB-only structural rows remain unpriced
+and unused by the cases. This subset is not a selectable full catalog or a release
+candidate; full semantic overlap/release validation remains deferred.
+
+## Bounded evaluator — step 4
+
+`catalog.evaluator` reads one revision from the step 3 SQLite database into a
+snapshot. It executes the independently authored E01–E08 targets in
+`tests/test_evaluator.py`; it never imports product rules from Python lane recipes
+or writes to the catalog. No new schema or dependencies are required.
+
+```sh
+python3 -m unittest discover -s tests -p test_evaluator.py -v
+```
+
+Example using the existing disposable source database:
+
+```python
+from contextlib import closing
+from catalog.foundation import connect
+from catalog.evaluator import Evaluator, Session
+
+with closing(connect('.local/foundation/evaluator-sources.sqlite')) as db:
+    revision = db.execute("""SELECT revision_id FROM catalog_revision
+        JOIN model_year USING (model_year_id) JOIN model USING (model_id)
+        WHERE model_key = 'stingray' AND revision_number = 1""").fetchone()[0]
+    session = Session(Evaluator(db, revision), '2lt_c07')
+
+session.confirm(session.preview('select', 'opt_pcx_001'))
+preview = session.preview('select', 'opt_5do_001')
+# preview.before and session.state are unchanged until confirmation.
+# preview.candidate contains exact charges, retained intent and all live causes.
+session.cancel()                    # discard the preview
+session.confirm(session.preview('select', 'opt_5do_001'))
+session.revert()                    # restore the whole PCX state
+```
+
+**State and transactions:** frozen states expose the revision/configuration,
+ordered independent purchase intent, chosen interior, rooted causes, resolved
+selections, static standard equipment, installed equipment, exact charge lines
+and completeness issues. Removing intent preserves the acquisition order of
+survivors. Causes name the source acquisition/part and supporting live roots.
+Preview reports additions, removals, removed intent and interior changes alongside
+both complete states. Confirm accepts only that session's current preview; cancel,
+failed requests and stale previews cannot change committed state. Revert restores
+the immediately preceding committed state once, including ownership and charges.
+
+Actions are `select`/`remove` with retained option IDs, `interior` with an eligible
+leaf ID (or `None` to clear), and `configure` with a same-revision configuration
+ID. Configuration changes clear intent/interior according to the stored policy.
+A different model/revision requires a fresh evaluator/session; no intent crosses
+that boundary. Clicking a locked supplied child adds no independent purchase.
+Customer-removable dependencies follow the accepted whole-removal policy, while
+standard-only and mandatory configuration equipment remain protected.
+
+**Evaluation:** rooted acquisition closure evaluates typed AND/ANY/absence
+conditions and scoped groups. Explicit group peers suppress soft defaults;
+competing defaults need distinct priorities, and multiple compatible causes for
+one target remain visible. Requirements and bidirectional conflicts are reconciled
+before pricing. Named replacement actions transfer Z07's request to independent
+PDD; direct D84 removal removes DMX without changing paint. Absorbing ST package
+intent is applied on transitions; preserved TOM intent survives ZTK-only removal.
+Repeated states, iteration exhaustion, conflicting ownership policies, ambiguous
+defaults/replacements and missing rates fail with `EvaluationError`.
+
+**Pricing and projections:** charge owners are configuration or option IDs with
+basis and selected rate IDs. Amounts are exact integer USD cents. First applicable
+rate priority wins, with the option amount as fallback. Standard-only causes do
+not charge; known zero creates a zero line; explicit `no_separate_charge` creates
+no line. TOM remains paid when acquired, and the EL9 seat charges once. Equipment
+substitutions suppress installed equipment without altering static trim facts or
+creating purchases. The evaluator consumes the existing typed provenance links;
+it does not emit presentation, order codes or visualizer manifests.
+
+**Validation:** 18 evaluator tests cover all eight sequences with literal source
+IDs, independent charge-owner/amount expectations, ownership/cause assertions,
+installed output, scoped conditions, reverse conflict order and cancel/revert.
+Source parity remains the separate 13-test source reconciliation suite. Synthetic
+invalid-input tests prove ambiguity, nonconvergence, rootless-cycle, missing-price,
+scope and stale-preview guards; they are not accepted business fixtures. Row-order
+and repeated-evaluation checks prove deterministic results and no catalog writes.
+
+**Limits:** every state carries `partial_catalog_not_submission_ready`; missing
+required interior is reported separately. These are context totals, not complete
+quotes. Paint/completeness rules and option relationships outside this selected
+closure are not translated. No full-catalog validity, generic authoring/release
+validator, UI, export, deployment or canonical-data change is implemented.
 
 ## Historical baseline implementation
 
