@@ -2,7 +2,7 @@
 
 A fresh project for relational Corvette product data, manufacturer order-guide intake, and configuration data for an order form and visualizer.
 
-**Current status: complete six-lane offering data and a bounded evaluator.**
+**Current status: six-lane offering and behavior translation in a draft catalog.**
 The [foundation sample](catalog/README.md#disposable-master-schema-foundation)
 implements typed structural keys and provenance. The
 [step 3 source slice](catalog/README.md#evaluator-case-source-population--step-3)
@@ -11,8 +11,11 @@ across six lanes. The [step 4 evaluator](catalog/README.md#bounded-evaluator--st
 executes their ownership, pricing and preview/confirm/cancel/revert targets.
 The [complete offering population](catalog/README.md#complete-offering-population)
 extends this to 1,388 options, 704 interiors and all source contextual prices.
-General rule/default/conflict translation beyond the case slice and release
-operations remain later work; the workbook remains canonical.
+The [full behavior importer](catalog/README.md#full-behavior-translation)
+adds direct/grouped rules, explicit choice memberships, defaults, interior/color
+conditions, accepted corrections and supplied content across all six lanes.
+Whole-revision semantic overlap, consumer mappings and release operations remain
+later work; the workbook remains canonical.
 
 Use the [master-schema proposal](docs/master-schema-proposal.md) for logical
 ownership, keys, rules, pricing and six-model walkthroughs, and the

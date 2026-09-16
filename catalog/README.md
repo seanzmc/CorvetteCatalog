@@ -1,5 +1,9 @@
 # Disposable relational baseline
 
+The current executable draft is [full behavior translation](#full-behavior-translation).
+The foundation, eight-case and offering-only importers remain separate regression
+projections; the historical baseline importer remains unchanged.
+
 ## Disposable master-schema foundation
 
 The September 15 foundation implements the bounded structural slice in
@@ -302,6 +306,83 @@ disclosures, navigation, visual bindings and exports are not populated consumers
 Every evaluator state retains `partial_catalog_not_submission_ready`. Complete
 offering counts and interior pricing are not complete quote, semantic-overlap,
 release, UI or cutover proof. No frozen evidence or canonical workbook changed.
+
+## Full behavior translation
+
+`catalog.behavior_sources` builds a fresh, separate behavior projection from the
+six retained handoffs and accepted decision overlays. It uses the same typed
+schema and evaluator, without invoking 27vette or reconstructing a workbook.
+
+```sh
+python3 -m catalog.behavior_sources
+python3 -m unittest tests.test_behavior_sources tests.test_evaluator tests.test_catalog_offerings tests.test_evaluator_sources tests.test_foundation
+```
+
+The destination is `.local/foundation/catalog-behavior.sqlite`. Use a fresh path
+when changing schema or translation recipes. Matching imports reuse all rows and
+IDs; a case/offering database cannot be extended into this projection. Import
+and allocation are one transaction, including the last model lane.
+
+**Translated behavior:** all 3,770 direct/group/member/exclusive/default/color
+source rows receive an individual, reasoned disposition: 3,716 translated,
+10 superseded and 44 inactive/retired. Typed translation links retain original
+anchors. Requires-any groups supersede redundant direct requirements; ordinary
+requires never automatically purchases the prerequisite. Configuration-qualified
+section choices become explicit group/member data. Evaluation does not read
+section IDs. Defaults yield to explicit, interior and supplied choices, and
+conflicting purchases reach one preview before confirmation. Unsupported requests
+fail without committing a state.
+
+| Lane | Accepted behavior implemented beyond the offering projection |
+|---|---|
+| Stingray | Full Z51/FE4 equipment and prerequisite cleanup; 5ZU/5ZZ suppress T0A without adding ZF1; TVS+Z51 acquires ZF1; RNX exception; body-qualified covers; PCX ownership, replaceable PDV caps; DTC and SAI conflicts |
+| Grand Sport | FEB/FEY/J57 AND/OR prerequisites; conditional B4Z applicability/acquisition; gray-caliper acquisition and restoration; six hash acquisitions and all 17 conditional roof pairs; EL9 locking; full graphics conflicts |
+| Grand Sport X | Its own standard J57/B4Z/FE5 and FED tire substitution; retire the two LS6 edges; retain ZZ3 and coupe-lighting paths; EL9/Z25, hash/roof and graphics corrections using GSX identities |
+| Z06 | All nine package/wheel prices in six configurations; compatible caliper upgrades; complete PCZ child ownership/zero rates; 5DH/5DK exclusions; all 15 stripe/paint pairs; RXI/SLN; five pinned CBF fragments; PDB/Z07 request transfer to PDD |
+| ZR1 | Model-specific ZTK/TOM ownership and equipment; corrected CFC paint direction and EFR content scope; standard restorations; complete DTC graphic conflicts; retained 3,000 R8E |
+| ZR1X | Its own J59/FEH/FEZ, 2,600 R8E and 14,495 ZTK+TOM; CFC/DTC/DUW corrections; independent children and displaced-cover ownership, without importing ZR1 prices |
+
+Every lane retains complete interior parts/prices, conditional D30 causes with
+one charge owner, SBT's zero-priced included pouch, factory-unavailable states,
+and notice/confirm/cancel/whole-state revert. GS B4Z changes from unconditional
+standard to available with an explicit FEB/FEY requirement under GS-D08; the
+offering-only importer and frozen matrix keep the original observation.
+
+Source includes share one priority tier. Supplied choices precede configuration
+defaults; conditional soft defaults retain their authored priorities. Complete
+behavior rates use stable identity ordering, not workbook row order as business
+precedence: differing amounts have disjoint configurations or mutually exclusive
+wheel conditions; equal amounts do not create a second charge. Tests check this
+specific rate property; it does not replace whole-revision overlap validation.
+
+Z06 CBF uses one plan covering all live incompatible package/aero/ground-effect
+causes. Absent removal endpoints are inert. The preview discloses the actual
+complete removal set, including independently retained roots, and adds CBF once.
+This prevents three competing plans for one PDD→Z07→T0F chain. Each of the five
+frozen fragments and the pinned runtime revision retains provenance.
+
+`State.content` contains typed supplied-content effects alongside `installed`:
+roof-stripe omission, applicable WKR high-wing version, accent/ground-effect
+finish changes, second-wheel-set hardware/caps, SBT's extra panel and ZR roof trim.
+These are not new purchases or visual assets. Z06's WKR text mentions 5ZW without
+a corresponding model offering; the original text remains evidence and no
+phantom option is created. New schema payloads are content names, effect kind,
+value and precedence, plus a reason on source dispositions; no dependencies added.
+
+**Validation:** the focused suite exercises all 32 initial configurations and
+704 interiors in each applicable body, 54 Z06 package/wheel states, all GS/GSX
+conditional roof pairs, stripe conflicts in both directions, CBF complete-root
+replacement/cancel/revert, six-lane package ownership, exact independent totals,
+rate-order independence, repeat import and last-lane rollback. The preserved
+eight-case, offering, source and foundation suites run alongside it.
+
+**Remaining boundary:** this is full translation of retained behavior families
+and the identified accepted behavior corrections, not exhaustive combination
+proof. Whole-revision semantic overlap remains next. Presentation/navigation,
+disclosure rendering, code-emission mappings and generated consumer artifacts
+are still absent, as are freeze/completion/publication operations and §5 release
+proof. Every state retains `partial_catalog_not_submission_ready`. No browser,
+deployment, canonical authority or frozen evidence changed.
 
 ## Historical baseline implementation
 

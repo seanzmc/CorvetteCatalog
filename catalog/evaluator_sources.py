@@ -401,6 +401,9 @@ class OfferingLane(Lane):
     def option_anchor(self, code):
         return self.anchor(self.roles['options'], self.offerings[self.oid(code)])
 
+    def availability_target(self, row, availability):
+        return availability['status'], [self.anchor(self.roles['availability'], availability)]
+
     def foundation(self):
         self.configuration_foundation()
         dispositions = {r['record_id']: r for r in self.data['offering_dispositions']}
@@ -455,8 +458,9 @@ class OfferingLane(Lane):
             if len(matrix) != len(self.configs) or {r['variant_id'] for r in matrix} != set(self.scope()):
                 raise ValueError(f'Incomplete applicability: {self.lane}/{oid}')
             for availability in matrix:
+                status, status_anchors = self.availability_target(row, availability)
                 self.put('option_configuration', oid + '/' + availability['variant_id'],
-                    {'status': availability['status']}, [self.anchor(self.roles['availability'], availability)],
+                    {'status': status}, status_anchors,
                     target={'option_id': oid, 'configuration_id': availability['variant_id']})
         for addition in self.review['accepted_additions']:
             if addition['currency'] != 'USD' or addition['target_disposition'] != 'add' or addition['rpo'] in self.options:
@@ -477,7 +481,7 @@ class OfferingLane(Lane):
                     {'customer_selectable': int(row['selectable'])}, [self.anchor(self.roles['variant_overrides'], row)],
                     target={'option_id': row['option_id'], 'configuration_id': row['variant_id']})
 
-    def interiors(self):
+    def interiors(self, *, case_recipes=True):
         """Translate seats once, option-backed parts, and model-owned extras.
 
         The frozen leaf Price is never a balancing amount. AE4 is always owned
@@ -546,7 +550,7 @@ class OfferingLane(Lane):
         for row in self.rows[self.roles['rule_mapping']]:
             if row['source_id'] not in self.interior_rows or row['rule_type'] != 'includes':
                 continue
-            if self.lane == 'grand-sport' and row['source_id'] in ('3LT_AE4_EL9', '3LT_AH2_EL9'):
+            if case_recipes and self.lane == 'grand-sport' and row['source_id'] in ('3LT_AE4_EL9', '3LT_AH2_EL9'):
                 continue  # Already translated by the GS E04 recipe.
             self.include(row['source_id'], row['target_id'], interior=True,
                          scope=self.scope(trim=scopes[row['source_id']]['trim_level']))
@@ -566,11 +570,12 @@ class OfferingLane(Lane):
         # general overlap/release validation remains a separate checkpoint.
         self.rate_order.extend(row_numbers)
 
-    def all_rates(self):
+    def all_rates(self, *, source_order=True):
         sheet = self.roles['price_rules']
         rows = {r['_row']: r for r in self.rows[sheet]}
         priorities = defaultdict(int)
-        for number in dict.fromkeys(self.rate_order + list(rows)):
+        order = dict.fromkeys(self.rate_order + list(rows)) if source_order else sorted(rows, key=lambda n: rows[n]['price_rule_id'])
+        for number in order:
             row = rows[number]
             if row['price_rule_type'] != 'override':
                 raise ValueError('Unsupported source rate kind')
@@ -715,6 +720,8 @@ def validate_sources(db, *, allow_sample_option=True):
         'option_rate': ('amount_minor', 'basis_id'),
         'choice_group': ('peer_policy',),
         'interior': ('code', 'enabled'),
+        'content_aspect': ('name',),
+        'content_effect': ('effect_kind', 'value', 'precedence'),
     }.items():
         if db.execute(f'SELECT 1 FROM {relation} WHERE ' + ' OR '.join(c + ' IS NULL' for c in columns)).fetchone():
             raise ValueError(f'Incomplete {relation} payload')

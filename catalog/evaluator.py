@@ -1,4 +1,4 @@
-"""Disposable evaluator for E01–E08 behavior and complete interior price owners.
+"""Evaluate translated draft behavior and the preserved E01–E08 fixture.
 
 No authoring writes, full-catalog validity, rendering, or submission API. All
 amounts are integer minor units. A Session previews and commits whole states.
@@ -32,6 +32,13 @@ class Charge:
 
 
 @dataclass(frozen=True)
+class Content:
+    aspect_id: str
+    value: str
+    effect_id: str
+
+
+@dataclass(frozen=True)
 class State:
     revision_id: str
     configuration_id: str
@@ -43,6 +50,7 @@ class State:
     standard: frozenset[str]
     charges: tuple[Charge, ...]
     issues: tuple[str, ...]
+    content: tuple[Content, ...] = ()
 
     @property
     def total_minor(self):
@@ -69,12 +77,12 @@ class Evaluator:
                   'condition_clause', 'condition_member', 'option_configuration',
                   'interior_configuration', 'choice_group_member', 'conflict_member',
                   'replacement_action', 'configuration_policy', 'interaction_policy',
-                  *[t for t in SCOPES if t != 'content_effect'])
+                  'content_aspect', *SCOPES)
         self.rows = {t: [dict(r) for r in db.execute(
             f'SELECT * FROM "{t}" WHERE revision_id = ?', (revision_id,))] for t in tables}
         self.scopes = {t: {(r[0], r[1]) for r in db.execute(
             f'SELECT {key}, configuration_id FROM {t}_configuration WHERE revision_id = ?',
-            (revision_id,))} for t, key in SCOPES.items() if t != 'content_effect'}
+            (revision_id,))} for t, key in SCOPES.items()}
         self.options = {r['id']: r for r in self.rows['option']}
         self.configs = {r['id']: r for r in self.rows['configuration']}
         self.interiors = {r['id']: r for r in self.rows['interior']}
@@ -94,19 +102,33 @@ class Evaluator:
                         cancel_action='preserve_whole_state', revert_action='restore_whole_state')
         if any(policy[k] != v for k, v in expected.items()):
             raise EvaluationError('Unsupported interaction policy')
+        self._index()
+
+    def _index(self):
+        # Index each public evaluation boundary, retaining the mutable snapshot
+        # used by adversarial tests without rescanning every clause per rule.
+        self.clauses = defaultdict(list)
+        self.condition_members = defaultdict(list)
+        for row in self.rows['condition_clause']:
+            self.clauses[row['condition_id']].append(row)
+        for row in self.rows['condition_member']:
+            self.condition_members[row['condition_id'], row['clause_id']].append(row)
+        self.scoped_rows = {(table, config): [r for r in self.rows[table]
+                            if (r['id'], config) in scope]
+                            for table, scope in self.scopes.items() for config in self.configs}
 
     def scoped(self, table, config):
-        return [r for r in self.rows[table] if (r['id'], config) in self.scopes[table]]
+        return self.scoped_rows[table, config]
 
     def eligible(self, option, config):
         row = self.options.get(option)
         return bool(row and row['lifecycle'] == 'active' and
                     self.statuses.get((option, config)) in ('available', 'standard'))
 
-    def condition(self, identifier, config, intent, interior, roots):
+    def condition(self, identifier, config, intent, interior, roots, absence_roots=None):
         """Return truth and supporting live roots; absence contributes no roots."""
         condition = self.conditions[identifier]
-        clauses = [r for r in self.rows['condition_clause'] if r['condition_id'] == identifier]
+        clauses = self.clauses[identifier]
         if condition['mode'] == 'always':
             if clauses:
                 raise EvaluationError('Always condition has clauses')
@@ -115,8 +137,8 @@ class Evaluator:
             raise EvaluationError('Empty conjunction')
         support = set()
         for clause in clauses:
-            members = [r for r in self.rows['condition_member']
-                       if r['condition_id'] == identifier and r['clause_id'] == clause['clause_id']]
+            members = self.condition_members[identifier, clause['clause_id']]
+            tested_roots = absence_roots if clause['mode'] == 'none_present' and absence_roots is not None else roots
             if not members:
                 raise EvaluationError('Empty condition clause')
             hits = []
@@ -124,14 +146,14 @@ class Evaluator:
                 if m['option_id'] is not None:
                     oid = m['option_id']
                     hits.append(({oid} if oid in intent else set()) if m['state'] == 'explicit_intent'
-                                else roots.get(oid, set()))
+                                else tested_roots.get(oid, set()))
                 elif m['interior_id'] is not None:
                     hits.append({'interior:' + interior} if interior == m['interior_id'] else set())
                 else:
                     gid = m['group_id']
                     if (gid, config) not in self.scopes['choice_group']:
                         raise EvaluationError('Condition references out-of-scope group')
-                    hits.append(set().union(*(roots.get(o, set()) for o in self.members[gid])))
+                    hits.append(set().union(*(tested_roots.get(o, set()) for o in self.members[gid])))
             present = any(hits)
             if clause['mode'] == 'any_present':
                 if not present:
@@ -151,7 +173,7 @@ class Evaluator:
             roots[cause.option_id].update(cause.roots)
         return roots
 
-    def closure(self, config, intent, interior, blocked=frozenset()):
+    def closure(self, config, intent, interior, blocked=frozenset(), *, resolving=False):
         base = [Cause(o, 'independent', o, frozenset({o})) for o in intent if o not in blocked]
         if interior:
             seat = self.interiors[interior]['seat_option_id']
@@ -169,9 +191,11 @@ class Evaluator:
                 raise EvaluationError('Repeated acquisition state / nonconvergence')
             seen.add(signature)
             roots = self.roots(causes)
+            firm_roots = self.roots(c for c in causes if c.peer_policy == 'locked' or c.origin not in ('standard', 'default'))
             active = []
             for row in self.scoped('acquisition', config):
-                truth, support = self.condition(row['condition_id'], config, intent, interior, roots)
+                truth, support = self.condition(row['condition_id'], config, intent, interior, roots,
+                                                firm_roots if row['peer_policy'] == 'yield_to_explicit' else None)
                 if truth:
                     if not self.eligible(row['target_option_id'], config):
                         raise EvaluationError('Acquisition targets ineligible option')
@@ -182,23 +206,27 @@ class Evaluator:
             # by whichever row happens to come first in a SQL result.
             policies = defaultdict(set)
             for row, _ in active:
-                policies[row['target_option_id']].add((row['peer_policy'], row['intent_policy']))
+                if row['origin_kind'] != 'standard':
+                    policies[row['target_option_id']].add((row['peer_policy'], row['intent_policy']))
             if any(len(p) > 1 for p in policies.values()):
                 raise EvaluationError('Contradictory acquisition ownership policies')
             suppressed = set()
             for group in self.scoped('choice_group', config):
                 members = self.members[group['id']]
-                explicit = members.intersection(intent)
-                if len(explicit) > group['maximum']:
+                explicit = members.intersection(c.option_id for c in base)
+                if len(explicit) > group['maximum'] and not resolving:
                     raise EvaluationError('Conflicting explicit group intent')
                 offers = [(row, support) for row, support in active if row['target_option_id'] in members]
                 locked = {r['target_option_id'] for r, _ in offers if r['peer_policy'] == 'locked'}
                 winners = explicit | locked
-                if len(winners) > group['maximum']:
+                if len(winners) > group['maximum'] and not resolving:
                     raise EvaluationError('Locked group conflict')
                 if not winners and offers:
-                    priority = min(r['priority'] for r, _ in offers)
-                    winners = {r['target_option_id'] for r, _ in offers if r['priority'] == priority}
+                    # Supplied choices outrank configuration defaults even if
+                    # the supplied choice permits a customer-selected peer.
+                    candidates = [(r, support) for r, support in offers if r['origin_kind'] in ('included', 'dependency')] or offers
+                    priority = min(r['priority'] for r, _ in candidates)
+                    winners = {r['target_option_id'] for r, _ in candidates if r['priority'] == priority}
                     if len(winners) > group['maximum']:
                         raise EvaluationError('Ambiguous competing defaults')
                 suppressed.update(members - winners)
@@ -207,6 +235,19 @@ class Evaluator:
                 target = row['target_option_id']
                 if target not in blocked and target not in suppressed:
                     next_causes.append(Cause(target, row['origin_kind'], row['id'], support, row['peer_policy']))
+            # A soft default yields to an incompatible firm choice. Its support
+            # is never removed as if it were an independent customer purchase.
+            by_option = defaultdict(list)
+            for cause in next_causes:
+                by_option[cause.option_id].append(cause)
+            soft = {o for o, items in by_option.items() if all(c.peer_policy == 'yield_to_explicit' for c in items)}
+            displaced = set()
+            for left, right in self.conflicts(config, intent, interior, next_causes):
+                if left in soft and right not in soft:
+                    displaced.add(left)
+                if right in soft and left not in soft:
+                    displaced.add(right)
+            next_causes = [c for c in next_causes if c.option_id not in displaced]
             next_causes = tuple(sorted(set(next_causes), key=lambda c: (c.option_id, c.origin, c.source_id, sorted(c.roots))))
             if frozenset(next_causes) == signature:
                 return next_causes, active
@@ -220,6 +261,7 @@ class Evaluator:
         return amount
 
     def state(self, config, intent=(), interior=None):
+        self._index()
         configuration = self.configs.get(config)
         if not configuration or not configuration['enabled']:
             raise EvaluationError('Unknown or disabled configuration in this revision')
@@ -288,7 +330,21 @@ class Evaluator:
             charges.append(Charge('component', part['component_id'],
                 self._money(rate['amount_minor'], rate['basis_id'], 'option_purchase'), rate['basis_id']))
         standard = frozenset(o for (o, c), status in self.statuses.items() if c == config and status == 'standard')
-        return State(self.revision_id, config, tuple(intent), interior, causes, frozenset(roots), frozenset(installed), standard, tuple(charges), tuple(issues))
+        effects = defaultdict(list)
+        content = []
+        for row in self.scoped('content_effect', config):
+            if test(row['condition_id']):
+                if row['effect_kind'] == 'add':
+                    content.append(Content(row['aspect_id'], row['value'], row['id']))
+                else:
+                    effects[row['aspect_id']].append(row)
+        for aspect, rows in effects.items():
+            if len({r['precedence'] for r in rows}) != len(rows):
+                raise EvaluationError('Ambiguous supplied-content precedence')
+            row = min(rows, key=lambda r: r['precedence'])
+            content.append(Content(aspect, row['value'], row['id']))
+        return State(self.revision_id, config, tuple(intent), interior, causes, frozenset(roots), frozenset(installed), standard, tuple(charges), tuple(issues),
+                     tuple(sorted(content, key=lambda c: (c.aspect_id, c.effect_id))))
 
     def conflicts(self, config, intent, interior, causes):
         roots = self.roots(causes)
@@ -303,12 +359,18 @@ class Evaluator:
                     target = member['option_id'] or ('interior:' + member['interior_id'])
                     if target in roots or target == 'interior:' + (interior or ''):
                         found.append((source, target))
+        for group in self.scoped('choice_group', config):
+            present = sorted(self.members[group['id']].intersection(roots))
+            if len(present) > group['maximum']:
+                found.extend((left, right) for i, left in enumerate(present) for right in present[i + 1:])
         return found
 
     def transition(self, before, action, target=None):
+        self._index()
         if before.revision_id != self.revision_id:
             raise EvaluationError('State belongs to another revision')
         config, intent, interior = before.configuration_id, list(before.intent), before.interior_id
+        accepted_request = {target} if action == 'select' else set()
         if action == 'configure':
             if target == config:
                 return before
@@ -335,6 +397,8 @@ class Evaluator:
                 if len(plans) > 1:
                     raise EvaluationError('Ambiguous applicable replacements')
                 if plans:
+                    accepted_request = {r['option_id'] for r in self.rows['replacement_action']
+                                        if r['plan_id'] == plans[0]['id'] and r['action'] == 'add'}
                     for row in sorted((r for r in self.rows['replacement_action'] if r['plan_id'] == plans[0]['id']), key=lambda r: r['position']):
                         if row['action'] == 'remove':
                             intent, interior = self.remove_roots(row['option_id'], intent, interior, before.causes)
@@ -359,7 +423,7 @@ class Evaluator:
             if signature in seen:
                 raise EvaluationError('Repeated transition cleanup state')
             seen.add(signature)
-            causes, active = self.closure(config, intent, interior, blocked)
+            causes, active = self.closure(config, intent, interior, blocked, resolving=True)
             roots = self.roots(causes)
             changed = False
             for r in self.scoped('requirement', config):
@@ -401,11 +465,17 @@ class Evaluator:
             if absorbed.intersection(intent):
                 intent = [o for o in intent if o not in absorbed]
                 continue
-            return self.state(config, intent, interior)
+            candidate = self.state(config, intent, interior)
+            if accepted_request and not accepted_request.issubset(candidate.resolved):
+                raise EvaluationError('Requested option cannot satisfy its prerequisites')
+            return candidate
         raise EvaluationError('Transition iteration limit exceeded')
 
     def remove_roots(self, option, intent, interior, causes):
-        support = {option} if option.startswith('interior:') else self.roots(causes).get(option, {option})
+        # A replaceable default may coexist with explicit ownership of the
+        # same option. Remove the purchase/root, not its soft configuration cause.
+        firm = [c for c in causes if c.peer_policy == 'locked']
+        support = {option} if option.startswith('interior:') else self.roots(firm).get(option, {option})
         return self.drop_support(support, intent, interior)
 
     @staticmethod
