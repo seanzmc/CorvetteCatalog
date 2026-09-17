@@ -10,7 +10,7 @@ from unittest.mock import patch
 from catalog import foundation as f
 from catalog.behavior_sources import import_behavior
 from catalog.evaluator import EvaluationError, Session
-from catalog.semantic_validation import Audit
+from catalog.semantic_validation import Audit, findings
 from catalog.foundation_schema import SCOPES
 
 
@@ -201,6 +201,44 @@ class SemanticValidationTests(unittest.TestCase):
                     after = a.transaction(before,'select',z07)[2]
                     self.assertIn(pdd,after.intent)
                     self.assertNotIn(z07,after.intent)
+
+    def test_replacement_without_requested_option_is_refused_without_losing_undo(self):
+        e = self.audits['z06'].ev
+        pdb, z07, paint = (self.oid(e, c) for c in ('PDB', 'Z07', 'GBA'))
+        plan, = [r for r in e.rows['replacement_plan'] if r['requested_option_id'] == z07]
+        # Synthetic mistranslation: a valid but unrelated purchase replaces PDB.
+        actions = [dict(r, option_id=paint) if r['plan_id'] == plan['id'] and r['action'] == 'add'
+                   else r for r in e.rows['replacement_action']]
+        for config in e.configs:
+            with self.subTest(config=config):
+                s = Session(e, config)
+                original = s.state
+                s.confirm(s.preview('select', pdb))
+                before = s.state
+                with patch.dict(e.rows, replacement_action=actions):
+                    with self.assertRaisesRegex(EvaluationError, 'Requested option cannot satisfy its prerequisites'):
+                        s.preview('select', z07)
+                self.assertIs(s.state, before)
+                self.assertIs(s.cancel(), before)
+                self.assertEqual(s.revert(), original)
+
+    def test_replacement_without_witness_records_unresolved_or_proved_inapplicable(self):
+        a = self.audits['z06']
+        for proof, status in ((None, 'unresolved'), ('Synthetic disjoint condition', 'inapplicable')):
+            with self.subTest(status=status), patch.object(a, 'witness', return_value=None), \
+                    patch.object(a, 'disjoint', return_value=proof):
+                entries = a.run(tables=['replacement_plan'])
+            plans = [entry for entry in entries if entry['table'] == 'replacement_plan']
+            self.assertTrue(plans)
+            for entry in plans:
+                checks = [c for c in entry['checks'] if c['kind'] == 'replacement']
+                self.assertEqual({c['configuration'] for c in checks}, set(entry['configurations']))
+                self.assertEqual(len(checks), len(entry['configurations']))
+                self.assertTrue(all(c['status'] == status for c in checks))
+            problems = findings({'lanes': {'z06': {'inventory': entries}}})
+            self.assertEqual(bool(problems), status == 'unresolved')
+            if problems:
+                self.assertTrue(any(p['kind'] == 'replacement' for p in problems))
 
     def test_removing_absent_supplied_peer_preserves_build_and_undo(self):
         # After choosing ROZ instead of PDD's default ROY, ROY is absent.

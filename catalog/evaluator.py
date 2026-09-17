@@ -477,6 +477,10 @@ class Evaluator:
             candidate = self.state(config, intent, interior)
             if action == 'remove' and target in candidate.resolved:
                 raise EvaluationError('Requested removal would be reacquired')
+            # Replacement purchase roots determine conflict precedence, but
+            # they must still acquire the option the customer actually requested.
+            if action == 'select' and target not in candidate.resolved:
+                raise EvaluationError('Requested option cannot satisfy its prerequisites')
             if accepted_request and not accepted_request.issubset(candidate.resolved):
                 raise EvaluationError('Requested option cannot satisfy its prerequisites')
             return candidate

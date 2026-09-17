@@ -568,10 +568,14 @@ class Audit:
                     if not found:
                         add('acquire', self.unavailable_witness(config, row['condition_id']))
                 elif table == 'replacement_plan':
+                    found = False
                     for before in self.conditioned(config, row['condition_id']):
+                        found = True
                         removed = [a['option_id'] for a in entry['actions'] if a['action'] == 'remove']
                         added = [a['option_id'] for a in entry['actions'] if a['action'] == 'add']
                         add('replacement', self.probe(before, 'select', row['requested_option_id'], absent=removed, retained=added))
+                    if not found:
+                        add('replacement', self.unavailable_witness(config, row['condition_id']))
                 else:
                     before = next(self.conditioned(config, row['condition_id']), None)
                     add('condition', {'status': 'active'} if before else self.unavailable_witness(config, row['condition_id']))
