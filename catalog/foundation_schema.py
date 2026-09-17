@@ -1,8 +1,8 @@
 """Portable structural DDL for the disposable master-schema foundation.
 
 This is a projection of the reviewed logical design, not a complete catalog.
-Draft rows may omit payloads until translated. Complete offerings and bounded
-behavior supply prices and policies; presentation and releases remain absent.
+Draft rows may omit payloads until translated. Offering and behavior importers
+supply prices and policies; presentation and releases remain absent.
 Typed ownership and endpoint keys are concrete.
 """
 
@@ -26,7 +26,7 @@ TRANSLATIONS = {
     "option_configuration": ("option_id", "configuration_id"),
 }
 
-# Only families populated by the bounded source importer receive translation links.
+# Populated source families receive full-key typed translation links.
 TRANSLATIONS.update({
     "component": ("component_id",),
     "interior_part": ("interior_id", "part_key"),
@@ -40,10 +40,11 @@ TRANSLATIONS.update({
     "conflict": ("conflict_id",), "conflict_member": ("conflict_id", "member_id"),
     "replacement_plan": ("plan_id",), "replacement_action": ("plan_id", "position"),
     "option_rate": ("rate_id",), "equipment_substitution": ("substitution_id",),
+    "content_aspect": ("aspect_id",), "content_effect": ("effect_id",),
     "interaction_policy": (), "configuration_policy": ("configuration_id",),
 })
 TRANSLATIONS.update({f"{parent}_configuration": (column, "configuration_id")
-                     for parent, column in SCOPES.items() if parent != "content_effect"})
+                     for parent, column in SCOPES.items()})
 
 
 def money(column):
@@ -182,7 +183,10 @@ def statements():
         "equipment_substitution": endpoint("condition_id", "condition")
                                   + endpoint("removed_option_id", "option")
                                   + endpoint("replacement_option_id", "option", True),
-        "content_effect": endpoint("condition_id", "condition") + endpoint("aspect_id", "content_aspect"),
+        "content_aspect": [key("name")],
+        "content_effect": endpoint("condition_id", "condition") + endpoint("aspect_id", "content_aspect")
+                          + ["effect_kind VARCHAR(16) CHECK (effect_kind IN ('add', 'replace'))",
+                             "value VARCHAR(2048)", "precedence INTEGER CHECK (precedence > 0)"],
         "section": endpoint("step_id", "step"),
     }
     payloads["configuration"] += money("starting_amount_minor")
@@ -304,7 +308,8 @@ def statements():
     ])
     yield table("source_disposition", [
         key("revision_id"), key("anchor_id"), key("fragment_key"),
-        "disposition VARCHAR(32) NOT NULL CHECK (disposition IN ('baseline_sample', 'accepted_target'))",
+        "disposition VARCHAR(32) NOT NULL CHECK (disposition IN ('baseline_sample', 'accepted_target', 'translated', 'superseded', 'inactive'))",
+        "reason VARCHAR(2048)",
         "PRIMARY KEY (revision_id, anchor_id, fragment_key)",
         fk("revision_id", "catalog_revision", "revision_id"),
         fk("anchor_id", "source_anchor", "anchor_id"), *EVIDENCE,

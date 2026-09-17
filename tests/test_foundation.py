@@ -214,7 +214,7 @@ class FoundationTests(unittest.TestCase):
         other_model = self.db.execute("SELECT model_year_id FROM catalog_revision WHERE revision_id <> ?", (self.r,)).fetchone()[0]
         self.version("condition", "always", mode="always")
         self.version("step", "step")
-        self.version("content_aspect", "aspect")
+        self.version("content_aspect", "aspect", name="test aspect")
         payloads = {
             "configuration": dict(body="coupe", trim="test", enabled=1, chooser_order=1),
             "option": dict(rpo=None, name="test", customer_selectable=0, lifecycle="active"),
@@ -229,6 +229,7 @@ class FoundationTests(unittest.TestCase):
             "option_rate": dict(condition_id="always", target_option_id="opt_uvb_001", priority=1),
             "equipment_substitution": dict(condition_id="always", removed_option_id="opt_uvb_001"),
             "content_effect": dict(condition_id="always", aspect_id="aspect"),
+            "content_aspect": dict(name="test aspect"),
             "section": dict(step_id="step"),
         }
         for relation in IDENTITY_RELATIONS:
@@ -307,7 +308,7 @@ class FoundationTests(unittest.TestCase):
 
     def test_group_scope_subset_for_every_implemented_condition_consumer(self):
         self.group_fixture()
-        self.version("content_aspect", "aspect")
+        self.version("content_aspect", "aspect", name="test aspect")
         parents = {
             "requirement": ("requirement_id", dict(source_option_id="opt_uvb_001", activation_condition_id="always",
                                                    satisfaction_condition_id="group-condition")),

@@ -1,6 +1,35 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 16 complete offering population
+## Current direction — September 16 full behavior translation
+
+The authorized [full behavior pass](../catalog/README.md#full-behavior-translation)
+implements `catalog/behavior_sources.py` across all six lanes. It translates
+direct/grouped requirements and conflicts, explicit choices, defaults, interior
+and color conditions, accepted corrections, equipment substitutions and supplied
+content, while preserving the eight-case and offering-only regression projections.
+All 3,770 source behavior rows have individual dispositions and typed provenance;
+five Z06 code-derived CBF fragments retain the pinned runtime source identity.
+
+Accepted corrections include GS/GSX hash/roof and graphics behavior, GS brake
+restoration and conditional B4Z, Z06 PCZ/second-wheel-set/stripe relationships,
+DTC/SAI conflicts, GSX LS6-rule retirements, CFC paint direction, and full
+independent-purchase retention. Whole-state previews preserve cancel/revert;
+the CBF transaction accounts for all incompatible live package/aero roots.
+Exact rates, all 32 initial states, all 704 interiors, the 54 Z06 package/wheel
+states, source accounting, repeat import and atomic failure are covered by the
+focused behavior/source/evaluator/foundation checks: **100 tests passed in
+63.701 seconds** on the final implementation. Fresh and reopened CLI imports,
+all six handoff contracts and diff checks pass. A separate 4,032-request smoke
+pass found only 254 missing-prerequisite refusals and no unexpected errors.
+
+The next pass is whole-revision **semantic overlap and cross-lane consistency**.
+Release contracts in §5 remain the target: consumer presentation/emission mappings,
+artifact generation and freeze/completion/publication operations still need
+implementation before release validation can establish readiness. The draft
+continues to report `partial_catalog_not_submission_ready`; no canonical change,
+merge, deployment or cutover is part of this pass.
+
+## Prior direction — September 16 complete offering population
 
 The authorized population expansion is implemented in
 [`catalog/evaluator_sources.py`](../catalog/evaluator_sources.py). The
