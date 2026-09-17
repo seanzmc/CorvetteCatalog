@@ -1,6 +1,35 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 16 full behavior translation
+## Current direction — September 17 semantic overlap and cross-lane validation
+
+The [semantic-overlap pass](semantic-overlap-validation.md) inventories every
+scoped exclusion, replacement, continuing dependency, acquisition, choice group,
+interior ownership path, contextual rate, equipment substitution and content
+effect across all six lanes. The complete evidence report retains the 3,770 source
+behavior dispositions and tests both exclusion directions, ownership histories,
+policy precedence and whole-state preview/confirm/cancel/revert. Reversed rule
+storage challenges accidental ordering dependencies.
+
+The pass fixes interior-owned seats being silently reacquired after removal,
+order-dependent cleanup of yielding package children with unmet prerequisites,
+replacement conflicts preferring a consumed request over the accepted purchase,
+and absent-option removal destroying its former supplying package. Compatible
+package peer yielding and prior undo state are preserved. Equal-rank compatible
+acquisition causes remain distinct owners of one charged item.
+
+The final implementation passes **115 regression tests in 98.225 seconds**.
+The full matrix completed in 644.06 seconds with 6,921 inventory entries,
+69,796 scoped outcomes and zero failed or unresolved findings. Detailed coverage
+and dispositions are recorded in the linked report.
+No source facts, accepted business decisions, schema, dependencies or canonical
+workbook changed. The draft remains `partial_catalog_not_submission_ready`.
+
+Consumer presentation/emission mappings, artifact generation and
+freeze/completion/publication operations remain subsequent work. They require
+separate authorization; §5 release contracts cannot establish readiness until
+those paths exist. No merge, deployment or cutover is included in this pass.
+
+## Prior direction — September 16 full behavior translation
 
 The authorized [full behavior pass](../catalog/README.md#full-behavior-translation)
 implements `catalog/behavior_sources.py` across all six lanes. It translates

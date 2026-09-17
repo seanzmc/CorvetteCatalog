@@ -14,8 +14,10 @@ extends this to 1,388 options, 704 interiors and all source contextual prices.
 The [full behavior importer](catalog/README.md#full-behavior-translation)
 adds direct/grouped rules, explicit choice memberships, defaults, interior/color
 conditions, accepted corrections and supplied content across all six lanes.
-Whole-revision semantic overlap, consumer mappings and release operations remain
-later work; the workbook remains canonical.
+The [semantic-overlap audit](docs/semantic-overlap-validation.md) inventories and
+exercises those relationships across all model lanes, including ownership and
+whole-state transactions. Consumer mappings and release operations remain later
+work; the workbook remains canonical.
 
 Use the [master-schema proposal](docs/master-schema-proposal.md) for logical
 ownership, keys, rules, pricing and six-model walkthroughs, and the

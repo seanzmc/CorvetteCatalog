@@ -1235,10 +1235,14 @@ endpoint)` for each kind. Enforce XOR first and unique non-null endpoints with
 filtered indexes or equivalent constraints in the chosen engine. Endpoint state
 is part of condition identity; different legitimate tests are not duplicates.
 
-For acquisitions, validate unique priority per target **where scopes and
-conditions overlap**. Retain all supported causes; priority cannot erase package
-ownership. Contradictory peer/intent policies need an explicit evidenced resolution,
-otherwise freeze fails. Content replacement effects require distinct precedence
+For acquisitions, validate ownership compatibility **where scopes and
+conditions overlap**. Equal priority for compatible causes of the same target is
+not a competing choice: retain both causes and one charge. For example, ZR1X
+5JR and ZYC each supply DRG, and removing either source must retain the other
+cause. Priority cannot erase package ownership. Competing defaults for different
+members of a choice group still require an unambiguous winner. Contradictory
+peer/intent policies need an explicit evidenced resolution, otherwise freeze fails.
+Content replacement effects require distinct precedence
 per aspect where scopes/conditions overlap. Additive effects do not compete as
 replacements. These cross-row predicates require semantic validation, not a claim
 that an ordinary UNIQUE constraint proves overlap safety. Finite configuration
