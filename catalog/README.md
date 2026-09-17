@@ -384,6 +384,36 @@ are still absent, as are freeze/completion/publication operations and §5 releas
 proof. Every state retains `partial_catalog_not_submission_ready`. No browser,
 deployment, canonical authority or frozen evidence changed.
 
+## Semantic overlap and cross-lane validation
+
+The [semantic validation report](../docs/semantic-overlap-validation.md) and
+[complete inventory](../docs/validation/semantic-overlap.json) extend the behavior
+pass to every scoped exclusion/peer pair, requirement, replacement, acquisition
+and interior ownership path. The audit records source dispositions and separates
+proved inapplicability from failed or unresolved checks.
+
+```sh
+python3 -m catalog.semantic_validation --output .local/semantic-overlap.json
+python3 -m unittest tests.test_semantic_validation
+```
+
+This explicit milestone command checks preview/confirm/cancel/revert, both request
+directions, independent and concurrent ownership, true/false conditions and
+conflicting precedence. Repeated previews reverse rule storage order. It is not
+an import hook, authoring service or release gate. Expected values in the focused
+lane cases come from accepted policy and retained evidence; the larger matrix
+checks the translated constraints rather than inventing a new source of truth.
+
+The pass repairs direct removal of interior-owned seats, which previously were
+silently reacquired during final evaluation. The interior owner is now cleared,
+unrelated purchases remain, and the entire prior state can be canceled/reverted.
+Prerequisite cleanup retains package owners even when their supplied choice
+allows an alternative peer. Replacement cleanup honors the accepted purchase,
+and redundant removal of an absent choice preserves the build and undo state.
+Missing-group diagnostics have stable order. No schema or business-data
+changes, dependencies, consumer rendering or release operations are introduced.
+Every state remains `partial_catalog_not_submission_ready`.
+
 ## Historical baseline implementation
 
 **Historical implementation reference.** Current work is

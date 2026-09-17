@@ -291,7 +291,7 @@ class Evaluator:
             raise EvaluationError('Missing configuration policy')
         if not interior and policies[0]['interior_minimum']:
             issues.append('missing_required_interior')
-        for group in self.scoped('choice_group', config):
+        for group in sorted(self.scoped('choice_group', config), key=lambda r: r['id']):
             count = len(self.members[group['id']].intersection(roots))
             if count > group['maximum']:
                 raise EvaluationError('Group cardinality exceeded')
@@ -389,6 +389,8 @@ class Evaluator:
             target_causes = [c for c in before.causes if c.option_id == target]
             if any(c.origin == 'standard' and c.peer_policy == 'locked' for c in target_causes):
                 raise EvaluationError('Standard-only equipment cannot be purchased or removed')
+            if action == 'remove' and target not in before.resolved:
+                return before
             if action == 'select':
                 if target in before.resolved and any(c.peer_policy == 'locked' and c.origin != 'independent' for c in target_causes):
                     return before  # A click on a supplied child never invents intent.
@@ -414,6 +416,12 @@ class Evaluator:
                     intent.append(target)
             else:
                 intent = [o for o in intent if o != target]
+                # Seats and option parts are acquired directly by the chosen
+                # interior, not through an acquisition row. Clear that owner
+                # before closure so the final state cannot reacquire a removed
+                # child after the temporary block is lifted.
+                if any(c.origin == 'interior' for c in target_causes):
+                    interior = None
         else:
             raise EvaluationError('Unknown action')
         blocked = {target} if action == 'remove' else set()
@@ -430,7 +438,8 @@ class Evaluator:
                 source = r['source_option_id'] or ('interior:' + r['source_interior_id'])
                 present = source in roots or source == 'interior:' + (interior or '')
                 if present and self.condition(r['activation_condition_id'], config, intent, interior, roots)[0] and not self.condition(r['satisfaction_condition_id'], config, intent, interior, roots)[0]:
-                    intent, interior = self.remove_roots(source, intent, interior, causes)
+                    intent, interior = self.remove_roots(
+                        source, intent, interior, causes, include_yielding_owners=True)
                     changed = True
                     break
             if changed:
@@ -446,7 +455,7 @@ class Evaluator:
             if conflicts:
                 left, right = conflicts[0]
                 # A removal requests nothing, so neither conflict side is preferred.
-                requested_roots = ({target} if action == 'select' else
+                requested_roots = (accepted_request if action == 'select' else
                                    {'interior:' + (target or '')} if action == 'interior' else set())
                 left_roots = roots.get(left, {left})
                 right_roots = roots.get(right, {right})
@@ -466,16 +475,27 @@ class Evaluator:
                 intent = [o for o in intent if o not in absorbed]
                 continue
             candidate = self.state(config, intent, interior)
+            if action == 'remove' and target in candidate.resolved:
+                raise EvaluationError('Requested removal would be reacquired')
+            # Replacement purchase roots determine conflict precedence, but
+            # they must still acquire the option the customer actually requested.
+            if action == 'select' and target not in candidate.resolved:
+                raise EvaluationError('Requested option cannot satisfy its prerequisites')
             if accepted_request and not accepted_request.issubset(candidate.resolved):
                 raise EvaluationError('Requested option cannot satisfy its prerequisites')
             return candidate
         raise EvaluationError('Transition iteration limit exceeded')
 
-    def remove_roots(self, option, intent, interior, causes):
+    def remove_roots(self, option, intent, interior, causes, *, include_yielding_owners=False):
         # A replaceable default may coexist with explicit ownership of the
         # same option. Remove the purchase/root, not its soft configuration cause.
-        firm = [c for c in causes if c.peer_policy == 'locked']
-        support = {option} if option.startswith('interior:') else self.roots(firm).get(option, {option})
+        # On prerequisite loss, a yielding child still has a customer owner.
+        # For a conflict, first drop firm intent so the supplied peer can yield
+        # without unnecessarily discarding its otherwise compatible package.
+        roots = {root for c in causes if c.option_id == option for root in c.roots
+                 if c.peer_policy == 'locked' or
+                 (include_yielding_owners and not root.startswith('configuration:'))}
+        support = {option} if option.startswith('interior:') else roots or {option}
         return self.drop_support(support, intent, interior)
 
     @staticmethod
