@@ -2,7 +2,7 @@
 
 A fresh project for relational Corvette product data, manufacturer order-guide intake, and configuration data for an order form and visualizer.
 
-**Current status: six-lane offering and behavior translation in a draft catalog.**
+**Current status: six-lane catalog with validated local consumers and release operations.**
 The [foundation sample](catalog/README.md#disposable-master-schema-foundation)
 implements typed structural keys and provenance. The
 [step 3 source slice](catalog/README.md#evaluator-case-source-population--step-3)
@@ -16,8 +16,9 @@ adds direct/grouped rules, explicit choice memberships, defaults, interior/color
 conditions, accepted corrections and supplied content across all six lanes.
 The [semantic-overlap audit](docs/semantic-overlap-validation.md) inventories and
 exercises those relationships across all model lanes, including ownership and
-whole-state transactions. Consumer mappings and release operations remain later
-work; the workbook remains canonical.
+whole-state transactions. [Consumer mappings and local release operations](docs/consumer-releases.md)
+add a confirmation-gated form, order export, visualizer state contracts and verified
+freeze/completion/publication/rollback. The workbook remains canonical.
 
 Use the [master-schema proposal](docs/master-schema-proposal.md) for logical
 ownership, keys, rules, pricing and six-model walkthroughs, and the
