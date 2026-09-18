@@ -76,6 +76,9 @@ def validate_translation(db):
             f.create_schema(fresh)
             import_behavior(fresh)
             import_mappings(fresh)
+            schema_query = 'SELECT type,name,tbl_name,sql FROM sqlite_master ORDER BY type,name'
+            if list(check.execute(schema_query)) != list(fresh.execute(schema_query)):
+                raise ValueError('Unexpected source translation schema')
             for table, in fresh.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"):
                 if check.execute(f'SELECT count(*) FROM "{table}"').fetchone()[0] != fresh.execute(f'SELECT count(*) FROM "{table}"').fetchone()[0]:
                     raise ValueError('Unexpected source translation rows: ' + table)
@@ -120,7 +123,7 @@ def pins():
     return {str(p.relative_to(f.ROOT)): file_hash(p) for p in runtime_files() if p.is_file()}
 
 
-def _seal(stage, root, record, name):
+def _seal(stage, root, record, name, verify_existing):
     """Publish a fully built immutable directory by rename on this filesystem."""
     identifier = digest(record)
     write_json(stage / name, record)
@@ -128,6 +131,7 @@ def _seal(stage, root, record, name):
     if destination.exists():
         if read_json(destination / name) != record:
             raise ValueError('Existing content identity mismatch')
+        verify_existing(identifier)
         shutil.rmtree(stage)
     else:
         os.rename(stage, destination)
@@ -174,7 +178,7 @@ class ReleaseStore:
             try:
                 if database_hash(db) != expected_digest:
                     raise ValueError('Draft changed during freeze')
-                identifier = _seal(stage, self.frozen, record, 'freeze.json')
+                identifier = _seal(stage, self.frozen, record, 'freeze.json', self.frozen_record)
             finally:
                 db.rollback()
             return identifier
@@ -237,7 +241,7 @@ class ReleaseStore:
                 scope='local_consumer_release_not_canonical_cutover')
             if pins() != record['runtime']:
                 raise ValueError('Generator changed during completion')
-            identifier = _seal(stage, self.completed, manifest, 'manifest.json')
+            identifier = _seal(stage, self.completed, manifest, 'manifest.json', self.verify)
             self.verify(identifier)
             return identifier
         finally:

@@ -53,6 +53,46 @@ class ReleaseTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Unexpected source translation rows'):
                 validate_translation(extra)
 
+    def test_unpinned_schema_objects_are_rejected(self):
+        changes = {
+            'table': 'CREATE TABLE unexpected (payload TEXT)',
+            'view': 'CREATE VIEW unexpected AS SELECT * FROM model',
+            'index': 'CREATE INDEX unexpected ON model(model_key)',
+            'trigger': '''CREATE TRIGGER unexpected AFTER DELETE ON model
+                          BEGIN SELECT 1; END''',
+            'column': 'ALTER TABLE model ADD COLUMN unexpected TEXT',
+        }
+        for kind, sql in changes.items():
+            with self.subTest(kind=kind), closing(f.connect(':memory:')) as draft:
+                self.db.backup(draft)
+                draft.execute(sql)
+                if kind == 'table':
+                    draft.execute("INSERT INTO unexpected VALUES ('unpinned data')")
+                draft.commit()
+                with patch('catalog.releases.validate_semantics') as audit:
+                    with self.assertRaisesRegex(ValueError, 'Unexpected source translation schema'):
+                        self.store.freeze(draft, database_hash(draft))
+                    audit.assert_not_called()
+                self.assertEqual(list(self.store.frozen.iterdir()), [])
+
+    def test_repeated_freeze_validates_existing_artifacts(self):
+        frozen = self.freeze()
+        self.assertEqual(self.freeze(), frozen)
+        for name in ('catalog.sqlite', 'validation.json'):
+            with self.subTest(artifact=name):
+                artifact = self.store.frozen / frozen / name
+                original = artifact.read_bytes()
+                artifact.write_bytes(original + b'corrupt')
+                try:
+                    with self.assertRaisesRegex(ValueError, 'Frozen snapshot or validation was altered'):
+                        self.freeze()
+                    self.assertEqual(artifact.read_bytes(), original + b'corrupt')
+                    self.assertEqual([p.name for p in self.store.frozen.iterdir()], [frozen])
+                    self.assertEqual(self.store.pointer(), {'release_id': None, 'version': 0})
+                finally:
+                    artifact.write_bytes(original)
+        self.store.frozen_record(frozen)
+
     def test_freeze_rejects_stale_snapshot_and_semantic_failure(self):
         with self.assertRaisesRegex(ValueError,'Stale draft'):
             self.store.freeze(self.db,'0'*64)
