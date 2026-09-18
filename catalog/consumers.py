@@ -184,6 +184,7 @@ class ConsumerCatalog:
 
     def contract(self):
         return dict(format=FORMAT, revision_id=self.revision, registry_key=self.model['registry_key'],
+            display_order=self.model['display_order'],
             presentation=self.model['presentation'], configurations=self.maps['configuration'], interiors=self.maps['interior'],
             options={oid: {**self.maps['option'][oid], 'lifecycle': row['lifecycle'], 'customer_selectable': bool(row['customer_selectable'])}
                      for oid, row in self.ev.options.items()},
@@ -258,7 +259,8 @@ class ConsumerCatalog:
                               selected=selected, selectable=not bool(reason), conflict=conflict, reason=reason,
                               display_order=view['display_order'] or 0))
         cards.sort(key=lambda r: (r['section_order'] or 0, r['section_id'], r['display_order'], r['consumer_key']))
-        interiors = [dict(interior_id=iid, label=self.maps['interior'][iid]['hierarchy']['interior_hierarchy_levels'])
+        interiors = [dict(interior_id=iid, label=' › '.join(json.loads(
+                         self.maps['interior'][iid]['hierarchy']['interior_hierarchy_levels'])))
                      for iid in self.ev.interiors if (iid, state.configuration_id) in self.ev.interior_scopes]
         return dict(options=cards, interiors=interiors)
 
