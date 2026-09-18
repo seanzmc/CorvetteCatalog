@@ -644,3 +644,11 @@ This preserves the known R6X/AE4 undercharge; structural parity does not repair
 or approve that pricing behavior. The earlier visual-browser check was not rerun:
 the browser code and generated business content are unchanged. No production
 system or reference-project files were modified.
+
+## Consumer mappings and local release operations
+
+See [consumer and release implementation](../docs/consumer-releases.md) for the
+complete six-lane mapping, confirmation-gated local form and freeze/completion/
+publication/rollback/backup/restore commands. These consumers use the typed
+evaluator directly, with server-held candidates and complete warnings. They do
+not replace the historical parity generator or deploy to the existing form.

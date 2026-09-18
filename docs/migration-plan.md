@@ -1,6 +1,30 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 17 semantic overlap and cross-lane validation
+## Current direction — September 17 consumer mappings and release operations
+
+The separately authorized [consumer and release implementation](consumer-releases.md)
+adds all six lanes' presentation/identifier/output mappings and a local form whose
+complete warnings must be confirmed before the server commits a candidate. Cancel
+preserves the whole build; revert previews restoration and also requires confirmation.
+Order exports and visualizer state use the same frozen catalog as the form.
+
+Local operations now prepare a draft, freeze an exactly validated snapshot, build
+all consumer artifacts, complete an immutable release, and publish or roll back a
+channel using compare-and-swap. Backup and restore validate the complete bundle.
+Freeze replays pinned source translation and runs the semantic audit on the actual
+snapshot. Failed generation and stale publication preserve the last good pointer.
+
+Validation passed 21 distinct regression tests and a fresh 6,921-entry semantic
+audit with zero failed/unresolved findings. All 39 release artifacts verified,
+backup/restore ran in a fresh store, and the restored runtime passed the affected
+Z06 browser preview/cancel/confirm/revert flow.
+
+This implements the local §5 generation/publication boundary. The workbook remains
+canonical; dealer submission, visual artwork, production deployment and canonical
+cutover remain separate. The historical parity generator and frozen evidence are
+preserved. See the implementation note for commands, verification and limitations.
+
+## Prior direction — September 17 semantic overlap and cross-lane validation
 
 The [semantic-overlap pass](semantic-overlap-validation.md) inventories every
 scoped exclusion, replacement, continuing dependency, acquisition, choice group,
