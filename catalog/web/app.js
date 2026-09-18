@@ -18,6 +18,9 @@ function configurations() {
   model=catalog.models[el('model').value]; el('configuration').replaceChildren();
   Object.entries(model.configurations).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([id,c])=>{const o=node('option',c.display_name,el('configuration'));o.value=id;});
 }
+function interiorDescription() {
+  el('interiorDescription').textContent=el('interior').value?el('interior').selectedOptions[0].textContent:'';
+}
 function render() {
   const b=current.build; el('setup').hidden=true; el('build').hidden=false;
   el('total').textContent=money(b.total_minor); el('requirements').textContent=b.missing_requirements.join(' · ');
@@ -28,6 +31,7 @@ function render() {
   }
   el('interior').replaceChildren(); const empty=node('option','No interior selected',el('interior'));empty.value='';
   current.cards.interiors.forEach(i=>{const o=node('option',i.label,el('interior'));o.value=i.interior_id;});el('interior').value=b.interior_id||'';
+  interiorDescription();
   el('options').replaceChildren();const groups=new Map();const query=el('search').value.toLowerCase();
   current.cards.options.filter(c=>`${c.rpo} ${c.label}`.toLowerCase().includes(query)).forEach(c=>{
     if(!groups.has(c.section_id)){const section=node('section','',el('options'));node('h3',c.section_label,section);const grid=node('div','',section);grid.className='cards';groups.set(c.section_id,grid);}
@@ -48,6 +52,7 @@ async function preview(action,target) {
 }
 async function cancel() { current=await api('/api/cancel',{version:current.version});pending=null;el('warning').close(); }
 el('model').addEventListener('change',configurations);
+el('interior').addEventListener('change',interiorDescription);
 el('start').addEventListener('click',()=>run(async()=>{const r=await api('/api/session',{model:el('model').value,configuration_id:el('configuration').value});sessionId=r.session_id;current=r;}));
 el('chooseInterior').addEventListener('click',()=>run(()=>preview('interior',el('interior').value||null)));
 el('search').addEventListener('input',()=>{if(!busy)render();});
@@ -60,4 +65,4 @@ el('confirm').addEventListener('click',()=>run(async()=>{
 }));
 el('revert').addEventListener('click',()=>run(()=>preview('revert',null)));
 el('export').addEventListener('click',()=>run(async()=>{const order=await api('/api/order',{});const url=URL.createObjectURL(new Blob([JSON.stringify(order,null,2)],{type:'application/json'}));const a=node('a','');a.href=url;a.download='corvette-build.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}));
-(async()=>{try{const r=await fetch('/api/catalog');catalog=await r.json();if(!r.ok)throw new Error(catalog.error);el('release').textContent=`Release ${catalog.release_id}`;Object.entries(catalog.models).forEach(([key,c])=>{const o=node('option',c.presentation.model_master[0].model_label,el('model'));o.value=key;});el('model').value=catalog.default_model;configurations();}catch(e){el('error').textContent=e.message;el('start').disabled=true;}})();
+(async()=>{try{const r=await fetch('/api/catalog');catalog=await r.json();if(!r.ok)throw new Error(catalog.error);el('release').textContent=`Release ${catalog.release_id}`;Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>{const o=node('option',c.presentation.model_master[0].model_label,el('model'));o.value=key;});el('model').value=catalog.default_model;configurations();}catch(e){el('error').textContent=e.message;el('start').disabled=true;}})();

@@ -58,6 +58,39 @@ class ConsumerTests(unittest.TestCase):
         finally:
             self.db.execute('ROLLBACK TO missing');self.db.execute('RELEASE missing')
 
+    def test_model_contract_retains_source_display_order(self):
+        contracts = {key: cat.contract() for key, cat in self.catalogs.items()}
+        # HTTP encoding sorts object keys; consumers must use the source order.
+        decoded = json.loads(json.dumps(contracts, sort_keys=True))
+        self.assertEqual(sorted(decoded, key=lambda key: decoded[key]['display_order']),
+                         ['stingray', 'grand_sport', 'grand_sport_x', 'z06', 'zr1', 'zr1x'])
+        for key, contract in decoded.items():
+            rows = json.loads((f.ROOT / 'docs' / (key.replace('_', '-') + '-structured-records.json')).read_text())['baseline_rows']
+            self.assertEqual(contract['display_order'], rows['model_registry_promotion'][0]['display_order'])
+
+    def test_interior_labels_are_readable_without_changing_scoped_identities(self):
+        seen = set()
+        for key, cat in self.catalogs.items():
+            for cfg in cat.ev.configs:
+                cards = cat.cards(cat.ev.state(cfg))['interiors']
+                self.assertEqual({card['interior_id'] for card in cards},
+                                 {iid for iid, cid in cat.ev.interior_scopes if cid == cfg})
+                for card in cards:
+                    iid = card['interior_id']
+                    seen.add((key, iid))
+                    self.assertNotIn('[', card['label'])
+                    self.assertNotIn('"', card['label'])
+                    levels = json.loads(cat.maps['interior'][iid]['hierarchy']['interior_hierarchy_levels'])
+                    self.assertEqual(card['label'].split(' › '), levels)
+        self.assertEqual(len(seen), 704)
+        for key, cfg, iid, expected in (
+            ('stingray', '1lt_c07', '1LT_AQ9_HTA', '1LT › AQ9 GT1 Bucket Seats › HTA Jet Black'),
+            ('z06', '1lz_h67', '1LZ_AQ9_HTA', '1LZ › AQ9 Seats › Jet Black › Mulan leather seating surfaces with perforated inserts › Jet Black'),
+        ):
+            cat = self.catalogs[key]
+            labels = {c['interior_id']: c['label'] for c in cat.cards(cat.ev.state(cfg))['interiors']}
+            self.assertEqual(labels[iid], expected)
+
     def test_both_stripe_directions_all_gsx_z06_configurations(self):
         for key in ('grand_sport_x','z06'):
             c=self.catalogs[key]
