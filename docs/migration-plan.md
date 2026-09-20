@@ -1,6 +1,51 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 17 consumer mappings and release operations
+## Current direction — September 18 agreed remaining sequence
+
+The owner agreed this sequence after PR #49. These are five work areas, each
+split into bounded tasks as needed; they are not five promised PRs.
+
+1. **Authoring UI and reviewed intake acceptance (E and the remaining F editors).**
+   First reconcile C's seven historical brake assertions against later accepted
+   decisions and current behavior. That follow-up is recorded in the
+   [September 18 intake reconciliation](../sources/README.md#september-18-intake-reconciliation).
+   Build the E pilot for a model-owned option, an ownership-reviewed shared
+   record, and a relationship, then the remaining editors and reviewed acceptance.
+   Intake evidence gaps constrain acceptance of affected facts, not construction
+   of the authoring UI. No authoring UI exists yet.
+2. **Dealer submission integration.** Define and verify the dealer contract,
+   including orderable versus reference-only code handling. Current local order
+   exports are not dealer submissions; draft qualification remains
+   `partial_catalog_not_submission_ready`.
+3. **Visualizer delivery (H).** Begin with local `.psb` inventory, rights and
+   scene/coverage review, then artwork processing and resolved-build binding.
+   Dealer integration and visualizer work may proceed independently after the
+   authoring/acceptance work.
+4. **Production deployment.** Local prepare/freeze/complete/publish/rollback and
+   backup/restore are already implemented and verified. The remaining work here
+   is production delivery and verification, not rebuilding local release tools.
+5. **Final reconciliation and canonical cutover (G), last.** Freeze and reconcile
+   final sources/edits, account for drafts and behavior changes, and explicitly
+   switch authority. The workbook stays canonical until that switch.
+
+A separate small hygiene task covers stale current-status wording (including
+currency and the ZR1 link), owner-overlay implementation flags, and the known
+`rule_inventory.py` ResourceWarnings. Reconcile flags against implementation
+evidence; preserve historical source observations and accepted decisions.
+
+**First task result:** C's two relationship and two price assertions are
+reconciled with existing authority and bounded current checks. Its three code-role
+assertions retain known source roles but need explicit acceptance/consumer
+representation. Whole-guide edition and acquisition history remain unverified;
+the July 6 label establishes only the price-schedule revision. The original
+26-assertion comparison remains immutable and pending review, with zero accepted
+operations. See the linked reconciliation for assertion identities and evidence.
+
+This task records the plan and completes the C follow-up review. It does not
+implement authoring/acceptance, accept manufacturer corrections, deploy, or switch
+authority. The next bounded task is the E authoring pilot.
+
+## Prior direction — September 17 consumer mappings and release operations
 
 The separately authorized [consumer and release implementation](consumer-releases.md)
 adds all six lanes' presentation/identifier/output mappings and a local form whose
