@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shared component prices · Catalog authoring</title><link rel="stylesheet" href="/style.css"><script src="/components.js" defer></script></head>
+<body><header><p class="eyebrow">CORVETTE CATALOG · LOCAL AUTHORING</p><h1>Shared component prices</h1>
+<p>Edit a non-option component price used by multiple interior choices in one model and configuration.</p>
+<p class="notice">Local authoring draft · Saved edits do not update the live form. Release acceptance is a later step.</p><a href="/">Option editor</a></header>
+<main><section><h2>Choose a shared price</h2><label for="model">Model</label><select id="model"></select><label for="rate">Component and configuration</label><select id="rate"></select></section>
+<p id="status" role="status" aria-live="polite"></p><div id="editor" hidden>
+<section><div class="heading"><h2>Component price</h2><button id="reload">Reload saved values</button></div><p id="identity"></p>
+<form id="edit-form"><label for="price" id="price-label">Price</label><input id="price" type="text" inputmode="decimal" required autocomplete="off">
+<label for="reason">Reason for this edit</label><textarea id="reason" required maxlength="2000" rows="2"></textarea><button class="primary" id="review">Review changes</button></form></section>
+<section><h2>Every affected interior</h2><p id="scope"></p><p class="muted">These choices reference this same component and configuration price. Other configurations and models retain their own rates. Seat and option charges retain their existing owners.</p>
+<div class="table-wrap"><table><thead><tr><th>Interior</th><th>Exact choice</th></tr></thead><tbody id="members"></tbody></table></div></section>
+<section><h2>Saved history</h2><div id="history"></div></section><details><summary>Source evidence</summary><ul id="evidence"></ul></details></div></main>
+<dialog id="preview" aria-labelledby="preview-title"><h2 id="preview-title">Review shared price change</h2><p id="summary"></p><p id="preview-reason"></p>
+<p>Each row below selects that interior from the configuration’s initial build. Its total changes by exactly the component-price difference. Remaining required choices and other optional selections are outside this preview; these totals represent partial builds.</p>
+<div class="table-wrap"><table><thead><tr><th>Interior</th><th>Before total</th><th>After total</th></tr></thead><tbody id="outcomes"></tbody></table></div>
+<p>Save to the local authoring draft only.</p><div class="actions"><button id="cancel">Cancel</button><button class="primary" id="save">Save reviewed changes</button></div></dialog></body></html>

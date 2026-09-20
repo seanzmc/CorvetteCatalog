@@ -4,9 +4,11 @@ A fresh project for relational Corvette product data, manufacturer order-guide i
 
 **Current status: six-lane catalog with validated local consumers and release operations.**
 The first [local authoring pilot](docs/authoring-pilot.md) adds reviewed option
-name/base-price edits in a separate draft with persistent history. Relationship
-and shared-record editors, reviewed acceptance and authored-release integration
-remain subsequent work. The customer form remains a close port of the live
+name/base-price edits and shared interior-component prices in a separate draft
+with persistent history and complete referencing-interior price previews. The
+relationship ownership pilot is delivered separately in PR #52; remaining editors,
+reviewed acceptance and authored-release integration remain subsequent work.
+The customer form remains a close port of the live
 experience, with step/section changes to accommodate the visualizer; Sean is
 preparing visualizer assets separately.
 

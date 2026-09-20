@@ -9,6 +9,7 @@ import sqlite3
 from urllib.parse import parse_qs, urlsplit
 
 from catalog import authoring
+from catalog import authoring_components as components
 from catalog.consumers import encode
 
 
@@ -16,12 +17,18 @@ class Application:
     def __init__(self, database):
         self.database = Path(database)
         self.pending = {}
-        with closing(authoring.open_workspace(self.database)):
-            pass
+        with closing(authoring.open_workspace(self.database)) as db:
+            components.prepare(db)
 
     def read(self, path):
         url = urlsplit(path)
         with closing(authoring.open_workspace(self.database)) as db:
+            if url.path == '/api/component-rates':
+                query = parse_qs(url.query)
+                return {'rates': components.rates(db, query['revision'][0])}
+            if url.path == '/api/component-rate':
+                query = parse_qs(url.query)
+                return components.detail(db, query['revision'][0], query['component'][0], query['configuration'][0])
             if url.path == '/api/catalog':
                 return {'models': authoring.catalog(db)}
             if url.path == '/api/option':
@@ -50,6 +57,20 @@ class Application:
                 if change is None:
                     raise ValueError('Preview expired; review your changes again')
                 return authoring.save(db, change)
+            if path == '/api/component-rate/preview':
+                self.pending.pop(body.get('previous_token'), None)
+                change = components.preview(db, body['revision_id'], body['component_id'], body['configuration_id'],
+                                            body['etag'], body['price'], body['reason'])
+                if len(self.pending) >= 128:
+                    self.pending.pop(next(iter(self.pending)))
+                token = secrets.token_urlsafe(32)
+                self.pending[token] = change
+                return dict(token=token, **change)
+            if path == '/api/component-rate/save':
+                change = self.pending.pop(body['token'], None)
+                if change is None or change.get('kind') != 'component':
+                    raise ValueError('Preview expired; review your shared rate again')
+                return components.save(db, change)
         raise ValueError('Unknown operation')
 
 
@@ -75,6 +96,8 @@ def handler(app):
                 return self.send(403, {'error': 'Wrong origin'})
             files = {'/': ('index.html', 'text/html; charset=utf-8'),
                      '/app.js': ('app.js', 'text/javascript'), '/style.css': ('style.css', 'text/css')}
+            files.update({'/components': ('components.html', 'text/html; charset=utf-8'),
+                          '/components.js': ('components.js', 'text/javascript')})
             if self.path in files:
                 filename, mime = files[self.path]
                 return self.send(200, (Path(__file__).with_name('authoring_web') / filename).read_bytes(), mime)

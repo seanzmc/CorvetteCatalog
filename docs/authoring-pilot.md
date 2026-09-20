@@ -50,11 +50,48 @@ rolls back all four. Source provenance is retained as baseline evidence; the
 separate history records the authored departure and its reason, not a newly
 accepted manufacturer fact. Other model lanes retain their independent records.
 
+## Shared component-price editor and ownership review
+
+Open **Edit shared component prices** from the option editor, or `/components`.
+This pilot edits an existing non-option component rate referenced by at least two
+interior leaves in the same model revision and configuration. The shared record
+is `(revision_id, component_id, configuration_id)` in `component_rate`; actual
+`interior_part` and `interior_configuration` references establish its consumers.
+Identical RPOs, labels or source PriceRef codes in other models do not share ownership.
+This follows the reviewed [component ownership](master-schema-proposal.md#3-interiors-and-charge-components).
+
+For example, Z06 suede N2Z has one $895 rate for `3lz_h07`, referenced by 37 exact
+interior leaves. Evidence includes `z06-structured-records.json` PriceRef row 20
+and the 37 component memberships retained in the rate's evidence set (starting
+at interior_components row 501). The convertible's rate and other models' N2Z
+records are distinct. Seat and R6X option charges retain their existing owners.
+
+The editor lists every referencing leaf before review. It evaluates selecting
+each interior from that configuration's initial state and shows before/after
+totals, requiring exactly one component charge and an exact total-price delta
+with unchanged resolved/installed equipment and issues. Other optional builds
+are outside this preview. Price input uses integer minor units; a priced zero
+retains its basis and does not become a null/no-separate-charge item.
+
+Cancel leaves no persisted change. Save rechecks rate, membership, revision and
+executable dependencies under a write lock, then commits the amount, revision
+and history atomically after structural/consumer validation. A stale review or
+failed validation leaves no partial write. Reload restores saved values. Changing
+back uses the same reviewed path and keeps history. Source evidence remains the
+baseline evidence, not evidence for accepting a new manufacturer price.
+
+Startup adds one `authoring_component_change` history table to existing local
+workspaces. Source import, schema ownership, workbook authority and source-only
+release refusal remain unchanged. Focused checks:
+`python3 -m unittest discover -s tests -p test_authoring_components.py -v`.
+
 ## Completion boundary
 
-This implements the option-editing part of E, not the whole checkpoint.
-Relationship editing and a genuinely shared record selected after ownership
-review remain separate bounded tasks. It does not create a generic table editor
+This branch implements the option and shared-component-price slices of E.
+The direct-inclusion ownership editor is delivered separately in PR #52.
+Together these cover the three bounded E pilot operations, subject to PR review
+and integration. General relationship/remaining field editors are later F work.
+It does not create a generic table editor
 or infer shared ownership from repeated names or codes.
 
 The existing release freeze deliberately rejects this authoring schema and
