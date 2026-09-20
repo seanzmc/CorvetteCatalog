@@ -1,6 +1,21 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 20 complete authoring operations
+## Current direction — September 20 dealer integration
+
+Complete authoring operations and acceptance/release replay are merged in PR #54.
+The [dealer integration](dealer-submission.md) now prepares the confirmed catalog
+build in the existing dealer wire format. Local preview is the default; live
+browser delivery explicitly enables the existing endpoint and security check.
+Cross-model checks retain model identity, actual charge ownership, source recap
+sections and non-emitting code semantics. Receipt, failure and duplicate-request
+behavior are exercised without sending test orders to the dealership.
+
+Photoshop layer preparation is proceeding in parallel under the September 20
+sprint authorization. Verified artwork will enter a separately scoped visualizer
+integration. Production hosting, real dealer receipt/notification proof and final
+canonical cutover remain outstanding; the workbook remains canonical.
+
+## Prior direction — September 20 complete authoring operations
 
 PR #52 (relationship ownership) and PR #53 (shared component prices) are merged.
 The separately authorized [remaining editor and acceptance implementation](authoring-operations.md)
@@ -20,10 +35,10 @@ and continued authoring with exact history. Focused editor, consumer and recover
 regressions passed; the PR records the final serving-only responsiveness fix and
 its separate check.
 
-This implementation is in review; its PR records final qualification. Production
-deployment and canonical authority are unchanged. After review/integration of this
-operations work, the agreed next application areas are dealer submission and
-visualizer integration, followed by production delivery and final cutover.
+This implementation merged in PR #54 after its two review fixes were verified.
+Production deployment and canonical authority are unchanged. The agreed next
+application areas are dealer submission and visualizer integration, followed by
+production delivery and final cutover.
 
 ## Prior direction — September 20 bounded E pilot delivery
 

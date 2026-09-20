@@ -1,7 +1,7 @@
 """Loopback review form backed by one verified completed local release.
 
 Run: python3 -m catalog.consumer_server --store PATH --release CONTENT_ID
-No dealer submission endpoint or deployment integration.
+Dealer payloads use confirmed server state. Live browser delivery is opt-in.
 """
 import argparse
 from contextlib import closing
@@ -11,12 +11,13 @@ from pathlib import Path
 import secrets
 
 from catalog import foundation as f
+from catalog import dealer
 from catalog.consumers import ConsumerCatalog, ConsumerSession, encode
 from catalog.releases import ReleaseStore, pins
 
 
 class Application:
-    def __init__(self, store, identifier):
+    def __init__(self, store, identifier, dealer_submissions=False):
         self.store, self.identifier = store, identifier
         self.manifest = store.verify(identifier)
         if self.manifest['runtime'] != pins():
@@ -24,9 +25,12 @@ class Application:
         with closing(f.connect(store.completed / identifier / 'catalog.sqlite')) as db:
             self.catalogs = {m['model_key']: ConsumerCatalog(db, m['revision_id']) for m in self.manifest['models']}
         self.sessions = {}
+        self.dealer_submissions = dealer_submissions
 
     def catalog(self):
         return dict(release_id=self.identifier, default_model=self.manifest['default_model'],
+                    dealer=dict(enabled=self.dealer_submissions, endpoint=dealer.ENDPOINT if self.dealer_submissions else None,
+                                site_key=dealer.SITE_KEY if self.dealer_submissions else None),
                     models={key: cat.contract() for key,cat in self.catalogs.items()})
 
     def response(self, session):
@@ -52,6 +56,10 @@ class Application:
             session.cancel(body['version'])
         elif path == '/api/order':
             return session.order()
+        elif path == '/api/dealer/review':
+            return dealer.review(session, body['version'])
+        elif path == '/api/dealer/prepare':
+            return dealer.prepare(session, body, require_turnstile=self.dealer_submissions)
         else:
             raise ValueError('Unknown operation')
         return self.response(session)
@@ -66,7 +74,12 @@ def handler(app):
             self.send_header('Content-Length', str(len(raw)))
             self.send_header('Cache-Control', 'no-store')
             self.send_header('X-Content-Type-Options', 'nosniff')
-            self.send_header('Content-Security-Policy', "default-src 'self'; style-src 'self'; script-src 'self'; frame-ancestors 'none'; base-uri 'none'")
+            security = "default-src 'self'; style-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
+            if app.dealer_submissions:
+                security += "; script-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com https://stingraychevroletcorvette.com"
+            else:
+                security += "; script-src 'self'; connect-src 'self'"
+            self.send_header('Content-Security-Policy', security)
             self.end_headers()
             self.wfile.write(raw)
 
@@ -79,7 +92,8 @@ def handler(app):
                 return self.send(403, {'error': 'Wrong origin'})
             if self.path == '/api/catalog':
                 return self.send(200, app.catalog())
-            files = {'/': ('index.html','text/html; charset=utf-8'), '/app.js': ('app.js','text/javascript'), '/style.css': ('style.css','text/css')}
+            files = {'/': ('index.html','text/html; charset=utf-8'), '/app.js': ('app.js','text/javascript'),
+                     '/dealer.js': ('dealer.js','text/javascript'), '/style.css': ('style.css','text/css')}
             if self.path not in files:
                 return self.send(404, {'error':'Not found'})
             name, mime = files[self.path]
@@ -107,8 +121,10 @@ def main():
     parser.add_argument('--store', type=Path, required=True)
     parser.add_argument('--release', required=True)
     parser.add_argument('--port', type=int, default=8765)
+    parser.add_argument('--enable-dealer-submissions', action='store_true',
+                        help='Enable the existing dealer endpoint and Turnstile; otherwise preview without sending')
     args = parser.parse_args()
-    app = Application(ReleaseStore(args.store), args.release)
+    app = Application(ReleaseStore(args.store), args.release, args.enable_dealer_submissions)
     with HTTPServer(('127.0.0.1', args.port), handler(app)) as server:
         print(f'Local consumer review: http://127.0.0.1:{server.server_port}', flush=True)
         server.serve_forever()

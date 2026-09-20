@@ -1,0 +1,629 @@
+{
+  "source_root": "27vette",
+  "source_files": {
+    "form-app/app.js": "f607658b3aad5d312dcdad9601f9d5a0e451220f54f60a33f762c4eea6151a7e",
+    "form-app/data.js": "3794c9cd6cef03b9a7c3312de3fb3d230d2224abf2a4b60417364493535e8315",
+    "tests/lib/runtime-harness.mjs": "3133fdea83e783c312297cc284f2cc015ff8f00f2ed96bf9d3e085a469612ac4"
+  },
+  "cases": [
+    {
+      "model": "stingray",
+      "configuration_id": "1lt_c07",
+      "interior_id": "1LT_AQ9_HTA",
+      "vehicle": {
+        "body_style": "coupe",
+        "trim_level": "1LT",
+        "display_name": "Corvette Stingray Coupe 1LT",
+        "base_price": 73495
+      },
+      "msrp": "$73,495",
+      "sections": [
+        {
+          "section": "Exterior Paint",
+          "items": [
+            {
+              "rpo": "GBA",
+              "label": "Black",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Exterior Appearance",
+          "items": [
+            {
+              "rpo": "EYT",
+              "label": "Carbon Flash Exterior Badge Package",
+              "price": 0
+            },
+            {
+              "rpo": "CF7",
+              "label": "Body-Color Roof Panel",
+              "price": 0
+            },
+            {
+              "rpo": "EFR",
+              "label": "Carbon Flash Painted Accents",
+              "price": 0
+            },
+            {
+              "rpo": "BC7",
+              "label": "Black LS6 Engine Cover",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Wheels & Brakes",
+          "items": [
+            {
+              "rpo": "J6A",
+              "label": "Black Painted Calipers",
+              "price": 0
+            },
+            {
+              "rpo": "QEB",
+              "label": "Pearl Nickel 5-Split-Spoke Forged Aluminum Wheels",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Performance & Mechanical",
+          "items": [
+            {
+              "rpo": "FE1",
+              "label": "Corvette Standard Suspension",
+              "price": 0
+            },
+            {
+              "rpo": "NGA",
+              "label": "Black Exhaust Tips",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Seats & Interior",
+          "items": [
+            {
+              "rpo": "719",
+              "label": "Black Seat Belt Color",
+              "price": 0
+            },
+            {
+              "rpo": "AQ9",
+              "label": "GT1 Bucket Seats",
+              "price": 0
+            },
+            {
+              "rpo": "HTA",
+              "label": "Jet Black",
+              "price": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": "grandSport",
+      "configuration_id": "1lt_e07",
+      "interior_id": "1LT_AQ9_HTA",
+      "vehicle": {
+        "body_style": "coupe",
+        "trim_level": "1LT",
+        "display_name": "Corvette Grand Sport Coupe 1LT",
+        "base_price": 88495
+      },
+      "msrp": "$88,495",
+      "sections": [
+        {
+          "section": "Exterior Paint",
+          "items": [
+            {
+              "rpo": "GBA",
+              "label": "Black",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Exterior Appearance",
+          "items": [
+            {
+              "rpo": "EYT",
+              "label": "Carbon Flash Exterior Badge Package",
+              "price": 0
+            },
+            {
+              "rpo": "CF7",
+              "label": "Body-Color Roof Panel",
+              "price": 0
+            },
+            {
+              "rpo": "EFR",
+              "label": "Carbon Flash Painted Accents",
+              "price": 0
+            },
+            {
+              "rpo": "BC7",
+              "label": "Black LS6 Engine Cover",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Wheels & Brakes",
+          "items": [
+            {
+              "rpo": "J6A",
+              "label": "Black Painted Calipers",
+              "price": 0
+            },
+            {
+              "rpo": "SWM",
+              "label": "Pearl Nickel 10-Spoke Forged Aluminum Wheels",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Performance & Mechanical",
+          "items": [
+            {
+              "rpo": "T0E",
+              "label": "Low Rear Spoiler",
+              "price": 0
+            },
+            {
+              "rpo": "JX6",
+              "label": "Low-Dust Touring Brakes",
+              "price": 0
+            },
+            {
+              "rpo": "NGA",
+              "label": "Black Exhaust Tips",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Seats & Interior",
+          "items": [
+            {
+              "rpo": "719",
+              "label": "Black Seat Belt Color",
+              "price": 0
+            },
+            {
+              "rpo": "AQ9",
+              "label": "GT1 Bucket Seats",
+              "price": 0
+            },
+            {
+              "rpo": "HTA",
+              "label": "Jet Black",
+              "price": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": "grand_sport_x",
+      "configuration_id": "1lt_g07",
+      "interior_id": "1LT_AQ9_HTA",
+      "vehicle": {
+        "body_style": "coupe",
+        "trim_level": "1LT",
+        "display_name": "Corvette Grand Sport X Coupe 1LT",
+        "base_price": 112195
+      },
+      "msrp": "$112,195",
+      "sections": [
+        {
+          "section": "Exterior Paint",
+          "items": [
+            {
+              "rpo": "GBA",
+              "label": "Black",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Exterior Appearance",
+          "items": [
+            {
+              "rpo": "EYT",
+              "label": "Carbon Flash Exterior Badge Package",
+              "price": 0
+            },
+            {
+              "rpo": "CF7",
+              "label": "Body-Color Roof Panel",
+              "price": 0
+            },
+            {
+              "rpo": "EFR",
+              "label": "Carbon Flash Painted Accents",
+              "price": 0
+            },
+            {
+              "rpo": "BC7",
+              "label": "Black LS6 Engine Cover",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Wheels & Brakes",
+          "items": [
+            {
+              "rpo": "SWM",
+              "label": "Pearl Nickel 10-Spoke Forged Aluminum Wheels",
+              "price": 0
+            },
+            {
+              "rpo": "J6D",
+              "label": "Dark Gray Metallic-Painted Calipers",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Performance & Mechanical",
+          "items": [
+            {
+              "rpo": "T0E",
+              "label": "Low Rear Spoiler",
+              "price": 0
+            },
+            {
+              "rpo": "J57",
+              "label": "Carbon Ceramic Brakes",
+              "price": 0
+            },
+            {
+              "rpo": "NGA",
+              "label": "Black Exhaust Tips",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Seats & Interior",
+          "items": [
+            {
+              "rpo": "719",
+              "label": "Black Seat Belt Color",
+              "price": 0
+            },
+            {
+              "rpo": "AQ9",
+              "label": "GT1 Bucket Seats",
+              "price": 0
+            },
+            {
+              "rpo": "HTA",
+              "label": "Jet Black",
+              "price": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": "z06",
+      "configuration_id": "1lz_h07",
+      "interior_id": "1LZ_AQ9_HTA",
+      "vehicle": {
+        "body_style": "coupe",
+        "trim_level": "1LZ",
+        "display_name": "Corvette Z06 Coupe 1LZ",
+        "base_price": 121395
+      },
+      "msrp": "$123,995",
+      "sections": [
+        {
+          "section": "Exterior Paint",
+          "items": [
+            {
+              "rpo": "GBA",
+              "label": "Black",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Exterior Appearance",
+          "items": [
+            {
+              "rpo": "EYT",
+              "label": "Carbon Flash Exterior Badge Package",
+              "price": 0
+            },
+            {
+              "rpo": "CF7",
+              "label": "Body-Color Roof Panel",
+              "price": 0
+            },
+            {
+              "rpo": "EFR",
+              "label": "Carbon Flash Painted Accents",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Wheels & Brakes",
+          "items": [
+            {
+              "rpo": "J6A",
+              "label": "Black Painted Calipers",
+              "price": 0
+            },
+            {
+              "rpo": "SOE",
+              "label": "Titanium Satin Spider Wheels",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Performance & Mechanical",
+          "items": [
+            {
+              "rpo": "T0E",
+              "label": "Low Rear Spoiler",
+              "price": 0
+            },
+            {
+              "rpo": "J56",
+              "label": "Performance Disc Brakes",
+              "price": 0
+            },
+            {
+              "rpo": "NGA",
+              "label": "Black Exhaust Tips",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Seats & Interior",
+          "items": [
+            {
+              "rpo": "719",
+              "label": "Black Seat Belt Color",
+              "price": 0
+            },
+            {
+              "rpo": "AQ9",
+              "label": "GT1 Bucket Seats",
+              "price": 0
+            },
+            {
+              "rpo": "HTA",
+              "label": "Jet Black",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Required Charges",
+          "items": [
+            {
+              "rpo": "R8E",
+              "label": "Gas Guzzler Tax",
+              "price": 2600
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": "zr1",
+      "configuration_id": "1lz_r07",
+      "interior_id": "1LZ_AQ9_HTA",
+      "vehicle": {
+        "body_style": "coupe",
+        "trim_level": "1LZ",
+        "display_name": "Corvette ZR1 Coupe 1LZ",
+        "base_price": 197195
+      },
+      "msrp": "$200,195",
+      "sections": [
+        {
+          "section": "Exterior Paint",
+          "items": [
+            {
+              "rpo": "GBA",
+              "label": "Black",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Exterior Appearance",
+          "items": [
+            {
+              "rpo": "EYT",
+              "label": "Carbon Flash Exterior Badge Package",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Wheels & Brakes",
+          "items": [
+            {
+              "rpo": "J6D",
+              "label": "Dark Gray Metallic-Painted Calipers",
+              "price": 0
+            },
+            {
+              "rpo": "SOJ",
+              "label": "20-Spoke Sterling Silver-Painted Forged Aluminum Wheels",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Performance & Mechanical",
+          "items": [
+            {
+              "rpo": "T0E",
+              "label": "Low Rear Spoiler",
+              "price": 0
+            },
+            {
+              "rpo": "J58",
+              "label": "ZR1-Specific Carbon Ceramic Brakes",
+              "price": 0
+            },
+            {
+              "rpo": "NGA",
+              "label": "Black Exhaust Tips",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Seats & Interior",
+          "items": [
+            {
+              "rpo": "719",
+              "label": "Black Seat Belt Color",
+              "price": 0
+            },
+            {
+              "rpo": "AQ9",
+              "label": "GT1 Bucket Seats",
+              "price": 0
+            },
+            {
+              "rpo": "HTA",
+              "label": "Jet Black",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Required Charges",
+          "items": [
+            {
+              "rpo": "R8E",
+              "label": "Gas Guzzler Tax",
+              "price": 3000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "model": "zr1x",
+      "configuration_id": "1lz_s07",
+      "interior_id": "1LZ_AQ9_HTA",
+      "vehicle": {
+        "body_style": "coupe",
+        "trim_level": "1LZ",
+        "display_name": "Corvette ZR1X Coupe 1LZ",
+        "base_price": 227395
+      },
+      "msrp": "$229,995",
+      "sections": [
+        {
+          "section": "Exterior Paint",
+          "items": [
+            {
+              "rpo": "GBA",
+              "label": "Black",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Exterior Appearance",
+          "items": [
+            {
+              "rpo": "EYT",
+              "label": "Carbon Flash Exterior Badge Package",
+              "price": 0
+            },
+            {
+              "rpo": "EFR",
+              "label": "Carbon Flash Painted Accents",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Wheels & Brakes",
+          "items": [
+            {
+              "rpo": "J6D",
+              "label": "Dark Gray Metallic-Painted Calipers",
+              "price": 0
+            },
+            {
+              "rpo": "SOJ",
+              "label": "20-Spoke Sterling Silver-Painted Forged Aluminum Wheels",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Performance & Mechanical",
+          "items": [
+            {
+              "rpo": "T0E",
+              "label": "Low Rear Spoiler",
+              "price": 0
+            },
+            {
+              "rpo": "J59",
+              "label": "10-Piston Front / 6-Piston Rear Carbon Ceramic Brakes",
+              "price": 0
+            },
+            {
+              "rpo": "NGA",
+              "label": "Black Exhaust Tips",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Seats & Interior",
+          "items": [
+            {
+              "rpo": "719",
+              "label": "Black Seat Belt Color",
+              "price": 0
+            },
+            {
+              "rpo": "AQ9",
+              "label": "GT1 Bucket Seats",
+              "price": 0
+            },
+            {
+              "rpo": "HTA",
+              "label": "Jet Black",
+              "price": 0
+            }
+          ]
+        },
+        {
+          "section": "Required Charges",
+          "items": [
+            {
+              "rpo": "R8E",
+              "label": "Gas Guzzler Tax",
+              "price": 2600
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
