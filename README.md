@@ -13,9 +13,10 @@ releases, including their evidence and recovery path. The
 in the existing dealer format, with local preview and explicit live delivery.
 The customer form remains a close port of the live experience, with step/section
 changes to accommodate the visualizer. The first [Photoshop artwork integration](docs/visualizer-artwork.md)
-adds ten Grand Sport paints and two spoilers to confirmed builds and reproducible
-releases. Additional model and component assets are being prepared in parallel;
-production deployment and canonical cutover remain separate.
+now covers coupe and convertible scenes for five models, with 146 qualified
+paint/spoiler combinations and source evidence in reproducible releases.
+Other component and trim coverage, production delivery and canonical cutover
+remain separate.
 
 The [foundation sample](catalog/README.md#disposable-master-schema-foundation)
 implements typed structural keys and provenance. The

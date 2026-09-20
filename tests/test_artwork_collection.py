@@ -42,7 +42,7 @@ class CollectionTests(unittest.TestCase):
                             ['/artwork/'+folder+Path(a['path']).name for a in native])
                         self.assertEqual([a['sha256'] for a in view['assets']], [a['sha256'] for a in native])
                         count += 1
-        self.assertEqual(count, 96)
+        self.assertEqual(count, 146)
 
     def test_paint_specific_wing_changes_all_three_planes_after_confirmation(self):
         session = ConsumerSession(self.catalogs['stingray'], '3lt_c07', 'multi-model-test')

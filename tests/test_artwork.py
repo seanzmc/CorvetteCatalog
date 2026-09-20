@@ -119,7 +119,7 @@ class ArtworkTests(unittest.TestCase):
             with patch('catalog.releases.validate_semantics', return_value={'test_fixture':True}):
                 frozen = store.freeze(self.db, database_hash(self.db))
             release = store.complete(frozen); manifest = store.verify(release)
-            self.assertEqual(len(manifest['media']['assets']), 127)
+            self.assertEqual(len(manifest['media']['assets']), 192)
             self.assertIn('runtime/catalog/web/artwork/source-proof.json', manifest['artifacts'])
             self.assertEqual(store.complete(frozen), release)
             backup = root / 'backup'; store.backup(release, backup)

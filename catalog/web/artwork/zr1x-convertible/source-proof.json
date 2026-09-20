@@ -1,0 +1,2477 @@
+{
+  "schema": "27vette-paint-spoiler-family-v1",
+  "status": "verified-component-proof",
+  "id": "zr1x-convertible-exterior-f02-tom-v1",
+  "createdAt": "2026-09-20T22:32:29.425685+00:00",
+  "catalogModelKey": "zr1x",
+  "assetModel": "zr1x",
+  "modelId": "cdfef402-a0e5-4a02-822b-18334d850af4",
+  "modelYearId": "c8a2b29d-6f8b-44a9-b79b-7b5dae513e7a",
+  "modelYear": 2027,
+  "body": "convertible",
+  "trim": "3lz",
+  "configurationId": "3lz_s67",
+  "scene": "convertible-exterior-f02",
+  "originalProofPackage": "/Users/seandm/Library/Mobile Documents/com~apple~CloudDocs/C8-iCloud/27img/visualizer-studio_27/27vette-phase1/asset-proofs/2026-09-20-zr1x-convertible-f02",
+  "relativePaths": "All image, state, validation and evidence paths resolve relative to this original Photoshop proof package. Source originals are absolute paths; source anchors refer to sourceEvidence.",
+  "source": {
+    "path": "/Users/seandm/Library/Mobile Documents/com~apple~CloudDocs/C8-iCloud/27img/visualizer-studio_27/visual-studio/zr1x/exterior/27CHCOZR_X_CON_Studio_f02.psb",
+    "sha256": "333c0b08109d90c0904f8f98ae1d892274a5cedddc5b8726ec9aa4db8511eb4b",
+    "workingCopy": "/private/tmp/27vette-zr1x-convertible-proof.psb",
+    "workingCopyAfterExportSha256": "333c0b08109d90c0904f8f98ae1d892274a5cedddc5b8726ec9aa4db8511eb4b",
+    "originalUnmodified": true,
+    "width": 6000,
+    "height": 3376,
+    "photoshopVersion": "27.12.0",
+    "nativeCapturedLayerCount": 1054,
+    "modelEvidence": [
+      "Base / 1YS67 (ID 1091), matching exact convertible catalog configuration",
+      "Base / S0507&3LZ (ID 948), source-selected trim",
+      "Original 27CH source filename and model directory; own-model source inventory retained."
+    ],
+    "paintFamilyCount": 6,
+    "isolatedBase": {
+      "path": "native/isolated-base-gba.png",
+      "sha256": "1a486121e7ec171466a429e720f1bb8b27e0662abd78e9b0f858d3dcde489496",
+      "finding": "Body/chassis shell; selected wheels, spoiler, fascia and other equipment remain separate source layers."
+    },
+    "fixedRoofFamily": {
+      "referenceLayerId": 296,
+      "referencePath": "Roof / CFC&GEC",
+      "note": "Each recipe selects its exact matching paint peer. The source-selected CFC roof family, raised/closed position and nacelle artwork remain fixed; no separate roof option binding is inferred."
+    }
+  },
+  "sourceEvidence": {
+    "guidePath": "/Users/seandm/Projects/CorvetteCatalog/sources/raw/d3ca7d3a09c9fb89210b4ce584493b3ad8fb65ca35087c49d816d1cbf1a333d1/2027 Chevrolet Car Corvette Export (6).xlsx",
+    "guideSha256": "d3ca7d3a09c9fb89210b4ce584493b3ad8fb65ca35087c49d816d1cbf1a333d1",
+    "workbookArchivePath": "/Users/seandm/Projects/CorvetteCatalog/baselines/2026-09-06/workbook-runtime.tar.gz",
+    "workbookArchiveMember": "stingray_master.xlsx",
+    "workbookSha256": "3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c"
+  },
+  "canvas": {
+    "width": 1500,
+    "height": 844,
+    "nativeWidth": 6000,
+    "nativeHeight": 3376,
+    "uniformScale": 0.25,
+    "crop": false
+  },
+  "compositionOrder": [
+    "selected paint back (0)",
+    "TOM rear spoiler (20)",
+    "selected paint foreground (30)"
+  ],
+  "paints": [
+    {
+      "rpo": "GBA",
+      "optionId": "opt_gba_001",
+      "name": "Black",
+      "workbookAnchor": "zr1x_options!A96:K96",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/gba-back.webp",
+        "sha256": "142939cd32f881463d7e34f2be4927d89da24f17df1b57ec675d892b39a0150a",
+        "width": 1500,
+        "height": 844,
+        "bytes": 162440,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1081,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1098,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/gba-back.png",
+          "sha256": "153637662da2e90f8086f31e2f6e1c7f26f7a099ece5c4cf030824e760d8c3bf",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gba-back.state.json",
+          "sha256": "7dc27014f40614972ecace2ff9b71c735eb4464d85079fd89447b02d87cb5471"
+        },
+        "pngDerivative": {
+          "path": "web/gba-back.png",
+          "sha256": "2b651731493ee24c52a6d3e9a2db79ffac851e26a12ba32c7b3d182b82a1357e",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/gba-front.webp",
+        "sha256": "b038b4517cad3637b988409828d835bf9d9cc6dea6212f208e0e302dc80ac5be",
+        "width": 1500,
+        "height": 844,
+        "bytes": 216878,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          87,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          172,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          256,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          287,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/gba-front.png",
+          "sha256": "bef47b412e9070fbce2e2410e97be61ca49334fae42273daedb5e8f9e5e07cb8",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gba-front.state.json",
+          "sha256": "9a304c67ab8ef13a61f2c3c80cc247eee202921f9ee70519b09bc579daf09e31"
+        },
+        "pngDerivative": {
+          "path": "web/gba-front.png",
+          "sha256": "966ecfa7db34ffa3722d9f5412102d4486b7d63789d6c86f7615b0c165c7d41a",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 87
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 172
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 256
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 287
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1081
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1098
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "gba-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 1,
+            "premultipliedRgbMaxDifference": 1.992156982421875,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/gba-scene-tom.png",
+            "sha256": "8ad81f29d03f19afa7b04cea1c17ef5762e8c46e4cac714ea4cb3f4fba4a7e98"
+          }
+        }
+      }
+    },
+    {
+      "rpo": "G8G",
+      "optionId": "opt_g8g_001",
+      "name": "Arctic White",
+      "workbookAnchor": "zr1x_options!A95:K95",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/g8g-back.webp",
+        "sha256": "76cf29525d6b98c0dd0ea6994b79020aa56543c854bfb618808db71456df5461",
+        "width": 1500,
+        "height": 844,
+        "bytes": 175014,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1082,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1099,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/g8g-back.png",
+          "sha256": "41adf1a416e3b7c59a1bcb5595ef7c0ebcb07d92037a3b28991da9c744dde3af",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/g8g-back.state.json",
+          "sha256": "36bbf0af698ef8fde891a8ca798d5803abc2bf581e14146922cdaf9c6f7c2486"
+        },
+        "pngDerivative": {
+          "path": "web/g8g-back.png",
+          "sha256": "ae4bdb749d3965ce3d89d6dbe09ad0418f408077e415d4ec264edc4664e63dd9",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/g8g-front.webp",
+        "sha256": "ec0d3dc2993fea9bb82f5b5dd5ed7227a2a8b0b4a23b8cd72e32c8418eec84f7",
+        "width": 1500,
+        "height": 844,
+        "bytes": 218906,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          88,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          173,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          257,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          288,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/g8g-front.png",
+          "sha256": "eebd62874eb5673def66ca6c22b8d0f862bcb5a08f7efc68b5a9c831fbc5eafd",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/g8g-front.state.json",
+          "sha256": "bdc534da9c7c78667f7cc5ab5c0fdb02492b93d06fe98f34ac32b40caa9eb531"
+        },
+        "pngDerivative": {
+          "path": "web/g8g-front.png",
+          "sha256": "6823d9545135bdc9a4cbac05c28353a49636cf102b7d47357fed31711d3ea558",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 88
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 173
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 257
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 288
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1082
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1099
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "g8g-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 2,
+            "premultipliedRgbMaxDifference": 2.0,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/g8g-scene-tom.png",
+            "sha256": "7cc8b9c99eb505d971aaf97f3a2f840a91f66528f68c61ef91ab50941c0606ad"
+          }
+        }
+      }
+    },
+    {
+      "rpo": "GKZ",
+      "optionId": "opt_gkz_001",
+      "name": "Torch Red",
+      "workbookAnchor": "zr1x_options!A104:K104",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/gkz-back.webp",
+        "sha256": "ea4eee4f43ef307849855a83cca336a6f46c7323dd7e8bee4107e8e559a9c9f9",
+        "width": 1500,
+        "height": 844,
+        "bytes": 189912,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1083,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1100,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/gkz-back.png",
+          "sha256": "ed8c330a1ab1bfa14938b607a09484f21fc2665fe17148a3b0f611df86f527df",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gkz-back.state.json",
+          "sha256": "c8f83c5ab65953686858b5cce4dd1123dbcaf1fd81a771b6f326acb6c64002db"
+        },
+        "pngDerivative": {
+          "path": "web/gkz-back.png",
+          "sha256": "ebb09c7a204f131ce936a24520e089f80d517cfcca0b9f2534bdbd774e3e394c",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/gkz-front.webp",
+        "sha256": "b1d5dbd7d4615aac4a3c89a17d301fb0e2b9e8ccba8e794015d04b993a5c0774",
+        "width": 1500,
+        "height": 844,
+        "bytes": 228728,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          89,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          174,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          258,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          289,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/gkz-front.png",
+          "sha256": "916836d6bd2a20a34006a5b23e2dc182af285ec4743aa9cb63eaa6ef0c782df3",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gkz-front.state.json",
+          "sha256": "ecf99a45ba559a3088e4e5c20432f69d7a98c3ed39daacdb52ea2e4acdee2b79"
+        },
+        "pngDerivative": {
+          "path": "web/gkz-front.png",
+          "sha256": "603aed170e31e59063f0b78b294a2e902eb903d0b74ea9b01740ba112c1dc985",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 89
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 174
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 258
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 289
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1083
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1100
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "gkz-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 2,
+            "premultipliedRgbMaxDifference": 2.0,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/gkz-scene-tom.png",
+            "sha256": "d46688eefe43824e35b36fb331af8680f3ee8fd31e5fda8260a1ba8fde47ee1a"
+          }
+        }
+      }
+    },
+    {
+      "rpo": "GPH",
+      "optionId": "opt_gph_001",
+      "name": "Red Mist Metallic Tintcoat",
+      "workbookAnchor": "zr1x_options!A101:K101",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/gph-back.webp",
+        "sha256": "89215dd765c1807ab42a28c75561cf7e6cdbac9de69cfee2004954bbf01ef176",
+        "width": 1500,
+        "height": 844,
+        "bytes": 213768,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1084,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1101,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/gph-back.png",
+          "sha256": "f4b307c900459ee789ed9f8a62d639c4600d3457ffdebed3f11d2a1cc26a1ab4",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gph-back.state.json",
+          "sha256": "4abef1bd1ec60b5a2a3a56689527d31a60402a12b49c641e8c4dedb92c7a6fa8"
+        },
+        "pngDerivative": {
+          "path": "web/gph-back.png",
+          "sha256": "0e7c19a82fd9ac54c56a9be631c450efb3b05710bd726ad017347d4f7b8c921f",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/gph-front.webp",
+        "sha256": "2fb68cde72c72fdf4937ed43aded7346606e8f4f245229b0b6af3976ba53f08b",
+        "width": 1500,
+        "height": 844,
+        "bytes": 236638,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          90,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          175,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          259,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          290,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/gph-front.png",
+          "sha256": "ea3c8490d8ebd076d788c7ef95130afb8619cd572ab532398755ecc1d5de8a08",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gph-front.state.json",
+          "sha256": "f07af151d6ce17e3e839a4a172830472133347e86c4607412c457ece0f542205"
+        },
+        "pngDerivative": {
+          "path": "web/gph-front.png",
+          "sha256": "4ccbc2f2f6fa41bb8403c4269612d9decdd76ffecee8b160efec814cd047f67a",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 90
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 175
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 259
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 290
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1084
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1101
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "gph-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 2,
+            "premultipliedRgbMaxDifference": 2.0,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/gph-scene-tom.png",
+            "sha256": "c55dde6c795b2c91313c97007997f0eba9711d4545d3683fc31dd6283ecae02a"
+          }
+        }
+      }
+    },
+    {
+      "rpo": "G26",
+      "optionId": "opt_g26_001",
+      "name": "Sebring Orange Tintcoat",
+      "workbookAnchor": "zr1x_options!A103:K103",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/g26-back.webp",
+        "sha256": "5223e3fe876a331d4e63e051e0fc8e73dd68724e96f62a5ff3470563f8334700",
+        "width": 1500,
+        "height": 844,
+        "bytes": 197638,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1085,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1102,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/g26-back.png",
+          "sha256": "84b24c6c8f3eedb5bbe22894636320396f6b96eab54d0d87855f730c206de169",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/g26-back.state.json",
+          "sha256": "1b2da78fa7265305a6f47467c037039ee2ee8e27202ee6ae0ed7a2f5e3677c59"
+        },
+        "pngDerivative": {
+          "path": "web/g26-back.png",
+          "sha256": "432f6402a1117eecc5d13942ced073367d6002cd9433830d4b89531fe7636059",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/g26-front.webp",
+        "sha256": "333513f6569e79c35c2b651910ac8341ca0df071dc3fe4204fe197659cbb5afc",
+        "width": 1500,
+        "height": 844,
+        "bytes": 230460,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          91,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          176,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          260,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          291,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/g26-front.png",
+          "sha256": "d8ce4893b07336c5fe843253d0e8a2133915b1eef59fec418c2c2fe8ede08711",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/g26-front.state.json",
+          "sha256": "62ee48d106cd777ce871bc9b890203ea62ee311deb661f32034d939b795c3190"
+        },
+        "pngDerivative": {
+          "path": "web/g26-front.png",
+          "sha256": "51ebca57271f6c4e7be34404a72d634fdbfabc435daced165c374498b75b1ad2",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 91
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 176
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 260
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 291
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1085
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1102
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "g26-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 2,
+            "premultipliedRgbMaxDifference": 2.0,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/g26-scene-tom.png",
+            "sha256": "1f8fdc9f34083385c63cf1c50513ef3b1bdd4f290b67d5f9c72e026f0f44aa11"
+          }
+        }
+      }
+    },
+    {
+      "rpo": "GBK",
+      "optionId": "opt_gbk_001",
+      "name": "Competition Yellow Tintcoat Metallic",
+      "workbookAnchor": "zr1x_options!A98:K98",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/gbk-back.webp",
+        "sha256": "3fac3cb7da04d91c4afc279baa5faeddc5dccbf133a9ec12c3996236a463e16a",
+        "width": 1500,
+        "height": 844,
+        "bytes": 205028,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1086,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1103,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/gbk-back.png",
+          "sha256": "c8913fac8a5ac3ec81fb7e018666601887df4c7b0598cd6181c0e94981f2e96d",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gbk-back.state.json",
+          "sha256": "000ca31d9dbe0a12d44d97377bb87b8d7eba0105703894bd4a5294425ad6723e"
+        },
+        "pngDerivative": {
+          "path": "web/gbk-back.png",
+          "sha256": "e2e8cdc9c1a2ec80fc5b2388897bda7fd48433e0e204f2918aa7d1937d5b95d2",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/gbk-front.webp",
+        "sha256": "b799ee506798a06f329b7aaaad51fa2bbded039e09f9a4624364aabd27656e0d",
+        "width": 1500,
+        "height": 844,
+        "bytes": 234322,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          92,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          177,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          261,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          292,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/gbk-front.png",
+          "sha256": "0bfc31031852a1c82387b4208466342000714b87cd96da8c681733de9dbb90ca",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gbk-front.state.json",
+          "sha256": "8445802708afbbf4aa50f19cf9a45ec8239e8e4d69d19de5c5c080988dd797f2"
+        },
+        "pngDerivative": {
+          "path": "web/gbk-front.png",
+          "sha256": "4d9052982543e335377f87b46530f9686bbef37e15e74d6a88d445af7a8e2708",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 92
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 177
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 261
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 292
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1086
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1103
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "gbk-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 2,
+            "premultipliedRgbMaxDifference": 2.0,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/gbk-scene-tom.png",
+            "sha256": "3d322cfc90d82158efccd0211fbfe49598acc63a115aaea960b51bbf7d72e175"
+          }
+        }
+      }
+    },
+    {
+      "rpo": "G4Z",
+      "optionId": "opt_g4z_001",
+      "name": "Roswell Green Metallic",
+      "workbookAnchor": "zr1x_options!A102:K102",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/g4z-back.webp",
+        "sha256": "416cf5d86246515f67f32387521945f191d7c69b2e3bcf920508e11c0d3d949c",
+        "width": 1500,
+        "height": 844,
+        "bytes": 200040,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1087,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1104,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/g4z-back.png",
+          "sha256": "e0f95e41ae2cc726f7351be15b4406cdfd2d2649d3216536870a162c038853d4",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/g4z-back.state.json",
+          "sha256": "c768b5818ee9d6019277c3b286a9a96e38516c06e45e4fcaf69e38945d3b1cbb"
+        },
+        "pngDerivative": {
+          "path": "web/g4z-back.png",
+          "sha256": "800575e0f3e9198afc84037392510c29b3153b0102b4421adbd6de39a56c40f8",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/g4z-front.webp",
+        "sha256": "da5be9fdedd2b70c5ac9fa0e986d4dbafbe3393b5ae2dfb0fca489f86caf240e",
+        "width": 1500,
+        "height": 844,
+        "bytes": 233536,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          93,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          178,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          262,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          293,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/g4z-front.png",
+          "sha256": "f70989bad4ed7a34f4a75a98bbd02c95275b74367f6b19ee0363686b838de163",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/g4z-front.state.json",
+          "sha256": "27a690f43da1676ffc0dac1e9d60d0d10ca47ba52a4cd604e3331eb8c2b2e3ca"
+        },
+        "pngDerivative": {
+          "path": "web/g4z-front.png",
+          "sha256": "1d34e424704aca1c2d4c0ce66f7115d6473b7d7a44be351570b30f7e9f6187c0",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 93
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 178
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 262
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 293
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1087
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1104
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "g4z-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 2,
+            "premultipliedRgbMaxDifference": 2.0,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/g4z-scene-tom.png",
+            "sha256": "8a99b495124cf15b41bcaae714e995771d06edbe7a7ff07afd8565cdaeda1d19"
+          }
+        }
+      }
+    },
+    {
+      "rpo": "GKA",
+      "optionId": "opt_gka_001",
+      "name": "Blade Silver Metallic",
+      "workbookAnchor": "zr1x_options!A97:K97",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/gka-back.webp",
+        "sha256": "8eba6bd82b321acf6bc687c421ef3144736203fbf7af8e030441f4c5e30bcbef",
+        "width": 1500,
+        "height": 844,
+        "bytes": 196152,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1088,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1105,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/gka-back.png",
+          "sha256": "eb712cb9d873f22fd0fec30846b590b73011b876b4af107ba2d849e6dbdca2dc",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gka-back.state.json",
+          "sha256": "2a9365acf8dded9e62511068618ef9c2c0ba6890656eb1b41de1821c44f1f48e"
+        },
+        "pngDerivative": {
+          "path": "web/gka-back.png",
+          "sha256": "e4dfc0d768062d797709e9f1605cc93da8c181ac4c753a5afa1c172a5ee3f20b",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/gka-front.webp",
+        "sha256": "c6596b80cf192d271a57c946aa84546f8c60a5e54a2c2258ad658af98e6c6a41",
+        "width": 1500,
+        "height": 844,
+        "bytes": 231008,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          94,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          179,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          263,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          294,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/gka-front.png",
+          "sha256": "8c6e6054e2a872bf03763124b4901be6d58b415e0a56df40828d04545d4f2f2e",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gka-front.state.json",
+          "sha256": "b52c28d047300e0e1d570b160a09b9b5f21ae1dd6d2247df539b4e2ebfaa1b0e"
+        },
+        "pngDerivative": {
+          "path": "web/gka-front.png",
+          "sha256": "7130e3f3125947dac5d509a9c23022b8474e0388c1729eaa424562c952ad5232",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 94
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 179
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 263
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 294
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1088
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1105
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "gka-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 2,
+            "premultipliedRgbMaxDifference": 2.0,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/gka-scene-tom.png",
+            "sha256": "79d4563421f34c8f69b2e11fcb91a4276ce549da6966b7f9c8584cfa8b143ddc"
+          }
+        }
+      }
+    },
+    {
+      "rpo": "GTR",
+      "optionId": "opt_gtr_001",
+      "name": "Admiral Blue Metallic",
+      "workbookAnchor": "zr1x_options!A99:K99",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/gtr-back.webp",
+        "sha256": "98f8e6521449bccc92e27e47953d870d69fa536e6c3a613157e56697a7d7aeb4",
+        "width": 1500,
+        "height": 844,
+        "bytes": 195350,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1089,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1106,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/gtr-back.png",
+          "sha256": "d009a38ab5c88682bd5e67ebf111666b78e62bdb0c6262c28919040a629e0b70",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gtr-back.state.json",
+          "sha256": "df71f44eca13859ff664dc30d5f987898edf77026c6dc22111c8eec47990b213"
+        },
+        "pngDerivative": {
+          "path": "web/gtr-back.png",
+          "sha256": "185123f9fa16523df71ef56221b8378372db7eedd0bc627579f8389672aec033",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/gtr-front.webp",
+        "sha256": "02e3a289a04560aef2b3edce10cef569381044865bdd376c453da000974e56b5",
+        "width": 1500,
+        "height": 844,
+        "bytes": 231442,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          95,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          180,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          264,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          295,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/gtr-front.png",
+          "sha256": "3f7226f3fec33daee2111bf5b5243ed8605dac21ed72572fcd20326960b04ea1",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gtr-front.state.json",
+          "sha256": "76398cd395228a4437d24915254ea280af1a4d0162fbff73322cfbda6fcb45cd"
+        },
+        "pngDerivative": {
+          "path": "web/gtr-front.png",
+          "sha256": "e631a051ca5c59e8eddef6a59d53e9e40af0b876d2beb0ccc569a832b85b7910",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 95
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 180
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 264
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 295
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1089
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1106
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "gtr-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 1,
+            "premultipliedRgbMaxDifference": 1.976470947265625,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/gtr-scene-tom.png",
+            "sha256": "1f663019d33aa50ef4056d161ea4b5b96aa08efe63695ad926b7d16f37003543"
+          }
+        }
+      }
+    },
+    {
+      "rpo": "GEC",
+      "optionId": "opt_gec_001",
+      "name": "Pitch Gray Metallic",
+      "workbookAnchor": "zr1x_options!A100:K100",
+      "guideAnchor": "Color and Trim 1!A16:D25",
+      "back": {
+        "path": "web/gec-back.webp",
+        "sha256": "27481955695fb59413add1cc2ebb4ae9e6e1582ececdc464cd72b61f5cc35b05",
+        "width": 1500,
+        "height": 844,
+        "bytes": 192658,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1034,
+          1036,
+          1037,
+          1039,
+          1040,
+          1065,
+          1078,
+          1079,
+          1090,
+          1091,
+          1092,
+          1094,
+          1095,
+          1096,
+          1107,
+          1109,
+          1114,
+          1116,
+          1118,
+          1125,
+          1129,
+          1132,
+          1135,
+          1138,
+          1140,
+          1143,
+          1144,
+          1146,
+          1150,
+          1155
+        ],
+        "nativePng": {
+          "path": "native/gec-back.png",
+          "sha256": "f2d0da0096f79eb72d63edff078f36d39bb9086bb744f67b88b7ef6c2602216d",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gec-back.state.json",
+          "sha256": "a93a2d5219f9a1ba12303282a474b32396430f91ac674e22d1abda8310f9ecae"
+        },
+        "pngDerivative": {
+          "path": "web/gec-back.png",
+          "sha256": "c894137541d6f71a1d4e7918521a054d5a83dc1db782a45fd4c267fe479f3cb6",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/gec-front.webp",
+        "sha256": "12b824ef20f4b7399f20f77a1a845949d1c2b6e19254d0809746b62fb36c0f2e",
+        "width": 1500,
+        "height": 844,
+        "bytes": 226350,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          28,
+          31,
+          36,
+          62,
+          64,
+          65,
+          67,
+          68,
+          70,
+          71,
+          75,
+          77,
+          78,
+          81,
+          85,
+          96,
+          97,
+          107,
+          111,
+          119,
+          122,
+          124,
+          131,
+          132,
+          142,
+          146,
+          156,
+          157,
+          163,
+          166,
+          167,
+          169,
+          170,
+          181,
+          182,
+          187,
+          192,
+          194,
+          196,
+          198,
+          199,
+          211,
+          212,
+          214,
+          215,
+          217,
+          248,
+          250,
+          251,
+          253,
+          255,
+          265,
+          266,
+          268,
+          270,
+          271,
+          284,
+          285,
+          296,
+          298,
+          327,
+          342,
+          374,
+          388,
+          390,
+          595,
+          600,
+          617,
+          706,
+          768,
+          770,
+          772,
+          776,
+          788,
+          790,
+          791,
+          820,
+          825,
+          854,
+          945,
+          948,
+          949,
+          951,
+          980,
+          988,
+          990,
+          991,
+          993
+        ],
+        "nativePng": {
+          "path": "native/gec-front.png",
+          "sha256": "e5d63171fa995396d7295c0d3d77ae446dbe2c748f03992ca77ccde2ad8101c4",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/gec-front.state.json",
+          "sha256": "961f754d0a66332c889bfc1fcb7bcb0b49bf2b6303ea05ce71382f31fed3727f"
+        },
+        "pngDerivative": {
+          "path": "web/gec-front.png",
+          "sha256": "08da638e383fc8e233178b36e6b3c7a6a8ba9e14c3e20a8feaaacdca3469ad4e",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 85,
+          "sourceReferenceLayerId": 96,
+          "selectedLayerId": 96
+        },
+        {
+          "parentId": 170,
+          "sourceReferenceLayerId": 181,
+          "selectedLayerId": 181
+        },
+        {
+          "parentId": 253,
+          "sourceReferenceLayerId": 265,
+          "selectedLayerId": 265
+        },
+        {
+          "parentId": 285,
+          "sourceReferenceLayerId": 296,
+          "selectedLayerId": 296
+        },
+        {
+          "parentId": 1079,
+          "sourceReferenceLayerId": 1090,
+          "selectedLayerId": 1090
+        },
+        {
+          "parentId": 1096,
+          "sourceReferenceLayerId": 1107,
+          "selectedLayerId": 1107
+        }
+      ],
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "native/manifest.json",
+        "report": "evidence/export-report-01.json",
+        "pixelComparison": "evidence/native-verification.json",
+        "nativeReferenceComparisons": {
+          "gec-tom": {
+            "alphaMaxDifference": 1,
+            "opaqueRgbMaxDifference": 1,
+            "premultipliedRgbMaxDifference": 1.992156982421875,
+            "premultipliedPixelsOver2": 0,
+            "passed": true
+          }
+        },
+        "nativeReferenceFiles": {
+          "TOM": {
+            "path": "native/gec-scene-tom.png",
+            "sha256": "d3bc22a9d9636ff13214ccfa68fbb3cb212903ea23829aac29587336c984102a"
+          }
+        }
+      }
+    }
+  ],
+  "choices": [
+    {
+      "rpo": "TOM",
+      "optionId": "opt_tom_002",
+      "name": "Visible Carbon Fiber Aero Package",
+      "componentRepresented": "rear spoiler only",
+      "assetId": "spoiler-tom",
+      "sourceLayers": [
+        {
+          "id": 1031,
+          "path": "Spoiler"
+        },
+        {
+          "id": 1033,
+          "path": "Spoiler / TOM"
+        }
+      ],
+      "evidence": [
+        {
+          "workbookAnchor": "zr1x_options!A108:K108",
+          "manufacturerAnchor": "Exterior 5!A6:K6",
+          "description": "Visible Carbon Fiber Aero Package; TOM uses the letter O. The high wing is the only package component qualified here."
+        }
+      ],
+      "webAsset": {
+        "path": "web/spoiler-tom.webp",
+        "sha256": "4086813e328908d18d1e86e9f25a2c975b2ee340697200e382778a708e456e2c",
+        "width": 1500,
+        "height": 844,
+        "bytes": 18074,
+        "format": "lossless-webp",
+        "stackOrder": 20,
+        "sourceLayerIds": [
+          1031,
+          1033
+        ],
+        "nativePng": {
+          "path": "native/spoiler-tom.png",
+          "sha256": "62986048ce5278aeb87085003d7b838935af0db255b47b724cc5e173c2faff4d",
+          "width": 6000,
+          "height": 3376
+        },
+        "state": {
+          "path": "native/spoiler-tom.state.json",
+          "sha256": "dfbce53649df19a14ab8d7b259da25581485c59442c99f088f8b9351c4780b9f"
+        },
+        "pngDerivative": {
+          "path": "web/spoiler-tom.png",
+          "sha256": "73c77231ec483f98bfc3e9b4ba928af52dc4ea40ba50aab25ddc53eafa796957",
+          "rgbaEqualWebp": true
+        }
+      }
+    }
+  ],
+  "coverage": {
+    "dynamicComponents": [
+      "paint",
+      "TOM rear spoiler"
+    ],
+    "fixedComponents": [
+      "wheels",
+      "wheel caps",
+      "brakes",
+      "interior",
+      "roof",
+      "front fascia",
+      "dive-plane state",
+      "hood spoiler state",
+      "mirrors geometry",
+      "exhaust",
+      "badges",
+      "other equipment",
+      "roof position",
+      "nacelle configuration"
+    ],
+    "notice": "Spoiler artwork preview for a 2027 ZR1X Convertible 3LZ in the selected paint. Wheels, interior and other equipment remain fixed and may differ from your build.",
+    "limitations": [
+      "TOM shows its high rear wing only; dive planes and the tall hood spoiler are outside coverage.",
+      "Other components remain fixed source artwork and may differ from the selected build; this is not a complete configured car or full legal-build proof.",
+      "ZTK requires TOM, but TOM does not require ZTK. No complete ZTK package is represented.",
+      "S0267 low-spoiler artwork is not bound to T0E because its exact internal alias remains unverified.",
+      "No wheel RPO, brake specification or engine specification is inferred from source labels.",
+      "Other body styles, trims, camera views and unspecified components are not qualified.",
+      "SIG artwork exists in the source but is unavailable in the inspected ZR1X guide and has no current catalog identity; excluded.",
+      "Convertible roof position and nacelle configuration remain fixed; no D84 or D86 coverage is inferred."
+    ],
+    "fallback": "Hide the artwork or show an explicit unavailable state outside the exact covered model/year/body/trim/paint/TOM scope. Do not silently substitute."
+  },
+  "validation": {
+    "nativeHighWingComparisons": 10,
+    "nativeExportBatches": 1,
+    "nativeExportCount": 32,
+    "sourceVisibilityRestored": true,
+    "allWebpRgbaEqualPngDerivatives": true,
+    "opaqueRgbMaxDifference": 2,
+    "alphaMaxDifference": 1,
+    "premultipliedRgbMaxDifference": 2.0,
+    "visualInspection": "All ten paint scenes inspected at full-scene scale; TOM wing geometry, mounts and foreground occlusion inspected at detail scale; isolated convertible body inspected separately. Raised/closed roof and nacelle artwork remain fixed. No compositing artifact observed.",
+    "captureMethod": "Full native inventory and explicit recipe rendered through the unchanged Photoshop exporter; capture GUI save remains unverified."
+  },
+  "configurationAnchor": "Exterior 5!J3:K3"
+}
