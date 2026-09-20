@@ -15,6 +15,7 @@ import tempfile
 from collections import Counter
 
 from catalog import foundation as f
+from catalog import artwork
 from catalog.behavior_sources import import_behavior
 from catalog.consumers import ConsumerCatalog, TABLES, encode, digest, import_mappings, validate_mappings
 from catalog.semantic_validation import Audit, findings
@@ -116,7 +117,7 @@ def check_id(identifier):
 
 
 def runtime_files():
-    return sorted([*Path(__file__).parent.glob('*.py'), *Path(__file__).with_name('web').glob('*')])
+    return sorted([*Path(__file__).parent.glob('*.py'), *Path(__file__).with_name('web').rglob('*')])
 
 
 def pins():
@@ -236,7 +237,7 @@ class ReleaseStore:
                         source='confirmed_server_state', duplicate_codes='retain_contributing_option_identities'))
                     write_json(base / 'visualizer.json', dict(format='catalog-visualizer-v1', revision_id=model['revision_id'],
                         source='confirmed_installed_equipment', configuration_ids=sorted(catalog.ev.configs),
-                        assets=[], coverage='art_not_bound'))
+                        **catalog.artwork))
                     # All 32 configured defaults exercise generation from this
                     # snapshot. Exact JSON roundtrip is the artifact boundary.
                     for cfg, configuration in catalog.ev.configs.items():
@@ -248,7 +249,7 @@ class ReleaseStore:
             artifacts = {str(p.relative_to(stage)): file_hash(p) for p in sorted(stage.rglob('*')) if p.is_file()}
             manifest = dict(format=FORMAT, state='completed', frozen_id=frozen_id, freeze=record, models=record['models'],
                 default_model=next(r['model_key'] for r in record['models'] if r['is_default']),
-                runtime=record['runtime'], artifacts=artifacts, media={'assets': [], 'coverage': 'art_not_bound'},
+                runtime=record['runtime'], artifacts=artifacts, media=artwork.release_media(),
                 comparison={'migration_baseline':'baselines/2026-09-06',
                             'target':'pinned_handoffs_and_accepted_owner_overlays' + ('_plus_reviewed_edits' if 'reviewed_edits_sha256' in record else ''),
                             'manufacturer_reconciliation':'separate_source_dispositions'},
@@ -305,6 +306,20 @@ class ReleaseStore:
                 raise ValueError('Authored snapshots require reviewed edit evidence')
             if membership(db) != record['models']:
                 raise ValueError('Release membership mismatch')
+            if 'catalog/artwork.py' in record['runtime']:
+                root = path / 'runtime/catalog/web/artwork'
+                if record['media'] != artwork.release_media(root):
+                    raise ValueError('Release artwork declaration mismatch')
+                manifest = artwork.load(root)
+                for model in record['models']:
+                    catalog = ConsumerCatalog(db, model['revision_id'], artwork_manifest=manifest)
+                    visualizer = read_json(path / model['model_key'] / 'visualizer.json')
+                    expected = dict(format='catalog-visualizer-v1', revision_id=model['revision_id'],
+                        source='confirmed_installed_equipment', configuration_ids=sorted(catalog.ev.configs), **catalog.artwork)
+                    if visualizer != expected:
+                        raise ValueError('Release artwork binding mismatch')
+            elif record['media'] != artwork.EMPTY:
+                raise ValueError('Unexpected legacy release artwork')
         return record
 
     def backup(self, identifier, destination):

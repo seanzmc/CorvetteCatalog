@@ -1,0 +1,282 @@
+{
+  "format": "catalog-artwork-v1",
+  "scene_id": "grand-sport-coupe-exterior-01-coherent-v1",
+  "model_key": "grand_sport",
+  "model_year": 2027,
+  "body": "coupe",
+  "trim": "3lt",
+  "paints": [
+    {
+      "option_id": "opt_gba_001",
+      "rpo": "GBA",
+      "label": "Black",
+      "base_asset_id": "paint-gba-back",
+      "foreground_asset_id": "paint-gba-foreground"
+    },
+    {
+      "option_id": "opt_g8g_001",
+      "rpo": "G8G",
+      "label": "Arctic White",
+      "base_asset_id": "paint-g8g-back",
+      "foreground_asset_id": "paint-g8g-foreground"
+    },
+    {
+      "option_id": "opt_gkz_001",
+      "rpo": "GKZ",
+      "label": "Torch Red",
+      "base_asset_id": "paint-gkz-back",
+      "foreground_asset_id": "paint-gkz-foreground"
+    },
+    {
+      "option_id": "opt_gph_001",
+      "rpo": "GPH",
+      "label": "Red Mist Metallic Tintcoat",
+      "base_asset_id": "paint-gph-back",
+      "foreground_asset_id": "paint-gph-foreground"
+    },
+    {
+      "option_id": "opt_g26_001",
+      "rpo": "G26",
+      "label": "Sebring Orange Tintcoat",
+      "base_asset_id": "paint-g26-back",
+      "foreground_asset_id": "paint-g26-foreground"
+    },
+    {
+      "option_id": "opt_gbk_001",
+      "rpo": "GBK",
+      "label": "Competition Yellow Tintcoat Metallic",
+      "base_asset_id": "paint-gbk-back",
+      "foreground_asset_id": "paint-gbk-foreground"
+    },
+    {
+      "option_id": "opt_g4z_001",
+      "rpo": "G4Z",
+      "label": "Roswell Green Metallic",
+      "base_asset_id": "paint-g4z-back",
+      "foreground_asset_id": "paint-g4z-foreground"
+    },
+    {
+      "option_id": "opt_gka_001",
+      "rpo": "GKA",
+      "label": "Blade Silver Metallic",
+      "base_asset_id": "paint-gka-back",
+      "foreground_asset_id": "paint-gka-foreground"
+    },
+    {
+      "option_id": "opt_gtr_001",
+      "rpo": "GTR",
+      "label": "Admiral Blue Metallic",
+      "base_asset_id": "paint-gtr-back",
+      "foreground_asset_id": "paint-gtr-foreground"
+    },
+    {
+      "option_id": "opt_gec_001",
+      "rpo": "GEC",
+      "label": "Pitch Gray Metallic",
+      "base_asset_id": "paint-gec-back",
+      "foreground_asset_id": "paint-gec-foreground"
+    }
+  ],
+  "choices": [
+    {
+      "option_id": "opt_t0f_001",
+      "rpo": "T0F",
+      "label": "Carbon Flash-Painted Carbon Fiber Aero Package",
+      "asset_id": "spoiler-t0f"
+    },
+    {
+      "option_id": "opt_5zv_001",
+      "rpo": "5ZV",
+      "label": "Carbon Flash Metallic Three-Stanchion High Wing Spoiler",
+      "asset_id": "spoiler-5zv"
+    }
+  ],
+  "assets": [
+    {
+      "id": "paint-gba-back",
+      "file": "proof-base.webp",
+      "sha256": "eaa5e724f6325dfa947ac4fac8b826dc0c9e4a2be0510a7f6da68e20c220454d",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gba-foreground",
+      "file": "proof-foreground.webp",
+      "sha256": "caa72c03e380f2d87f543e68128a7fd164c0cb574d99ecd9b039b7a284d15114",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g8g-back",
+      "file": "g8g-back.webp",
+      "sha256": "9d560ee0a0da1960a9f60928d2e719bb3f225695077576a3ae1d51324f03b410",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g8g-foreground",
+      "file": "g8g-front.webp",
+      "sha256": "5090277a434824bde353bdd189e7d5fc6ce6f98625b7197ccefe821f06f5bb84",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gkz-back",
+      "file": "gkz-back.webp",
+      "sha256": "1a5b791feab257ee35d4dd9d5120991246372e87c9ad73e5d92fedd4e244fd5b",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gkz-foreground",
+      "file": "gkz-front.webp",
+      "sha256": "1fa17811da465ea66eb830ca1ab75462925bb772ddc4282caf79f8be92c58fa4",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gph-back",
+      "file": "gph-back.webp",
+      "sha256": "2b5af9f447df51a23674a5b00f09a2d9ad73707dcd750a35d8ae5af30cd72855",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gph-foreground",
+      "file": "gph-front.webp",
+      "sha256": "96ee95a138b9ee7229f3c6dc3b98cc418bc13cde3753ad011ab2ad8d9da46602",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g26-back",
+      "file": "g26-back.webp",
+      "sha256": "cdb16a18a34d96f3c554ed599e95bb5e843cb1d561249663e1c8dd62a999fadf",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g26-foreground",
+      "file": "g26-front.webp",
+      "sha256": "d93901782cc95a0bb751a6717a6e97e34e8a3fe0907b658d92dca121fbcb25f6",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gbk-back",
+      "file": "gbk-back.webp",
+      "sha256": "dbad26fed44e13721aef40e8e5bd83834a9a9029b578917ebe001dfa70c3e24c",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gbk-foreground",
+      "file": "gbk-front.webp",
+      "sha256": "2c994275fde82d5af6808690eb9da62883e970fc19ca7434f3023e29d906c9bd",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g4z-back",
+      "file": "g4z-back.webp",
+      "sha256": "3d08b6344b9e6319c8cdb5c33a26d50a959260e004dabc37c05b10c70a95a780",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g4z-foreground",
+      "file": "g4z-front.webp",
+      "sha256": "e5b8982f7a7f33126b7dd6ece9a2b9b57890b53e96410a785e0a259a982b9202",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gka-back",
+      "file": "gka-back.webp",
+      "sha256": "066b66b3027a97d900930ad3a32428a254e7ef3b3c5f158aba931fcb90486b59",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gka-foreground",
+      "file": "gka-front.webp",
+      "sha256": "f2582b54daea0a82b6563c9fc435da4314334c3a44fe0f9c2b3932fcee6fad70",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gtr-back",
+      "file": "gtr-back.webp",
+      "sha256": "7683141252a48ec72a2951b81424481fe20de94edeceaa67572151712865ee2f",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gtr-foreground",
+      "file": "gtr-front.webp",
+      "sha256": "415820b864921d346d3d0a802c462b5f4ac8e215f36d652e8e80e4d7bf77d28c",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gec-back",
+      "file": "gec-back.webp",
+      "sha256": "156c1170f9f1b81837786a53613027c2e4fa2e232614c0b49a6c0e53159f73c5",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gec-foreground",
+      "file": "gec-front.webp",
+      "sha256": "5ee975f996d6f2d2a2760004748ac6b29ed5f6461a14526da2569276777001b5",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "spoiler-t0f",
+      "file": "spoiler-t0f.webp",
+      "sha256": "8ee770463c1a45acacab29c64e77b091b544a2822321418fbab5a9fbac752c87",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    },
+    {
+      "id": "spoiler-5zv",
+      "file": "spoiler-5zv.webp",
+      "sha256": "92fd0e53b7f35f31c1cf7cdd6c0d35a14b237db2ec045fd923fb8da20d397a88",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    }
+  ],
+  "notice": "Spoiler artwork preview for a 2027 Grand Sport Coupe 3LT in the selected paint. Wheels, interior and other equipment remain fixed and may differ from your build.",
+  "limitations": [
+    "T0F shows its spoiler only; CFZ ground effects and the rest of the aero package are not represented.",
+    "Other models, body styles, trims, camera views and unspecified component choices are not qualified."
+  ],
+  "evidence": {
+    "file": "source-proof.json",
+    "sha256": "aa511cbb6e815699263f5f9915a69a3f7f35157ad5a338a2f4299beb8cc8465f",
+    "source_sha256": "1e9360c73d3acdb17121e9b2bc8ae8af14c5ea9507b58ab61c4b2b96e1f9345e"
+  }
+}

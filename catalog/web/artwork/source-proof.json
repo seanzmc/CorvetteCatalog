@@ -1,0 +1,2504 @@
+{
+  "schema": "27vette-paint-spoiler-family-v1",
+  "status": "verified-component-proof",
+  "id": "grand-sport-coupe-exterior-01-coherent-v1",
+  "createdAt": "2026-09-20T21:52:27.674290+00:00",
+  "catalogModelKey": "grand_sport",
+  "assetModel": "grandsport",
+  "modelYear": 2027,
+  "body": "coupe",
+  "trim": "3lt",
+  "scene": "coupe-exterior-01",
+  "originalProofPackage": "/Users/seandm/Library/Mobile Documents/com~apple~CloudDocs/C8-iCloud/27img/visualizer-studio_27/27vette-phase1/asset-proofs/2026-09-20-grand-sport-coupe-01-coherent",
+  "relativePaths": "Every image, state, validation and candidate-manifest path resolves relative to this original Photoshop proof package, not relative to a copied application provenance JSON.",
+  "source": {
+    "path": "/Users/seandm/Library/Mobile Documents/com~apple~CloudDocs/C8-iCloud/27img/visualizer-studio_27/visual-studio/grandsport/e.coupe.exterior.01 - cleaned.psb",
+    "sha256": "1e9360c73d3acdb17121e9b2bc8ae8af14c5ea9507b58ab61c4b2b96e1f9345e",
+    "workingCopy": "/private/tmp/27vette-grand-sport-asset-proof.psb",
+    "workingCopyAfterExportSha256": "1e9360c73d3acdb17121e9b2bc8ae8af14c5ea9507b58ab61c4b2b96e1f9345e",
+    "originalUnmodified": true,
+    "width": 6000,
+    "height": 3376,
+    "photoshopVersion": "27.12.0",
+    "nativeCapturedLayerCount": 1400,
+    "binaryReaderLayerCount": 1401,
+    "inventoryDifference": "Raw PSD reader includes Tow_Hooks / S0869 (ID 3); Photoshop UXP exposes its parent ID 1 as a pixel layer. That hidden branch was not changed. All 1400 native visibility flags were checked before and after export.",
+    "modelEvidence": [
+      "Folder and cleaned document provenance: visual-studio/grandsport/e.coupe.exterior.01 - cleaned.psb",
+      "Base / 1YE07 (ID 1605), matching Grand Sport coupe E07 catalog configurations",
+      "Engine / LS6 (ID 1550), source-selected engine",
+      "Coupe roof source artwork and 3LT interior source labels"
+    ],
+    "correctionsFromReference": [
+      {
+        "component": "right mirror cap",
+        "originalLayer": 1621,
+        "originalName": "S0102_R&GEC",
+        "correction": "Each paint recipe selects its exact matching S0102_R&paint layer; see paintFamilySelections per paint."
+      }
+    ]
+  },
+  "canvas": {
+    "width": 1500,
+    "height": 844,
+    "nativeWidth": 6000,
+    "nativeHeight": 3376,
+    "uniformScale": 0.25,
+    "crop": false
+  },
+  "compositionOrder": [
+    "selected paint back (0)",
+    "one selected spoiler (20)",
+    "selected paint foreground (30)"
+  ],
+  "paints": [
+    {
+      "rpo": "GBA",
+      "optionId": "opt_gba_001",
+      "name": "Black",
+      "back": {
+        "path": "web/proof-base.webp",
+        "sha256": "eaa5e724f6325dfa947ac4fac8b826dc0c9e4a2be0510a7f6da68e20c220454d",
+        "width": 1500,
+        "height": 844,
+        "bytes": 144508,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1595,
+          1605,
+          1606,
+          1609,
+          1610,
+          1612,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/three-paints/gba-back.state.json",
+          "sha256": "71e5078520e04c6d095722e2d5964916ff2743b04e4e65cae135c5eb6d999172"
+        },
+        "nativePng": {
+          "path": "batches/three-paints/gba-back.png",
+          "sha256": "18678ad6b015090004b603dbc2b024849fb50689d46660ddfd4cebeb90fb5fc5",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/proof-foreground.webp",
+        "sha256": "caa72c03e380f2d87f543e68128a7fd164c0cb574d99ecd9b039b7a284d15114",
+        "width": 1500,
+        "height": 844,
+        "bytes": 196306,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          133,
+          146,
+          148,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          307,
+          328,
+          330,
+          332,
+          334,
+          335,
+          337,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          430,
+          442,
+          445,
+          465,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/three-paints/gba-front.state.json",
+          "sha256": "0f8ab74467addb7b615055ead387a2a4a108c3e18b354e5792644b63d0d2f9ac"
+        },
+        "nativePng": {
+          "path": "batches/three-paints/gba-front.png",
+          "sha256": "05c3ff51685e72dab78dbeab519bab9f0479a73fb69fc2077a15e2ef1a03088d",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 133,
+          "name": "S0278&GBA"
+        },
+        {
+          "parentId": 146,
+          "layerId": 148,
+          "name": "S0220&GBA"
+        },
+        {
+          "parentId": 305,
+          "layerId": 307,
+          "name": "S0102_L&GBA"
+        },
+        {
+          "parentId": 335,
+          "layerId": 337,
+          "name": "S0212&GBA"
+        },
+        {
+          "parentId": 427,
+          "layerId": 430,
+          "name": "S0203&GBA"
+        },
+        {
+          "parentId": 442,
+          "layerId": 445,
+          "name": "S0243&GBA"
+        },
+        {
+          "parentId": 442,
+          "layerId": 465,
+          "name": "CF7&GBA"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1595,
+          "name": "GBA"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1612,
+          "name": "S0102_R&GBA"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-manifest.json",
+        "sha256": "8f7b6d850a2f6b506c737dafe3ee3b33ce6cbde018a4b08cda504764ddf332a8"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/three-paints/manifest.json",
+        "report": "evidence/export-report-03.json",
+        "pixelComparison": "evidence/png-verification-03.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/three-paints/gba-scene-t0f.png",
+          "5zv": "batches/three-paints/gba-scene-5zv.png"
+        }
+      }
+    },
+    {
+      "rpo": "G8G",
+      "optionId": "opt_g8g_001",
+      "name": "Arctic White",
+      "back": {
+        "path": "web/g8g-back.webp",
+        "sha256": "9d560ee0a0da1960a9f60928d2e719bb3f225695077576a3ae1d51324f03b410",
+        "width": 1500,
+        "height": 844,
+        "bytes": 156838,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1596,
+          1605,
+          1606,
+          1609,
+          1610,
+          1613,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/three-paints/g8g-back.state.json",
+          "sha256": "9002fff401cef6a95c6a865d1d9fe01d35e804ceb95b8745496766e644893e5c"
+        },
+        "nativePng": {
+          "path": "batches/three-paints/g8g-back.png",
+          "sha256": "69d02ba88dba7f690806a33bcb1fde4ea958a19a55fa7a5d3c24f862eac00975",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/g8g-front.webp",
+        "sha256": "5090277a434824bde353bdd189e7d5fc6ce6f98625b7197ccefe821f06f5bb84",
+        "width": 1500,
+        "height": 844,
+        "bytes": 200648,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          134,
+          146,
+          149,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          308,
+          328,
+          330,
+          332,
+          334,
+          335,
+          338,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          431,
+          442,
+          446,
+          466,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/three-paints/g8g-front.state.json",
+          "sha256": "cf29b5048f1de5797e96fd766365837646d6782aa83d51c9e6d608138a4c0674"
+        },
+        "nativePng": {
+          "path": "batches/three-paints/g8g-front.png",
+          "sha256": "ac11db8ec13ab956526604c17e237457a8d52164d2b17edf59017c2f93955229",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 134,
+          "name": "S0278&G8G"
+        },
+        {
+          "parentId": 146,
+          "layerId": 149,
+          "name": "S0220&G8G"
+        },
+        {
+          "parentId": 305,
+          "layerId": 308,
+          "name": "S0102_L&G8G"
+        },
+        {
+          "parentId": 335,
+          "layerId": 338,
+          "name": "S0212&G8G"
+        },
+        {
+          "parentId": 427,
+          "layerId": 431,
+          "name": "S0203&G8G"
+        },
+        {
+          "parentId": 442,
+          "layerId": 446,
+          "name": "S0243&G8G"
+        },
+        {
+          "parentId": 442,
+          "layerId": 466,
+          "name": "CF7&G8G"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1596,
+          "name": "G8G"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1613,
+          "name": "S0102_R&G8G"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-g8g.json",
+        "sha256": "2a5a73838723ae49ad57d596755ed24f4c42ad3d71bd884d80cc6cfb9cd7ec24"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/three-paints/manifest.json",
+        "report": "evidence/export-report-03.json",
+        "pixelComparison": "evidence/png-verification-03.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/three-paints/g8g-scene-t0f.png",
+          "5zv": "batches/three-paints/g8g-scene-5zv.png"
+        }
+      }
+    },
+    {
+      "rpo": "GKZ",
+      "optionId": "opt_gkz_001",
+      "name": "Torch Red",
+      "back": {
+        "path": "web/gkz-back.webp",
+        "sha256": "1a5b791feab257ee35d4dd9d5120991246372e87c9ad73e5d92fedd4e244fd5b",
+        "width": 1500,
+        "height": 844,
+        "bytes": 172538,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1597,
+          1605,
+          1606,
+          1609,
+          1610,
+          1614,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gkz-back.state.json",
+          "sha256": "a3cd622144419cb85a4b2e02c6d86685f1bd9b65e17caf6508a23269dce1d7dd"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gkz-back.png",
+          "sha256": "1b25a63d3b03cac61f08b7925102ea02c552ec67658b4795147abd850edeaf41",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/gkz-front.webp",
+        "sha256": "1fa17811da465ea66eb830ca1ab75462925bb772ddc4282caf79f8be92c58fa4",
+        "width": 1500,
+        "height": 844,
+        "bytes": 212946,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          135,
+          146,
+          150,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          309,
+          328,
+          330,
+          332,
+          334,
+          335,
+          339,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          432,
+          442,
+          447,
+          467,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gkz-front.state.json",
+          "sha256": "93256697c2984e1a6983ecad41166d7216c8064fee084d473d35dc4fa9902541"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gkz-front.png",
+          "sha256": "9e05984742969a089c926cfde4935d10d3886a965c0903d2f6b21a9dd0b24b2d",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 135,
+          "name": "S0278&GKZ"
+        },
+        {
+          "parentId": 146,
+          "layerId": 150,
+          "name": "S0220&GKZ"
+        },
+        {
+          "parentId": 305,
+          "layerId": 309,
+          "name": "S0102_L&GKZ"
+        },
+        {
+          "parentId": 335,
+          "layerId": 339,
+          "name": "S0212&GKZ"
+        },
+        {
+          "parentId": 427,
+          "layerId": 432,
+          "name": "S0203&GKZ"
+        },
+        {
+          "parentId": 442,
+          "layerId": 447,
+          "name": "S0243&GKZ"
+        },
+        {
+          "parentId": 442,
+          "layerId": 467,
+          "name": "CF7&GKZ"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1597,
+          "name": "GKZ"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1614,
+          "name": "S0102_R&GKZ"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-gkz.json",
+        "sha256": "116426f87242e9e3e5bff22af2c25504e5c9c12461c29c60a4e18161164c3cbf"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/remaining-paints/manifest.json",
+        "report": "evidence/export-report-04.json",
+        "pixelComparison": "evidence/png-verification-04.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/remaining-paints/gkz-scene-t0f.png",
+          "5zv": "batches/remaining-paints/gkz-scene-5zv.png"
+        }
+      }
+    },
+    {
+      "rpo": "GPH",
+      "optionId": "opt_gph_001",
+      "name": "Red Mist Metallic Tintcoat",
+      "back": {
+        "path": "web/gph-back.webp",
+        "sha256": "2b5af9f447df51a23674a5b00f09a2d9ad73707dcd750a35d8ae5af30cd72855",
+        "width": 1500,
+        "height": 844,
+        "bytes": 197780,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1598,
+          1605,
+          1606,
+          1609,
+          1610,
+          1615,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gph-back.state.json",
+          "sha256": "42405d4c009a4c42e30eee137f7edeee72d48b364f46f125ea6fd08cd7b54af6"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gph-back.png",
+          "sha256": "474cf6647622a8ba7d8d7a2070cabb85d4ff8332ebae6f23471af9b8db666113",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/gph-front.webp",
+        "sha256": "96ee95a138b9ee7229f3c6dc3b98cc418bc13cde3753ad011ab2ad8d9da46602",
+        "width": 1500,
+        "height": 844,
+        "bytes": 221338,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          136,
+          146,
+          151,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          310,
+          328,
+          330,
+          332,
+          334,
+          335,
+          340,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          433,
+          442,
+          448,
+          468,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gph-front.state.json",
+          "sha256": "1a239c2feb903fd6cf0305cafe5081286586850b52a3ade8e8fc2b95812c30c1"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gph-front.png",
+          "sha256": "85efafa886cc9e72c4624121adaa0f15585ee32bb0a54cf96ebf84b3451d0565",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 136,
+          "name": "S0278&GPH"
+        },
+        {
+          "parentId": 146,
+          "layerId": 151,
+          "name": "S0220&GPH"
+        },
+        {
+          "parentId": 305,
+          "layerId": 310,
+          "name": "S0102_L&GPH"
+        },
+        {
+          "parentId": 335,
+          "layerId": 340,
+          "name": "S0212&GPH"
+        },
+        {
+          "parentId": 427,
+          "layerId": 433,
+          "name": "S0203&GPH"
+        },
+        {
+          "parentId": 442,
+          "layerId": 448,
+          "name": "S0243&GPH"
+        },
+        {
+          "parentId": 442,
+          "layerId": 468,
+          "name": "CF7&GPH"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1598,
+          "name": "GPH"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1615,
+          "name": "S0102_R&GPH"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-gph.json",
+        "sha256": "fb606e5d36ef652a8b0c869144ce19c0f31889eea661b48a550799dcaeac6de9"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/remaining-paints/manifest.json",
+        "report": "evidence/export-report-04.json",
+        "pixelComparison": "evidence/png-verification-04.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/remaining-paints/gph-scene-t0f.png",
+          "5zv": "batches/remaining-paints/gph-scene-5zv.png"
+        }
+      }
+    },
+    {
+      "rpo": "G26",
+      "optionId": "opt_g26_001",
+      "name": "Sebring Orange Tintcoat",
+      "back": {
+        "path": "web/g26-back.webp",
+        "sha256": "cdb16a18a34d96f3c554ed599e95bb5e843cb1d561249663e1c8dd62a999fadf",
+        "width": 1500,
+        "height": 844,
+        "bytes": 179268,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1599,
+          1605,
+          1606,
+          1609,
+          1610,
+          1616,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/three-paints/g26-back.state.json",
+          "sha256": "72cc59ec25b71f9bcf646e559c5971e058e7928da8bd82c7766e640bc4b6debb"
+        },
+        "nativePng": {
+          "path": "batches/three-paints/g26-back.png",
+          "sha256": "8bba899a5f5ff5b5c13eb2def0d8302a6a7ea42d64c2787978bc5719ed5b5773",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/g26-front.webp",
+        "sha256": "d93901782cc95a0bb751a6717a6e97e34e8a3fe0907b658d92dca121fbcb25f6",
+        "width": 1500,
+        "height": 844,
+        "bytes": 217474,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          137,
+          146,
+          152,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          311,
+          328,
+          330,
+          332,
+          334,
+          335,
+          341,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          434,
+          442,
+          449,
+          469,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/three-paints/g26-front.state.json",
+          "sha256": "d467816e8d9622de43f4b46e845cd12fcada0e531795afc233fa3677c5a83212"
+        },
+        "nativePng": {
+          "path": "batches/three-paints/g26-front.png",
+          "sha256": "c96a600e57511f3ec8d99b675e3a999e82fc6bb1e8fa3ddc8860ab09bbccb5b8",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 137,
+          "name": "S0278&G26"
+        },
+        {
+          "parentId": 146,
+          "layerId": 152,
+          "name": "S0220&G26"
+        },
+        {
+          "parentId": 305,
+          "layerId": 311,
+          "name": "S0102_L&G26"
+        },
+        {
+          "parentId": 335,
+          "layerId": 341,
+          "name": "S0212&G26"
+        },
+        {
+          "parentId": 427,
+          "layerId": 434,
+          "name": "S0203&G26"
+        },
+        {
+          "parentId": 442,
+          "layerId": 449,
+          "name": "S0243&G26"
+        },
+        {
+          "parentId": 442,
+          "layerId": 469,
+          "name": "CF7&G26"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1599,
+          "name": "G26"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1616,
+          "name": "S0102_R&G26"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-g26.json",
+        "sha256": "8e8049d1b4592478910378111378a9126550d6e4f87cc8a1e49d441d864295ae"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/three-paints/manifest.json",
+        "report": "evidence/export-report-03.json",
+        "pixelComparison": "evidence/png-verification-03.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/three-paints/g26-scene-t0f.png",
+          "5zv": "batches/three-paints/g26-scene-5zv.png"
+        }
+      }
+    },
+    {
+      "rpo": "GBK",
+      "optionId": "opt_gbk_001",
+      "name": "Competition Yellow Tintcoat Metallic",
+      "back": {
+        "path": "web/gbk-back.webp",
+        "sha256": "dbad26fed44e13721aef40e8e5bd83834a9a9029b578917ebe001dfa70c3e24c",
+        "width": 1500,
+        "height": 844,
+        "bytes": 187660,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1600,
+          1605,
+          1606,
+          1609,
+          1610,
+          1617,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gbk-back.state.json",
+          "sha256": "79f37f3c6835f4574e3eada8cda73026573e80c62afe94f6f767d90a586630c2"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gbk-back.png",
+          "sha256": "eebde1d229e8c46687d3fdec85e3526d8c75dd14972128a6e6c33169cbd11bb5",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/gbk-front.webp",
+        "sha256": "2c994275fde82d5af6808690eb9da62883e970fc19ca7434f3023e29d906c9bd",
+        "width": 1500,
+        "height": 844,
+        "bytes": 222362,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          138,
+          146,
+          153,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          312,
+          328,
+          330,
+          332,
+          334,
+          335,
+          342,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          435,
+          442,
+          450,
+          470,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gbk-front.state.json",
+          "sha256": "11a14d2672f2a3b97f70e4a2db252d60b3d023e842a5fa3b651f3453c35c6e5a"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gbk-front.png",
+          "sha256": "102cd3a5a7344a271b8709e476a0b32c2bb7ed56ea0060e93e20cba8110814e7",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 138,
+          "name": "S0278&GBK"
+        },
+        {
+          "parentId": 146,
+          "layerId": 153,
+          "name": "S0220&GBK"
+        },
+        {
+          "parentId": 305,
+          "layerId": 312,
+          "name": "S0102_L&GBK"
+        },
+        {
+          "parentId": 335,
+          "layerId": 342,
+          "name": "S0212&GBK"
+        },
+        {
+          "parentId": 427,
+          "layerId": 435,
+          "name": "S0203&GBK"
+        },
+        {
+          "parentId": 442,
+          "layerId": 450,
+          "name": "S0243&GBK"
+        },
+        {
+          "parentId": 442,
+          "layerId": 470,
+          "name": "CF7&GBK"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1600,
+          "name": "GBK"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1617,
+          "name": "S0102_R&GBK"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-gbk.json",
+        "sha256": "3e82ba4e4fff60ec006cdb2d46a5ec48a7870b865988a30c98c786f414bf418e"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/remaining-paints/manifest.json",
+        "report": "evidence/export-report-04.json",
+        "pixelComparison": "evidence/png-verification-04.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/remaining-paints/gbk-scene-t0f.png",
+          "5zv": "batches/remaining-paints/gbk-scene-5zv.png"
+        }
+      }
+    },
+    {
+      "rpo": "G4Z",
+      "optionId": "opt_g4z_001",
+      "name": "Roswell Green Metallic",
+      "back": {
+        "path": "web/g4z-back.webp",
+        "sha256": "3d08b6344b9e6319c8cdb5c33a26d50a959260e004dabc37c05b10c70a95a780",
+        "width": 1500,
+        "height": 844,
+        "bytes": 183936,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1601,
+          1605,
+          1606,
+          1609,
+          1610,
+          1618,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/remaining-paints/g4z-back.state.json",
+          "sha256": "01c0726f144e238addd3c9f7182ea29bc2b51c1776d6ec89a64d249d29438f13"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/g4z-back.png",
+          "sha256": "b044764cc3ad3989988f92175156727f0033e7d1ce11728ca9e013aa89b2a987",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/g4z-front.webp",
+        "sha256": "e5b8982f7a7f33126b7dd6ece9a2b9b57890b53e96410a785e0a259a982b9202",
+        "width": 1500,
+        "height": 844,
+        "bytes": 216816,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          139,
+          146,
+          154,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          313,
+          328,
+          330,
+          332,
+          334,
+          335,
+          343,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          436,
+          442,
+          451,
+          471,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/remaining-paints/g4z-front.state.json",
+          "sha256": "8dad9f28c603b31c6e5127ff02ec0334b20b7d1bb13ab47d5b2a21d1d70c3903"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/g4z-front.png",
+          "sha256": "259880a1392b5391f63b262a52788ec55071cce804d677f0be443717b06499bf",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 139,
+          "name": "S0278&G4Z"
+        },
+        {
+          "parentId": 146,
+          "layerId": 154,
+          "name": "S0220&G4Z"
+        },
+        {
+          "parentId": 305,
+          "layerId": 313,
+          "name": "S0102_L&G4Z"
+        },
+        {
+          "parentId": 335,
+          "layerId": 343,
+          "name": "S0212&G4Z"
+        },
+        {
+          "parentId": 427,
+          "layerId": 436,
+          "name": "S0203&G4Z"
+        },
+        {
+          "parentId": 442,
+          "layerId": 451,
+          "name": "S0243&G4Z"
+        },
+        {
+          "parentId": 442,
+          "layerId": 471,
+          "name": "CF7&G4Z"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1601,
+          "name": "G4Z"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1618,
+          "name": "S0102_R&G4Z"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-g4z.json",
+        "sha256": "426ede08feb105c47c1987fb0ae20318b76e36c641b4e49046465df871429665"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/remaining-paints/manifest.json",
+        "report": "evidence/export-report-04.json",
+        "pixelComparison": "evidence/png-verification-04.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/remaining-paints/g4z-scene-t0f.png",
+          "5zv": "batches/remaining-paints/g4z-scene-5zv.png"
+        }
+      }
+    },
+    {
+      "rpo": "GKA",
+      "optionId": "opt_gka_001",
+      "name": "Blade Silver Metallic",
+      "back": {
+        "path": "web/gka-back.webp",
+        "sha256": "066b66b3027a97d900930ad3a32428a254e7ef3b3c5f158aba931fcb90486b59",
+        "width": 1500,
+        "height": 844,
+        "bytes": 175564,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1602,
+          1605,
+          1606,
+          1609,
+          1610,
+          1619,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gka-back.state.json",
+          "sha256": "34a3a5bde2c3a4570fcb2b8e78a307b5b308c83fbdb2e29c42baf4d4f5f10f38"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gka-back.png",
+          "sha256": "72b43379b15d718590b434ba94bc0bb52abd305adabee3b6c36f428e1b0d8d11",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/gka-front.webp",
+        "sha256": "f2582b54daea0a82b6563c9fc435da4314334c3a44fe0f9c2b3932fcee6fad70",
+        "width": 1500,
+        "height": 844,
+        "bytes": 207404,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          140,
+          146,
+          155,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          314,
+          328,
+          330,
+          332,
+          334,
+          335,
+          344,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          437,
+          442,
+          452,
+          472,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gka-front.state.json",
+          "sha256": "371d862b0b78ad663677bb383e08aed3aa72950bea947b4376161f4761fe91f2"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gka-front.png",
+          "sha256": "bcb5b0773d27e55fc5f18b73cac58cbfe48d907e4a9c5051dbccd61d700a53de",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 140,
+          "name": "S0278&GKA"
+        },
+        {
+          "parentId": 146,
+          "layerId": 155,
+          "name": "S0220&GKA"
+        },
+        {
+          "parentId": 305,
+          "layerId": 314,
+          "name": "S0102_L&GKA"
+        },
+        {
+          "parentId": 335,
+          "layerId": 344,
+          "name": "S0212&GKA"
+        },
+        {
+          "parentId": 427,
+          "layerId": 437,
+          "name": "S0203&GKA"
+        },
+        {
+          "parentId": 442,
+          "layerId": 452,
+          "name": "S0243&GKA"
+        },
+        {
+          "parentId": 442,
+          "layerId": 472,
+          "name": "CF7&GKA"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1602,
+          "name": "GKA"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1619,
+          "name": "S0102_R&GKA"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-gka.json",
+        "sha256": "732674bdfd79f353d2152f59c759b0f361419db2a4f82317f58426eb51ba0c99"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/remaining-paints/manifest.json",
+        "report": "evidence/export-report-04.json",
+        "pixelComparison": "evidence/png-verification-04.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/remaining-paints/gka-scene-t0f.png",
+          "5zv": "batches/remaining-paints/gka-scene-5zv.png"
+        }
+      }
+    },
+    {
+      "rpo": "GTR",
+      "optionId": "opt_gtr_001",
+      "name": "Admiral Blue Metallic",
+      "back": {
+        "path": "web/gtr-back.webp",
+        "sha256": "7683141252a48ec72a2951b81424481fe20de94edeceaa67572151712865ee2f",
+        "width": 1500,
+        "height": 844,
+        "bytes": 179238,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1603,
+          1605,
+          1606,
+          1609,
+          1610,
+          1620,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gtr-back.state.json",
+          "sha256": "29425b58e919e6b28be950a6e5e6f33f8b913709f62c312c674d851d79f2a847"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gtr-back.png",
+          "sha256": "5f7f56aad56051ec649b2b5220a1006fd26b1bd1fc9d973c32d1727fe9bd4bc4",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/gtr-front.webp",
+        "sha256": "415820b864921d346d3d0a802c462b5f4ac8e215f36d652e8e80e4d7bf77d28c",
+        "width": 1500,
+        "height": 844,
+        "bytes": 215800,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          141,
+          146,
+          156,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          315,
+          328,
+          330,
+          332,
+          334,
+          335,
+          345,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          438,
+          442,
+          453,
+          473,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gtr-front.state.json",
+          "sha256": "9e27b03625d6215c41ec871e823dc3d82b664518230b47df817b5cf1fcfa42a8"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gtr-front.png",
+          "sha256": "80bfbb3ca889cf6afd5e9c4581d8a06d77aef23b9cda995fcc4de828050bdd9c",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 141,
+          "name": "S0278&GTR"
+        },
+        {
+          "parentId": 146,
+          "layerId": 156,
+          "name": "S0220&GTR"
+        },
+        {
+          "parentId": 305,
+          "layerId": 315,
+          "name": "S0102_L&GTR"
+        },
+        {
+          "parentId": 335,
+          "layerId": 345,
+          "name": "S0212&GTR"
+        },
+        {
+          "parentId": 427,
+          "layerId": 438,
+          "name": "S0203&GTR"
+        },
+        {
+          "parentId": 442,
+          "layerId": 453,
+          "name": "S0243&GTR"
+        },
+        {
+          "parentId": 442,
+          "layerId": 473,
+          "name": "CF7&GTR"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1603,
+          "name": "GTR"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1620,
+          "name": "S0102_R&GTR"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-gtr.json",
+        "sha256": "de496e334a8759c0c097a8d09677936e29c1aa2dc6c9213246a23cb3e418c6ec"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/remaining-paints/manifest.json",
+        "report": "evidence/export-report-04.json",
+        "pixelComparison": "evidence/png-verification-04.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/remaining-paints/gtr-scene-t0f.png",
+          "5zv": "batches/remaining-paints/gtr-scene-5zv.png"
+        }
+      }
+    },
+    {
+      "rpo": "GEC",
+      "optionId": "opt_gec_001",
+      "name": "Pitch Gray Metallic",
+      "back": {
+        "path": "web/gec-back.webp",
+        "sha256": "156c1170f9f1b81837786a53613027c2e4fa2e232614c0b49a6c0e53159f73c5",
+        "width": 1500,
+        "height": 844,
+        "bytes": 175632,
+        "format": "lossless-webp",
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1544,
+          1546,
+          1547,
+          1550,
+          1551,
+          1553,
+          1555,
+          1593,
+          1604,
+          1605,
+          1606,
+          1609,
+          1610,
+          1621,
+          1623,
+          1625,
+          1629,
+          1631,
+          1641,
+          1648,
+          1675,
+          1679,
+          1688,
+          1690,
+          1723
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gec-back.state.json",
+          "sha256": "d2ff088fdfeba474f4e608f53a118d683875c0a146b41197eea59610c341fe11"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gec-back.png",
+          "sha256": "2cb94883fdac57c402d37848033f133c1bf4274f69b6b9863d315c3135e96bd3",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "foreground": {
+        "path": "web/gec-front.webp",
+        "sha256": "5ee975f996d6f2d2a2760004748ac6b29ed5f6461a14526da2569276777001b5",
+        "width": 1500,
+        "height": 844,
+        "bytes": 213140,
+        "format": "lossless-webp",
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          11,
+          15,
+          23,
+          63,
+          65,
+          66,
+          68,
+          72,
+          84,
+          92,
+          94,
+          96,
+          97,
+          142,
+          146,
+          157,
+          158,
+          185,
+          196,
+          208,
+          213,
+          224,
+          228,
+          229,
+          262,
+          267,
+          272,
+          284,
+          295,
+          299,
+          300,
+          304,
+          305,
+          316,
+          328,
+          330,
+          332,
+          334,
+          335,
+          346,
+          347,
+          349,
+          350,
+          352,
+          412,
+          414,
+          415,
+          417,
+          427,
+          429,
+          439,
+          442,
+          454,
+          474,
+          522,
+          529,
+          550,
+          633,
+          635,
+          884,
+          889,
+          906,
+          1032,
+          1115,
+          1153,
+          1192,
+          1205,
+          1207,
+          1208,
+          1245,
+          1255,
+          1293,
+          1428,
+          1430,
+          1435,
+          1472,
+          1483,
+          1485,
+          1487,
+          1489
+        ],
+        "state": {
+          "path": "batches/remaining-paints/gec-front.state.json",
+          "sha256": "3fed2ed6823571a3a2ec214cef5e347b46d8a4e4b0683b1ce24740b6092db2c6"
+        },
+        "nativePng": {
+          "path": "batches/remaining-paints/gec-front.png",
+          "sha256": "853774fbdfbb26332e2eb1bda60d99e671b0faed4a1c19ca15c2c564dbb6a38d",
+          "width": 6000,
+          "height": 3376
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 97,
+          "layerId": 142,
+          "name": "S0278&GEC"
+        },
+        {
+          "parentId": 146,
+          "layerId": 157,
+          "name": "S0220&GEC"
+        },
+        {
+          "parentId": 305,
+          "layerId": 316,
+          "name": "S0102_L&GEC"
+        },
+        {
+          "parentId": 335,
+          "layerId": 346,
+          "name": "S0212&GEC"
+        },
+        {
+          "parentId": 427,
+          "layerId": 439,
+          "name": "S0203&GEC"
+        },
+        {
+          "parentId": 442,
+          "layerId": 454,
+          "name": "S0243&GEC"
+        },
+        {
+          "parentId": 442,
+          "layerId": 474,
+          "name": "CF7&GEC"
+        },
+        {
+          "parentId": 1593,
+          "layerId": 1604,
+          "name": "GEC"
+        },
+        {
+          "parentId": 1610,
+          "layerId": 1621,
+          "name": "S0102_R&GEC"
+        }
+      ],
+      "candidateManifest": {
+        "path": "candidate-gec.json",
+        "sha256": "8951e57790d2d8d286f6d401c49ad93dd60a43ba55389451789ecab81ce6a753"
+      },
+      "nativeEvidence": {
+        "photoshopExportStatus": "complete",
+        "sourceVisibilityRestored": true,
+        "manifest": "batches/remaining-paints/manifest.json",
+        "report": "evidence/export-report-04.json",
+        "pixelComparison": "evidence/png-verification-04.json",
+        "nativeReferenceComparisons": {
+          "t0f": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          },
+          "5zv": {
+            "alphaMaxDifference": 1,
+            "premultipliedMaxDifference": 2.0039215087890625,
+            "pixelsOver2": 1,
+            "pixelsOver3": 0,
+            "opaqueMaxDifference": 2
+          }
+        },
+        "nativeReferenceFiles": {
+          "t0f": "batches/remaining-paints/gec-scene-t0f.png",
+          "5zv": "batches/remaining-paints/gec-scene-5zv.png"
+        }
+      }
+    }
+  ],
+  "choices": [
+    {
+      "rpo": "T0F",
+      "optionId": "opt_t0f_001",
+      "name": "Carbon Flash-Painted Carbon Fiber Aero Package",
+      "componentRepresented": "spoiler only",
+      "assetId": "spoiler-t0f",
+      "sourceLayers": [
+        {
+          "id": 1515,
+          "path": "Spoiler"
+        },
+        {
+          "id": 1517,
+          "path": "Spoiler / T0F"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "docs/discovery/grand-sport-accounting.json",
+          "workbookAnchor": "grandSport_options!A127:K127",
+          "manufacturerAnchor": "Price Schedule!B191:E191",
+          "description": "Carbon Fiber Aero Package, Carbon Flash-painted; includes CFZ Ground Effects"
+        },
+        {
+          "kind": "rendered-inspection",
+          "result": "High wing matches the explicit T0F layer label and package context; other package pieces remain outside this proof."
+        }
+      ],
+      "webAsset": {
+        "path": "web/spoiler-t0f.webp",
+        "sha256": "8ee770463c1a45acacab29c64e77b091b544a2822321418fbab5a9fbac752c87",
+        "width": 1500,
+        "height": 844,
+        "bytes": 9586,
+        "format": "lossless-webp",
+        "stackOrder": 20,
+        "sourceLayerIds": [
+          1515,
+          1517
+        ],
+        "state": {
+          "path": "batches/three-paints/spoiler-t0f.state.json",
+          "sha256": "21cb4e1b3d9a4e13363b976a6e96f4ad3afe10f80f824e6f04dc2bb04ca01cc7"
+        },
+        "nativePng": {
+          "path": "batches/three-paints/spoiler-t0f.png",
+          "sha256": "cc8ba50a9b30f510e9f2e91ae41be50c5ba8d9336cadabe11256a63ac3f53835",
+          "width": 6000,
+          "height": 3376
+        }
+      }
+    },
+    {
+      "rpo": "5ZV",
+      "optionId": "opt_5zv_001",
+      "name": "Carbon Flash Metallic Three-Stanchion High Wing Spoiler",
+      "componentRepresented": "spoiler",
+      "assetId": "spoiler-5zv",
+      "sourceLayers": [
+        {
+          "id": 1539,
+          "path": "Spoiler"
+        },
+        {
+          "id": 1541,
+          "path": "Spoiler / 5ZV"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "docs/discovery/grand-sport-accounting.json",
+          "workbookAnchor": "grandSport_options!A128:K128",
+          "manufacturerAnchor": "Price Schedule!B100:E100",
+          "description": "Three-Stanchion high wing spoiler, Carbon Flash Metallic-painted"
+        },
+        {
+          "kind": "rendered-inspection",
+          "result": "Separate black high-wing geometry in the explicit 5ZV layer. No inference from an S-number alias."
+        }
+      ],
+      "webAsset": {
+        "path": "web/spoiler-5zv.webp",
+        "sha256": "92fd0e53b7f35f31c1cf7cdd6c0d35a14b237db2ec045fd923fb8da20d397a88",
+        "width": 1500,
+        "height": 844,
+        "bytes": 9980,
+        "format": "lossless-webp",
+        "stackOrder": 20,
+        "sourceLayerIds": [
+          1539,
+          1541
+        ],
+        "state": {
+          "path": "batches/three-paints/spoiler-5zv.state.json",
+          "sha256": "cf9aa53a911e77db5e096b7bb740e392b72fa73eeef653ec02328648c2d3632f"
+        },
+        "nativePng": {
+          "path": "batches/three-paints/spoiler-5zv.png",
+          "sha256": "80cc4894c620d98d74232f45199c126006f0455a0aa01336969595f65420147a",
+          "width": 6000,
+          "height": 3376
+        }
+      }
+    }
+  ],
+  "coverage": {
+    "dynamicComponents": [
+      "paint",
+      "spoiler"
+    ],
+    "fixedComponents": [
+      "body",
+      "roof",
+      "wheels",
+      "brakes",
+      "calipers",
+      "wheel caps",
+      "interior",
+      "badges",
+      "mirrors",
+      "exhaust",
+      "fascias",
+      "ground effects",
+      "shadow"
+    ],
+    "notice": "Spoiler artwork preview for a 2027 Grand Sport Coupe 3LT in the selected paint. Wheels, interior and other equipment remain fixed and may differ from your build.",
+    "limitations": [
+      "T0F shows its spoiler only; CFZ ground effects and the rest of the aero package are not represented.",
+      "Other models, body styles, trims, camera views and unspecified component choices are not qualified.",
+      "The source far-mirror GEC mismatch is corrected by choosing the right mirror variant matching each paint.",
+      "S0267 low spoiler and SIG candidates are intentionally excluded: native rendering is verified, but the S0267 to T0E identity is inferred."
+    ],
+    "fallback": "Hide the artwork or show an explicit unavailable state outside the exact covered model/year/body/trim/paint/spoiler scope. Do not silently substitute."
+  },
+  "validation": {
+    "nativeHighWingComparisons": 20,
+    "nativeExportBatches": 2,
+    "nativeExportCountIncludingSeparateLowCandidates": 54,
+    "sourceVisibilityRestoredBothBatches": true,
+    "allWebpRgbaEqualPngDerivatives": true,
+    "opaqueRgbMaxDifference": 2,
+    "alphaMaxDifference": 1,
+    "premultipliedRgbMaxDifference": 2.0039215087890625,
+    "premultipliedPixelsOver2PerComparison": 1,
+    "visualInspection": "All ten paints inspected as composed full scenes; shared high-wing geometry and source mount occlusion inspected at detail scale.",
+    "captureFormUi": "The form launched and its Escape cancellation was verified after the Mac was unlocked. Saving through the GUI form remains unverified. Bound states were built from the native layer inventory and exported through Photoshop UXP."
+  }
+}

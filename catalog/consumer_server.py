@@ -11,7 +11,7 @@ from pathlib import Path
 import secrets
 
 from catalog import foundation as f
-from catalog import dealer
+from catalog import dealer, artwork
 from catalog.consumers import ConsumerCatalog, ConsumerSession, encode
 from catalog.releases import ReleaseStore, pins
 
@@ -92,8 +92,13 @@ def handler(app):
                 return self.send(403, {'error': 'Wrong origin'})
             if self.path == '/api/catalog':
                 return self.send(200, app.catalog())
+            if self.path.startswith('/artwork/'):
+                path = artwork.asset_path(self.path)
+                if path is not None:
+                    return self.send(200, path.read_bytes(), 'image/webp')
+                return self.send(404, {'error':'Artwork not found'})
             files = {'/': ('index.html','text/html; charset=utf-8'), '/app.js': ('app.js','text/javascript'),
-                     '/dealer.js': ('dealer.js','text/javascript'), '/style.css': ('style.css','text/css')}
+                     '/dealer.js': ('dealer.js','text/javascript'), '/artwork.js': ('artwork.js','text/javascript'), '/style.css': ('style.css','text/css')}
             if self.path not in files:
                 return self.send(404, {'error':'Not found'})
             name, mime = files[self.path]
