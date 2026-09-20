@@ -3,6 +3,13 @@
 A fresh project for relational Corvette product data, manufacturer order-guide intake, and configuration data for an order form and visualizer.
 
 **Current status: six-lane catalog with validated local consumers and release operations.**
+The first [local authoring pilot](docs/authoring-pilot.md) adds reviewed option
+name/base-price edits in a separate draft with persistent history. Relationship
+and shared-record editors, reviewed acceptance and authored-release integration
+remain subsequent work. The customer form remains a close port of the live
+experience, with step/section changes to accommodate the visualizer; Sean is
+preparing visualizer assets separately.
+
 The [foundation sample](catalog/README.md#disposable-master-schema-foundation)
 implements typed structural keys and provenance. The
 [step 3 source slice](catalog/README.md#evaluator-case-source-population--step-3)
