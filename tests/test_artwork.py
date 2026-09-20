@@ -10,6 +10,7 @@ from unittest.mock import patch
 import test_consumers as base
 from catalog import artwork
 from catalog.consumers import ConsumerCatalog, ConsumerSession, digest
+from catalog.consumer_server import Application, handler
 from catalog.releases import ReleaseStore, database_hash, write_json
 
 
@@ -124,6 +125,19 @@ class ArtworkTests(unittest.TestCase):
             backup = root / 'backup'; store.backup(release, backup)
             recovered = ReleaseStore(root / 'recovered'); self.assertEqual(recovered.restore(backup), release)
             self.assertEqual(recovered.verify(release), manifest)
+            # A running release must not pick up a later checkout's artwork.
+            app = Application(recovered, release)
+            relative = Path(manifest['media']['assets'][0]['path']).relative_to('runtime/catalog/web/artwork')
+            expected = (recovered.completed / release / manifest['media']['assets'][0]['path']).read_bytes()
+            checkout = root / 'changed-checkout'
+            (checkout / relative).parent.mkdir(parents=True)
+            (checkout / relative).write_bytes(b'later checkout artwork')
+            request = object.__new__(handler(app)); request.allowed = lambda: True
+            sent = []; request.send = lambda *args: sent.append(args)
+            request.path = '/artwork/' + relative.as_posix()
+            with patch.object(artwork, 'ROOT', checkout):
+                request.do_GET()
+            self.assertEqual(sent, [(200, expected, 'image/webp')])
             package = store.completed / release
             changed = copy.deepcopy(manifest); changed['media']['assets'] = []
             changed_id = digest(changed); package.rename(store.completed / changed_id)

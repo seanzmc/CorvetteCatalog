@@ -22,6 +22,7 @@ class Application:
         self.manifest = store.verify(identifier)
         if self.manifest['runtime'] != pins():
             raise ValueError('Use the runtime pinned in this release')
+        self.artwork_root = store.completed / identifier / 'runtime/catalog/web/artwork'
         with closing(f.connect(store.completed / identifier / 'catalog.sqlite')) as db:
             self.catalogs = {m['model_key']: ConsumerCatalog(db, m['revision_id']) for m in self.manifest['models']}
         self.sessions = {}
@@ -93,7 +94,7 @@ def handler(app):
             if self.path == '/api/catalog':
                 return self.send(200, app.catalog())
             if self.path.startswith('/artwork/'):
-                path = artwork.asset_path(self.path)
+                path = artwork.asset_path(self.path, root=app.artwork_root)
                 if path is not None:
                     return self.send(200, path.read_bytes(), 'image/webp')
                 return self.send(404, {'error':'Artwork not found'})

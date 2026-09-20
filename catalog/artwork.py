@@ -109,8 +109,8 @@ def release_media(root=ROOT):
         assets=[dict(id=a['id'], path=prefix+a['file'], sha256=a['sha256']) for a in manifest['assets']])
 
 
-def asset_path(url):
-    for asset in load()['assets']:
+def asset_path(url, root=ROOT):
+    for asset in load(root)['assets']:
         if url == '/artwork/' + asset['file']:
-            return ROOT / asset['file']
+            return Path(root) / asset['file']
     return None
