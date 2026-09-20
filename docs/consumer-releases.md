@@ -71,6 +71,15 @@ the total from server state. Export is not dealer submission. The pure evaluator
 continues to report its partial-consumer sentinel; the verified local release
 consumer checks actual missing requirements separately.
 
+## Authored draft acceptance
+
+Source-only drafts retain the exact pinned importer comparison below. Authoring
+workspaces instead require [explicit acceptance and source-plus-edit replay](authoring-operations.md).
+The original baseline must still pass source validation; every logged change is
+then replayed exactly. Authored bundles additionally pin `reviewed-edits.json` and
+retain their evidence/history through completion and backup/restore. The semantic
+audit, publication comparison, immutable artifacts and recovery checks still apply.
+
 ## Release lifecycle
 
 `catalog/releases.py` stores immutable content-addressed snapshots and completed

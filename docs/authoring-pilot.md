@@ -1,4 +1,4 @@
-# Local option authoring pilot
+# Local authoring pilot and subsequent operations
 
 This first E slice edits an existing model-owned option's name and base purchase
 price through a local UI. It copies a source-verified draft into a separate
@@ -86,6 +86,14 @@ release refusal remain unchanged. Focused checks:
 `python3 -m unittest discover -s tests -p test_authoring_components.py -v`.
 
 ## Completion boundary
+
+The pilot PRs #52 and #53 are merged. The subsequent
+[complete editor and acceptance workflow](authoring-operations.md) extends this
+application with the remaining existing-catalog fields, coupled rules, reviewed
+intake and authored release replay. The historical pilot boundary below explains
+why those drafts originally required separate release work.
+
+### Original pilot boundary
 
 The option, direct-inclusion ownership and shared-component-price editors cover
 the three bounded E pilot operations. General relationship/remaining field editors

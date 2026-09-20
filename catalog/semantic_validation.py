@@ -34,6 +34,11 @@ class Audit:
         self.transactions = {}
         self.errors = Counter()
         e = self.ev
+        # Disabled foundations remain in inventory with no active scope. They
+        # cannot be build witnesses; enabled scopes retain the complete audit.
+        e.configs = {k:v for k,v in e.configs.items() if v['enabled']}
+        e.scopes = {t:{(rid,cfg) for rid,cfg in scope if cfg in e.configs} for t,scope in e.scopes.items()}
+        e.interior_scopes = {(i,c) for i,c in e.interior_scopes if c in e.configs and e.interiors[i]['enabled']}
         self.scope_configs = {table: {row['id']: {c for rid,c in e.scopes[table] if rid == row['id']} for row in e.rows[table]} for table in SCOPES}
         self.reverse_implications = {}
         self.interior_only_sources = {}
@@ -414,13 +419,15 @@ class Audit:
                 return 'unconditional exclusion ' + conflict['id']
         return None
 
-    def overlaps(self):
+    def overlaps(self, affected=None):
         e = self.ev
         results = []
         disjoint_counts = Counter()
         for table, target in (('acquisition', 'target_option_id'), ('option_rate', 'target_option_id'),
                               ('replacement_plan', 'requested_option_id'), ('content_effect', 'aspect_id')):
             for left, right in combinations(e.rows[table], 2):
+                if affected is not None and not {(table,left['id']),(table,right['id'])} & affected:
+                    continue
                 if left[target] != right[target]:
                     continue
                 if table == 'content_effect' and 'add' in (left['effect_kind'], right['effect_kind']):

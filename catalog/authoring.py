@@ -1,6 +1,6 @@
 """Bounded local option authoring in an explicit copy of a source-verified draft.
 
-Authored drafts are deliberately outside the source-only release freeze contract.
+Authored drafts require separate reviewed acceptance and exact edit replay before release.
 No source imports, accepted overlays, workbook or release artifacts are modified.
 """
 from contextlib import closing
@@ -24,33 +24,45 @@ def initialize(source, destination):
         # Capture one consistent source snapshot before validating it.
         with closing(f.connect(':memory:')) as snapshot:
             original.backup(snapshot)
-            validate_translation(snapshot)
+            continuing = snapshot.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='authoring_workspace'").fetchone()
+            if continuing:
+                from catalog.authoring_acceptance import replay
+                replay(snapshot)
+            else:
+                validate_translation(snapshot)
             validate_mappings(snapshot)
             membership(snapshot)
-            baseline = database_hash(snapshot)
+            baseline = (snapshot.execute('SELECT baseline_sha256 FROM authoring_workspace WHERE singleton=1').fetchone()[0]
+                        if continuing else database_hash(snapshot))
             destination.parent.mkdir(parents=True, exist_ok=True)
             with destination.open('xb'):
                 pass
             try:
                 with closing(f.connect(destination)) as db:
                     snapshot.backup(db)
-                    with db:
-                        db.execute('''CREATE TABLE authoring_workspace (
-                            singleton INTEGER PRIMARY KEY CHECK(singleton=1),
-                            baseline_sha256 TEXT NOT NULL, created_at TEXT NOT NULL)''')
-                        db.execute('INSERT INTO authoring_workspace VALUES (1,?,?)',
-                                   (baseline, datetime.now(timezone.utc).isoformat()))
-                        db.execute('''CREATE TABLE authoring_change (
-                            change_id INTEGER PRIMARY KEY, revision_id TEXT NOT NULL,
-                            option_id TEXT NOT NULL, edit_version INTEGER NOT NULL,
-                            saved_at TEXT NOT NULL, reason TEXT NOT NULL,
-                            before_json TEXT NOT NULL, after_json TEXT NOT NULL,
-                            UNIQUE(revision_id,edit_version),
-                            FOREIGN KEY(revision_id,option_id) REFERENCES option(revision_id,id))''')
+                    if not continuing:
+                        prepare(db, baseline)
             except Exception:
                 destination.unlink()
                 raise
     return baseline
+
+
+
+def prepare(db, baseline):
+    with db:
+        db.execute('''CREATE TABLE authoring_workspace (
+            singleton INTEGER PRIMARY KEY CHECK(singleton=1),
+            baseline_sha256 TEXT NOT NULL, created_at TEXT NOT NULL)''')
+        db.execute('INSERT INTO authoring_workspace VALUES (1,?,?)',
+                   (baseline, datetime.now(timezone.utc).isoformat()))
+        db.execute('''CREATE TABLE authoring_change (
+            change_id INTEGER PRIMARY KEY, revision_id TEXT NOT NULL,
+            option_id TEXT NOT NULL, edit_version INTEGER NOT NULL,
+            saved_at TEXT NOT NULL, reason TEXT NOT NULL,
+            before_json TEXT NOT NULL, after_json TEXT NOT NULL,
+            UNIQUE(revision_id,edit_version),
+            FOREIGN KEY(revision_id,option_id) REFERENCES option(revision_id,id))''')
 
 
 def open_workspace(path):

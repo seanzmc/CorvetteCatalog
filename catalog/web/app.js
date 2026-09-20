@@ -16,7 +16,7 @@ async function run(action) {
 }
 function configurations() {
   model=catalog.models[el('model').value]; el('configuration').replaceChildren();
-  Object.entries(model.configurations).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([id,c])=>{const o=node('option',c.display_name,el('configuration'));o.value=id;});
+  Object.entries(model.configurations).filter(([,c])=>String(c.active).toLowerCase()==='true').sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([id,c])=>{const o=node('option',c.display_name,el('configuration'));o.value=id;});
 }
 function interiorDescription() {
   el('interiorDescription').textContent=el('interior').value?el('interior').selectedOptions[0].textContent:'';
