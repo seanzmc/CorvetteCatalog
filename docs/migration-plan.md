@@ -1,6 +1,31 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 20 bounded E pilot delivery
+## Current direction — September 20 complete authoring operations
+
+PR #52 (relationship ownership) and PR #53 (shared component prices) are merged.
+The separately authorized [remaining editor and acceptance implementation](authoring-operations.md)
+adds coupled product/rule/member/scope edits, configuration and interior management,
+contextual pricing, customer copy and explicit order-code emission. Draft edits,
+intake decisions and release acceptance remain separate recorded operations.
+
+Accepted releases reconstruct and validate the pinned source baseline, replay the
+complete approved history exactly, and retain evidence in their hashed release
+bundle. Existing generation, publication, rollback and backup/restore remain the
+operational path. New model/year foundations, a whole-guide parser and new customer
+layout structures are not claimed by this existing-catalog editor surface.
+
+Qualification passed the 6,921-entry six-model audit with zero findings and
+verified all 46 release artifacts, backup/restore, consumer cancel/confirm/revert
+and continued authoring with exact history. Focused editor, consumer and recovery
+regressions passed; the PR records the final serving-only responsiveness fix and
+its separate check.
+
+This implementation is in review; its PR records final qualification. Production
+deployment and canonical authority are unchanged. After review/integration of this
+operations work, the agreed next application areas are dealer submission and
+visualizer integration, followed by production delivery and final cutover.
+
+## Prior direction — September 20 bounded E pilot delivery
 
 The [shared component-price editor](authoring-pilot.md#shared-component-price-editor-and-ownership-review)
 now edits one model/configuration rate referenced by multiple interior choices.
@@ -572,8 +597,8 @@ One option may affect multiple layers; an asset may serve several configurations
 | B — Disposable baseline import — verified locally 2026-09-06 | [Frozen baseline](../baselines/2026-09-06/README.md) imported into a [disposable SQLite candidate](../catalog/README.md) | All 77 sheets / 15,134 source rows accounted for; 30,328 typed rows reconciled; all 7,448 availability pairs and model-qualified identities preserved. Ten importer tests pass, including independent source comparisons, constraints, repeat import and atomic failure checks |
 | C — Manufacturer intake pilot — verified locally 2026-09-06 | Unchanged new export, model-qualified six-variant mapping, immutable Stingray JL9/J55/Z51 review staging | 18 availability comparisons and one inclusion unchanged; seven assertions ambiguous. Exact selected cells/runs, 28-sheet inventory, partial coverage and external references retained. Eleven tests pass; repeat CLI reuses identical output. No accepted operations |
 | D — Form parity — verified locally 2026-09-06 | [Six contracts and browser registry generated directly from typed candidate tables](../catalog/README.md#checkpoint-d-direct-form-generation) | All six frozen business hashes match; registry metadata/order/aliases match; runtime differential and local browser checks preserve pricing, defaults, equipment and submission output |
-| E — Authoring pilot | Edit a model-owned option, a genuinely shared record, and a relationship through the new UI; choose the shared record after its ownership review | Transactional changes, persistence, shared impact, stale-edit refusal, readable history |
-| F — Complete operations | Remaining editors, reviewed intake acceptance, release creation, export, backup/restore | No Excel write dependency; repeatable recovery and release rollback |
+| E — Authoring pilot — merged 2026-09-20 | Edit a model-owned option, a genuinely shared record, and a relationship through the new UI; choose the shared record after its ownership review | Transactional changes, persistence, shared impact, stale-edit refusal, readable history |
+| F — Complete operations — implementation in review | [Existing-catalog editors, reviewed intake/draft acceptance and authored releases](authoring-operations.md), export, backup/restore | No Excel write dependency; repeatable recovery and release rollback |
 | G — Canonical cutover | Final source freeze/reconciliation and explicit authority switch | No lost edits, unresolved drafts, or unclassified behavior changes |
 | H — Visualizer delivery | Art-supported exterior/interior pilot, then expanded coverage | Correct resolved-build images and release identity; unchanged pricing/submission |
 

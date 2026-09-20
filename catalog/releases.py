@@ -163,15 +163,23 @@ class ReleaseStore:
                     raise ValueError('Stale draft snapshot')
                 validate_mappings(snapshot)
                 models = membership(snapshot)
-                validate_translation(snapshot)
+                authored = snapshot.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='authoring_workspace'").fetchone()
+                if authored:
+                    from catalog.authoring_acceptance import replay
+                    reviewed_edits = replay(snapshot)
+                    write_json(stage / 'reviewed-edits.json', reviewed_edits)
+                else:
+                    validate_translation(snapshot)
                 runtime_pins = pins()
                 semantics = validate_semantics(snapshot)
                 if runtime_pins != pins():
                     raise ValueError('Runtime changed during freeze')
-                write_json(stage / 'validation.json', dict(semantic=semantics, translation='complete_pinned_replay', mappings='complete'))
+                write_json(stage / 'validation.json', dict(semantic=semantics, translation='pinned_source_plus_accepted_edits' if authored else 'complete_pinned_replay', mappings='complete'))
                 record = dict(format=FORMAT, state='frozen', draft_sha256=expected_digest,
                     models=models, runtime=runtime_pins, snapshot_sha256=file_hash(stage / 'catalog.sqlite'),
                     validation_sha256=file_hash(stage / 'validation.json'))
+                if authored:
+                    record['reviewed_edits_sha256'] = file_hash(stage / 'reviewed-edits.json')
             # Hold the same draft snapshot while checking and recording the
             # transition. Raw writes without edit-version increments also fail.
             db.execute('BEGIN IMMEDIATE')
@@ -194,6 +202,8 @@ class ReleaseStore:
             raise ValueError('Invalid frozen manifest')
         if file_hash(path / 'catalog.sqlite') != record['snapshot_sha256'] or file_hash(path / 'validation.json') != record['validation_sha256']:
             raise ValueError('Frozen snapshot or validation was altered')
+        if 'reviewed_edits_sha256' in record and file_hash(path / 'reviewed-edits.json') != record['reviewed_edits_sha256']:
+            raise ValueError('Reviewed edit evidence was altered')
         return path, record
 
     def complete(self, frozen_id):
@@ -204,6 +214,8 @@ class ReleaseStore:
         try:
             shutil.copyfile(path / 'catalog.sqlite', stage / 'catalog.sqlite')
             shutil.copyfile(path / 'validation.json', stage / 'validation.json')
+            if 'reviewed_edits_sha256' in record:
+                shutil.copyfile(path / 'reviewed-edits.json', stage / 'reviewed-edits.json')
             for rel in record['runtime']:
                 target = stage / 'runtime' / rel
                 target.parent.mkdir(parents=True, exist_ok=True)
@@ -227,7 +239,9 @@ class ReleaseStore:
                         assets=[], coverage='art_not_bound'))
                     # All 32 configured defaults exercise generation from this
                     # snapshot. Exact JSON roundtrip is the artifact boundary.
-                    for cfg in catalog.ev.configs:
+                    for cfg, configuration in catalog.ev.configs.items():
+                        if not configuration['enabled']:
+                            continue
                         catalog.project(catalog.ev.state(cfg), frozen_id)
                     if read_json(base / 'form.json') != contract:
                         raise ValueError('Form artifact roundtrip failed')
@@ -236,7 +250,7 @@ class ReleaseStore:
                 default_model=next(r['model_key'] for r in record['models'] if r['is_default']),
                 runtime=record['runtime'], artifacts=artifacts, media={'assets': [], 'coverage': 'art_not_bound'},
                 comparison={'migration_baseline':'baselines/2026-09-06',
-                            'target':'pinned_handoffs_and_accepted_owner_overlays',
+                            'target':'pinned_handoffs_and_accepted_owner_overlays' + ('_plus_reviewed_edits' if 'reviewed_edits_sha256' in record else ''),
                             'manufacturer_reconciliation':'separate_source_dispositions'},
                 scope='local_consumer_release_not_canonical_cutover')
             if pins() != record['runtime']:
@@ -266,6 +280,10 @@ class ReleaseStore:
         if frozen['runtime'] != record['runtime'] or frozen['models'] != record['models']:
             raise ValueError('Frozen membership or runtime mismatch')
         required = {'catalog.sqlite', 'validation.json'} | {'runtime/' + rel for rel in record['runtime']}
+        if 'reviewed_edits_sha256' in frozen:
+            required.add('reviewed-edits.json')
+            if record['artifacts'].get('reviewed-edits.json') != frozen['reviewed_edits_sha256']:
+                raise ValueError('Reviewed edit evidence mismatch')
         required.update(m['model_key'] + '/' + role + '.json' for m in record['models'] for role in ('form','order','visualizer'))
         if set(record['artifacts']) != required:
             raise ValueError('Missing required consumer artifact')
@@ -282,6 +300,9 @@ class ReleaseStore:
             if record['artifacts'].get('runtime/' + rel) != expected:
                 raise ValueError('Runtime pin mismatch')
         with closing(f.connect(path / 'catalog.sqlite')) as db:
+            authored = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='authoring_workspace'").fetchone()
+            if bool(authored) != ('reviewed_edits_sha256' in frozen):
+                raise ValueError('Authored snapshots require reviewed edit evidence')
             if membership(db) != record['models']:
                 raise ValueError('Release membership mismatch')
         return record
@@ -354,6 +375,7 @@ def main():
     commands = parser.add_subparsers(dest='command', required=True)
     prepare = commands.add_parser('prepare')
     prepare.add_argument('database', type=Path)
+    commands.add_parser('digest').add_argument('database', type=Path)
     freeze = commands.add_parser('freeze')
     freeze.add_argument('database', type=Path)
     freeze.add_argument('--expected-digest', required=True)
@@ -378,6 +400,10 @@ def main():
             f.create_schema(db)
             import_behavior(db)
             import_mappings(db)
+            print(database_hash(db))
+        return
+    if args.command == 'digest':
+        with closing(sqlite3.connect(args.database.resolve().as_uri() + '?mode=ro', uri=True)) as db:
             print(database_hash(db))
         return
     store = ReleaseStore(args.store)

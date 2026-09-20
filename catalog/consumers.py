@@ -227,9 +227,17 @@ class ConsumerCatalog:
             if mapped['emit_code']:
                 codes.append(self.option(oid))
         items.sort(key=lambda r: (r['section_order'] or 0, r['section_id'], self.maps['option'][r['option_id']]['display_order'] or 0, r['consumer_key']))
+        interior = self.maps['interior'].get(state.interior_id)
+        if interior is not None:
+            owned = self.ev.interiors[state.interior_id]
+            parts = [p for p in self.ev.rows['interior_part'] if p['interior_id']==state.interior_id]
+            interior = dict(interior, configured_code=owned['code'], seat_option=self.option(owned['seat_option_id']),
+                configured_components=[dict(role=p['role'], option=self.option(p['option_id']) if p['option_id'] else None,
+                    component=self.components[p['component_id']] if p['component_id'] else None)
+                    for p in sorted(parts,key=lambda p:(p['display_order'],p['part_key']))])
         common = dict(release_id=release_id, revision_id=self.revision, configuration_id=state.configuration_id)
         return dict(**common, intent=list(state.intent), interior_id=state.interior_id,
-            selected_interior=self.maps['interior'].get(state.interior_id),
+            selected_interior=interior,
             resolved=options(state.resolved), installed_equipment=options(state.installed),
             informational_standard_equipment=options(state.standard), order_codes=codes, summary_items=items,
             charges=[dict(**asdict(c), label=self.owner_label(asdict(c))) for c in state.charges], total_minor=state.total_minor,
@@ -261,7 +269,7 @@ class ConsumerCatalog:
         cards.sort(key=lambda r: (r['section_order'] or 0, r['section_id'], r['display_order'], r['consumer_key']))
         interiors = [dict(interior_id=iid, label=' › '.join(json.loads(
                          self.maps['interior'][iid]['hierarchy']['interior_hierarchy_levels'])))
-                     for iid in self.ev.interiors if (iid, state.configuration_id) in self.ev.interior_scopes]
+                     for iid in self.ev.interiors if self.ev.interiors[iid]['enabled'] and (iid, state.configuration_id) in self.ev.interior_scopes]
         return dict(options=cards, interiors=interiors)
 
     def warning(self, preview, release_id, action, target):

@@ -6,8 +6,9 @@ A fresh project for relational Corvette product data, manufacturer order-guide i
 The first [local authoring pilot](docs/authoring-pilot.md) adds reviewed option
 name/base-price edits, direct-inclusion ownership policies and shared interior-component
 prices in a separate draft with persistent history and connected consumer previews.
-Remaining editors, reviewed acceptance and authored-release integration remain subsequent
-work. The customer form remains a close port of the live
+The [complete editor and acceptance workflow](docs/authoring-operations.md) adds
+coupled catalog/rule changes and reviewed history replay into reproducible local
+releases, including their evidence and recovery path. The customer form remains a close port of the live
 experience, with step/section changes to accommodate the visualizer; Sean is
 preparing visualizer assets separately.
 
