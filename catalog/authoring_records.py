@@ -438,6 +438,10 @@ def connected(db, revision, patches, strict=False):
     cat=ConsumerCatalog(db,revision);result=[]
     if affected_tables & rule_tables or any(t.endswith('_configuration') and t.removesuffix('_configuration') in SCOPES for t in affected_tables):
         audit=Audit(db,revision)
+        # Membership edits name the group/member, while dependent rules only
+        # reference the condition that includes that group as a member; resolve
+        # edited groups to every condition (and so every scoped rule) using them.
+        ids|={row['condition_id'] for row in audit.ev.rows['condition_member'] if row.get('group_id') in ids}
         affected=set()
         for table in SCOPES:
             for rule in audit.ev.rows[table]:

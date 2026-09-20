@@ -53,6 +53,16 @@ class OperationsTests(unittest.TestCase):
         r.save(self.db,change)
         return change
 
+    def test_group_membership_edit_traces_dependent_requirements(self):
+        # A choice_group_member edit names the group; the requirement whose
+        # condition includes that group as an 'occupied' member must enter the
+        # affected set so its witness check and overlap audit run.
+        member=dict(self.db.execute("SELECT * FROM condition_member WHERE revision_id=? AND group_id='grp_5v7_spoiler_requirement'",(self.rev,)).fetchone())
+        rid=self.db.execute("SELECT id FROM requirement WHERE revision_id=? AND satisfaction_condition_id=?",(self.rev,member['condition_id'])).fetchone()[0]
+        member_row=dict(self.db.execute("SELECT * FROM choice_group_member WHERE revision_id=? AND group_id=? LIMIT 1",(self.rev,member['group_id'])).fetchone())
+        results=r.connected(self.db,self.rev,[dict(table='choice_group_member',before=member_row,after=member_row)],strict=True)
+        self.assertTrue(any(item['label'].endswith(rid) for item in results),[i['label'] for i in results])
+
     def test_typed_editors_all_lanes_and_exact_money(self):
         for revision in self.revisions.values():
             self.rev=revision
