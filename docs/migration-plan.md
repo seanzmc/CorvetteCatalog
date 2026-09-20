@@ -1,6 +1,36 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 18 agreed remaining sequence
+## Current direction — September 19 authoring and delivery scope
+
+The customer experience remains a close port of the current live form and dealer
+submission workflow, with reviewed order-guide detail and accepted behavior
+corrections. Steps and sections may be reordered or regrouped to support a coherent
+visualizer flow; this is not authorization for an unrelated customer-form redesign.
+Dealer integration must trace and preserve the existing operational contract.
+The local consumer review form is integration groundwork, not the final customer
+design. Catalog authoring is a separate local management interface.
+
+Sean is preparing visualizer assets separately. Asset inventory and processing
+are not part of the current catalog task. Later visualizer integration will bind
+that artwork to the resolved build and adapt the form flow around the stage.
+
+Continue authoring and reviewed intake acceptance first, then dealer integration
+and visualizer integration, production delivery, and final reconciliation and
+explicit canonical cutover last. The workbook remains canonical. Existing local
+release operations are retained; authored-edit acceptance still needs to extend
+their source-only validation contract before edited drafts can be released.
+
+The first bounded E implementation is the [option authoring pilot](authoring-pilot.md):
+model-owned name/base-price editing, scope review, atomic persistence, stale-edit
+refusal and readable history in a separate local draft. E is not complete:
+relationship editing and the ownership-reviewed shared-record pilot remain next,
+followed by the remaining F editors and reviewed acceptance. Equal RPOs or labels
+do not justify cross-model sharing.
+
+## Prior direction — September 18 agreed remaining sequence
+
+The authoring status and asset-work sequence below record the September 18 plan;
+the September 19 scope and progress above supersede those statements.
 
 The owner agreed this sequence after PR #49. These are five work areas, each
 split into bounded tasks as needed; they are not five promised PRs.
