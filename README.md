@@ -8,9 +8,12 @@ name/base-price edits, direct-inclusion ownership policies and shared interior-c
 prices in a separate draft with persistent history and connected consumer previews.
 The [complete editor and acceptance workflow](docs/authoring-operations.md) adds
 coupled catalog/rule changes and reviewed history replay into reproducible local
-releases, including their evidence and recovery path. The customer form remains a close port of the live
-experience, with step/section changes to accommodate the visualizer; Sean is
-preparing visualizer assets separately.
+releases, including their evidence and recovery path. The
+[dealer integration](docs/dealer-submission.md) prepares confirmed catalog builds
+in the existing dealer format, with local preview and explicit live delivery.
+The customer form remains a close port of the live experience, with step/section
+changes to accommodate the visualizer. Photoshop asset preparation is proceeding
+in parallel; production deployment and canonical cutover remain separate.
 
 The [foundation sample](catalog/README.md#disposable-master-schema-foundation)
 implements typed structural keys and provenance. The

@@ -41,6 +41,7 @@ function render() {
     const button=node('button',c.selected?'Review removal':'Review selection',card);button.disabled=!!pending||!c.selectable;
     button.addEventListener('click',()=>run(()=>preview(c.selected?'remove':'select',c.option_id)));
   });
+  catalogDealer.sync();
 }
 async function preview(action,target) {
   // Never render candidate state into the current build. Only the warning uses it.
@@ -65,4 +66,6 @@ el('confirm').addEventListener('click',()=>run(async()=>{
 }));
 el('revert').addEventListener('click',()=>run(()=>preview('revert',null)));
 el('export').addEventListener('click',()=>run(async()=>{const order=await api('/api/order',{});const url=URL.createObjectURL(new Blob([JSON.stringify(order,null,2)],{type:'application/json'}));const a=node('a','');a.href=url;a.download='corvette-build.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}));
+catalogDealer.init({api, state:()=>({catalog,current,pending,sessionId,busy})});
+el('dealerOpen').addEventListener('click',()=>run(()=>catalogDealer.open()));
 (async()=>{try{const r=await fetch('/api/catalog');catalog=await r.json();if(!r.ok)throw new Error(catalog.error);el('release').textContent=`Release ${catalog.release_id}`;Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>{const o=node('option',c.presentation.model_master[0].model_label,el('model'));o.value=key;});el('model').value=catalog.default_model;configurations();}catch(e){el('error').textContent=e.message;el('start').disabled=true;}})();
