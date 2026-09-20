@@ -1,5 +1,6 @@
 """Reviewed ownership edits for direct option inclusions in local authoring drafts."""
 from datetime import datetime, timezone
+from itertools import product
 import json
 
 from catalog.consumers import ConsumerCatalog, digest, encode, validate_mappings
@@ -62,6 +63,58 @@ def detail(db, revision, relationship):
                 history=history, evidence=evidence, etag=etag)
 
 
+def _clause_options(db, revision, condition_id):
+    """Options that can satisfy each any_present clause, or None when explicit
+    intent alone cannot demonstrate the condition (absence clauses, interiors,
+    group members or an always condition)."""
+    sets = []
+    for clause in db.execute('''SELECT clause_id,mode FROM condition_clause
+            WHERE revision_id=? AND condition_id=? ORDER BY clause_id''',
+            (revision, condition_id)):
+        if clause['mode'] != 'any_present':
+            return None
+        options = [m['option_id'] for m in db.execute('''SELECT option_id,interior_id,group_id
+            FROM condition_member WHERE revision_id=? AND condition_id=? AND clause_id=?''',
+            (revision, condition_id, clause['clause_id']))]
+        if not options or any(option is None for option in options):
+            return None
+        sets.append(options)
+    return sets or None
+
+
+def overlapping_outcomes(db, revision, row, configurations):
+    """Exercise every peer acquisition supplying the same target alongside the
+    edited source. Peer conditions that explicit intent cannot demonstrate are
+    skipped; the candidate policy must then survive every demonstrable
+    combination or the edit is refused before saving."""
+    catalog = ConsumerCatalog(db, revision)
+    ev = catalog.ev
+    peers = db.execute('''SELECT a.id,a.condition_id FROM acquisition a
+        WHERE a.revision_id=? AND a.target_option_id=? AND a.id<>?
+        AND a.origin_kind<>'standard' ORDER BY a.id''',
+        (revision, row['target_option_id'], row['id'])).fetchall()
+    for peer in peers:
+        choices = _clause_options(db, revision, peer['condition_id'])
+        if choices is None:
+            continue
+        for cfg in configurations:
+            config = cfg['id']
+            if (peer['id'], config) not in ev.scopes['acquisition']:
+                continue
+            for combo in product(*choices):
+                if not all(ev.eligible(option, config) for option in combo):
+                    continue
+                try:
+                    ev.closure(config, (row['source_option_id'], *combo), None)
+                except EvaluationError as error:
+                    raise ValueError(
+                        f"Changing this policy cannot be verified alongside another "
+                        f"acquisition supplying {row['target_rpo']} in "
+                        f"{cfg['body']} {cfg['trim']}: {error}"
+                    ) from error
+    return catalog
+
+
 def outcomes(db, revision, row, scopes):
     catalog = ConsumerCatalog(db, revision)
     ev = catalog.ev
@@ -105,6 +158,9 @@ def preview(db, revision, relationship, etag, intent_policy, reason):
     try:
         db.execute('UPDATE acquisition SET intent_policy=? WHERE revision_id=? AND id=?', (intent_policy, revision, relationship))
         candidate = outcomes(db, revision, row | {'intent_policy': intent_policy}, current['configurations'])
+        # The candidate must also survive every overlapping acquisition that
+        # supplies the same target, not just the edited source alone.
+        overlapping_outcomes(db, revision, row, current['configurations'])
     finally:
         db.execute('ROLLBACK TO relationship_preview')
         db.execute('RELEASE relationship_preview')

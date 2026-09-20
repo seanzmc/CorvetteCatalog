@@ -112,6 +112,24 @@ class RelationshipTests(unittest.TestCase):
             r.preview(self.db,self.rev,row['relationship']['id'],row['etag'],'absorb_prior','Unverifiable purchase')
         self.assertEqual(database_hash(self.db), before)
 
+    def test_overlapping_acquisition_policies_block_save(self):
+        # GSX: BC4 and B6P both include D3V and both remain selectable together.
+        # Changing BC4's ownership to absorb_prior while B6P retains
+        # preserve_prior must be refused at preview/save, not surface later as
+        # a contradictory Evaluator state.
+        revision = self.revisions['grand_sport_x']
+        rid = 'grand_sport_x_rule_bc4_includes_d3v_519876ef19b6'
+        detail = r.detail(self.db, revision, rid)
+        self.assertEqual(detail['relationship']['source_rpo'], 'BC4')
+        self.assertEqual(detail['relationship']['target_rpo'], 'D3V')
+        self.assertEqual(detail['relationship']['intent_policy'], 'preserve_prior')
+        before = database_hash(self.db)
+        with self.assertRaisesRegex(ValueError, 'Contradictory acquisition ownership policies'):
+            r.preview(self.db, revision, rid, detail['etag'], 'absorb_prior', 'Overlapping ownership regression')
+        self.assertEqual(database_hash(self.db), before)
+        # A relationship without demonstrable overlapping ownership still saves.
+        self.assertTrue(r.detail(self.db, self.rev, self.rid))
+
     def test_each_lane_lists_only_owned_direct_relationships(self):
         for revision in self.revisions.values():
             rows = r.relationships(self.db, revision)
