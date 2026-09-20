@@ -52,6 +52,14 @@ asset regeneration. The capture form's launch and Escape cancellation were
 verified; saving through that form is not claimed. Actual exports used native
 inventory-bound states through Photoshop UXP.
 
+The Photoshop project `27vette-phase1/REPRODUCE-PROOFS.md` records the exact
+regeneration commands. Its `build-asset-states.py` checks the source hash,
+`build-export-batch.py` embeds the unchanged UXP exporter and checks restoration,
+and `verify-native-compositions.py` independently compares all twenty scenes.
+Reproduction writes to a fresh directory and never overwrites the qualified
+proof or original source. A fresh render requires renewed review before its
+images or proof replace this binding.
+
 ## Application and release behavior
 
 [`catalog/artwork.py`](../catalog/artwork.py) checks the image and evidence hashes,
