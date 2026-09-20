@@ -1,6 +1,23 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 19 authoring and delivery scope
+## Current direction — September 20 bounded E pilot delivery
+
+The [shared component-price editor](authoring-pilot.md#shared-component-price-editor-and-ownership-review)
+now edits one model/configuration rate referenced by multiple interior choices.
+Ownership is established by typed interior membership, not common RPOs: Z06 N2Z's
+$895 3LZ coupe rate serves 37 exact leaves, with separate convertible and other-model
+rates. Review enumerates and evaluates every referencing leaf before an atomic,
+stale-protected save with history. Source values in browser demos are restored.
+
+Option editing is merged in PR #51. The direct-inclusion ownership-policy editor
+is delivered separately in PR #52; this shared-rate task supplies the remaining
+E pilot operation. The two new PRs still require review/integration and an explicit
+merge request. General relationship and remaining field editors, reviewed acceptance
+and authored-release replay remain F work. This completes the two requested passes;
+it does not begin F or change workbook authority, dealer integration, artwork,
+production deployment or cutover. The delivery sequence below remains applicable.
+
+## Prior direction — September 19 authoring and delivery scope
 
 The customer experience remains a close port of the current live form and dealer
 submission workflow, with reviewed order-guide detail and accepted behavior
