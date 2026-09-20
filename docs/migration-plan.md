@@ -23,8 +23,10 @@ their source-only validation contract before edited drafts can be released.
 The first bounded E implementation is the [option authoring pilot](authoring-pilot.md):
 model-owned name/base-price editing, scope review, atomic persistence, stale-edit
 refusal and readable history in a separate local draft. E is not complete:
-relationship editing and the ownership-reviewed shared-record pilot remain next,
-followed by the remaining F editors and reviewed acceptance. Equal RPOs or labels
+the direct-inclusion relationship editor now adds reviewed prior-purchase ownership
+edits with connected purchase/package/removal results. Shared-record work requires
+the ownership review described below; remaining F editors and reviewed acceptance
+continue after the bounded E pilots. Equal RPOs or labels
 do not justify cross-model sharing.
 
 ## Prior direction — September 18 agreed remaining sequence

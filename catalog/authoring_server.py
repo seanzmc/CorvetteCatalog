@@ -9,6 +9,7 @@ import sqlite3
 from urllib.parse import parse_qs, urlsplit
 
 from catalog import authoring
+from catalog import authoring_relationships as relationships
 from catalog.consumers import encode
 
 
@@ -16,8 +17,8 @@ class Application:
     def __init__(self, database):
         self.database = Path(database)
         self.pending = {}
-        with closing(authoring.open_workspace(self.database)):
-            pass
+        with closing(authoring.open_workspace(self.database)) as db:
+            relationships.prepare(db)
 
     def read(self, path):
         url = urlsplit(path)
@@ -27,6 +28,12 @@ class Application:
             if url.path == '/api/option':
                 query = parse_qs(url.query)
                 return authoring.detail(db, query['revision'][0], query['option'][0])
+            if url.path == '/api/relationships':
+                query = parse_qs(url.query)
+                return {'relationships': relationships.relationships(db, query['revision'][0])}
+            if url.path == '/api/relationship':
+                query = parse_qs(url.query)
+                return relationships.detail(db, query['revision'][0], query['relationship'][0])
         raise ValueError('Unknown operation')
 
     def dispatch(self, path, body):
@@ -34,6 +41,20 @@ class Application:
             self.pending.pop(body['token'], None)
             return {'cancelled': True}
         with closing(authoring.open_workspace(self.database)) as db:
+            if path == '/api/relationship/preview':
+                self.pending.pop(body.get('previous_token'), None)
+                change = relationships.preview(db, body['revision_id'], body['acquisition_id'],
+                                               body['etag'], body['intent_policy'], body['reason'])
+                if len(self.pending) >= 128:
+                    self.pending.pop(next(iter(self.pending)))
+                token = secrets.token_urlsafe(32)
+                self.pending[token] = change
+                return dict(token=token, **change)
+            if path == '/api/relationship/save':
+                change = self.pending.pop(body['token'], None)
+                if change is None or change.get('kind') != 'relationship':
+                    raise ValueError('Preview expired; review your relationship again')
+                return relationships.save(db, change)
             if path == '/api/preview':
                 previous = body.get('previous_token')
                 if previous is not None:
@@ -73,7 +94,9 @@ def handler(app):
         def do_GET(self):
             if not self.allowed():
                 return self.send(403, {'error': 'Wrong origin'})
-            files = {'/': ('index.html', 'text/html; charset=utf-8'),
+            files = {'/relationships': ('relationships.html', 'text/html; charset=utf-8'),
+                     '/relationships.js': ('relationships.js', 'text/javascript'),
+                     '/': ('index.html', 'text/html; charset=utf-8'),
                      '/app.js': ('app.js', 'text/javascript'), '/style.css': ('style.css', 'text/css')}
             if self.path in files:
                 filename, mime = files[self.path]

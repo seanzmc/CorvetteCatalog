@@ -52,9 +52,9 @@ accepted manufacturer fact. Other model lanes retain their independent records.
 
 ## Completion boundary
 
-This implements the option-editing part of E, not the whole checkpoint.
-Relationship editing and a genuinely shared record selected after ownership
-review remain separate bounded tasks. It does not create a generic table editor
+This implements option editing and bounded direct-inclusion ownership editing.
+A genuinely shared record selected after ownership review remains the other E
+pilot. Other relationship families and linked endpoint editing remain later work. It does not create a generic table editor
 or infer shared ownership from repeated names or codes.
 
 The existing release freeze deliberately rejects this authoring schema and
@@ -76,3 +76,31 @@ persistence and consumer names/prices, exact-cent and null/zero semantics,
 cross-connection stale edits, rollback of every write, and independent model
 ownership across all six lanes. Browser validation exercises the actual local
 editor; its final results are recorded in the task PR.
+
+## Direct inclusion relationship editor
+
+Open **Edit option relationships** from the option editor, or `/relationships`.
+Choose a model and direct option inclusion, then change whether a prior independent
+purchase is preserved or absorbed by its source package. The source/target options,
+condition, scope, peer policy, prices and provenance remain unchanged. This pilot
+changes ownership policy, not inclusion endpoints or linked prerequisite groups.
+
+Review executes the real evaluator in every recorded configuration: independently
+purchase the included option, select its source package, then remove the package.
+It shows before/after resolved options, independent intent, charges and totals.
+Relationships that cannot demonstrate this sequence are refused with a configuration-
+specific error. These bounded sequences are not exhaustive build acceptance.
+Cancel rolls back the candidate and retains unsaved fields. Save rechecks executable
+dependencies and the exact reviewed results under a write lock, validates structural
+and consumer mappings, and commits policy/version/history together. Changing the
+policy back uses the same reviewed path and keeps both history entries.
+
+Server startup adds `authoring_relationship_change` to an existing authoring workspace;
+no source reimport or destructive migration is required. Existing option edits remain
+available. Authored drafts remain excluded from source-only release freeze.
+
+Focused checks: `python3 -m unittest discover -s tests -p test_authoring_relationships.py -v`.
+The evidence-backed exercise is Stingray PDY → RYT: the existing $60 independent RYT
+purchase survives PDY removal under `preserve_prior`; a synthetic local edit to
+`absorb_prior` removes that purchase with PDY in all six configurations. The demo is
+restored after browser validation; it does not accept a business correction.
