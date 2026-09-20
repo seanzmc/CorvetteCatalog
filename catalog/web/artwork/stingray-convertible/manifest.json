@@ -1,0 +1,139 @@
+{
+  "format": "catalog-artwork-v1",
+  "scene_id": "stingray-convertible-exterior-01-5zu-v1",
+  "model_key": "stingray",
+  "model_year": 2027,
+  "body": "convertible",
+  "trim": "3lt",
+  "paints": [
+    {
+      "option_id": "opt_gba_001",
+      "rpo": "GBA",
+      "label": "Black",
+      "base_asset_id": "paint-gba-back",
+      "foreground_asset_id": "paint-gba-foreground"
+    },
+    {
+      "option_id": "opt_g8g_001",
+      "rpo": "G8G",
+      "label": "Arctic White",
+      "base_asset_id": "paint-g8g-back",
+      "foreground_asset_id": "paint-g8g-foreground"
+    },
+    {
+      "option_id": "opt_gkz_001",
+      "rpo": "GKZ",
+      "label": "Torch Red",
+      "base_asset_id": "paint-gkz-back",
+      "foreground_asset_id": "paint-gkz-foreground"
+    }
+  ],
+  "choices": [
+    {
+      "option_id": "opt_5zu_001",
+      "rpo": "5ZU",
+      "label": "Body-Color High Wing Spoiler",
+      "paint_rpo": "GBA",
+      "asset_id": "spoiler-5zu-gba"
+    },
+    {
+      "option_id": "opt_5zu_001",
+      "rpo": "5ZU",
+      "label": "Body-Color High Wing Spoiler",
+      "paint_rpo": "G8G",
+      "asset_id": "spoiler-5zu-g8g"
+    },
+    {
+      "option_id": "opt_5zu_001",
+      "rpo": "5ZU",
+      "label": "Body-Color High Wing Spoiler",
+      "paint_rpo": "GKZ",
+      "asset_id": "spoiler-5zu-gkz"
+    }
+  ],
+  "assets": [
+    {
+      "id": "paint-gba-back",
+      "file": "gba-back.webp",
+      "sha256": "17c8b2cf89af98cc418a2217f09d06553797d7558aedbc270628171ad996ca36",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gba-foreground",
+      "file": "gba-front.webp",
+      "sha256": "489b2a790c51e0052e26b8a19b4762696762ca255e1c10dd91dc52c315e30f9d",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g8g-back",
+      "file": "g8g-back.webp",
+      "sha256": "6577e582f496f4e46ed36ef42ba66c63cf4037fac3ff7f902473b0032eac38ab",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g8g-foreground",
+      "file": "g8g-front.webp",
+      "sha256": "371e1118220d2850bc6c0012d480d958f8edfbf989e566a4bac72a31ca93e08b",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gkz-back",
+      "file": "gkz-back.webp",
+      "sha256": "565c487db8ff2686519b141ae6c2404a5330a36d3b6b15272dcb37f90ac152d4",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gkz-foreground",
+      "file": "gkz-front.webp",
+      "sha256": "b961900c762560c4f4763a3befd32839305e6aa86c232ed3c173125d20b74caa",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "spoiler-5zu-gba",
+      "file": "spoiler-5zu-gba.webp",
+      "sha256": "9b9fee231db4450be9bca1568f02b053c0cf7783c6e1dadfe0186fca3ec7192a",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    },
+    {
+      "id": "spoiler-5zu-g8g",
+      "file": "spoiler-5zu-g8g.webp",
+      "sha256": "206ae22683ad3ad9fe3bdf740135c03df5f38171b8b3e090765b157e3cdab30e",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    },
+    {
+      "id": "spoiler-5zu-gkz",
+      "file": "spoiler-5zu-gkz.webp",
+      "sha256": "33d4718926ab827ac71e8d22e94537183054e5916af0b42a067e0e57a55dc48e",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    }
+  ],
+  "notice": "Spoiler artwork preview for a 2027 Stingray Convertible 3LT in the selected paint. Wheels, interior and other equipment remain fixed and may differ from your build.",
+  "limitations": [
+    "Only the listed paint and spoiler combinations are represented. Wheels, interior and other equipment remain fixed.",
+    "This body-color high wing is represented only in Black, Arctic White and Torch Red.",
+    "The convertible top and its surrounding equipment remain in the fixed source position."
+  ],
+  "evidence": {
+    "file": "source-proof.json",
+    "sha256": "79bc974d6ddbdf2e8511a024e3a9b75c392945c0a1c62e228684ce24c8776f52",
+    "source_sha256": "bdd130f64833eb9b676e2ca6b3c31bd9f99a290931bf43a29ee1cf555924627e"
+  }
+}

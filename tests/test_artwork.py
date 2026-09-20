@@ -47,14 +47,14 @@ class ArtworkTests(unittest.TestCase):
                 with self.subTest(mutation=mutation), self.assertRaises(ValueError): artwork.load(root)
 
     def test_foreign_model_body_trim_and_missing_choice_have_no_art(self):
-        cases = [('grand_sport','3lt_e67','opt_gba_001'), ('grand_sport','1lt_e07','opt_gba_001'),
-                 ('stingray','3lt_c07','opt_gba_001'),
-                 ('grand_sport_x','3lt_g07','opt_gba_001'), ('z06','3lz_h07','opt_gba_001')]
+        cases = [('grand_sport','1lt_e67','opt_gba_001'), ('grand_sport','1lt_e07','opt_gba_001'),
+                 ('stingray','1lt_c07','opt_gba_001'),
+                 ('grand_sport_x','3lt_g07','opt_gba_001'), ('z06','1lz_h07','opt_gba_001')]
         for key, cfg, paint in cases:
             with self.subTest(model=key, cfg=cfg, paint=paint):
                 s = self.session(cfg, paint, key)
-                # This option is unavailable on Stingray; GSX and Z06 are the
-                # positive same-ID/RPO cases that must not borrow Grand Sport art.
+                # GSX has the same ID/RPO but no source family. Lower trims must
+                # not borrow the top-trim scene from their own model either.
                 if key != 'stingray': self.commit(s, 'select', 'opt_5zv_001')
                 self.assertEqual(s.current()['build']['visualizer']['assets'], [])
         self.assertEqual(self.session().current()['build']['visualizer']['assets'], [])
@@ -119,7 +119,7 @@ class ArtworkTests(unittest.TestCase):
             with patch('catalog.releases.validate_semantics', return_value={'test_fixture':True}):
                 frozen = store.freeze(self.db, database_hash(self.db))
             release = store.complete(frozen); manifest = store.verify(release)
-            self.assertEqual(len(manifest['media']['assets']), 22)
+            self.assertEqual(len(manifest['media']['assets']), 127)
             self.assertIn('runtime/catalog/web/artwork/source-proof.json', manifest['artifacts'])
             self.assertEqual(store.complete(frozen), release)
             backup = root / 'backup'; store.backup(release, backup)

@@ -1,0 +1,268 @@
+{
+  "format": "catalog-artwork-v1",
+  "scene_id": "zr1x-coupe-exterior-f02-tom-v1",
+  "model_key": "zr1x",
+  "model_year": 2027,
+  "body": "coupe",
+  "trim": "3lz",
+  "paints": [
+    {
+      "option_id": "opt_gba_001",
+      "rpo": "GBA",
+      "label": "Black",
+      "base_asset_id": "paint-gba-back",
+      "foreground_asset_id": "paint-gba-foreground"
+    },
+    {
+      "option_id": "opt_g8g_001",
+      "rpo": "G8G",
+      "label": "Arctic White",
+      "base_asset_id": "paint-g8g-back",
+      "foreground_asset_id": "paint-g8g-foreground"
+    },
+    {
+      "option_id": "opt_gkz_001",
+      "rpo": "GKZ",
+      "label": "Torch Red",
+      "base_asset_id": "paint-gkz-back",
+      "foreground_asset_id": "paint-gkz-foreground"
+    },
+    {
+      "option_id": "opt_gph_001",
+      "rpo": "GPH",
+      "label": "Red Mist Metallic Tintcoat",
+      "base_asset_id": "paint-gph-back",
+      "foreground_asset_id": "paint-gph-foreground"
+    },
+    {
+      "option_id": "opt_g26_001",
+      "rpo": "G26",
+      "label": "Sebring Orange Tintcoat",
+      "base_asset_id": "paint-g26-back",
+      "foreground_asset_id": "paint-g26-foreground"
+    },
+    {
+      "option_id": "opt_gbk_001",
+      "rpo": "GBK",
+      "label": "Competition Yellow Tintcoat Metallic",
+      "base_asset_id": "paint-gbk-back",
+      "foreground_asset_id": "paint-gbk-foreground"
+    },
+    {
+      "option_id": "opt_g4z_001",
+      "rpo": "G4Z",
+      "label": "Roswell Green Metallic",
+      "base_asset_id": "paint-g4z-back",
+      "foreground_asset_id": "paint-g4z-foreground"
+    },
+    {
+      "option_id": "opt_gka_001",
+      "rpo": "GKA",
+      "label": "Blade Silver Metallic",
+      "base_asset_id": "paint-gka-back",
+      "foreground_asset_id": "paint-gka-foreground"
+    },
+    {
+      "option_id": "opt_gtr_001",
+      "rpo": "GTR",
+      "label": "Admiral Blue Metallic",
+      "base_asset_id": "paint-gtr-back",
+      "foreground_asset_id": "paint-gtr-foreground"
+    },
+    {
+      "option_id": "opt_gec_001",
+      "rpo": "GEC",
+      "label": "Pitch Gray Metallic",
+      "base_asset_id": "paint-gec-back",
+      "foreground_asset_id": "paint-gec-foreground"
+    }
+  ],
+  "choices": [
+    {
+      "option_id": "opt_tom_002",
+      "rpo": "TOM",
+      "label": "Visible Carbon Fiber Aero Package",
+      "asset_id": "spoiler-tom"
+    }
+  ],
+  "assets": [
+    {
+      "id": "paint-gba-back",
+      "file": "gba-back.webp",
+      "sha256": "ce069a24d88661f75e5b0091f515b35a6fe22cda52dfa9ee5e76907b6470480a",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gba-foreground",
+      "file": "gba-front.webp",
+      "sha256": "9d050cfc8ed5078be189813bf6d715142481e83a919bed21f04211af91c8f6b2",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g8g-back",
+      "file": "g8g-back.webp",
+      "sha256": "3d85689226fcc51088829a22905411077a0ce9164165133166f98c239c98d446",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g8g-foreground",
+      "file": "g8g-front.webp",
+      "sha256": "61a5dc7106f5fa32900219fdb5d5ec50c4a7ab0391a40c76b8c75cf86a3905bc",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gkz-back",
+      "file": "gkz-back.webp",
+      "sha256": "722fe1c385f2459aec1b40075f26f8fcc55bf2876410ef99f8de17d0a14329fb",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gkz-foreground",
+      "file": "gkz-front.webp",
+      "sha256": "3700fa045e02f24bcfc081744806558444214145c462f076a06b5eab2765a280",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gph-back",
+      "file": "gph-back.webp",
+      "sha256": "d15c51d3fd5f0d34e7c6d7bff622dac0bc5cdb5910536a2fa9d71c85c1f36f22",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gph-foreground",
+      "file": "gph-front.webp",
+      "sha256": "ef85242279723918dd2292ed6b5f4585f6cfe29e1d1d1283187b1efd10e9b0e7",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g26-back",
+      "file": "g26-back.webp",
+      "sha256": "fbcc77c140c868152950dc3117c25bc64c7fe88da160e0504cbebb5eb5dd160b",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g26-foreground",
+      "file": "g26-front.webp",
+      "sha256": "47842c480d59c701bebc4ce9462f9bc3c92dac7ac198a52995a9bf29487feccf",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gbk-back",
+      "file": "gbk-back.webp",
+      "sha256": "fffd9e3e78cd2e415af282c8417bc1125a3dcc0d59549ac38018d4db08d6cb0a",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gbk-foreground",
+      "file": "gbk-front.webp",
+      "sha256": "dd89e96f76228724e4d614b19818b40e0c9f4fed9190109149df14ee1d77b24b",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g4z-back",
+      "file": "g4z-back.webp",
+      "sha256": "1b136538bb44dd1269e2fdac2369c5c00245617c17116c8f4f4a39a31102497b",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g4z-foreground",
+      "file": "g4z-front.webp",
+      "sha256": "b2bc78bb43bff650881ea01d4f75177f529295e7ac5107a1f796e013c811f0dd",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gka-back",
+      "file": "gka-back.webp",
+      "sha256": "bf8a549398c89672328360eda06a329027122ac22853f9831e694ca3dd743062",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gka-foreground",
+      "file": "gka-front.webp",
+      "sha256": "be35c01772c1d2132babf49bbcefd132225c9e6ecc7b1325fd49008d43948154",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gtr-back",
+      "file": "gtr-back.webp",
+      "sha256": "cc1bcbc558e40e2e2c9025e993b1cd5a1e36131f6c1583bdf2fb500aebb29090",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gtr-foreground",
+      "file": "gtr-front.webp",
+      "sha256": "2466f9a2d4a0a2cde2e6d83d8277e3cb6be75f71795c3d01b1cb46c0025d2450",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gec-back",
+      "file": "gec-back.webp",
+      "sha256": "cb7458525c38d0ab900879c52100b2d6a20bbe07bfb7da093c1599ee4af2222f",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gec-foreground",
+      "file": "gec-front.webp",
+      "sha256": "b621ae25a4e30217b533f8ebb7002086ee80045233928d9a7ca7a6c8a374cac9",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "spoiler-tom",
+      "file": "spoiler-tom.webp",
+      "sha256": "4014d55a61023d648b462bbdf8fdf6283b53fcf99d89e5ca9aed1b2156ca5472",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    }
+  ],
+  "notice": "Spoiler artwork preview for a 2027 ZR1X Coupe 3LZ in the selected paint. Wheels, interior and other equipment remain fixed and may differ from your build.",
+  "limitations": [
+    "Only the listed paint and spoiler combinations are represented. Wheels, interior and other equipment remain fixed.",
+    "This preview shows rear spoiler appearance; other aero package components are not represented."
+  ],
+  "evidence": {
+    "file": "source-proof.json",
+    "sha256": "802a2c487285bbac84e2ce4e8cb60f51a6d570d4f3af1f10b47ba0d46498fd20",
+    "source_sha256": "3f3096a92f2373a80e45f4b88c96bf52d74572f5d6473c273dd40bc054d28b08"
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "format": "catalog-artwork-v1",
+  "scene_id": "grand-sport-convertible-exterior-01-spoilers-v1",
+  "model_key": "grand_sport",
+  "model_year": 2027,
+  "body": "convertible",
+  "trim": "3lt",
+  "paints": [
+    {
+      "option_id": "opt_gba_001",
+      "rpo": "GBA",
+      "label": "Black",
+      "base_asset_id": "paint-gba-back",
+      "foreground_asset_id": "paint-gba-foreground"
+    },
+    {
+      "option_id": "opt_g8g_001",
+      "rpo": "G8G",
+      "label": "Arctic White",
+      "base_asset_id": "paint-g8g-back",
+      "foreground_asset_id": "paint-g8g-foreground"
+    },
+    {
+      "option_id": "opt_gkz_001",
+      "rpo": "GKZ",
+      "label": "Torch Red",
+      "base_asset_id": "paint-gkz-back",
+      "foreground_asset_id": "paint-gkz-foreground"
+    },
+    {
+      "option_id": "opt_gph_001",
+      "rpo": "GPH",
+      "label": "Red Mist Metallic Tintcoat",
+      "base_asset_id": "paint-gph-back",
+      "foreground_asset_id": "paint-gph-foreground"
+    },
+    {
+      "option_id": "opt_g26_001",
+      "rpo": "G26",
+      "label": "Sebring Orange Tintcoat",
+      "base_asset_id": "paint-g26-back",
+      "foreground_asset_id": "paint-g26-foreground"
+    },
+    {
+      "option_id": "opt_gbk_001",
+      "rpo": "GBK",
+      "label": "Competition Yellow Tintcoat Metallic",
+      "base_asset_id": "paint-gbk-back",
+      "foreground_asset_id": "paint-gbk-foreground"
+    },
+    {
+      "option_id": "opt_g4z_001",
+      "rpo": "G4Z",
+      "label": "Roswell Green Metallic",
+      "base_asset_id": "paint-g4z-back",
+      "foreground_asset_id": "paint-g4z-foreground"
+    },
+    {
+      "option_id": "opt_gka_001",
+      "rpo": "GKA",
+      "label": "Blade Silver Metallic",
+      "base_asset_id": "paint-gka-back",
+      "foreground_asset_id": "paint-gka-foreground"
+    },
+    {
+      "option_id": "opt_gtr_001",
+      "rpo": "GTR",
+      "label": "Admiral Blue Metallic",
+      "base_asset_id": "paint-gtr-back",
+      "foreground_asset_id": "paint-gtr-foreground"
+    },
+    {
+      "option_id": "opt_gec_001",
+      "rpo": "GEC",
+      "label": "Pitch Gray Metallic",
+      "base_asset_id": "paint-gec-back",
+      "foreground_asset_id": "paint-gec-foreground"
+    }
+  ],
+  "choices": [
+    {
+      "option_id": "opt_t0f_001",
+      "rpo": "T0F",
+      "label": "Carbon Flash-Painted Carbon Fiber Aero Package",
+      "asset_id": "spoiler-t0f"
+    },
+    {
+      "option_id": "opt_5zv_001",
+      "rpo": "5ZV",
+      "label": "Carbon Flash Metallic Three-Stanchion High Wing Spoiler",
+      "asset_id": "spoiler-5zv"
+    }
+  ],
+  "assets": [
+    {
+      "id": "paint-gba-back",
+      "file": "gba-back.webp",
+      "sha256": "350d4b9d1a88f597fed42c0d972afc877de9632425dff4b5d08d6809a6646d57",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gba-foreground",
+      "file": "gba-front.webp",
+      "sha256": "9de75c500307374e5570da778ecb50564aca077357c74cb14866d626bc296d6d",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g8g-back",
+      "file": "g8g-back.webp",
+      "sha256": "ea0507b12df70ee6280af6195b10e3d7f5a29f28e708434b968d8f0de15eb268",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g8g-foreground",
+      "file": "g8g-front.webp",
+      "sha256": "0b88158fad0f32caa9a37574ce010000a886d6770711c039cc5609c76b511f33",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gkz-back",
+      "file": "gkz-back.webp",
+      "sha256": "a2f57931cd53ad5237611516cb854d05d5c5f4d16feafdd33c0f0cb4dd9fc91b",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gkz-foreground",
+      "file": "gkz-front.webp",
+      "sha256": "e4a1594834dd9b22677245d781ddcb2d381d3566a3060a337ad086d6158a9d43",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gph-back",
+      "file": "gph-back.webp",
+      "sha256": "cf8450800959112a13560f10ddd5c4d5e5b0ff6322203594dffb0b9acbd6fbaa",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gph-foreground",
+      "file": "gph-front.webp",
+      "sha256": "cc83ed60a24aa611b76c042c404f4420e7e92d3216cdc7f41e6b304bb96306ec",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g26-back",
+      "file": "g26-back.webp",
+      "sha256": "2b8d64e33d3cc0944407a65039d88bde78f511e36baa0a584cacf5f2156381b0",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g26-foreground",
+      "file": "g26-front.webp",
+      "sha256": "aa29fa27350adcbe76f084f25c0db6bcbec1effa2c7eb55409db5a23a3843c81",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gbk-back",
+      "file": "gbk-back.webp",
+      "sha256": "7ca9197ae5c98a883b7fe5342e662bcb1a543bff72a5250c58dc439dcbd78fc2",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gbk-foreground",
+      "file": "gbk-front.webp",
+      "sha256": "f467f6e21f0448476067819e062534a31a09c18ec33e6f01b5f57fa22c772723",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g4z-back",
+      "file": "g4z-back.webp",
+      "sha256": "6c128adb4693510a25695b1fab10a25850d0bf90ffe804d0aa15fa461aa58d90",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g4z-foreground",
+      "file": "g4z-front.webp",
+      "sha256": "2abe04137536f978210e7cfebecf855aa38cbb2c1c8aeacd014f5a3496be260c",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gka-back",
+      "file": "gka-back.webp",
+      "sha256": "237665907f06fdb9cb7f5e1f79137b1c0276059c1d7a4a698a7d15ef586f39c2",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gka-foreground",
+      "file": "gka-front.webp",
+      "sha256": "350ee06033735bd914290dd55d01f37fd44ae7dafa332b30c18af9d8b801b340",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gtr-back",
+      "file": "gtr-back.webp",
+      "sha256": "d09532bd817c31d08dfc4ba9ecf8cbbe9967354b4fd1070213e48ac5f5c99b35",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gtr-foreground",
+      "file": "gtr-front.webp",
+      "sha256": "178cb92eb8e9d32da548a8f3dbc82f1300a1cae8d21522df1648136d9522fafe",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gec-back",
+      "file": "gec-back.webp",
+      "sha256": "86ccabb3bfe3177d0ec3f2c09fe912ad2b6f148c39c37914003f8830ab42a829",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gec-foreground",
+      "file": "gec-front.webp",
+      "sha256": "4bd69dc7db84210471a7435a5e279213f50ae69758e0dac5347943539d5d70ad",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "spoiler-t0f",
+      "file": "spoiler-t0f.webp",
+      "sha256": "b1fb3ca0d726eae2be5dce999faa858543ee31dc767a4d6914f7897853ddd0bd",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    },
+    {
+      "id": "spoiler-5zv",
+      "file": "spoiler-5zv.webp",
+      "sha256": "8e20e64f9aa79f2f07652ca878627b7b483e30ffd5b78ba5bf45d446e666ee8a",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    }
+  ],
+  "notice": "Spoiler artwork preview for a 2027 Grand Sport Convertible 3LT in the selected paint. The convertible top position, wheels, interior and other equipment remain fixed and may differ from your build.",
+  "limitations": [
+    "Only the listed paint and spoiler combinations are represented. Wheels, interior and other equipment remain fixed.",
+    "This preview shows rear spoiler appearance; other aero package components are not represented.",
+    "The convertible top and its surrounding equipment remain in the fixed source position."
+  ],
+  "evidence": {
+    "file": "source-proof.json",
+    "sha256": "c88a86739bc0da5490bd65d9206a6b5ef0d5e46dc5caa077111d54303d150994",
+    "source_sha256": "5015b3f7c16f102f957ae122f1f5e84c6851e55164cc9ca13a27835e80a95347"
+  }
+}
