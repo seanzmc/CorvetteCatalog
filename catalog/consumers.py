@@ -9,6 +9,7 @@ import secrets
 from dataclasses import asdict
 
 from catalog import foundation as f
+from catalog import artwork
 from catalog.evaluator import Evaluator, EvaluationError, Preview, Session
 
 FORMAT = 'catalog-consumers-v1'
@@ -169,11 +170,13 @@ def validate_mappings(db):
 
 
 class ConsumerCatalog:
-    def __init__(self, db, revision):
+    def __init__(self, db, revision, artwork_manifest=None):
         self.revision = revision
         self.ev = Evaluator(db, revision)
         self.model = dict(db.execute('SELECT * FROM consumer_model WHERE revision_id=?', (revision,)).fetchone())
         self.model['presentation'] = json.loads(self.model['presentation'])
+        self.model_key = db.execute('''SELECT model_key FROM catalog_revision
+            JOIN model_year USING(model_year_id) JOIN model USING(model_id) WHERE revision_id=?''', (revision,)).fetchone()[0]
         self.maps = {}
         for kind in ('option', 'configuration', 'interior'):
             self.maps[kind] = {r[kind + '_id']: dict(key=r['consumer_key'], **json.loads(r['presentation']))
@@ -181,6 +184,7 @@ class ConsumerCatalog:
         self.components = {r['id']: dict(r) for r in db.execute('SELECT * FROM component WHERE revision_id=?', (revision,))}
         self.contexts = {(r['option_id'], r['configuration_id']): json.loads(r['presentation'])
                          for r in db.execute('SELECT * FROM consumer_option_context WHERE revision_id=?', (revision,))}
+        self.artwork = artwork.catalog_contract(self, artwork_manifest if artwork_manifest is not None else artwork.load())
 
     def contract(self):
         return dict(format=FORMAT, revision_id=self.revision, registry_key=self.model['registry_key'],
@@ -244,7 +248,7 @@ class ConsumerCatalog:
             missing_requirements=[self.issue_label(i, state.configuration_id) for i in state.issues if i != 'partial_catalog_not_submission_ready'],
             content=[asdict(c) for c in state.content], issues=list(state.issues),
             visualizer=dict(**common, installed_option_ids=sorted(state.installed), interior_id=state.interior_id,
-                            content=[asdict(c) for c in state.content], assets=[], coverage='art_not_bound'))
+                            content=[asdict(c) for c in state.content], **artwork.project(self, state)))
 
     def cards(self, state):
         cards = []

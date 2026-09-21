@@ -23,6 +23,7 @@ function interiorDescription() {
 }
 function render() {
   const b=current.build; el('setup').hidden=true; el('build').hidden=false;
+  catalogArtwork.render(b.visualizer);
   el('total').textContent=money(b.total_minor); el('requirements').textContent=b.missing_requirements.join(' · ');
   el('revert').disabled=!!pending;el('export').disabled=!!pending||b.issues.some(i=>i!=='partial_catalog_not_submission_ready');el('chooseInterior').disabled=!!pending;
   el('recap').replaceChildren();

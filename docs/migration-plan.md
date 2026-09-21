@@ -1,6 +1,22 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 20 dealer integration
+## Current direction — September 20 first artwork integration
+
+Dealer integration is merged in PR #55. The first [artwork integration](visualizer-artwork.md)
+binds ten paints and the T0F/5ZV spoiler choices to confirmed 2027 Grand Sport
+Coupe 3LT builds. All twenty combinations have native Photoshop comparison
+evidence. The application changes layers after confirmation, preserves the image
+on cancel, restores it on revert, and hides incomplete or unsupported artwork.
+
+The 22 image planes, exact catalog bindings and original proof manifest travel
+with the hashed release and its backup/restore path. This is a labeled paint and
+spoiler preview: wheels, interior and other equipment remain fixed, and T0F's
+other package components are not represented. Additional model, body, trim,
+camera and component coverage remains visualizer work. The full customer layout,
+production delivery, real dealer receipt proof and canonical cutover remain
+outstanding. The workbook remains canonical.
+
+## Prior direction — September 20 dealer integration
 
 Complete authoring operations and acceptance/release replay are merged in PR #54.
 The [dealer integration](dealer-submission.md) now prepares the confirmed catalog
