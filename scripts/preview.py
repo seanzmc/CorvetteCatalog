@@ -28,7 +28,7 @@ def matches_checkout(bundle, manifest, runtime):
     lanes = validation.get('semantic', {})
     if (validation.get('translation') != 'complete_pinned_replay'
             or set(lanes) != MODEL_KEYS
-            or any(lane.get('findings') != [] for lane in lanes.values())):
+            or any(not isinstance(lane, dict) or lane.get('findings') != [] for lane in lanes.values())):
         return False
     with closing(sqlite3.connect((bundle / 'catalog.sqlite').resolve().as_uri() + '?mode=ro', uri=True)) as db:
         sources = db.execute('SELECT source_path,content_sha256 FROM source_document').fetchall()
