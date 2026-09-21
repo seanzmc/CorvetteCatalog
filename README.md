@@ -1,93 +1,152 @@
 # CorvetteCatalog
 
-A fresh project for relational Corvette product data, manufacturer order-guide intake, and configuration data for an order form and visualizer.
+A local Corvette catalog editor and build-review app for Stingray, Grand Sport,
+Grand Sport X, Z06, ZR1 and ZR1X. Edit catalog data, review and accept changes,
+create a versioned release, then use that release in the customer form with
+pricing, equipment, artwork, order export and dealer-submission preview.
 
-**Current status: six-lane catalog with validated local consumers and release operations.**
-The first [local authoring pilot](docs/authoring-pilot.md) adds reviewed option
-name/base-price edits, direct-inclusion ownership policies and shared interior-component
-prices in a separate draft with persistent history and connected consumer previews.
-The [complete editor and acceptance workflow](docs/authoring-operations.md) adds
-coupled catalog/rule changes and reviewed history replay into reproducible local
-releases, including their evidence and recovery path. The
-[dealer integration](docs/dealer-submission.md) prepares confirmed catalog builds
-in the existing dealer format, with local preview and explicit live delivery.
-The customer form remains a close port of the live experience, with step/section
-changes to accommodate the visualizer. The first [Photoshop artwork integration](docs/visualizer-artwork.md)
-now covers coupe and convertible scenes for five models, with 146 qualified
-paint/spoiler combinations and source evidence in reproducible releases.
-Other component and trim coverage, production delivery and canonical cutover
-remain separate.
+## Set up
 
-The [foundation sample](catalog/README.md#disposable-master-schema-foundation)
-implements typed structural keys and provenance. The
-[step 3 source slice](catalog/README.md#evaluator-case-source-population--step-3)
-adds prices, scoped relationships and ownership policies for eight accepted cases
-across six lanes. The [step 4 evaluator](catalog/README.md#bounded-evaluator--step-4)
-executes their ownership, pricing and preview/confirm/cancel/revert targets.
-The [complete offering population](catalog/README.md#complete-offering-population)
-extends this to 1,388 options, 704 interiors and all source contextual prices.
-The [full behavior importer](catalog/README.md#full-behavior-translation)
-adds direct/grouped rules, explicit choice memberships, defaults, interior/color
-conditions, accepted corrections and supplied content across all six lanes.
-The [semantic-overlap audit](docs/semantic-overlap-validation.md) inventories and
-exercises those relationships across all model lanes, including ownership and
-whole-state transactions. [Consumer mappings and local release operations](docs/consumer-releases.md)
-add a confirmation-gated form, order export, visualizer state contracts and verified
-freeze/completion/publication/rollback. The workbook remains canonical.
+Run these commands from the repository root with Python 3.11 or newer:
 
-Use the [master-schema proposal](docs/master-schema-proposal.md) for logical
-ownership, keys, rules, pricing and six-model walkthroughs, and the
-[relationship diagram and key/FK reference](docs/master-schema-diagram.md) for the
-complete relation inventory and structural opens. The
-[populated tables and worked traces](docs/master-schema-worked-examples.md)
-exercise those keys across all six lanes and expose remaining implementation needs; the
-[consolidated review](docs/six-model-review.md) and
-[discovery index](docs/model-discovery.md) retain the supporting evidence.
-Historical database/importer milestones below are preserved context, not
-authorization to resume schema or application work.
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
 
-## Direction
+Activate the environment in each terminal before running the commands below.
+The local app uses SQLite and the source records checked into this repository;
+there is no separate database service or frontend build step. Keep generated
+workspaces and releases under the Git-ignored `.local/` directory.
 
-Build a clean application and schema in this repository. The existing 27vette project is a reference implementation and behavioral comparison baseline, not a codebase to clone wholesale.
+## Start the catalog editor
 
-- **Current workbook:** `27vette/stingray_master.xlsx` is the canonical source of truth for the existing form and the primary migration baseline for model data, intentional overrides, customer copy, and form behavior.
-- **Manufacturer order guides:** the manufacturer Excel export in the root of 27vette is the raw order-guide format, processed and transformed into the `stingray_master.xlsx` format. Preserve raw guides with their model year, revision, and precise source locations.
-- **Future relational catalog:** reviewed, accepted business facts with explicit provenance and applicability.
-- **Form and visualizer:** consumers of versioned releases from the same catalog.
+On first use, create a source database and a separate editable workspace:
 
-When a guide and workbook disagree, record the discrepancy and its evidence. Neither silently overwrites the other. Accepting a manufacturer correction may intentionally change current behavior; classify and review that separately from migration parity.
+```sh
+python -m catalog.releases prepare .local/authoring/source.sqlite
+python -m catalog.authoring_server \
+  --database .local/authoring/draft.sqlite \
+  --initialize-from .local/authoring/source.sqlite
+```
 
-## Start here
+Initialization exits after creating the workspace. These commands refuse to
+overwrite existing databases. For normal use, start the existing workspace:
 
-- [Working principles and lightweight PR policy](AGENTS.md)
-- [Migration and intake plan](docs/migration-plan.md)
-- [Stingray behavior: complete family relationship analysis and unresolved decisions](docs/stingray-behavior.md)
-- [Master-schema proposal: all six models, ownership and connected walkthroughs](docs/master-schema-proposal.md)
-- [Master-schema relationship diagram and per-relation keys/FKs](docs/master-schema-diagram.md)
-- [Master-schema populated tables and worked selection, pricing and output traces](docs/master-schema-worked-examples.md)
-- [Historical Stingray schema plan](docs/stingray-schema-plan.md)
-- [Stingray structured handoff: records, behavior, evidence and decisions](docs/stingray-structured.md)
-- [Grand Sport behavior: connected choices, source differences and schema implications](docs/grand-sport-behavior.md)
-- [Grand Sport structured handoff: records, behavior, evidence and decisions](docs/grand-sport-structured.md)
-- [Grand Sport X behavior: complete family analysis and unresolved findings](docs/grand-sport-x-behavior.md)
-- [Grand Sport X structured handoff: records, behavior, evidence and decisions](docs/grand-sport-x-structured.md)
-- [Z06 behavior: complete family analysis and source/runtime findings](docs/z06-behavior.md)
-- [Z06 structured handoff: records, behavior, evidence and accepted decisions](docs/z06-structured.md)
-- [ZR1 discovery: behavior, source accounting and accepted targets](docs/zr1-behavior.md)
-- [ZR1 structured handoff](docs/zr1-structured.md)
-- [ZR1X discovery: frozen evidence and reconciled owner decisions](docs/zr1x-behavior.md)
-- [ZR1X structured handoff](docs/zr1x-structured.md)
-- [Model handoff contract: required files, shapes and validator](docs/model-discovery.md#handoff-contract)
-- [Earlier unvalidated database proposal: shared rules and model applications](docs/proposed-database-design.md)
-- [All six models: complete form relationship map and shared-rule analysis](docs/form-relationship-map.md)
-- [Workbook translation blueprint: actual rules, ownership and proposed consolidation](docs/workbook-translation-blueprint.md)
-- [Checkpoint A source and schema specification](docs/source-schema-specification.md)
-- [Current disposable candidate schema in drawDB](docs/drawdb.md)
-- [Earlier workbook structure audit](docs/workbook-structure-audit.md)
+```sh
+python -m catalog.authoring_server --database .local/authoring/draft.sqlite
+```
 
-Reference project: `/Users/seandm/Projects/27vette`.
-Reference workbook: `/Users/seandm/Projects/27vette/stingray_master.xlsx`.
+Open [the catalog editor](http://127.0.0.1:8766). Leave the terminal running;
+press `Ctrl+C` to stop it. Saved edits persist in `draft.sqlite`.
 
-## Historical implementation status
+| Page | Use it for |
+| --- | --- |
+| [Option editor](http://127.0.0.1:8766/) | Find an option by model, RPO or name; review and edit its name and base price. |
+| [All catalog editors](http://127.0.0.1:8766/records) | Edit products, availability, interiors, prices, connected rules and customer copy; queue related changes together. |
+| [Inclusion ownership](http://127.0.0.1:8766/relationships) | Control whether a package preserves or absorbs an earlier independent purchase of an included option. |
+| [Shared component prices](http://127.0.0.1:8766/components) | Edit a component rate and review its effect on the interiors that reference it. |
+| [Acceptance and releases](http://127.0.0.1:8766/acceptance) | Review saved history and intake evidence, accept the exact draft and build a release. |
 
-Checkpoint A specification completed September 5, 2026. Checkpoint B's [disposable relational importer](catalog/README.md) is implemented and verified against the [frozen workbook and matching six-model runtime baseline](baselines/2026-09-06/README.md): all 15,134 source rows and 7,448 availability pairs are accounted for. The separately authorized [Checkpoint C brake intake pilot](sources/README.md#checkpoint-c-local-completion) preserves 26 review assertions, 19 unchanged and 7 ambiguous, with repeatable immutable staging. Checkpoint D now [generates and verifies all six contracts directly from the candidate catalog](catalog/README.md#checkpoint-d-direct-form-generation), preserving the frozen baseline and browser registry. The [schema-3 option consolidation](catalog/README.md#option-consolidation-schema-3) replaces six option tables with one model-owned option table, with source facts and six-model parity preserved. The SQLite database is a disposable candidate; no application, canonical-data change or deployment has been made. No changes were made to 27vette.
+Choose the model and record, enter changes and a reason, review their effects,
+then save. Use **All catalog editors** for coupled changes that must save together.
+A stale review must be reloaded and reviewed again. Saved history retains earlier
+values; restoring a value is another reviewed edit. A zero price and an item with
+no separate charge have different meanings.
+
+## Create a release
+
+Saving an edit updates the draft. To make that draft available to the customer form:
+
+1. Open **Acceptance and releases**, review the saved changes, and enter a reviewer
+   and reason.
+2. Review and confirm the acceptance. Later edits require a new acceptance.
+3. Click **Create release from accepted draft**. Keep the server running while it
+   checks source replay and all six models, generates artifacts and verifies the
+   bundle. This can take several minutes.
+4. Copy the completed **Release** ID and **Store** path shown on the page. With the
+   setup above, the store is `.local/authoring/releases`.
+
+To try the form with the checked-in catalog before making any edits, build a
+source release instead:
+
+```sh
+python -m catalog.releases prepare .local/preview/draft.sqlite
+# Replace DRAFT_SHA256 with the digest printed by prepare.
+python -m catalog.releases --store .local/preview/releases freeze \
+  .local/preview/draft.sqlite --expected-digest DRAFT_SHA256
+# Replace FROZEN_ID with the ID printed by freeze.
+python -m catalog.releases --store .local/preview/releases complete FROZEN_ID
+```
+
+The last command prints the completed release ID. Use `.local/preview/releases`
+as the store when starting this release. Use fresh paths for a new source draft;
+keep existing authoring workspaces to preserve their edits and history.
+
+## Run the customer form
+
+In another terminal, substitute the completed release ID and its store path:
+
+```sh
+python -m catalog.consumer_server \
+  --store .local/authoring/releases --release RELEASE_ID
+```
+
+Open [the build-review form](http://127.0.0.1:8765). Both servers accept `--port`
+if their default port is occupied, and both bind to `127.0.0.1` for local use.
+
+Choose a model and body/trim configuration, then start a build. Review option and
+interior changes before confirming them. Cancel preserves the current build;
+**Revert last change** also requires confirmation. Prices, equipment, artwork and
+order output follow the confirmed build. Complete required selections and resolve
+pending changes before using **Export build** or **Preview dealer submission**.
+Build sessions are held in memory and are lost when the consumer server restarts.
+
+Dealer preview prepares the order without sending it or loading the security
+check. Live delivery requires starting the consumer server with
+`--enable-dealer-submissions` on a qualified host; the browser then uses Turnstile
+and the existing dealership endpoint. Local preview does not establish production
+delivery or dealer receipt.
+
+Artwork currently covers selected paint/spoiler combinations for coupe and
+convertible Grand Sport and Stingray in 3LT, and Z06, ZR1 and ZR1X in 3LZ.
+Stingray supports GBA, G8G and GKZ with 5ZU; other supported families have ten
+paints. Unsupported combinations, including Grand Sport X, show an unavailable
+state. Wheels, interiors, brakes, roof positions and other equipment remain fixed
+in the images and may differ from the build.
+
+The form serves a completed release, so editing the draft does not update an
+already running form. Create a new release and restart the consumer server with
+its new ID to see accepted changes.
+
+## Verify and back up a release
+
+Use the store and completed release ID from your build:
+
+```sh
+python -m catalog.releases --store .local/authoring/releases verify RELEASE_ID
+python -m catalog.releases --store .local/authoring/releases \
+  backup RELEASE_ID .local/release-backup
+python -m catalog.releases --store .local/recovered-releases \
+  restore .local/release-backup
+```
+
+Use a new backup destination for each backup. Restore verifies the bundle and
+prints its release ID; it does not publish or deploy it.
+
+If the checkout has changed since a release was created, the consumer may report
+**Use the runtime pinned in this release**. Run that bundle's runtime instead
+(Python 3.11+; replace `RELEASE_ID` and the store path as needed):
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 \
+PYTHONPATH=.local/authoring/releases/completed/RELEASE_ID/runtime \
+  python -P -m catalog.consumer_server \
+  --store .local/authoring/releases --release RELEASE_ID
+```
+
+The existing form's canonical source remains `27vette/stingray_master.xlsx`.
+Local edits, acceptance and releases do not change that workbook or deploy the
+production site. Preserve the checked-in source evidence and release bundles;
+use the editor for catalog changes.
