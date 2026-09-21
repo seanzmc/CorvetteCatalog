@@ -184,7 +184,7 @@ class ConsumerCatalog:
         self.components = {r['id']: dict(r) for r in db.execute('SELECT * FROM component WHERE revision_id=?', (revision,))}
         self.contexts = {(r['option_id'], r['configuration_id']): json.loads(r['presentation'])
                          for r in db.execute('SELECT * FROM consumer_option_context WHERE revision_id=?', (revision,))}
-        self.artwork = artwork.catalog_contract(self, artwork_manifest if artwork_manifest is not None else artwork.load())
+        self.artwork = artwork.catalog_contract(self, artwork_manifest if artwork_manifest is not None else artwork.load_collection())
 
     def contract(self):
         return dict(format=FORMAT, revision_id=self.revision, registry_key=self.model['registry_key'],

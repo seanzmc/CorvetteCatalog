@@ -1,0 +1,138 @@
+{
+  "format": "catalog-artwork-v1",
+  "scene_id": "stingray-coupe-exterior-01-5zu-v1",
+  "model_key": "stingray",
+  "model_year": 2027,
+  "body": "coupe",
+  "trim": "3lt",
+  "paints": [
+    {
+      "option_id": "opt_gba_001",
+      "rpo": "GBA",
+      "label": "Black",
+      "base_asset_id": "paint-gba-back",
+      "foreground_asset_id": "paint-gba-foreground"
+    },
+    {
+      "option_id": "opt_g8g_001",
+      "rpo": "G8G",
+      "label": "Arctic White",
+      "base_asset_id": "paint-g8g-back",
+      "foreground_asset_id": "paint-g8g-foreground"
+    },
+    {
+      "option_id": "opt_gkz_001",
+      "rpo": "GKZ",
+      "label": "Torch Red",
+      "base_asset_id": "paint-gkz-back",
+      "foreground_asset_id": "paint-gkz-foreground"
+    }
+  ],
+  "choices": [
+    {
+      "option_id": "opt_5zu_001",
+      "rpo": "5ZU",
+      "label": "Body-Color High Wing Spoiler",
+      "paint_rpo": "GBA",
+      "asset_id": "spoiler-5zu-gba"
+    },
+    {
+      "option_id": "opt_5zu_001",
+      "rpo": "5ZU",
+      "label": "Body-Color High Wing Spoiler",
+      "paint_rpo": "G8G",
+      "asset_id": "spoiler-5zu-g8g"
+    },
+    {
+      "option_id": "opt_5zu_001",
+      "rpo": "5ZU",
+      "label": "Body-Color High Wing Spoiler",
+      "paint_rpo": "GKZ",
+      "asset_id": "spoiler-5zu-gkz"
+    }
+  ],
+  "assets": [
+    {
+      "id": "paint-gba-back",
+      "file": "gba-back.webp",
+      "sha256": "74f557ca1557b5c0242b3c4216b8638c88df7f671e3b5fb25ad876471998ac81",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gba-foreground",
+      "file": "gba-front.webp",
+      "sha256": "abf0939574d46c1ca7d752c85fd9c2f4fae88c7810d89075ee9e7d5ccc972d5f",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-g8g-back",
+      "file": "g8g-back.webp",
+      "sha256": "e957413d980616634c08229164b411a140cd4c56bdb7cba537f16a6cd79158e9",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-g8g-foreground",
+      "file": "g8g-front.webp",
+      "sha256": "d1976f09c650ee2f54d19d65407054c4eda5cfde78445a01c5c82c93f74662b9",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "paint-gkz-back",
+      "file": "gkz-back.webp",
+      "sha256": "71acb193052d7adb9f5c3876d025589705beffd75a70b2a4fe64262bde46103b",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 0
+    },
+    {
+      "id": "paint-gkz-foreground",
+      "file": "gkz-front.webp",
+      "sha256": "59fc3a041bfdae284c78dac0336d443f3aa0cefe9fba773108c9c0e4ced4e90a",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 30
+    },
+    {
+      "id": "spoiler-5zu-gba",
+      "file": "spoiler-5zu-gba.webp",
+      "sha256": "f240666e5fac08a0ba55c7a3db50d15c44f1c86bdfd75a24c6142830d62a06f8",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    },
+    {
+      "id": "spoiler-5zu-g8g",
+      "file": "spoiler-5zu-g8g.webp",
+      "sha256": "884a657a45e894f6af4c54df96f257a7cafcc2803d044eb676b02acda8d544b6",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    },
+    {
+      "id": "spoiler-5zu-gkz",
+      "file": "spoiler-5zu-gkz.webp",
+      "sha256": "a3c9c4f0cb00505d2b04ff882c6810a3055d8fdcfbdd0ab428a81f7a91a115cd",
+      "width": 1500,
+      "height": 844,
+      "stack_order": 20
+    }
+  ],
+  "notice": "Spoiler artwork preview for a 2027 Stingray Coupe 3LT in the selected paint. Wheels, interior and other equipment remain fixed and may differ from your build.",
+  "limitations": [
+    "Only the listed paint and spoiler combinations are represented. Wheels, interior and other equipment remain fixed.",
+    "This body-color high wing is represented only in Black, Arctic White and Torch Red."
+  ],
+  "evidence": {
+    "file": "source-proof.json",
+    "sha256": "b730d269cc343faad029bc1ca14de646b34063d1b4176bf9c4cb96e852ba6497",
+    "source_sha256": "16d97f2bc1fc980372be5a5d1e1f15332a899bb320e5dcb346478f0deeda1584"
+  }
+}

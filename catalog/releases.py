@@ -310,7 +310,7 @@ class ReleaseStore:
                 root = path / 'runtime/catalog/web/artwork'
                 if record['media'] != artwork.release_media(root):
                     raise ValueError('Release artwork declaration mismatch')
-                manifest = artwork.load(root)
+                manifest = artwork.load_collection(root)
                 for model in record['models']:
                     catalog = ConsumerCatalog(db, model['revision_id'], artwork_manifest=manifest)
                     visualizer = read_json(path / model['model_key'] / 'visualizer.json')

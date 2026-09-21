@@ -1,0 +1,929 @@
+{
+  "schema": "27vette-paint-specific-spoiler-family-v1",
+  "status": "verified-component-proof",
+  "id": "stingray-coupe-exterior-01-5zu-v1",
+  "catalogModelKey": "stingray",
+  "modelId": "d0ceb05a-c46e-4933-92a9-d7fda11fd6f7",
+  "modelYearId": "ec5c46bd-f20b-4eef-92dc-000a378f3d82",
+  "modelYear": 2027,
+  "body": "coupe",
+  "trim": "3lt",
+  "configurationId": "3lt_c07",
+  "scene": "coupe-exterior-01",
+  "originalProofPackage": "/Users/seandm/Library/Mobile Documents/com~apple~CloudDocs/C8-iCloud/27img/visualizer-studio_27/27vette-phase1/asset-proofs/2026-09-20-stingray-coupe-01",
+  "relativePaths": "All image, state and evidence paths resolve relative to this original Photoshop proof package. Source paths are absolute. Workbook/guide anchors refer to sourceEvidence originals.",
+  "source": {
+    "source": "/Users/seandm/Library/Mobile Documents/com~apple~CloudDocs/C8-iCloud/27img/visualizer-studio_27/visual-studio/stingray/c.coupe.exterior.01.psb",
+    "workingCopy": "/private/tmp/27vette-stingray-asset-proof.psb",
+    "sourceSha256": "16d97f2bc1fc980372be5a5d1e1f15332a899bb320e5dcb346478f0deeda1584",
+    "copySha256": "16d97f2bc1fc980372be5a5d1e1f15332a899bb320e5dcb346478f0deeda1584",
+    "bytes": 2175257346,
+    "documentName": "27vette-stingray-asset-proof.psb",
+    "nativeLayerCount": 1482,
+    "bodyLayer": {
+      "id": 1501,
+      "path": "Base / 1YC07"
+    },
+    "trimLayer": {
+      "id": 1313,
+      "path": "Base / S0507&3LT"
+    },
+    "selectedInteriorLayer": {
+      "id": 953,
+      "path": "Seats_Front / AH2&HAG"
+    },
+    "fixedEngineLayer": {
+      "id": 1456,
+      "path": "Engine / LS6",
+      "note": "Recorded source label only; no powertrain specification or mapping inferred."
+    },
+    "isolatedBase": {
+      "layerId": 1491,
+      "path": "native/isolated-base-gba.png",
+      "sha256": "0665a35422e19a96aaa56d666e23c20d5fd2dadc7529168f4379fd15274d4ec0",
+      "finding": "Body/chassis shell with empty wheel openings; wheels, roof glass, front fascia and spoiler are separate artwork."
+    }
+  },
+  "canvas": {
+    "width": 1500,
+    "height": 844,
+    "nativeWidth": 6000,
+    "nativeHeight": 3376,
+    "uniformScale": 0.25,
+    "crop": false
+  },
+  "compositionOrder": [
+    "selected paint back (0)",
+    "selected paint 5ZU spoiler (20)",
+    "selected paint foreground (30)"
+  ],
+  "paints": [
+    {
+      "rpo": "GBA",
+      "optionId": "opt_gba_001",
+      "name": "Black",
+      "workbookAnchor": "stingray_options!A117:K117",
+      "guideAnchor": "Color and Trim 1!A19:D19",
+      "back": {
+        "path": "web/gba-back.webp",
+        "sha256": "74f557ca1557b5c0242b3c4216b8638c88df7f671e3b5fb25ad876471998ac81",
+        "width": 1500,
+        "height": 844,
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1454,
+          1456,
+          1457,
+          1459,
+          1461,
+          1489,
+          1491,
+          1501,
+          1502,
+          1504,
+          1505,
+          1507,
+          1518,
+          1520,
+          1524,
+          1526,
+          1528,
+          1532,
+          1533,
+          1542,
+          1547,
+          1553,
+          1563,
+          1570,
+          1572,
+          1576,
+          1582
+        ],
+        "nativePng": {
+          "path": "native/gba-back.png",
+          "sha256": "8dc64681de1f043930327382565903b395e9e4bac49657fb1aedf87930c3ef5f"
+        },
+        "state": {
+          "path": "native/gba-back.state.json",
+          "sha256": "3ab78cfb31e49569ae487303a1daf20ab3636ba05c350ee1ba6854e94dd77285"
+        },
+        "pngDerivative": {
+          "path": "web/gba-back.png",
+          "sha256": "1c9a300a4b79b4eb13727abb314cf5cfe4ecb6a64a597275e583ed4e656cd195",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/gba-front.webp",
+        "sha256": "abf0939574d46c1ca7d752c85fd9c2f4fae88c7810d89075ee9e7d5ccc972d5f",
+        "width": 1500,
+        "height": 844,
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          4,
+          9,
+          10,
+          12,
+          47,
+          49,
+          50,
+          52,
+          53,
+          66,
+          67,
+          69,
+          71,
+          83,
+          100,
+          102,
+          112,
+          120,
+          134,
+          145,
+          165,
+          172,
+          178,
+          182,
+          190,
+          204,
+          216,
+          235,
+          240,
+          248,
+          262,
+          264,
+          274,
+          279,
+          284,
+          286,
+          288,
+          290,
+          291,
+          293,
+          303,
+          305,
+          306,
+          308,
+          333,
+          335,
+          336,
+          338,
+          342,
+          345,
+          346,
+          348,
+          349,
+          361,
+          362,
+          372,
+          374,
+          375,
+          378,
+          398,
+          456,
+          481,
+          518,
+          569,
+          571,
+          808,
+          813,
+          830,
+          953,
+          1033,
+          1072,
+          1080,
+          1084,
+          1093,
+          1095,
+          1096,
+          1134,
+          1142,
+          1181,
+          1311,
+          1313,
+          1315,
+          1317,
+          1355,
+          1364,
+          1366,
+          1368,
+          1370
+        ],
+        "nativePng": {
+          "path": "native/gba-front.png",
+          "sha256": "82aaa0b6738a35aeeb0806b8d4e1503c6c8231d2d229f0ebb3847bf39e4fb8e2"
+        },
+        "state": {
+          "path": "native/gba-front.state.json",
+          "sha256": "07419972692b144cc65e6f67a0a6ed574e8b6222cdc40a99be853ab77f2afd29"
+        },
+        "pngDerivative": {
+          "path": "web/gba-front.png",
+          "sha256": "529f0ecbfb97725fc77e8de6449650cd6942a7a07a9dedea3e25d165ca410278",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 100,
+          "sourceReferenceLayerId": 111,
+          "selectedLayerId": 102
+        },
+        {
+          "parentId": 262,
+          "sourceReferenceLayerId": 273,
+          "selectedLayerId": 264
+        },
+        {
+          "parentId": 291,
+          "sourceReferenceLayerId": 302,
+          "selectedLayerId": 293
+        },
+        {
+          "parentId": 349,
+          "sourceReferenceLayerId": 371,
+          "selectedLayerId": 362
+        },
+        {
+          "parentId": 375,
+          "sourceReferenceLayerId": 387,
+          "selectedLayerId": 378
+        },
+        {
+          "parentId": 375,
+          "sourceReferenceLayerId": 407,
+          "selectedLayerId": 398
+        },
+        {
+          "parentId": 1505,
+          "sourceReferenceLayerId": 1516,
+          "selectedLayerId": 1507
+        },
+        {
+          "parentId": 1489,
+          "sourceReferenceLayerId": 1500,
+          "selectedLayerId": 1491
+        }
+      ],
+      "choices": [
+        {
+          "rpo": "5ZU",
+          "optionId": "opt_5zu_001",
+          "name": "Body-Color High Wing Spoiler",
+          "webAsset": {
+            "path": "web/spoiler-5zu-gba.webp",
+            "sha256": "f240666e5fac08a0ba55c7a3db50d15c44f1c86bdfd75a24c6142830d62a06f8",
+            "width": 1500,
+            "height": 844,
+            "stackOrder": 20,
+            "sourceLayerIds": [
+              1430,
+              1443
+            ],
+            "nativePng": {
+              "path": "native/spoiler-5zu-gba.png",
+              "sha256": "1690a883f198ebe6c2d21abeceb1a1033f82c3890fb55f5f1acc5c81fcd93d10"
+            },
+            "state": {
+              "path": "native/spoiler-5zu-gba.state.json",
+              "sha256": "1c88150a480e4c9ec842c60eeb539a862f9124fb0476b0a027c842097faae7ba"
+            },
+            "pngDerivative": {
+              "path": "web/spoiler-5zu-gba.png",
+              "sha256": "aa86e420ee8d1c3602de4aa6006b3af0363e51132694edfeeac90442dadc359c",
+              "rgbaEqualWebp": true
+            }
+          }
+        }
+      ],
+      "nativeEvidence": {
+        "with5zu": {
+          "alphaMaxDifference": 1,
+          "opaqueRgbMaxDifference": 2,
+          "premultipliedRgbMaxDifference": 2.0039215087890625,
+          "premultipliedPixelsOver2": 1,
+          "passed": true
+        },
+        "sourceNoSpoiler": {
+          "alphaMaxDifference": 1,
+          "opaqueRgbMaxDifference": 2,
+          "premultipliedRgbMaxDifference": 2.0039215087890625,
+          "premultipliedPixelsOver2": 1,
+          "passed": true
+        },
+        "references": [
+          {
+            "path": "native/gba-scene-5zu.png",
+            "sha256": "654d0094017c56adeb010363650cba9056faf679232f5d02491235660eb63969"
+          },
+          {
+            "path": "native/gba-scene-none.png",
+            "sha256": "66b0990cd9634f1477ff77a0062f8710653ae0c52e7a9de84429f415021f67cb"
+          }
+        ]
+      }
+    },
+    {
+      "rpo": "G8G",
+      "optionId": "opt_g8g_001",
+      "name": "Arctic White",
+      "workbookAnchor": "stingray_options!A116:K116",
+      "guideAnchor": "Color and Trim 1!A18:D18",
+      "back": {
+        "path": "web/g8g-back.webp",
+        "sha256": "e957413d980616634c08229164b411a140cd4c56bdb7cba537f16a6cd79158e9",
+        "width": 1500,
+        "height": 844,
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1454,
+          1456,
+          1457,
+          1459,
+          1461,
+          1489,
+          1492,
+          1501,
+          1502,
+          1504,
+          1505,
+          1508,
+          1518,
+          1520,
+          1524,
+          1526,
+          1528,
+          1532,
+          1533,
+          1542,
+          1547,
+          1553,
+          1563,
+          1570,
+          1572,
+          1576,
+          1582
+        ],
+        "nativePng": {
+          "path": "native/g8g-back.png",
+          "sha256": "d73ba39ac5432a598678de10fccceecb1b15b7e33ab439f3d485e9297e9c9092"
+        },
+        "state": {
+          "path": "native/g8g-back.state.json",
+          "sha256": "4af1327f130855b1b374a1d762cdae84b35efaa36b93d7d1d787ed9693a36ba1"
+        },
+        "pngDerivative": {
+          "path": "web/g8g-back.png",
+          "sha256": "e0085538e59ea49b3dbecef27ee001558bd6a43f6584c15748a8094d37535355",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/g8g-front.webp",
+        "sha256": "d1976f09c650ee2f54d19d65407054c4eda5cfde78445a01c5c82c93f74662b9",
+        "width": 1500,
+        "height": 844,
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          4,
+          9,
+          10,
+          12,
+          47,
+          49,
+          50,
+          52,
+          53,
+          66,
+          67,
+          69,
+          71,
+          83,
+          100,
+          103,
+          112,
+          120,
+          134,
+          145,
+          165,
+          172,
+          178,
+          182,
+          190,
+          204,
+          216,
+          235,
+          240,
+          248,
+          262,
+          265,
+          274,
+          279,
+          284,
+          286,
+          288,
+          290,
+          291,
+          294,
+          303,
+          305,
+          306,
+          308,
+          333,
+          335,
+          336,
+          338,
+          342,
+          345,
+          346,
+          348,
+          349,
+          361,
+          363,
+          372,
+          374,
+          375,
+          379,
+          399,
+          456,
+          481,
+          518,
+          569,
+          571,
+          808,
+          813,
+          830,
+          953,
+          1033,
+          1072,
+          1080,
+          1084,
+          1093,
+          1095,
+          1096,
+          1134,
+          1142,
+          1181,
+          1311,
+          1313,
+          1315,
+          1317,
+          1355,
+          1364,
+          1366,
+          1368,
+          1370
+        ],
+        "nativePng": {
+          "path": "native/g8g-front.png",
+          "sha256": "4630b71447185044f43695f6a15fa50d1f7f359d0056fa60045ce169e7403ddb"
+        },
+        "state": {
+          "path": "native/g8g-front.state.json",
+          "sha256": "9d5a98b2eccec4f38b9a4eb8cb57fc1b081b693d818eb0ffa3aaddb4f742a093"
+        },
+        "pngDerivative": {
+          "path": "web/g8g-front.png",
+          "sha256": "22b193b0fbbc8e5b0aa461a64188e19055b13a90b072b7bbdb637d8f510fc5e5",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 100,
+          "sourceReferenceLayerId": 111,
+          "selectedLayerId": 103
+        },
+        {
+          "parentId": 262,
+          "sourceReferenceLayerId": 273,
+          "selectedLayerId": 265
+        },
+        {
+          "parentId": 291,
+          "sourceReferenceLayerId": 302,
+          "selectedLayerId": 294
+        },
+        {
+          "parentId": 349,
+          "sourceReferenceLayerId": 371,
+          "selectedLayerId": 363
+        },
+        {
+          "parentId": 375,
+          "sourceReferenceLayerId": 387,
+          "selectedLayerId": 379
+        },
+        {
+          "parentId": 375,
+          "sourceReferenceLayerId": 407,
+          "selectedLayerId": 399
+        },
+        {
+          "parentId": 1505,
+          "sourceReferenceLayerId": 1516,
+          "selectedLayerId": 1508
+        },
+        {
+          "parentId": 1489,
+          "sourceReferenceLayerId": 1500,
+          "selectedLayerId": 1492
+        }
+      ],
+      "choices": [
+        {
+          "rpo": "5ZU",
+          "optionId": "opt_5zu_001",
+          "name": "Body-Color High Wing Spoiler",
+          "webAsset": {
+            "path": "web/spoiler-5zu-g8g.webp",
+            "sha256": "884a657a45e894f6af4c54df96f257a7cafcc2803d044eb676b02acda8d544b6",
+            "width": 1500,
+            "height": 844,
+            "stackOrder": 20,
+            "sourceLayerIds": [
+              1430,
+              1444
+            ],
+            "nativePng": {
+              "path": "native/spoiler-5zu-g8g.png",
+              "sha256": "9d4d46d56feda2573bff3c50fb6668c2c635714a116a315fb16e7d8929737057"
+            },
+            "state": {
+              "path": "native/spoiler-5zu-g8g.state.json",
+              "sha256": "7748c28de1fc56a22bb1fd823af26a83aa55ded330267e7f0a84d03aae5f544c"
+            },
+            "pngDerivative": {
+              "path": "web/spoiler-5zu-g8g.png",
+              "sha256": "a9f911e80dd93603fdb85bc04ca2497504c51be44045cbc1517e5bb3d66d364e",
+              "rgbaEqualWebp": true
+            }
+          }
+        }
+      ],
+      "nativeEvidence": {
+        "with5zu": {
+          "alphaMaxDifference": 1,
+          "opaqueRgbMaxDifference": 2,
+          "premultipliedRgbMaxDifference": 2.0039215087890625,
+          "premultipliedPixelsOver2": 1,
+          "passed": true
+        },
+        "sourceNoSpoiler": {
+          "alphaMaxDifference": 1,
+          "opaqueRgbMaxDifference": 2,
+          "premultipliedRgbMaxDifference": 2.0039215087890625,
+          "premultipliedPixelsOver2": 1,
+          "passed": true
+        },
+        "references": [
+          {
+            "path": "native/g8g-scene-5zu.png",
+            "sha256": "f7bee86b1165138b73459de468b293f51e566d3e76026c8c0f9081f075e8e96a"
+          },
+          {
+            "path": "native/g8g-scene-none.png",
+            "sha256": "8f2503a85f07bbf3dd39c7cdf041101bedea1e3b8061d62fd1e885f8997d8a11"
+          }
+        ]
+      }
+    },
+    {
+      "rpo": "GKZ",
+      "optionId": "opt_gkz_001",
+      "name": "Torch Red",
+      "workbookAnchor": "stingray_options!A125:K125",
+      "guideAnchor": "Color and Trim 1!A23:D23",
+      "back": {
+        "path": "web/gkz-back.webp",
+        "sha256": "71acb193052d7adb9f5c3876d025589705beffd75a70b2a4fe64262bde46103b",
+        "width": 1500,
+        "height": 844,
+        "stackOrder": 0,
+        "sourceLayerIds": [
+          1454,
+          1456,
+          1457,
+          1459,
+          1461,
+          1489,
+          1493,
+          1501,
+          1502,
+          1504,
+          1505,
+          1509,
+          1518,
+          1520,
+          1524,
+          1526,
+          1528,
+          1532,
+          1533,
+          1542,
+          1547,
+          1553,
+          1563,
+          1570,
+          1572,
+          1576,
+          1582
+        ],
+        "nativePng": {
+          "path": "native/gkz-back.png",
+          "sha256": "192bcdc9c4d462b2ab61c4c9426c5f66b3ebfa72cfbe104a865cad3eae228f8c"
+        },
+        "state": {
+          "path": "native/gkz-back.state.json",
+          "sha256": "1283ad4dcbaac732346da5536638677a2fd54b75bb691159dc6ef1629ecb7521"
+        },
+        "pngDerivative": {
+          "path": "web/gkz-back.png",
+          "sha256": "dd5a7834e570e3ff9ba2294a9acda05fb1e061893629e615e0eac4f8175f8bd3",
+          "rgbaEqualWebp": true
+        }
+      },
+      "foreground": {
+        "path": "web/gkz-front.webp",
+        "sha256": "59fc3a041bfdae284c78dac0336d443f3aa0cefe9fba773108c9c0e4ced4e90a",
+        "width": 1500,
+        "height": 844,
+        "stackOrder": 30,
+        "sourceLayerIds": [
+          4,
+          9,
+          10,
+          12,
+          47,
+          49,
+          50,
+          52,
+          53,
+          66,
+          67,
+          69,
+          71,
+          83,
+          100,
+          104,
+          112,
+          120,
+          134,
+          145,
+          165,
+          172,
+          178,
+          182,
+          190,
+          204,
+          216,
+          235,
+          240,
+          248,
+          262,
+          266,
+          274,
+          279,
+          284,
+          286,
+          288,
+          290,
+          291,
+          295,
+          303,
+          305,
+          306,
+          308,
+          333,
+          335,
+          336,
+          338,
+          342,
+          345,
+          346,
+          348,
+          349,
+          361,
+          364,
+          372,
+          374,
+          375,
+          380,
+          400,
+          456,
+          481,
+          518,
+          569,
+          571,
+          808,
+          813,
+          830,
+          953,
+          1033,
+          1072,
+          1080,
+          1084,
+          1093,
+          1095,
+          1096,
+          1134,
+          1142,
+          1181,
+          1311,
+          1313,
+          1315,
+          1317,
+          1355,
+          1364,
+          1366,
+          1368,
+          1370
+        ],
+        "nativePng": {
+          "path": "native/gkz-front.png",
+          "sha256": "47371efb3be131cd093c7bc13804e1b7feb7ffbded5be6a29049045d2fcc09a2"
+        },
+        "state": {
+          "path": "native/gkz-front.state.json",
+          "sha256": "67d06fb110302e8e9d3d529cc23b0b776b4409c5240f4618bcc5b918ca0c86f1"
+        },
+        "pngDerivative": {
+          "path": "web/gkz-front.png",
+          "sha256": "608b74d984a2d2551e65fd4ae36c3c8a538823a2c1e27fe7ed9dc5713111717d",
+          "rgbaEqualWebp": true
+        }
+      },
+      "paintFamilySelections": [
+        {
+          "parentId": 100,
+          "sourceReferenceLayerId": 111,
+          "selectedLayerId": 104
+        },
+        {
+          "parentId": 262,
+          "sourceReferenceLayerId": 273,
+          "selectedLayerId": 266
+        },
+        {
+          "parentId": 291,
+          "sourceReferenceLayerId": 302,
+          "selectedLayerId": 295
+        },
+        {
+          "parentId": 349,
+          "sourceReferenceLayerId": 371,
+          "selectedLayerId": 364
+        },
+        {
+          "parentId": 375,
+          "sourceReferenceLayerId": 387,
+          "selectedLayerId": 380
+        },
+        {
+          "parentId": 375,
+          "sourceReferenceLayerId": 407,
+          "selectedLayerId": 400
+        },
+        {
+          "parentId": 1505,
+          "sourceReferenceLayerId": 1516,
+          "selectedLayerId": 1509
+        },
+        {
+          "parentId": 1489,
+          "sourceReferenceLayerId": 1500,
+          "selectedLayerId": 1493
+        }
+      ],
+      "choices": [
+        {
+          "rpo": "5ZU",
+          "optionId": "opt_5zu_001",
+          "name": "Body-Color High Wing Spoiler",
+          "webAsset": {
+            "path": "web/spoiler-5zu-gkz.webp",
+            "sha256": "a3c9c4f0cb00505d2b04ff882c6810a3055d8fdcfbdd0ab428a81f7a91a115cd",
+            "width": 1500,
+            "height": 844,
+            "stackOrder": 20,
+            "sourceLayerIds": [
+              1430,
+              1445
+            ],
+            "nativePng": {
+              "path": "native/spoiler-5zu-gkz.png",
+              "sha256": "79290dc674703e578a150cb51e863dc9db9683b509b34c3e1a933fad4729c394"
+            },
+            "state": {
+              "path": "native/spoiler-5zu-gkz.state.json",
+              "sha256": "33759ab7c1a68f016ba83aa088e82581f870fb13bb20c4117d6ddab9b00f0ff7"
+            },
+            "pngDerivative": {
+              "path": "web/spoiler-5zu-gkz.png",
+              "sha256": "518d032ca70db1ac26c2eb00358f5bb3cf086cddad1707893ee13d6a5c3b2103",
+              "rgbaEqualWebp": true
+            }
+          }
+        }
+      ],
+      "nativeEvidence": {
+        "with5zu": {
+          "alphaMaxDifference": 1,
+          "opaqueRgbMaxDifference": 2,
+          "premultipliedRgbMaxDifference": 2.0039215087890625,
+          "premultipliedPixelsOver2": 1,
+          "passed": true
+        },
+        "sourceNoSpoiler": {
+          "alphaMaxDifference": 1,
+          "opaqueRgbMaxDifference": 2,
+          "premultipliedRgbMaxDifference": 2.0039215087890625,
+          "premultipliedPixelsOver2": 1,
+          "passed": true
+        },
+        "references": [
+          {
+            "path": "native/gkz-scene-5zu.png",
+            "sha256": "827223716bfd436ba0c74c854741a8c169399728f148c31769fc43fce374e821"
+          },
+          {
+            "path": "native/gkz-scene-none.png",
+            "sha256": "b827ca985dc6f9e37330a9898f37ae9fe69e8804bed491722b317d5f70b98294"
+          }
+        ]
+      }
+    }
+  ],
+  "choiceEvidence": {
+    "rpo": "5ZU",
+    "optionId": "opt_5zu_001",
+    "lifecycle": "active",
+    "workbookAnchor": "stingray_options!A164:K164",
+    "guideAnchor": "Exterior 1!A49:I49",
+    "allowedPaints": [
+      "GBA",
+      "G8G",
+      "GKZ"
+    ],
+    "replaces": "T0A",
+    "conflicts": [
+      "TVS",
+      "5ZZ",
+      "5ZW"
+    ],
+    "sourceLayerIds": {
+      "GBA": 1443,
+      "G8G": 1444,
+      "GKZ": 1445
+    }
+  },
+  "sourceEvidence": {
+    "guidePath": "/Users/seandm/Projects/CorvetteCatalog/sources/raw/d3ca7d3a09c9fb89210b4ce584493b3ad8fb65ca35087c49d816d1cbf1a333d1/2027 Chevrolet Car Corvette Export (6).xlsx",
+    "guideSha256": "d3ca7d3a09c9fb89210b4ce584493b3ad8fb65ca35087c49d816d1cbf1a333d1",
+    "workbookArchivePath": "/Users/seandm/Projects/CorvetteCatalog/baselines/2026-09-06/workbook-runtime.tar.gz",
+    "workbookArchiveMember": "stingray_master.xlsx",
+    "workbookSha256": "3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c"
+  },
+  "coverage": {
+    "dynamicComponents": [
+      "paint",
+      "5ZU spoiler"
+    ],
+    "fixedComponents": [
+      "wheels",
+      "wheel caps",
+      "brakes",
+      "interior",
+      "roof",
+      "fascias",
+      "mirrors geometry",
+      "exhaust",
+      "badges",
+      "other equipment"
+    ],
+    "notice": "Spoiler artwork preview for a 2027 Stingray Coupe 3LT in the selected paint. Wheels, interior and other equipment remain fixed and may differ from your build.",
+    "limitations": [
+      "Only GBA, G8G and GKZ 5ZU choices are qualified; source has other paint labels but current catalog does not permit them for5ZU.",
+      "This is a component preview, not a complete configured car or complete legal-build proof.",
+      "No-spoiler native scenes validate base decomposition only; no option ID or application default is inferred.",
+      "5ZZ and 5ZW are factory_unavailable and excluded even though artwork exists.",
+      "S0117/S0116/S0118/S0114 candidates rendered but T0A/TVS/ZYC identity is unconfirmed and excluded.",
+      "No wheel RPO or engine specification is inferred from source labels.",
+      "Other models, bodies, trims, camera views and component choices are unqualified."
+    ],
+    "fallback": "Hide artwork or show explicit unavailable state outside exact model/year/body/trim/paint/5ZU scope."
+  },
+  "validation": {
+    "nativeExports": 20,
+    "qualifiedChoiceComparisons": 3,
+    "sourceNoSpoilerComparisons": 3,
+    "sourceVisibilityRestored": true,
+    "verifiedLayerCount": 1482,
+    "manifest": "native/manifest.json",
+    "report": "evidence/export-report-01.json",
+    "pixelReport": "evidence/native-verification.json",
+    "allWebpRgbaEqualPngDerivatives": true,
+    "visualInspection": "All three exact 5ZU paints and source no-spoiler appearance inspected as full scenes. Isolated base and internal low-spoiler candidates visually inspected separately.",
+    "captureMethod": "Full native inventory plus explicit recipe; native rendering through existing export-states.psjs. Capture GUI save remains unverified."
+  }
+}

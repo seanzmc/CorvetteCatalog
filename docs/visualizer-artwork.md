@@ -1,23 +1,54 @@
 # Confirmed-build Photoshop artwork
 
-The first application binding covers one camera view of the **2027 Grand Sport
-Coupe 3LT**, with ten paints and two spoilers. A confirmed paint changes both the
-back and foreground planes; a confirmed spoiler changes the plane between them.
-The preview explicitly identifies the paint, spoiler and limits of its coverage.
+The application covers one verified camera view for each of ten **2027 model/body
+scenes**, using 192 lossless WebP planes (34,859,694 bytes) for 146 supported
+paint/spoiler combinations. Every model below has independently exported coupe
+and convertible artwork; the source-supported trim is part of the binding.
 
-| Paints | Spoilers | Shared canvas |
+| Model | Bodies | Trim | Paints | Spoilers | Combinations |
+| --- | --- | --- | --- | --- | --- |
+| Grand Sport | Coupe, convertible | 3LT | Ten | T0F, 5ZV | 40 |
+| Stingray | Coupe, convertible | 3LT | GBA, G8G, GKZ | 5ZU, matched to paint | 6 |
+| Z06 | Coupe, convertible | 3LZ | Ten | T0F, T0G, 5ZV | 60 |
+| ZR1 | Coupe, convertible | 3LZ | Ten | TOM (`opt_tom_001`) | 20 |
+| ZR1X | Coupe, convertible | 3LZ | Ten | TOM (`opt_tom_002`) | 20 |
+
+The ten-paint families cover GBA, G8G, GKZ, GPH, G26, GBK, G4Z, GKA, GTR and GEC.
+Every image uses the same uncropped 1500 × 844 canvas. Paint changes both the back
+and foreground planes. Stingray's body-color 5ZU also changes the spoiler plane;
+other spoilers retain their independently verified model-specific plane.
+
+Wheels, interior, brakes, calipers, roof position and other equipment remain fixed
+and may differ from the configured build. Aero-package artwork represents its
+rear spoiler only. Convertible scenes retain the native raised/closed top and
+nacelle configuration. Other model/body/trim/view combinations show an explicit
+unavailable state. Grand Sport X has no corresponding source in the supplied
+folder. Equal option IDs or similar cars never justify borrowing another scene.
+Internal S-number low-spoiler aliases and source no-spoiler decomposition references
+remain unbound; they do not establish an option identity or application default.
+
+## Family evidence
+
+[`index.json`](../catalog/web/artwork/index.json) enumerates the exact scene
+directories. Each retains its original native family proof unchanged beside the
+compact application manifest and lossless images:
+
+| Model | Coupe proof | Convertible proof |
 | --- | --- | --- |
-| GBA, G8G, GKZ, GPH, G26, GBK, G4Z, GKA, GTR, GEC | T0F, 5ZV | 1500 × 844, uncropped |
+| Grand Sport | [Source proof](../catalog/web/artwork/source-proof.json) | [Source proof](../catalog/web/artwork/grand-sport-convertible/source-proof.json) |
+| Stingray | [Source proof](../catalog/web/artwork/stingray-coupe/source-proof.json) | [Source proof](../catalog/web/artwork/stingray-convertible/source-proof.json) |
+| Z06 | [Source proof](../catalog/web/artwork/z06-coupe/source-proof.json) | [Source proof](../catalog/web/artwork/z06-convertible/source-proof.json) |
+| ZR1 | [Source proof](../catalog/web/artwork/zr1-coupe/source-proof.json) | [Source proof](../catalog/web/artwork/zr1-convertible/source-proof.json) |
+| ZR1X | [Source proof](../catalog/web/artwork/zr1x-coupe/source-proof.json) | [Source proof](../catalog/web/artwork/zr1x-convertible/source-proof.json) |
 
-The 22 lossless WebP planes total 3,896,762 bytes and support twenty combinations.
-Wheels, interior, brakes, calipers and other equipment remain fixed and may differ
-from the configured build. T0F represents its spoiler only, not CFZ ground effects
-or the rest of that package. Other model/body/trim/view combinations show an
-explicit unavailable state. Equal option IDs in another model never grant use of
-Grand Sport artwork. Low-spoiler/SIG candidates remain unbound because their
-S0267-to-T0E identity was inferred rather than established.
+Each proof records its own source/copy hashes, native layers, catalog/guide
+anchors, fixed equipment, image hashes and comparison results. All exports ran
+from disposable copies and restored native visibility; the originals remained
+unchanged. The application stores each body's actual native render, not a
+transformed coupe or a model-name substitution. The separate Grand Sport roof
+proof requires five planes and remains outside this three-plane renderer.
 
-## Native source and proof
+## Initial Grand Sport coupe proof
 
 The original, unchanged Photoshop source is
 `visual-studio/grandsport/e.coupe.exterior.01 - cleaned.psb` under the owner's
@@ -55,7 +86,8 @@ inventory-bound states through Photoshop UXP.
 The Photoshop project `27vette-phase1/REPRODUCE-PROOFS.md` records the exact
 regeneration commands. Its `build-asset-states.py` checks the source hash,
 `build-export-batch.py` embeds the unchanged UXP exporter and checks restoration,
-and `verify-native-compositions.py` independently compares all twenty scenes.
+and `verify-native-compositions.py` independently compares each family's native
+scenes. Later families retain their own recipes and comparison plans.
 Reproduction writes to a fresh directory and never overwrites the qualified
 proof or original source. A fresh render requires renewed review before its
 images or proof replace this binding.
@@ -64,10 +96,12 @@ images or proof replace this binding.
 
 [`catalog/artwork.py`](../catalog/artwork.py) checks the image and evidence hashes,
 canvas, plane order and exact model/year/body/trim/option ownership against the
-native proof. [`manifest.json`](../catalog/web/artwork/manifest.json) is the compact
-application binding. Retired or renamed RPO identities invalidate that catalog's
-art binding until reviewed; they do not borrow a different model's images or
-prevent an otherwise valid catalog edit from releasing.
+native proof. Each `manifest.json` is a compact application binding; the explicit
+collection index prevents directory discovery from silently adding a scene.
+Overlapping model/year/body/trim scopes are rejected until a view selector exists.
+Retired or renamed RPO identities invalidate the affected scene until reviewed;
+they do not borrow a different body's or model's images, hide an independently
+valid scene, or prevent an otherwise valid catalog edit from releasing.
 
 The consumer projects artwork from the same resolved state as prices and order
 output. Pending changes cannot replace the confirmed image. Cancel preserves it;
@@ -81,8 +115,10 @@ runtime hashes and the artifact inventory. Verification checks the media
 declaration and each model's generated visualizer binding against the bundled
 evidence and catalog snapshot. Repeated completion and backup/restore preserve
 the same release identity. Altered images or rehashed, inconsistent media
-declarations fail verification. Older releases without an artwork runtime retain
-their original empty media contract.
+declarations fail verification. Scene-qualified media identities keep equal asset
+IDs in different families separate. Older single-family releases retain their
+original media and visualizer contracts; releases without artwork retain the
+empty media contract. Both real prior bundle types were verified with this reader.
 
 The existing [release commands](consumer-releases.md) and
 [dealer preview/delivery controls](dealer-submission.md) remain the operational
@@ -91,7 +127,9 @@ or canonical authority changes in this artwork integration.
 
 ## Verification
 
-Focused checks cover all twenty combinations, foreign-model/body/trim fallback,
+Focused checks cover all 146 combinations against native proof identities and
+image hashes, foreign-model/body/trim fallback, paint-specific spoilers,
+overlapping scene/path rejection, stale per-body binding isolation,
 pending/cancel/confirm/revert behavior, stale identity refusal, image/evidence
 mutation, repeat completion and recovery. Browser checks cover paint changes,
 spoiler transactions, a blocked image, recovery and desktop/mobile layout. The PR

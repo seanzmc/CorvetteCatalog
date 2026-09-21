@@ -1,6 +1,27 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 20 first artwork integration
+## Current direction — September 20 model and body artwork coverage
+
+The [artwork collection](visualizer-artwork.md) now contains independently verified
+coupe and convertible scenes for Grand Sport, Stingray, Z06, ZR1 and ZR1X.
+Ten native scene families supply 192 image planes and 146 supported paint/spoiler
+combinations. Exact model/year/body/trim selection prevents a scene from borrowing
+another body's or model's artwork. Stingray's 5ZU wing changes with its three
+qualified paints; the other models use their own qualified spoiler planes.
+
+Each family's original proof and image hashes travel through release verification
+and recovery. Prior single-family artwork and pre-artwork releases remain
+verifiable. The existing catalog, pricing, reviewed acceptance and dealer paths
+are preserved. Final qualification and review status are recorded in the PR.
+
+Coverage remains a labeled paint/spoiler preview for source-supported 3LT/3LZ
+configurations and one camera view per body. Other equipment and convertible roof
+position remain fixed. Grand Sport X has no source in the supplied Photoshop
+folder and receives no borrowed artwork. Lower trims, other components/views,
+the final customer layout, production delivery, real dealer receipt proof and
+canonical cutover remain outstanding.
+
+## Prior direction — September 20 first artwork integration
 
 Dealer integration is merged in PR #55. The first [artwork integration](visualizer-artwork.md)
 binds ten paints and the T0F/5ZV spoiler choices to confirmed 2027 Grand Sport
