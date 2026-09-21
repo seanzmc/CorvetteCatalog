@@ -1,72 +1,171 @@
 'use strict';
 const el = id => document.getElementById(id);
-let catalog, model, sessionId, current, pending, busy = false;
+let catalog, model, sessionId, current, pending, busy = false, activeStep, interiorPath = [];
 const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n/100);
+const active = value => String(value).toLowerCase() === 'true';
 function node(tag, text, parent) { const n=document.createElement(tag); n.textContent=text; if(parent) parent.append(n); return n; }
+function option(parent, value, label) { const n=node('option',label,parent); n.value=value; }
+function button(parent, label, action, disabled=false) {
+  const b=node('button',label,parent); b.disabled=disabled || busy || !!pending; b.addEventListener('click',action); return b;
+}
 async function api(path, body) {
   const response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json',...(sessionId?{'X-Catalog-Session':sessionId}:{})},body:JSON.stringify(body)});
   const result=await response.json(); if(!response.ok) throw new Error(result.error); return result;
 }
 async function run(action) {
-  if(busy) return; busy=true; el('error').textContent='';
-  document.querySelectorAll('button').forEach(b=>b.disabled=true);
+  if(busy) return; busy=true; el('error').textContent=''; el('notice').textContent='';
+  const disabled = [...document.querySelectorAll('button,select,input')].map(n=>[n,n.disabled]);
+  disabled.forEach(([n])=>n.disabled=true);
   try { await action(); } catch(error) { el('error').textContent=error.message; }
-  finally { busy=false; if(current) render(); else el('start').disabled=false;
-    el('cancel').disabled=false; el('confirm').disabled=!pending; }
+  finally {
+    busy=false; disabled.forEach(([n,value])=>n.disabled=value);
+    if(current) render();
+    el('cancel').disabled=false; el('confirm').disabled=!pending;
+    if(pending) el('cancel').focus();
+  }
 }
 function configurations() {
-  model=catalog.models[el('model').value]; el('configuration').replaceChildren();
-  Object.entries(model.configurations).filter(([,c])=>String(c.active).toLowerCase()==='true').sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([id,c])=>{const o=node('option',c.display_name,el('configuration'));o.value=id;});
+  model=catalog.models[el('model').value]; el('bodyStyle').replaceChildren();
+  const bodies=[...new Set(Object.values(model.configurations).filter(c=>active(c.active)).sort((a,b)=>a.display_order-b.display_order).map(c=>c.body_style))];
+  bodies.forEach(body=>option(el('bodyStyle'),body,body[0].toUpperCase()+body.slice(1))); trims();
 }
-function interiorDescription() {
-  el('interiorDescription').textContent=el('interior').value?el('interior').selectedOptions[0].textContent:'';
+function trims() {
+  el('configuration').replaceChildren();
+  Object.entries(model.configurations).filter(([,c])=>active(c.active)&&c.body_style===el('bodyStyle').value).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([id,c])=>option(el('configuration'),id,c.trim_level.toUpperCase()));
+  startingPrice();
 }
+function startingPrice() { el('startingPrice').textContent=`Starting MSRP ${money(model.configurations[el('configuration').value].base_price*100)}`; }
+function choiceCards() { return current.cards.options.filter(c=>model.options[c.option_id].customer_selectable); }
+function steps() {
+  const result=[], seen=new Set();
+  for(const s of model.presentation.runtime_steps.filter(s=>active(s.active)).sort((a,b)=>a.runtime_order-b.runtime_order)) {
+    let key=s.step_key, label=s.step_label;
+    if(['body_style','trim_level','summary'].includes(key)) continue;
+    if(['seat','base_interior'].includes(key)) { key='interior'; label='Seats & interior'; }
+    if(seen.has(key) || (key!=='interior' && !choiceCards().some(c=>c.step_key===key))) continue;
+    seen.add(key); result.push({key,label});
+  }
+  // Keep any newly authored sections reachable even without step metadata.
+  for(const c of choiceCards()) if(!seen.has(c.step_key) && !['seat','base_interior'].includes(c.step_key)) {
+    seen.add(c.step_key);result.push({key:c.step_key,label:c.step_key==='standard_equipment'?'Additional equipment':c.section_label});
+  }
+  result.push({key:'summary',label:'Review build'});return result;
+}
+function go(key) { activeStep=key; el('search').value=''; render(); el('stepTitle').focus(); el('stepTitle').scrollIntoView({block:'start',behavior:'smooth'}); }
 function render() {
-  const b=current.build; el('setup').hidden=true; el('build').hidden=false;
+  const b=current.build, cfg=model.configurations[b.configuration_id], list=steps();
+  if(!list.some(s=>s.key===activeStep)) activeStep=list[0].key;
+  const index=list.findIndex(s=>s.key===activeStep), reviewing=activeStep==='summary';
+  el('setup').hidden=true; el('build').hidden=false; el('buildActions').hidden=false;
+  el('vehicleName').textContent=cfg.display_name;
+  el('total').textContent=money(b.total_minor); el('basePrice').textContent=money(cfg.base_price*100); el('optionsPrice').textContent=money(b.total_minor-cfg.base_price*100);
+  el('selectionCount').textContent=b.missing_requirements.length ? `${b.missing_requirements.length} required selection${b.missing_requirements.length===1?'':'s'} remaining` : 'Ready to review';
+  el('revert').disabled=!!pending || !current.revertible;
+  el('export').disabled=!!pending || b.issues.some(i=>i!=='partial_catalog_not_submission_ready');
+  el('stepRail').replaceChildren();el('stepSelect').replaceChildren();
+  list.forEach((s,i)=>{const btn=button(el('stepRail'),'',()=>go(s.key));btn.className='step-link';node('span',String(i+1).padStart(2,'0'),btn).className='step-index';node('span',s.label,btn);if(s.key===activeStep)btn.setAttribute('aria-current','step');option(el('stepSelect'),s.key,s.label);});
+  el('stepSelect').value=activeStep;el('stepCount').textContent=`Step ${index+1} of ${list.length}`;el('stepTitle').textContent=list[index].label;
+  el('stepHint').textContent=reviewing?'Check your selections and total before downloading or contacting the dealer.':'Select an option to see its price and any changes needed for your build.';
+  el('previous').disabled=index===0 || !!pending;el('next').hidden=reviewing;el('next').disabled=!!pending;
+  el('next').textContent=index===list.length-2?'Review build':'Continue';
+  el('artwork').hidden=reviewing;
   catalogArtwork.render(b.visualizer);
-  el('total').textContent=money(b.total_minor); el('requirements').textContent=b.missing_requirements.join(' · ');
-  el('revert').disabled=!!pending;el('export').disabled=!!pending||b.issues.some(i=>i!=='partial_catalog_not_submission_ready');el('chooseInterior').disabled=!!pending;
-  el('recap').replaceChildren();
-  for(const [label,items] of [['Resolved choices',b.resolved],['Installed equipment',b.installed_equipment],['Informational standard equipment',b.informational_standard_equipment]]) {
+  el('interiorPanel').hidden=activeStep!=='interior'; if(activeStep==='interior') renderInteriors();
+  el('searchLabel').hidden=reviewing || activeStep==='interior';el('buildReview').hidden=!reviewing;
+  renderOptions();renderSummary();catalogDealer.sync();
+}
+function renderOptions() {
+  el('options').replaceChildren();const groups=new Map(), query=el('search').value.toLowerCase();
+  let parent=el('options');
+  if(activeStep==='interior') { parent=node('details','',parent);node('summary','Individual seat options',parent); }
+  choiceCards().filter(c=>(c.step_key===activeStep || activeStep==='interior' && ['seat','base_interior'].includes(c.step_key)) && `${c.rpo} ${c.label}`.toLowerCase().includes(query)).forEach(c=>{
+    if(!groups.has(c.section_id)){const section=node('section','',parent);node('h3',c.section_label,section);const grid=node('div','',section);grid.className='cards';groups.set(c.section_id,grid);}
+    const card=node('article','',groups.get(c.section_id));card.className=`choice-card ${c.selected?'selected':''}`;
+    node('span',c.rpo||'Option',card).className='rpo';node('h4',c.label,card);
+    if(c.selected)node('p','Selected',card).className='selected-label';
+    if(c.selectable && c.delta_minor!==undefined)node('p',`${c.selected?'Removing':'Selecting'}: ${c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))} to build total`}`,card);
+    if(c.description || c.detail_raw || c.reason){const d=node('details','',card);node('summary','Option details',d);for(const text of new Set([c.description,c.detail_raw,c.reason].filter(Boolean)))node('p',text,d);}
+    if(!c.selectable)node('p',c.selected?'Included with your current build':'Unavailable with your current build',card);
+    button(card,c.selected?(c.selectable?'Remove':'Included'):(c.selectable?'Select':'Unavailable'),()=>run(()=>preview(c.selected?'remove':'select',c.option_id,c.label)),!c.selectable);
+  });
+  if(!groups.size && activeStep!=='interior' && activeStep!=='summary')node('p',query?'No matching options in this step.':'No options in this step.',el('options'));
+}
+function renderInteriors() {
+  const rows=current.cards.interiors.map(c=>({...c,levels:JSON.parse(model.interiors[c.interior_id].hierarchy.interior_hierarchy_levels).slice(1)}));
+  el('interiorFilters').replaceChildren();el('interiorChoices').replaceChildren();
+  let matches=rows;
+  // Narrow the existing interior hierarchy without changing its exact catalog leaves.
+  for(let depth=0; matches.length && matches.every(r=>r.levels.length>depth+1);depth++) {
+    if(depth>0 && matches.length<=6) break;
+    const values=[...new Set(matches.map(r=>r.levels[depth]).filter(Boolean))];
+    if(!values.includes(interiorPath[depth])) interiorPath=interiorPath.slice(0,depth);
+    const title=['Seat style','Interior color','Material','Finish'][depth]||'Interior detail';
+    const label=node('label',title,el('interiorFilters')), select=node('select','',label);
+    option(select,'','Choose '+title.toLowerCase()); values.forEach(v=>option(select,v,v));select.value=interiorPath[depth]||'';
+    select.addEventListener('change',()=>{interiorPath=interiorPath.slice(0,depth);if(select.value)interiorPath.push(select.value);renderInteriors();});
+    if(!interiorPath[depth]) return;
+    matches=matches.filter(r=>r.levels[depth]===interiorPath[depth]);
+  }
+  for(const row of matches) {
+    const selected=current.build.interior_id===row.interior_id, card=node('article','',el('interiorChoices'));card.className=`choice-card ${selected?'selected':''}`;
+    node('h4',row.levels.slice(interiorPath.length).join(' · ')||row.label,card);
+    const source=model.interiors[row.interior_id].source;
+    node('p',[source.Material,source.Stitch && `Stitching: ${source.Stitch}`,source.Suede && `Suede: ${source.Suede}`].filter(Boolean).join(' · '),card);
+    if(selected)node('p','Selected',card).className='selected-label';
+    button(card,selected?'Remove interior':'Select interior',()=>run(()=>preview('interior',selected?null:row.interior_id,selected?'no interior':row.label)));
+  }
+}
+function renderSummary() {
+  const b=current.build;el('recap').replaceChildren();
+  if(b.selected_interior)node('p',current.cards.interiors.find(i=>i.interior_id===b.interior_id)?.label || b.selected_interior.key,el('recap'));
+  const sections=new Map();for(const item of b.summary_items) {
+    if(!sections.has(item.section_label)){node('h4',item.section_label,el('recap'));sections.set(item.section_label,node('ul','',el('recap')));}
+    node('li',`${item.rpo||''} ${item.label}`,sections.get(item.section_label));
+  }
+  for(const [label,items] of [['Installed equipment',b.installed_equipment],['Standard equipment',b.informational_standard_equipment]]) {
     const d=node('details','',el('recap'));node('summary',`${label} (${items.length})`,d);const ul=node('ul','',d);items.forEach(i=>node('li',`${i.rpo||''} ${i.label}`,ul));
   }
-  el('interior').replaceChildren(); const empty=node('option','No interior selected',el('interior'));empty.value='';
-  current.cards.interiors.forEach(i=>{const o=node('option',i.label,el('interior'));o.value=i.interior_id;});el('interior').value=b.interior_id||'';
-  interiorDescription();
-  el('options').replaceChildren();const groups=new Map();const query=el('search').value.toLowerCase();
-  current.cards.options.filter(c=>`${c.rpo} ${c.label}`.toLowerCase().includes(query)).forEach(c=>{
-    if(!groups.has(c.section_id)){const section=node('section','',el('options'));node('h3',c.section_label,section);const grid=node('div','',section);grid.className='cards';groups.set(c.section_id,grid);}
-    const card=node('article','',groups.get(c.section_id));card.className=`card ${c.selected?'selected':''} ${c.conflict?'conflict':''}`;
-    node('h4',`${c.rpo||''} ${c.label}`,card);if(c.description)node('p',c.description,card);if(c.detail_raw&&c.detail_raw!==c.description)node('p',c.detail_raw,card);
-    if(c.reason)node('p',c.reason,card);else if(c.conflict)node('p','Compatibility change — review required',card);
-    const button=node('button',c.selected?'Review removal':'Review selection',card);button.disabled=!!pending||!c.selectable;
-    button.addEventListener('click',()=>run(()=>preview(c.selected?'remove':'select',c.option_id)));
-  });
-  catalogDealer.sync();
+  el('requirements').replaceChildren();b.missing_requirements.forEach(text=>node('li',text,el('requirements')));el('requirementsPanel').hidden=!b.missing_requirements.length;
+  el('exportHint').textContent=b.missing_requirements.length?'Complete the required selections above to download your build or continue to the dealer form.':'Download saves a build file. The dealer form lets you review your request before sending.';
 }
-async function preview(action,target) {
-  // Never render candidate state into the current build. Only the warning uses it.
-  pending=null;el('changes').replaceChildren();
-  const result=await api('/api/preview',{action,target,version:current.version});
-  for(const line of result.warning.lines)node('li',line,el('changes'));
-  // Enable confirmation only after every warning line is in the dialog.
+async function preview(action,target,label) {
+  pending=null;el('changes').replaceChildren();el('technicalChanges').replaceChildren();
+  const result=await api('/api/preview',{action,target,version:current.version}), w=result.warning,c=w.changes;
+  el('warningTitle').textContent=action==='revert'?'Undo your last change?':`${action==='remove'?'Remove':'Select'} ${label}?`;
+  const displayed=new Set();
+  for(const [field,prefix] of [['removed','Remove'],['added','Add'],['installed_removed','Remove equipment'],['installed_added','Include equipment']])for(const item of c[field]) {
+    if(displayed.has(item.option_id))continue;displayed.add(item.option_id);node('li',`${prefix}: ${item.label}${item.rpo?` (${item.rpo})`:''}`,el('changes'));
+  }
+  if(c.interior.before!==c.interior.after)node('li',`Interior: ${current.cards.interiors.find(i=>i.interior_id===c.interior.after)?.label||'No interior selected'}`,el('changes'));
+  for(const change of c.charge_changes) {
+    const charge=change.after||change.before;
+    if((change.before?.amount_minor||0)===(change.after?.amount_minor||0))continue;
+    const name=charge.owner_kind==='option'?model.options[charge.owner_id]?.name:w.candidate.charges.find(i=>i.owner_kind===charge.owner_kind&&i.owner_id===charge.owner_id)?.label || current.build.charges.find(i=>i.owner_kind===charge.owner_kind&&i.owner_id===charge.owner_id)?.label;
+    node('li',`${name||'Price'}: ${change.before?money(change.before.amount_minor):'Not in build'} → ${change.after?money(change.after.amount_minor):'Removed'}`,el('changes'));
+  }
+  // Retain all supporting relationships and disclosures with the exact server warning.
+  for(const line of w.lines)node('li',line,el('technicalChanges'));
+  for(const line of w.lines.filter(line=>line.startsWith('Selecting this hash mark')))node('li',line,el('changes'));
+  if(!el('changes').children.length)node('li','Update your selection; your equipment stays the same.',el('changes'));
+  el('priceChange').textContent=`Total MSRP ${money(c.total_after_minor)} (${c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))}`})`;
+  el('technicalChanges').parentElement.open=false;
   pending=result;el('warning').showModal();el('cancel').focus();
 }
-async function cancel() { current=await api('/api/cancel',{version:current.version});pending=null;el('warning').close(); }
-el('model').addEventListener('change',configurations);
-el('interior').addEventListener('change',interiorDescription);
-el('start').addEventListener('click',()=>run(async()=>{const r=await api('/api/session',{model:el('model').value,configuration_id:el('configuration').value});sessionId=r.session_id;current=r;}));
-el('chooseInterior').addEventListener('click',()=>run(()=>preview('interior',el('interior').value||null)));
-el('search').addEventListener('input',()=>{if(!busy)render();});
-el('cancel').addEventListener('click',()=>run(cancel));
-el('warning').addEventListener('cancel',event=>{event.preventDefault();run(cancel);});
+async function cancel() {current=await api('/api/cancel',{version:current.version});pending=null;el('warning').close();el('stepTitle').focus();}
+el('model').addEventListener('change',configurations);el('bodyStyle').addEventListener('change',trims);el('configuration').addEventListener('change',startingPrice);
+el('start').addEventListener('click',()=>run(async()=>{const r=await api('/api/session',{model:el('model').value,configuration_id:el('configuration').value});sessionId=r.session_id;current=r;activeStep=null;interiorPath=[];}));
+el('search').addEventListener('input',renderOptions);el('stepSelect').addEventListener('change',()=>go(el('stepSelect').value));
+el('previous').addEventListener('click',()=>{const list=steps();go(list[list.findIndex(s=>s.key===activeStep)-1].key);});
+el('next').addEventListener('click',()=>{const list=steps();go(list[list.findIndex(s=>s.key===activeStep)+1].key);});
+for(const id of ['review','summaryReview'])el(id).addEventListener('click',()=>go('summary'));
+el('cancel').addEventListener('click',()=>run(cancel));el('warning').addEventListener('cancel',event=>{event.preventDefault();run(cancel);});
 el('confirm').addEventListener('click',()=>run(async()=>{
-  if(!pending)throw new Error('No preview to confirm');
-  current=await api('/api/confirm',{token:pending.token,warning_sha256:pending.warning_sha256,version:pending.version});
-  pending=null;el('warning').close();
+  if(!pending)throw new Error('No selection to apply');
+  current=await api('/api/confirm',{token:pending.token,warning_sha256:pending.warning_sha256,version:pending.version});pending=null;el('warning').close();el('notice').textContent='Your build has been updated.';el('stepTitle').focus();
 }));
 el('revert').addEventListener('click',()=>run(()=>preview('revert',null)));
+el('reset').addEventListener('click',()=>el('resetDialog').showModal());el('resetCancel').addEventListener('click',()=>el('resetDialog').close());
+el('resetConfirm').addEventListener('click',()=>{current=null;sessionId=null;pending=null;el('build').hidden=true;el('buildActions').hidden=true;el('setup').hidden=false;el('notice').textContent='';el('resetDialog').close();el('start').disabled=false;el('model').focus();});
 el('export').addEventListener('click',()=>run(async()=>{const order=await api('/api/order',{});const url=URL.createObjectURL(new Blob([JSON.stringify(order,null,2)],{type:'application/json'}));const a=node('a','');a.href=url;a.download='corvette-build.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}));
-catalogDealer.init({api, state:()=>({catalog,current,pending,sessionId,busy})});
-el('dealerOpen').addEventListener('click',()=>run(()=>catalogDealer.open()));
-(async()=>{try{const r=await fetch('/api/catalog');catalog=await r.json();if(!r.ok)throw new Error(catalog.error);el('release').textContent=`Release ${catalog.release_id}`;Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>{const o=node('option',c.presentation.model_master[0].model_label,el('model'));o.value=key;});el('model').value=catalog.default_model;configurations();}catch(e){el('error').textContent=e.message;el('start').disabled=true;}})();
+catalogDealer.init({api,state:()=>({catalog,current,pending,sessionId,busy})});el('dealerOpen').addEventListener('click',()=>run(()=>catalogDealer.open()));
+(async()=>{try{const r=await fetch('/api/catalog');catalog=await r.json();if(!r.ok)throw new Error(catalog.error);el('release').textContent=`Release ${catalog.release_id}`;Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>option(el('model'),key,c.presentation.model_master[0].model_label));el('model').value=catalog.default_model;configurations();el('start').disabled=false;}catch(e){el('error').textContent=e.message;}})();

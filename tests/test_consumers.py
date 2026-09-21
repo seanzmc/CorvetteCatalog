@@ -49,6 +49,28 @@ class ConsumerTests(unittest.TestCase):
                     override=next((o for o in rows[data['sheet_roles']['variant_overrides']] if o['option_id']==oid and o['variant_id']==cfg and str(o['active']).lower()=='true'),{})
                     self.assertEqual(cat.contexts[oid,cfg]['section_id'], override.get('section_id') or row['section_id'])
 
+    def test_card_price_change_matches_confirmed_preview(self):
+        # The UI quotes the complete transition, including package consequences,
+        # rather than treating an option's list price as the build price delta.
+        for key, cat in self.catalogs.items():
+            with self.subTest(model=key):
+                cfg = next(iter(cat.ev.configs))
+                session = ConsumerSession(cat, cfg, 'local-test')
+                cards = cat.cards(session._session.state)['options']
+                for card in cards:
+                    if not card['selectable']:
+                        self.assertIsNone(card['delta_minor'])
+                choice = next(c for c in cards if c['selectable'] and not c['selected'] and c['delta_minor'])
+                preview = session.preview('select', choice['option_id'], session.version)
+                self.assertEqual(choice['delta_minor'], preview['warning']['changes']['delta_minor'])
+                before = session.current()['build']['total_minor']
+                after = session.confirm(preview['token'], preview['warning_sha256'], preview['version'])
+                self.assertEqual(after['build']['total_minor'] - before, choice['delta_minor'])
+                selected = next(c for c in cat.cards(session._session.state)['options']
+                                if c['option_id'] == choice['option_id'])
+                removal = session.preview('remove', choice['option_id'], session.version)
+                self.assertEqual(selected['delta_minor'], removal['warning']['changes']['delta_minor'])
+
     def test_missing_mapping_fails(self):
         self.db.execute('SAVEPOINT missing')
         try:
@@ -117,8 +139,11 @@ class ConsumerTests(unittest.TestCase):
                             self.assertNotIn(self.oid(c,first),[i['option_id'] for i in result['build']['resolved']])
                             undo=s.preview('revert',None,s.version)
                             self.assertEqual(result['build'],s.current()['build'])
+                            self.assertTrue(before['revertible'])
                             s.confirm(undo['token'],undo['warning_sha256'],undo['version'])
                             self.assertEqual(before['build'],s.current()['build'])
+                            self.assertFalse(s.current()['revertible'])
+                            with self.assertRaises(EvaluationError):s.preview('revert',None,s.version)
 
     def test_every_lane_roof_dependency_warning_and_charge_restoration(self):
         for c in self.catalogs.values():

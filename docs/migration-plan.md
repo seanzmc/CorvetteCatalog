@@ -1,5 +1,20 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
+## Current direction — September 21 familiar customer form
+
+The customer form now adapts the existing Full Carbon theme, choice cards and
+source-owned step navigation to the catalog API. It shows one step at a time,
+groups exact interior choices by their existing hierarchy, and separates build
+review from option selection. Cards quote the evaluator's complete price delta;
+confirmation leads with equipment and price changes, with the full supporting
+record available on demand. Cancel, undo, reset confirmation, downloads and the
+existing dealer workflow remain available on desktop and narrow screens.
+
+This completes the current-functionality usability pass. Pricing and compatibility
+rules, source records, dealer wire format and artwork coverage are unchanged.
+Production delivery, real dealer receipt proof, additional artwork and canonical
+cutover remain outstanding. The workbook remains canonical.
+
 ## Current direction — September 20 model and body artwork coverage
 
 The [artwork collection](visualizer-artwork.md) now contains independently verified
