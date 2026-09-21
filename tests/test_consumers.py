@@ -139,8 +139,11 @@ class ConsumerTests(unittest.TestCase):
                             self.assertNotIn(self.oid(c,first),[i['option_id'] for i in result['build']['resolved']])
                             undo=s.preview('revert',None,s.version)
                             self.assertEqual(result['build'],s.current()['build'])
+                            self.assertTrue(before['revertible'])
                             s.confirm(undo['token'],undo['warning_sha256'],undo['version'])
                             self.assertEqual(before['build'],s.current()['build'])
+                            self.assertFalse(s.current()['revertible'])
+                            with self.assertRaises(EvaluationError):s.preview('revert',None,s.version)
 
     def test_every_lane_roof_dependency_warning_and_charge_restoration(self):
         for c in self.catalogs.values():

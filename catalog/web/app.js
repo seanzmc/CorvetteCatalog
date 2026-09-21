@@ -60,7 +60,7 @@ function render() {
   el('vehicleName').textContent=cfg.display_name;
   el('total').textContent=money(b.total_minor); el('basePrice').textContent=money(cfg.base_price*100); el('optionsPrice').textContent=money(b.total_minor-cfg.base_price*100);
   el('selectionCount').textContent=b.missing_requirements.length ? `${b.missing_requirements.length} required selection${b.missing_requirements.length===1?'':'s'} remaining` : 'Ready to review';
-  el('revert').disabled=!!pending || current.version===0;
+  el('revert').disabled=!!pending || !current.revertible;
   el('export').disabled=!!pending || b.issues.some(i=>i!=='partial_catalog_not_submission_ready');
   el('stepRail').replaceChildren();el('stepSelect').replaceChildren();
   list.forEach((s,i)=>{const btn=button(el('stepRail'),'',()=>go(s.key));btn.className='step-link';node('span',String(i+1).padStart(2,'0'),btn).className='step-index';node('span',s.label,btn);if(s.key===activeStep)btn.setAttribute('aria-current','step');option(el('stepSelect'),s.key,s.label);});

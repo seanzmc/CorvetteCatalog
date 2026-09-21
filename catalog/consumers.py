@@ -342,7 +342,7 @@ class ConsumerSession:
 
     def current(self):
         return dict(version=self.version, build=self.catalog.project(self._session.state, self.release_id),
-                    pending=self._pending is not None)
+                    pending=self._pending is not None, revertible=self._session._previous is not None)
 
     def _version(self, version):
         if type(version) is not int or version != self.version:
