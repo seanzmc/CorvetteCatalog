@@ -96,12 +96,18 @@ python -m catalog.consumer_server \
 Open [the build-review form](http://127.0.0.1:8765). Both servers accept `--port`
 if their default port is occupied, and both bind to `127.0.0.1` for local use.
 
-Choose a model and body/trim configuration, then start a build. Review option and
-interior changes before confirming them. Cancel preserves the current build;
-**Revert last change** also requires confirmation. Prices, equipment, artwork and
-order output follow the confirmed build. Complete required selections and resolve
-pending changes before using **Export build** or **Preview dealer submission**.
-Build sessions are held in memory and are lost when the consumer server restarts.
+Choose a model, body style and trim, then click **Choose options**. Use the step
+navigation or **Continue** to work through one group at a time. Option cards show
+the change to your build total; **Select** or **Remove** opens a confirmation with
+equipment and price changes. **Keep current build** cancels; **Undo last change**
+restores the previous build after confirmation. Seats and interior colors narrow
+to the catalog's exact interior choices.
+
+Use **Review build** to see your selections, remaining requirements and total.
+Complete required selections before using **Download build** or **Preview dealer
+submission**. **Start over** asks before clearing your selections. Prices,
+equipment, artwork and order output follow the confirmed build. Sessions are held
+in memory and are lost on page reload or server restart.
 
 Dealer preview prepares the order without sending it or loading the security
 check. Live delivery requires starting the consumer server with

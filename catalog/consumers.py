@@ -258,9 +258,10 @@ class ConsumerCatalog:
             if self.contexts[oid, state.configuration_id]['display_behavior'] in ('hidden', 'auto_only'):
                 continue
             selected = oid in state.resolved
-            reason, conflict = '', False
+            reason, conflict, delta_minor = '', False, None
             try:
                 candidate = self.ev.transition(state, 'remove' if selected else 'select', oid)
+                delta_minor = candidate.total_minor - state.total_minor
                 conflict = bool(state.resolved - candidate.resolved or set(state.intent) - set(candidate.intent)
                                 or state.interior_id != candidate.interior_id)
             except EvaluationError as error:
@@ -268,7 +269,7 @@ class ConsumerCatalog:
             view = self.maps['option'][oid]
             cards.append(dict(**self.option(oid), **self.contexts[oid, state.configuration_id],
                               description=view['description'], detail_raw=view['detail_raw'],
-                              selected=selected, selectable=not bool(reason), conflict=conflict, reason=reason,
+                              selected=selected, selectable=not bool(reason), conflict=conflict, reason=reason, delta_minor=delta_minor,
                               display_order=view['display_order'] or 0))
         cards.sort(key=lambda r: (r['section_order'] or 0, r['section_id'], r['display_order'], r['consumer_key']))
         interiors = [dict(interior_id=iid, label=' › '.join(json.loads(
