@@ -5,7 +5,37 @@ Grand Sport X, Z06, ZR1 and ZR1X. Edit catalog data, review and accept changes,
 create a versioned release, then use that release in the customer form with
 pricing, equipment, artwork, order export and dealer-submission preview.
 
-## Set up
+## Open the current build
+
+From the repository folder, run:
+
+```sh
+python3 scripts/preview.py
+```
+
+The command opens the customer form in your browser. It reuses a verified build
+matching the current code and catalog, or prepares one automatically. The first
+launch can take several minutes; later launches reuse the build until its code
+or source data changes. No environment setup, release IDs or copied hashes are
+needed for this preview. Python 3.11 or newer is required.
+
+Leave the terminal open while using the app; press `Ctrl+C` to stop. If port 8765
+is already in use, run `python3 scripts/preview.py --port 8767`. Add `--no-browser`
+to print the address without opening a browser.
+
+Choose a model and configuration, then click **Start build**. Review and confirm
+option/interior changes. For an artwork example, try **Corvette Grand Sport Coupe 3LT**,
+then select and confirm **GBA Black** paint and the **5ZV** spoiler. Other equipment
+remains fixed in the image. Dealer submission stays in preview mode.
+
+This opens the checked-in catalog. Unsaved or unreleased editor changes are not
+included. The instructions below are only needed for editing catalog data or
+managing a specific release.
+
+<details>
+<summary>Catalog editing and release administration</summary>
+
+## Set up the editing environment
 
 Run these commands from the repository root with Python 3.11 or newer:
 
@@ -150,3 +180,5 @@ The existing form's canonical source remains `27vette/stingray_master.xlsx`.
 Local edits, acceptance and releases do not change that workbook or deploy the
 production site. Preserve the checked-in source evidence and release bundles;
 use the editor for catalog changes.
+
+</details>
