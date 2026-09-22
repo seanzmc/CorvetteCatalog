@@ -1,5 +1,39 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
+## Current direction — September 22 form audit and live-migration rollout
+
+The [form audit and live-migration plan](form-audit-and-live-migration.md)
+audits the current checkout against the live static form and proposes a hosted
+consumer path. It is a planning document only: it changes no code, data,
+artwork, workbook or deployment, and items marked **Decision** there need the
+owner. The detailed audit (functional gaps, Photoshop asset coverage, server
+hardening and staged rollout A–F) lives in that document; this section is the
+authoritative task sequence for current priorities.
+
+Each row below is a separately authorized task and PR. Rollback to the old
+static form remains available at every rollout stage until retirement.
+
+| # | Task | Why now |
+| --- | --- | --- |
+| 1 | CI workflow and documented test entry point | Protects every later change |
+| 2 | Automatic draft/release backup | Protects edits already made |
+| 3 | Consumer hardening (audit §4.2) | Required for any hosting |
+| 4 | Channel-following server and one-step publish (audit §5.1, §5.3) | Makes edits easy locally and remotely |
+| 5 | Parity items: CSV download, model photos, production branding | Customers notice these |
+| 6 | Staging host (stage B) | Needs hosting decision |
+| 7 | Real dealer receipt proof (stage C) | Needs dealership coordination |
+| 8 | Artwork: rights confirmation, then swatches, lower-trim decision, second view | Independent; can run in parallel after 3 |
+| 9 | Public beta, freeze, cutover (D–E) | Last; needs explicit approval |
+| 10 | Model-year foundations and guide intake | Before the next guide |
+
+Any hosting work that follows a release **channel** must be runtime-aware:
+`Application.__init__` rejects a release whose runtime hashes differ from the
+running checkout (`catalog/consumer_server.py`), and each completed release
+documents its pinned runtime. A pointer swap alone cannot serve a code-bearing
+release, so task 4 must pair channel changes with an atomic restart/deploy on
+the target release's pinned runtime — or explicitly restrict channel changes
+to runtime-compatible releases, including rollback across runtime versions.
+
 ## Current direction — September 21 familiar customer form
 
 The customer form now adapts the existing Full Carbon theme, choice cards and

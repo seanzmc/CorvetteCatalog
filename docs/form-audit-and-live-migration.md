@@ -173,6 +173,18 @@ Browser ◀── static files + artwork (cached) ──────────
 - The server follows a **channel** (`production`) rather than a fixed release ID.
   Publishing becomes a pointer swap, and rollback already exists.
 
+**Runtime constraint on channel swaps.** `Application.__init__` rejects a
+release whose runtime hashes differ from the running checkout
+(`catalog/consumer_server.py`), and each completed release documents its pinned
+runtime (`consumer-releases.md`). A pointer swap alone therefore cannot serve a
+code-bearing release, and a rollback across runtime versions would keep serving
+the old application. Task 4 below must pair channel changes with an atomic
+restart/deploy on the target release's pinned runtime — the deploy step uploads
+the release, moves the channel and restarts the server on that release's
+runtime as one action — or explicitly restrict channel changes to
+runtime-compatible releases, including rollback. Planning acceptance here does
+not authorize implementation.
+
 **Decision:** hosting provider. Any host that runs a Python 3.11+ container with
 a small persistent disk works (Fly.io, Render, Railway, a DigitalOcean droplet).
 The existing WordPress host is an option only if it can run a long-lived Python
@@ -241,7 +253,10 @@ rolls back.
 
 ## 6. Suggested task order
 
-Each row is a separately authorized task and PR.
+Each row is a separately authorized task and PR. The authoritative version of
+this sequence lives in [migration-plan.md](migration-plan.md) ("September 22
+form audit and live-migration rollout"); this section is retained as audit
+detail. Keep the two in sync when tasks are re-ordered or added.
 
 | # | Task | Why now |
 | --- | --- | --- |
