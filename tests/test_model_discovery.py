@@ -59,6 +59,9 @@ class ModelDiscoveryReproductionTests(unittest.TestCase):
                     self.assertEqual(price['rpo'], row['rpo'])
                     self.assertEqual(price['baseline_amount'], row['price'])
 
+    # The ZR1/ZR1X extractor reads the Git-ignored raw guide; CI declares it absent.
+    @unittest.skipIf(os.environ.get('CATALOG_RAW_SOURCES') == 'absent',
+                     'raw manufacturer guide is Git-ignored and absent (CATALOG_RAW_SOURCES=absent)')
     def test_extractors_reproduce_committed_bytes(self):
         for lane in ('zr1', 'zr1x'):
             with self.subTest(lane=lane), tempfile.TemporaryDirectory(dir=ROOT / '.local') as directory:

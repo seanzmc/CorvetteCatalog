@@ -187,4 +187,26 @@ Local edits, acceptance and releases do not change that workbook or deploy the
 production site. Preserve the checked-in source evidence and release bundles;
 use the editor for catalog changes.
 
+## Run the tests
+
+From the repository root, with the editing environment active:
+
+```sh
+python -m unittest discover -s tests
+```
+
+To run one file, add its name, for example `-p test_consumers.py`. Run tests
+through `discover` from the repository root; importing a test module directly
+(`python -m unittest tests.test_artwork_collection`) cannot find its sibling
+test helpers. The whole suite takes about half an hour on one machine; the
+authoring, release and model-discovery files are the slowest.
+
+GitHub Actions runs the same tests on every pull request and push to `main`,
+split into parallel jobs, and validates the model handoffs. The Git-ignored raw
+manufacturer guide is not available there, so the checks that read it report
+as skipped in CI and still run locally. Missing local raw evidence continues to
+fail rather than skip. The full six-model semantic audit runs only when started
+by hand from the **Tests** workflow with **Also run the full six-model semantic
+audit** selected.
+
 </details>

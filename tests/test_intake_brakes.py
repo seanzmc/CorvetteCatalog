@@ -1,6 +1,7 @@
 """Focused pilot checks; requires the separately supplied, unchanged raw guide."""
 import io
 import json
+import os
 from pathlib import Path
 import tarfile
 import tempfile
@@ -13,6 +14,9 @@ from openpyxl.cell.text import InlineFont
 from scripts import intake_brakes as intake
 
 
+# CI declares the Git-ignored raw guide absent explicitly; local runs still fail.
+@unittest.skipIf(os.environ.get("CATALOG_RAW_SOURCES") == "absent",
+                 "raw manufacturer guide is Git-ignored and absent (CATALOG_RAW_SOURCES=absent)")
 class BrakeIntakeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

@@ -1,0 +1,120 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      six_model_audit:
+        description: Also run the full six-model semantic audit
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  # The raw manufacturer guide under sources/raw/ is Git-ignored by agreement.
+  # Tests that read it report as skipped here and still run on the owner's Mac.
+  CATALOG_RAW_SOURCES: absent
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  plan:
+    name: Plan shards
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      shards: ${{ steps.plan.outputs.shards }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        # Slow modules get their own job; every other tests/test_*.py file runs
+        # in the "remaining" shard, so a new test file is never left out.
+        env:
+          SEPARATE: >-
+            test_authoring_operations.py
+            test_authoring.py
+            test_authoring_components.py
+            test_authoring_relationships.py
+            test_model_discovery.py
+            test_releases.py
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json, os
+          from pathlib import Path
+          separate = os.environ['SEPARATE'].split()
+          present = sorted(p.name for p in Path('tests').glob('test_*.py'))
+          missing = [m for m in separate if m not in present]
+          if missing:
+              raise SystemExit(f'Separate shard names no test file: {missing}')
+          shards = [dict(name=m.removesuffix('.py'), modules=m) for m in separate]
+          shards.append(dict(name='remaining', modules=' '.join(m for m in present if m not in separate)))
+          print('shards=' + json.dumps(shards))
+          EOF
+
+  unit:
+    name: ${{ matrix.shard.name }}
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.shards) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Run ${{ matrix.shard.modules }}
+        env:
+          MODULES: ${{ matrix.shard.modules }}
+        run: |
+          status=0
+          for module in $MODULES; do
+            echo "::group::$module"
+            python -m unittest discover -s tests -p "$module" || status=1
+            echo "::endgroup::"
+          done
+          exit $status
+
+  handoffs:
+    name: Handoff schema
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python scripts/validate_handoffs.py
+
+  six-model-audit:
+    name: Six-model semantic audit
+    if: github.event_name == 'workflow_dispatch' && inputs.six_model_audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m catalog.semantic_validation --output semantic-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: semantic-audit
+          path: semantic-audit.json
+          if-no-files-found: ignore
