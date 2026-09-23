@@ -86,6 +86,9 @@ class ModelDiscoveryReproductionTests(unittest.TestCase):
                 executable = shutil.which(name)
                 self.assertIsNotNone(executable, f'{name} is required')
                 (tools / name).symlink_to(executable)
+            # GNU tar (Linux CI) runs gzip for .tar.gz; bsdtar has it built in.
+            if gzip := shutil.which('gzip'):
+                (tools / 'gzip').symlink_to(gzip)
             environment = {**os.environ, 'PATH': str(tools), 'TMPDIR': directory}
             for lane in schema['lanes']['models']:
                 with self.subTest(lane=lane):
