@@ -5,8 +5,13 @@
 The [form audit and live-migration plan](form-audit-and-live-migration.md)
 audits the current checkout against the live static form and proposes a hosted
 consumer path. It is a planning document only: it changes no code, data,
-artwork, workbook or deployment, and items marked **Decision** there need the
-owner. The detailed audit (functional gaps, Photoshop asset coverage, server
+artwork, workbook or deployment. The owner's September 23 decisions are
+recorded in its §7: Cloudflare hosting (a Worker with Cloudflare Containers
+running the Python consumer), signed client-held build tokens instead of
+server sessions, no 3LT/3LZ artwork for lower trims, confirmed image
+publication rights, artwork launching with the form, and a workbook change
+freeze now with generation stopping at cutover. The workbook still matches the
+September 6 baseline hash. The detailed audit (functional gaps, Photoshop asset coverage, server
 hardening and staged rollout A–F) lives in that document; this section is the
 authoritative task sequence for current priorities.
 
@@ -20,9 +25,9 @@ static form remains available at every rollout stage until retirement.
 | 3 | Consumer hardening (audit §4.2) | Required for any hosting |
 | 4 | Channel-following server and one-step publish (audit §5.1, §5.3) | Makes edits easy locally and remotely |
 | 5 | Parity items: CSV download, model photos, production branding | Customers notice these |
-| 6 | Staging host (stage B) | Needs hosting decision |
+| 6 | Cloudflare staging (stage B): Worker, Container, secrets | Hosting decided |
 | 7 | Real dealer receipt proof (stage C) | Needs dealership coordination |
-| 8 | Artwork: rights confirmation, then swatches, lower-trim decision, second view | Independent; can run in parallel after 3 |
+| 8 | Artwork for launch: delivery through Cloudflare, swatches, optional lower-trim exports, second view | Launches with the form; can run in parallel after 3 |
 | 9 | Public beta, freeze, cutover (D–E) | Last; needs explicit approval |
 | 10 | Model-year foundations and guide intake | Before the next guide |
 
@@ -33,6 +38,8 @@ documents its pinned runtime. A pointer swap alone cannot serve a code-bearing
 release, so task 4 must pair channel changes with an atomic restart/deploy on
 the target release's pinned runtime — or explicitly restrict channel changes
 to runtime-compatible releases, including rollback across runtime versions.
+On Cloudflare, one container image per release (pinned runtime plus bundle)
+meets the first option; rollback redeploys the previous image.
 
 ## Current direction — September 21 familiar customer form
 

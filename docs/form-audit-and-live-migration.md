@@ -4,8 +4,8 @@ This is an audit of the current checkout (`main` at `dc2618f`, PR #60) and a
 proposed path to (1) make routine catalog changes easy and (2) replace the live
 order form at `order.stingraychevroletcorvette.com`. It is a planning document:
 it changes no code, data, artwork, workbook or deployment, and it does not
-authorize implementation, cutover or merge. Items marked **Decision** need the
-owner.
+authorize implementation, cutover or merge. The owner's September 23 answers
+to the open decisions are recorded in §7 and applied in the sections below.
 
 ## 1. Where things stand
 
@@ -50,8 +50,11 @@ Ranked by how much each one blocks going live.
    loopback origin.
 5. **Two sources of truth.** The live form is still generated from the workbook.
    Any workbook change after the catalog's pinned baseline, or any catalog edit
-   before cutover, makes the two forms drift. Nothing currently detects that
-   drift after the September baseline.
+   before cutover, makes the two forms drift. No automated check watches for
+   that drift. As of September 23 there is none: `stingray_master.xlsx` still
+   has the SHA-256 pinned in `baselines/2026-09-06/manifest.json`
+   (`3127e663…8e3c`), and the live `data.js` is byte-identical to
+   `27vette/form-app/data.js`.
 
 ### 2.2 Blocks easy changes
 
@@ -112,9 +115,11 @@ G26, GKZ). Recipes, export scripts and native comparisons live in
 ### 3.2 Coverage gaps
 
 - **Configurations:** artwork covers 10 of 32 configurations. 1LT/2LT and
-  1LZ/2LZ show "unavailable" even where the exterior may be identical, because
-  bindings are exact by trim. **Decision:** may a 3LT/3LZ scene represent lower
-  trims when the differing equipment is already listed as "fixed in image"?
+  1LZ/2LZ show "unavailable" because bindings are exact by trim. **Decided:**
+  3LT/3LZ scenes must not stand in for lower trims; those trims have subtle
+  visual differences. Covering them needs trim-specific exports. The next step
+  is to inspect the existing PSBs for lower-trim layers before looking for
+  other sources.
 - **Grand Sport X:** no source PSB in the folder. Nothing to bind.
 - **Stingray:** 3 of 10 paints, and only with 5ZU. Stingray builds without 5ZU,
   or in the other 7 paints, show "unavailable".
@@ -140,12 +145,20 @@ G26, GKZ). Recipes, export scripts and native comparisons live in
 ### 3.3 Rights
 
 The `27CHCORV_*` and `27CHCORZ_*`/`27CHCOZR_*` sets look like manufacturer media
-kits. The plan listed rights as an H item, but no document records the result.
-**Decision:** confirm in writing that these images may be published on the
-dealer's public site before any artwork goes live. The rest of this plan does
-not depend on it; artwork can stay off in production until confirmed.
+kits. **Decided (September 23):** the owner confirms the images may be published
+on the dealer's public site. This settles the rights item in H for the supplied
+folder; newly acquired sources need the same confirmation.
 
-### 3.4 Delivery weight
+### 3.4 Launch scope
+
+**Decided:** artwork launches with the form. With the trim decision above, the
+launch shows artwork for the 10 bound 3LT/3LZ scenes, and an explicit
+"unavailable" state for Grand Sport X, all 1LT/2LT/1LZ/2LZ configurations and
+Stingray outside GBA, G8G and GKZ with 5ZU. The form stays fully usable in each
+of those cases. More coverage before launch is optional work under task 8; it
+does not block launch.
+
+### 3.5 Delivery weight
 
 34 MB total, about 3.5 MB per scene, three full-canvas lossless WebP planes per
 view. Before going live: serve through Cloudflare with long-lived caching (put the
@@ -156,22 +169,32 @@ or AVIF for the back plane after a visual comparison against the proof.
 
 ### 4.1 Recommended shape
 
+**Decided:** Cloudflare hosts the new form.
+
 ```text
-Local editor ──accept──▶ release bundle ──upload──▶ hosted consumer (Python)
- (your Mac)             (hashed, verified)          behind Cloudflare
-                                                       │
-Browser ◀── static files + artwork (cached) ───────────┤
-        ──── /api/* (session, preview, confirm) ───────┘
+Local editor ──accept──▶ release bundle ──build──▶ container image
+ (your Mac)             (hashed, verified)         (pinned runtime + release)
+                                                      │ deploy
+Browser ──▶ Cloudflare Worker ── static files + artwork (cached)
+                  │
+                  └── /api/* ──▶ Cloudflare Container (Python consumer)
         ──── dealer submit ──▶ existing WordPress endpoint (unchanged)
 ```
 
-- Keep one evaluator: host the existing Python consumer. Do not port rules to
+- Keep one evaluator: run the existing Python consumer. Do not port rules to
   JavaScript, and do not ship the SQLite file to browsers.
-- Host it as a small container behind the Cloudflare zone that already serves the
-  domain, first on a separate hostname (for example
-  `build.stingraychevroletcorvette.com`), with the old form untouched.
-- The server follows a **channel** (`production`) rather than a fixed release ID.
-  Publishing becomes a pointer swap, and rollback already exists.
+- Use **Cloudflare Containers** for the consumer, behind a **Worker** that serves
+  the static page and artwork and routes `/api/*` to the container. A plain
+  Python Worker is not suitable: it cannot hold the ~150 MB release database
+  within Worker memory and bundle limits. Confirm current Containers plan limits
+  (instance memory, disk, cold start) when implementing task 6.
+- Start on a separate hostname (for example `build.stingraychevroletcorvette.com`)
+  in the Cloudflare zone that already serves the domain, with the old form
+  untouched.
+- Build one container image per release: the release's pinned runtime plus its
+  verified bundle. Publishing deploys that image; rollback redeploys the
+  previous one. The deployed image version plays the role of the `production`
+  channel.
 
 **Runtime constraint on channel swaps.** `Application.__init__` rejects a
 release whose runtime hashes differ from the running checkout
@@ -182,13 +205,10 @@ the old application. Task 4 below must pair channel changes with an atomic
 restart/deploy on the target release's pinned runtime — the deploy step uploads
 the release, moves the channel and restarts the server on that release's
 runtime as one action — or explicitly restrict channel changes to
-runtime-compatible releases, including rollback. Planning acceptance here does
-not authorize implementation.
-
-**Decision:** hosting provider. Any host that runs a Python 3.11+ container with
-a small persistent disk works (Fly.io, Render, Railway, a DigitalOcean droplet).
-The existing WordPress host is an option only if it can run a long-lived Python
-process, which is uncommon for managed WordPress.
+runtime-compatible releases, including rollback. Per-release container images
+satisfy the first option: each image already contains its own pinned runtime,
+and a Containers deploy replaces the running version as one action. Planning
+acceptance here does not authorize implementation.
 
 ### 4.2 Server hardening needed first
 
@@ -196,10 +216,15 @@ process, which is uncommon for managed WordPress.
    host, Turnstile and the dealer endpoint.
 2. Threaded or process-pooled serving, a `/healthz` endpoint, and access logs
    without personal data.
-3. Replace the 256-session dict: either expiring sessions (for example 2-hour
-   idle) with a larger bound, or a signed client-held build token so a reload or
-   restart can rebuild the session by replaying confirmed actions. The second is
-   also what makes shareable build links possible later.
+3. **Decided:** replace the 256-session dict with a signed, client-held build
+   token. The token carries the release ID, configuration and the confirmed
+   action history; the server verifies the signature and replays the history to
+   rebuild the session. That lets the build survive a page reload, a container
+   restart or a request landing on another instance, and later enables
+   shareable build links. Pending preview tokens stay short-lived and
+   server-verified. A token from an older release needs a defined result:
+   replay against the current release and show the resulting changes, or ask
+   the customer to start over. Keep the signing key in a Cloudflare secret.
 4. Per-IP rate limits on `/api/session` and `/api/preview` (Cloudflare rules are
    enough).
 5. A friendly "form temporarily unavailable" state in the page.
@@ -212,7 +237,7 @@ process, which is uncommon for managed WordPress.
 | B. Staging host | Consumer on a private staging URL, dealer preview only | Full six-model browser pass; release verify on the host |
 | C. Dealer proof | One real test order to the dealership, with them expecting it | Dealer confirms receipt and content |
 | D. Public beta | Public hostname, linked from the site as "new builder", old form still primary | A week of real traffic without errors; drift check clean |
-| E. Cutover | Old URL points to the new form; workbook frozen | Explicit owner approval (G) |
+| E. Cutover | Old URL points to the new form; workbook retired as a generator | Explicit owner approval (G) |
 | F. Retire | Old form archived; 27vette read-only | After an agreed quiet period |
 
 Rollback at every stage: repoint DNS or the Cloudflare route to the old static
@@ -220,10 +245,22 @@ form, which stays deployed until F.
 
 ### 4.4 Canonical cutover (G)
 
-Before stage E: freeze workbook edits, run a final comparison of the workbook
-and the catalog for every model, and record each difference as either an
-accepted correction or a defect. After E, the catalog is the only place to make
-changes and the workbook becomes history. **Decision:** the freeze date.
+"Freeze" means two different things, and they happen at different times:
+
+1. **Change freeze, now.** Do not edit `stingray_master.xlsx`. The catalog was
+   built from the September 6 baseline, and workbook edits do not flow into it;
+   any workbook edit would have to be repeated by hand in the catalog editor.
+   The workbook is still byte-identical to that baseline (§2.1 item 5), so
+   nothing needs reconciling yet. If the live site needs a change before cutover,
+   make it in both places and record it.
+2. **Generation freeze, at stage E.** Until cutover, keep using the workbook to
+   generate the live form's `data.js`, because the old form stays live. At
+   cutover the new form replaces it, the workbook stops generating anything, and
+   the catalog becomes the only place to make changes.
+
+Before stage E, run a final comparison of the workbook and the catalog for every
+model, and record each difference as either an accepted correction or a defect.
+Cutover itself still needs explicit owner approval.
 
 ## 5. Making changes easy
 
@@ -265,20 +302,25 @@ detail. Keep the two in sync when tasks are re-ordered or added.
 | 3 | Consumer hardening (4.2) | Required for any hosting |
 | 4 | Channel-following server and one-step publish (5.1, 5.3) | Makes edits easy locally and remotely |
 | 5 | Parity items: CSV download, model photos, production branding | Customers notice these |
-| 6 | Staging host (stage B) | Needs hosting decision |
+| 6 | Cloudflare staging (stage B): Worker, Container, secrets | Hosting decided |
 | 7 | Real dealer receipt proof (stage C) | Needs dealership coordination |
-| 8 | Artwork: rights confirmation, then swatches, lower-trim decision, second view | Independent; can run in parallel after 3 |
+| 8 | Artwork for launch: delivery through Cloudflare, swatches, optional lower-trim exports, second view | Launches with the form; can run in parallel after 3 |
 | 9 | Public beta, freeze, cutover (D–E) | Last; needs explicit approval |
 | 10 | Model-year foundations and guide intake | Before the next guide |
 
-## 7. Decisions needed
+## 7. Owner decisions — September 23, 2026
 
-1. Hosting provider for the consumer (4.1).
-2. Session approach: expiring server sessions or signed client build token (4.2).
-3. Whether 3LT/3LZ artwork may represent lower trims (3.2).
-4. Written confirmation of image publication rights (3.3).
-5. Whether artwork launches with the form or after it.
-6. Workbook freeze date and cutover window (4.4).
+| # | Question | Decision |
+| --- | --- | --- |
+| 1 | Hosting provider (4.1) | Cloudflare |
+| 2 | Keeping builds across reloads (4.2) | Signed client-held build token |
+| 3 | 3LT/3LZ artwork for lower trims (3.2) | No; 1LT/2LT and 1LZ/2LZ differ visually |
+| 4 | Image publication rights (3.3) | Owner confirms the images may be published |
+| 5 | Artwork timing (3.4) | Launches with the form |
+| 6 | Workbook freeze (4.4) | Change freeze now (workbook unchanged since baseline); generation stops at cutover |
+
+Still open: the cutover date (stage E) and the dealership coordination for the
+test order (stage C).
 
 ## 8. How this audit was checked
 
@@ -288,6 +330,8 @@ form; each artwork `source-proof.json` for its PSB; and the iCloud source
 folder listing. Counted live paints and trims from `27vette/form-app/data.js`.
 Checked the live form's response headers and HTML. Ran
 `python3 -m unittest discover -s tests -p test_artwork_collection.py`
-(4 tests, OK). The full suites and the six-model audit were not run; nothing
+(4 tests, OK). On September 23, compared the workbook's SHA-256 with the
+September 6 baseline manifest (equal) and the live `data.js` with the 27vette
+copy (equal). The full suites and the six-model audit were not run; nothing
 here changes behavior. The live host's deployment mechanism behind Cloudflare
 was not confirmed from this checkout.
