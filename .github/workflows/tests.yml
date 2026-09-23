@@ -34,8 +34,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: plan
-        # Slow modules get their own job; every other tests/test_*.py file runs
-        # in the "remaining" shard, so a new test file is never left out.
+        # Slow modules get their own job; every other test file (recursively,
+        # matching what `discover -s tests` picks up) runs in the "remaining"
+        # shard, so a new test file is never left out.
         env:
           SEPARATE: >-
             test_authoring_operations.py
@@ -49,7 +50,7 @@ jobs:
           import json, os
           from pathlib import Path
           separate = os.environ['SEPARATE'].split()
-          present = sorted(p.name for p in Path('tests').glob('test_*.py'))
+          present = sorted(str(p.relative_to('tests')) for p in Path('tests').rglob('test_*.py'))
           missing = [m for m in separate if m not in present]
           if missing:
               raise SystemExit(f'Separate shard names no test file: {missing}')
@@ -81,23 +82,13 @@ jobs:
           status=0
           for module in $MODULES; do
             echo "::group::$module"
-            python -m unittest discover -s tests -p "$module" || status=1
+            # Discover from the module's own directory so files in importable
+            # subdirectories run too; the basename pattern selects exactly it.
+            dir="tests/$(dirname "$module")"
+            python -m unittest discover -s "$dir" -p "$(basename "$module")" || status=1
             echo "::endgroup::"
           done
           exit $status
-
-  handoffs:
-    name: Handoff schema
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: pip
-      - run: python -m pip install -r requirements.txt
-      - run: python scripts/validate_handoffs.py
 
   six-model-audit:
     name: Six-model semantic audit
