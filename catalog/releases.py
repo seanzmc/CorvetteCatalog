@@ -31,9 +31,15 @@ def file_hash(path):
 def database_hash(db):
     """All schema and rows, including edit versions; independent of page layout."""
     tables = [r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")]
-    state = {t: sorted((list(row) for row in db.execute(f'SELECT * FROM "{t}"')), key=encode) for t in tables}
-    state['schema'] = [list(r) for r in db.execute("SELECT type,name,sql FROM sqlite_master WHERE sql IS NOT NULL ORDER BY type,name")]
-    return digest(state)
+    # Same bytes as digest({table: rows sorted by encode, 'schema': ...}): encode
+    # each row once, sort the encodings, and stream the JSON object into SHA-256.
+    parts = {t: sorted(encode(list(row)) for row in db.execute(f'SELECT * FROM "{t}"')) for t in tables}
+    parts['schema'] = [encode(list(r)) for r in db.execute("SELECT type,name,sql FROM sqlite_master WHERE sql IS NOT NULL ORDER BY type,name")]
+    state = hashlib.sha256(b'{')
+    for index, key in enumerate(sorted(parts)):
+        state.update(((',' if index else '') + encode(key) + ':[' + ','.join(parts[key]) + ']').encode())
+    state.update(b'}')
+    return state.hexdigest()
 
 
 def membership(db):
