@@ -17,8 +17,9 @@ TABLES = ('consumer_model', 'consumer_option', 'consumer_option_context',
           'consumer_configuration', 'consumer_interior')
 
 
-def encode(value):
-    return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
+# One reusable encoder: identical output to json.dumps with these arguments,
+# without constructing a new encoder on every call.
+encode = json.JSONEncoder(sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode
 
 
 def digest(value):
