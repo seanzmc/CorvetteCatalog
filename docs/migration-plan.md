@@ -37,7 +37,11 @@ draft and release backups through the editor's `--backup-dir` option
 (PR #64). Task 3 makes the customer form stateless: signed build tokens
 replace server sessions, reloads reopen the build, and the server takes a
 public host, allowed origins and a signing key, with a health check and
-address-free access logs. Rate limits belong in Cloudflare rules.
+address-free access logs. Rate limits belong in Cloudflare rules (PR #65).
+Task 4 adds one-step publish: the editor's **Publish to production** (or
+`catalog.deploy ship`) packages a release as a container build folder running
+its own pinned code, then moves the `production` pointer. `preview.py --draft`
+previews an accepted draft. Uploading packages to Cloudflare is task 6.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the

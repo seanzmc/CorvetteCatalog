@@ -248,7 +248,9 @@ def token_key(host):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--store', type=Path, required=True)
-    parser.add_argument('--release', required=True)
+    chosen = parser.add_mutually_exclusive_group(required=True)
+    chosen.add_argument('--release', help='Completed release ID to serve')
+    chosen.add_argument('--channel', help='Serve the release a channel names, e.g. production')
     parser.add_argument('--host', default='127.0.0.1', help='Interface to listen on (default loopback only)')
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--origin', action='append', default=[],
@@ -256,7 +258,11 @@ def main():
     parser.add_argument('--enable-dealer-submissions', action='store_true',
                         help='Enable the existing dealer endpoint and Turnstile; otherwise preview without sending')
     args = parser.parse_args()
-    app = Application(ReleaseStore(args.store), args.release, args.enable_dealer_submissions, token_key(args.host))
+    store = ReleaseStore(args.store)
+    release = args.release or store.pointer(args.channel)['release_id']
+    if not release:
+        raise SystemExit(f'Nothing is published to the {args.channel} channel in {args.store}')
+    app = Application(store, release, args.enable_dealer_submissions, token_key(args.host))
     with ThreadingHTTPServer((args.host, args.port), handler(app, args.origin or None)) as server:
         print(f'Customer build form: http://{args.host}:{server.server_port}', flush=True)
         server.serve_forever()
