@@ -4,12 +4,13 @@ import io
 import json
 import os
 import threading
+import time
 import unittest
 from unittest.mock import patch
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-from catalog.consumer_server import Tokens, handler, token_key, ThreadingHTTPServer
+from catalog.consumer_server import Application, Tokens, handler, token_key, ThreadingHTTPServer
 
 
 class StubApp:
@@ -93,6 +94,27 @@ class ServerTests(unittest.TestCase):
                 tokens.verify(bad, 'build')
         with self.assertRaises(ValueError):
             Tokens(b'x' * 32).verify(build, 'build')
+
+
+class EvaluationLockTests(unittest.TestCase):
+    def test_concurrent_requests_never_evaluate_at_the_same_time(self):
+        # Evaluators rebuild shared indexes per call; overlapping calls corrupt them.
+        app = object.__new__(Application)
+        app.evaluation = threading.Lock()
+        active, peak, guard = 0, 0, threading.Lock()
+        def evaluate(path, body):
+            nonlocal active, peak
+            with guard:
+                active += 1; peak = max(peak, active)
+            time.sleep(0.05)
+            with guard:
+                active -= 1
+            return {}
+        app._dispatch = evaluate
+        threads = [threading.Thread(target=app.dispatch, args=('/api/restore', {})) for _ in range(6)]
+        for thread in threads: thread.start()
+        for thread in threads: thread.join()
+        self.assertEqual(peak, 1)
 
 
 if __name__ == '__main__':

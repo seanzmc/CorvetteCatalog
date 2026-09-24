@@ -22,6 +22,7 @@ import os
 from pathlib import Path
 import secrets
 import sys
+import threading
 import time
 from urllib.parse import urlsplit
 
@@ -83,6 +84,10 @@ class Application:
         self.dealer_submissions = dealer_submissions
         # Without a configured key, tokens are valid only for this process.
         self.tokens = Tokens(token_key or secrets.token_bytes(32))
+        # Evaluators rebuild shared indexes on every call, so evaluation runs one
+        # request at a time. Threads still keep pages, artwork and health checks
+        # responsive; capacity comes from more instances, which tokens allow.
+        self.evaluation = threading.Lock()
 
     def catalog(self):
         return dict(release_id=self.identifier, default_model=self.manifest['default_model'],
@@ -113,6 +118,10 @@ class Application:
         return build, session
 
     def dispatch(self, path, body):
+        with self.evaluation:
+            return self._dispatch(path, body)
+
+    def _dispatch(self, path, body):
         if path == '/api/session':
             catalog = self.catalogs.get(body['model'])
             if catalog is None or body['configuration_id'] not in catalog.ev.configs:
