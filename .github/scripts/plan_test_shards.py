@@ -58,6 +58,8 @@ def main():
     missing = [m for m in named if m not in present]
     if missing or len(named) != len(set(named)):
         raise SystemExit(f'Split/separate names must be distinct test files: {named}')
+    if remaining_jobs < 1 or any(count < 1 for count in split.values()):
+        raise SystemExit('Job counts must be at least 1; a zero count would drop tests')
 
     shards = []
     for module, count in split.items():
