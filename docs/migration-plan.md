@@ -33,7 +33,11 @@ static form remains available at every rollout stage until retirement.
 
 Progress: task 1 is done (PR #62, CI on every PR; PR #63 split the slow
 files and brought a full run to about 7 minutes). Task 2 adds automatic
-draft and release backups through the editor's `--backup-dir` option.
+draft and release backups through the editor's `--backup-dir` option
+(PR #64). Task 3 makes the customer form stateless: signed build tokens
+replace server sessions, reloads reopen the build, and the server takes a
+public host, allowed origins and a signing key, with a health check and
+address-free access logs. Rate limits belong in Cloudflare rules.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the

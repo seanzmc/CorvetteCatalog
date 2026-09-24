@@ -149,6 +149,21 @@ python -m catalog.consumer_server \
 Open [the build-review form](http://127.0.0.1:8765). Both servers accept `--port`
 if their default port is occupied, and both bind to `127.0.0.1` for local use.
 
+To serve the form beyond this Mac, set a signing key of at least 32 characters,
+listen on all interfaces and name the public address browsers will use:
+
+```sh
+CATALOG_BUILD_TOKEN_KEY=... python -m catalog.consumer_server \
+  --store STORE --release RELEASE_ID --host 0.0.0.0 --origin https://build.example.com
+```
+
+The server refuses to start beyond loopback without the key. Keep the same key
+across restarts and instances so saved builds stay valid; changing it starts
+every customer over. `GET /healthz` reports the release for platform health
+checks. Access logs record the request and status but not client addresses.
+Apply request rate limits in front of the server (for example Cloudflare rules
+for `/api/session` and `/api/preview`).
+
 Choose a model, body style and trim, then click **Choose options**. Use the step
 navigation or **Continue** to work through one group at a time. Option cards show
 the change to your build total; **Select** or **Remove** opens a confirmation with
@@ -159,8 +174,14 @@ to the catalog's exact interior choices.
 Use **Review build** to see your selections, remaining requirements and total.
 Complete required selections before using **Download build** or **Preview dealer
 submission**. **Start over** asks before clearing your selections. Prices,
-equipment, artwork and order output follow the confirmed build. Sessions are held
-in memory and are lost on page reload or server restart.
+equipment, artwork and order output follow the confirmed build.
+
+The server keeps no builds in memory. Each response carries a signed build token
+that the browser keeps, so a page reload reopens the same build. Without a
+configured key, tokens are valid only until the server restarts, and the form
+then asks to start a new build. If the catalog has changed since the build was
+saved, the form replays it on the current catalog and says so; a build that no
+longer fits starts over.
 
 Dealer preview prepares the order without sending it or loading the security
 check. Live delivery requires starting the consumer server with
