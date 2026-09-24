@@ -104,18 +104,39 @@ class ReleaseBackupTests(unittest.TestCase):
                 patch('catalog.releases.ReleaseStore.freeze', return_value='frozen-id'), \
                 patch('catalog.releases.ReleaseStore.complete', return_value='release-id'), \
                 patch('catalog.releases.ReleaseStore.verify', return_value={'artifacts': {}}), \
-                patch('catalog.releases.ReleaseStore.backup') as backup:
+                patch('catalog.releases.ReleaseStore.backup') as backup, \
+                patch('catalog.releases.ReleaseStore._verify_path') as verify:
             database, backups = Path(directory) / 'draft.sqlite', Path(directory) / 'backups'
             destination = backups / 'releases' / 'release-id'
             backup.side_effect = lambda release, path: Path(path).mkdir(parents=True)
             self.assertEqual(build_release(database, 'etag', backups)['backup'], str(destination))
+            verify.assert_not_called()
+            # A rebuild verifies the existing copy instead of trusting or replacing it.
             self.assertEqual(build_release(database, 'etag', backups)['backup'], str(destination))
             backup.assert_called_once_with('release-id', destination)
+            verify.assert_called_once_with(destination, 'release-id')
+            verify.side_effect = ValueError('Missing, altered or unexpected release artifacts')
+            damaged = build_release(database, 'etag', backups)
+            self.assertNotIn('backup', damaged)
+            self.assertIn('failed verification', damaged['backup_error'])
+            backup.assert_called_once()
             self.assertNotIn('backup', build_release(database, 'etag'))
             backup.side_effect = OSError('disk full')
             result = build_release(database, 'etag', Path(directory) / 'other')
             self.assertEqual(result['backup_error'], 'disk full')
             self.assertEqual(result['release_id'], 'release-id')
+
+    def test_empty_existing_release_copy_is_reported_not_trusted(self):
+        with tempfile.TemporaryDirectory() as directory, \
+                patch('catalog.authoring_server.authoring.open_workspace'), \
+                patch('catalog.releases.ReleaseStore.freeze', return_value='frozen-id'), \
+                patch('catalog.releases.ReleaseStore.complete', return_value='release-id'), \
+                patch('catalog.releases.ReleaseStore.verify', return_value={'artifacts': {}}):
+            backups = Path(directory) / 'backups'
+            (backups / 'releases' / 'release-id').mkdir(parents=True)
+            result = build_release(Path(directory) / 'draft.sqlite', 'etag', backups)
+            self.assertIn('failed verification', result['backup_error'])
+            self.assertEqual(list((backups / 'releases' / 'release-id').iterdir()), [])
 
 
 if __name__ == '__main__':

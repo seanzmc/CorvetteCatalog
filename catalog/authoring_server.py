@@ -189,10 +189,16 @@ def build_release(database, expected_digest, backup_dir=None):
     result = dict(release_id=release, frozen_id=frozen, artifact_count=len(manifest['artifacts']),
                   store=str(store.root), evidence=str(store.completed / release / 'reviewed-edits.json'))
     if backup_dir:
-        # Releases are immutable; an existing verified copy is kept as is.
+        # Releases are immutable. An existing copy is verified, never replaced;
+        # a damaged one is reported so it can be moved aside and rebuilt.
         destination = Path(backup_dir) / 'releases' / release
         try:
-            if not destination.exists():
+            if destination.exists():
+                try:
+                    store._verify_path(destination, release)
+                except Exception as error:
+                    raise ValueError(f'Existing release backup failed verification: {error}') from error
+            else:
                 store.backup(release, destination)
             result['backup'] = str(destination)
         except Exception as error:
