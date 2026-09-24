@@ -157,14 +157,17 @@ class DealerTests(unittest.TestCase):
                 self.assertEqual(config['enabled'], enabled)
                 self.assertEqual(config['endpoint'], dealer.ENDPOINT if enabled else None)
                 state = app.dispatch('/api/session', {'model':'stingray', 'configuration_id':'1lt_c07'})
-                sid = state['session_id']; s = app.sessions[sid]
-                self.commit(s, 'select', self.oid(s.catalog, 'GBA')); self.commit(s, 'interior', '1LT_AQ9_HTA')
-                body = self.body(s); body['turnstile_token'] = ''
+                for action, target in (('select', self.oid(app.catalogs['stingray'], 'GBA')), ('interior', '1LT_AQ9_HTA')):
+                    p = app.dispatch('/api/preview', dict(build_token=state['build_token'], action=action, target=target, version=state['version']))
+                    state = app.dispatch('/api/confirm', dict(p, build_token=state['build_token']))
+                body = dict(version=state['version'], customer=dict(name='Ada Buyer', email='ada@example.com'),
+                            turnstile_token='', build_token=state['build_token'])
                 if enabled:
-                    with self.assertRaisesRegex(ValueError, 'Security check'): app.dispatch('/api/dealer/prepare', body, sid)
+                    with self.assertRaisesRegex(ValueError, 'Security check'): app.dispatch('/api/dealer/prepare', body)
                 else:
-                    self.assertEqual(app.dispatch('/api/dealer/prepare', body, sid)['release_id'], release)
-                with self.assertRaisesRegex(ValueError, 'Unknown session'): app.dispatch('/api/dealer/prepare', body, 'foreign')
+                    self.assertEqual(app.dispatch('/api/dealer/prepare', body)['release_id'], release)
+                with self.assertRaisesRegex(ValueError, 'foreign build'):
+                    app.dispatch('/api/dealer/prepare', dict(body, build_token='foreign'))
             manifest = store.verify(release)
             self.assertIn('runtime/catalog/dealer.py', manifest['artifacts'])
             self.assertIn('runtime/catalog/web/dealer.js', manifest['artifacts'])

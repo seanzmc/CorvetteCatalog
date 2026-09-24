@@ -7,7 +7,7 @@ window.catalogDealer = (() => {
   const fields = ['Name', 'Email', 'Phone', 'Comments'];
   const message = text => { byId('dealerStatus').textContent = text; };
   const live = () => !!context.state().catalog?.dealer.enabled;
-  const identity = () => { const s=context.state(); return `${s.sessionId}:${s.current?.version}`; };
+  const identity = () => { const s=context.state(); return `${s.buildToken}:${s.current?.version}`; };
   const textNode = (tag, text, parent) => { const n=document.createElement(tag); n.textContent=text; parent.append(n); return n; };
 
   function resetSecurity() {

@@ -184,26 +184,47 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Invalid content'):
             self.store.verify('../anything')
 
-    def test_http_application_uses_exact_pending_warning_and_server_state(self):
+    def test_http_application_uses_exact_pending_warning_and_signed_build_state(self):
         release=self.store.complete(self.freeze());app=Application(self.store,release)
         c=app.catalogs['z06'];cfg='1lz_h67'
         codes={r['rpo']:r['id'] for r in c.ev.options.values() if r['lifecycle']=='active'}
-        state=app.dispatch('/api/session',{'model':'z06','configuration_id':cfg});sid=state['session_id']
+        call=lambda path,state,**body:app.dispatch(path,dict(body,build_token=state['build_token']))
+        state=app.dispatch('/api/session',{'model':'z06','configuration_id':cfg})
         for code in ('GBA','DPB'):
-            p=app.dispatch('/api/preview',{'action':'select','target':codes[code],'version':state['version']},sid)
-            state=app.dispatch('/api/confirm',{**p,'total_minor':0},sid)
+            p=call('/api/preview',state,action='select',target=codes[code],version=state['version'])
+            state=call('/api/confirm',state,**p,total_minor=0)
         before=state['build']
-        p=app.dispatch('/api/preview',{'action':'select','target':codes['VPW'],'version':state['version']},sid)
-        self.assertEqual(before,app.sessions[sid].current()['build'])
+        p=call('/api/preview',state,action='select',target=codes['VPW'],version=state['version'])
+        # A preview changes nothing: the same token still rebuilds the same build.
+        self.assertEqual(before,call('/api/restore',state)['build'])
         self.assertTrue(any('DPB' in line and line.startswith('Remove:') for line in p['warning']['lines']))
-        with self.assertRaises(ValueError):app.dispatch('/api/order',{},sid)
-        with self.assertRaises(ValueError):app.dispatch('/api/confirm',{'version':state['version'],'token':'fake','warning_sha256':p['warning_sha256']},sid)
-        state=app.dispatch('/api/confirm',{**p,'candidate':before,'total_minor':0},sid)
-        self.assertEqual(state['build'],p['warning']['candidate'])
-        self.assertNotEqual(state['build'],before)
-        with self.assertRaises(ValueError):app.dispatch('/api/confirm',p,sid)
-        with self.assertRaises(ValueError):app.dispatch('/api/revert',{'version':state['version']},sid)
-        self.assertEqual(app.sessions[sid].current()['build'],state['build'])
+        with self.assertRaises(ValueError):call('/api/confirm',state,version=state['version'],token='fake',warning_sha256=p['warning_sha256'])
+        with self.assertRaises(ValueError):call('/api/confirm',state,**dict(p,warning_sha256='0'*64))
+        # A pending token belongs to exactly the build it was previewed on.
+        other=app.dispatch('/api/session',{'model':'z06','configuration_id':cfg})
+        with self.assertRaises(ValueError):call('/api/confirm',other,**dict(p,version=other['version']))
+        # Client-supplied candidates or totals are ignored.
+        confirmed=call('/api/confirm',state,**p,candidate=before,total_minor=0)
+        self.assertEqual(confirmed['build'],p['warning']['candidate'])
+        self.assertNotEqual(confirmed['build'],before)
+        # The confirmed build survives a new server process with the same key.
+        key=b'k'*32;keyed=Application(self.store,release,token_key=key)
+        s1=keyed.dispatch('/api/session',{'model':'z06','configuration_id':cfg})
+        p1=keyed.dispatch('/api/preview',dict(build_token=s1['build_token'],action='select',target=codes['GBA'],version=0))
+        s1=keyed.dispatch('/api/confirm',dict(p1,build_token=s1['build_token']))
+        restored=Application(self.store,release,token_key=key).dispatch('/api/restore',{'build_token':s1['build_token']})
+        self.assertEqual(restored['build'],s1['build']);self.assertTrue(restored['revertible'])
+        with self.assertRaisesRegex(ValueError,'foreign build'):
+            Application(self.store,release,token_key=b'x'*32).dispatch('/api/restore',{'build_token':s1['build_token']})
+        # An expired review cannot be applied.
+        p2=keyed.dispatch('/api/preview',dict(build_token=s1['build_token'],action='select',target=codes['DPB'],version=1))
+        with patch('catalog.consumer_server.time.time',return_value=10**12):
+            with self.assertRaises(ValueError):keyed.dispatch('/api/confirm',dict(p2,build_token=s1['build_token']))
+        # Undo is a replayed action, not server memory.
+        p3=keyed.dispatch('/api/preview',dict(build_token=s1['build_token'],action='revert',version=1))
+        undone=keyed.dispatch('/api/confirm',dict(p3,build_token=s1['build_token']))
+        self.assertFalse(undone['revertible'])
+        self.assertEqual(keyed.dispatch('/api/restore',{'build_token':undone['build_token']})['build'],undone['build'])
 
 
 if __name__=='__main__':unittest.main()

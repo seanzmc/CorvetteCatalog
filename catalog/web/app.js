@@ -1,6 +1,14 @@
 'use strict';
 const el = id => document.getElementById(id);
-let catalog, model, sessionId, current, pending, busy = false, activeStep, interiorPath = [];
+let catalog, model, buildToken, current, pending, busy = false, activeStep, interiorPath = [];
+const UNAVAILABLE = 'The build form is temporarily unavailable. Please try again in a few minutes.';
+// The signed build token lets a reload continue the same build. Storage can be
+// unavailable (private windows, blocked site data); the form works without it.
+const saved = {
+  get() { try { return localStorage.getItem('corvette-build'); } catch { return null; } },
+  set(value) { try { value ? localStorage.setItem('corvette-build', value) : localStorage.removeItem('corvette-build'); } catch {} },
+};
+function keep(token) { buildToken = token || null; saved.set(buildToken); }
 const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n/100);
 const active = value => String(value).toLowerCase() === 'true';
 function node(tag, text, parent) { const n=document.createElement(tag); n.textContent=text; if(parent) parent.append(n); return n; }
@@ -9,8 +17,15 @@ function button(parent, label, action, disabled=false) {
   const b=node('button',label,parent); b.disabled=disabled || busy || !!pending; b.addEventListener('click',action); return b;
 }
 async function api(path, body) {
-  const response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json',...(sessionId?{'X-Catalog-Session':sessionId}:{})},body:JSON.stringify(body)});
-  const result=await response.json(); if(!response.ok) throw new Error(result.error); return result;
+  let response, result;
+  try {
+    response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(path==='/api/session'?body:{...body,build_token:buildToken})});
+    result=await response.json();
+  } catch { throw new Error(UNAVAILABLE); }
+  if(response.status>=500) throw new Error(UNAVAILABLE);
+  if(!response.ok) throw new Error(result.error);
+  if(result.build_token) keep(result.build_token);
+  return result;
 }
 async function run(action) {
   if(busy) return; busy=true; el('error').textContent=''; el('notice').textContent='';
@@ -153,7 +168,7 @@ async function preview(action,target,label) {
 }
 async function cancel() {current=await api('/api/cancel',{version:current.version});pending=null;el('warning').close();el('stepTitle').focus();}
 el('model').addEventListener('change',configurations);el('bodyStyle').addEventListener('change',trims);el('configuration').addEventListener('change',startingPrice);
-el('start').addEventListener('click',()=>run(async()=>{const r=await api('/api/session',{model:el('model').value,configuration_id:el('configuration').value});sessionId=r.session_id;current=r;activeStep=null;interiorPath=[];}));
+el('start').addEventListener('click',()=>run(async()=>{const r=await api('/api/session',{model:el('model').value,configuration_id:el('configuration').value});current=r;activeStep=null;interiorPath=[];}));
 el('search').addEventListener('input',renderOptions);el('stepSelect').addEventListener('change',()=>go(el('stepSelect').value));
 el('previous').addEventListener('click',()=>{const list=steps();go(list[list.findIndex(s=>s.key===activeStep)-1].key);});
 el('next').addEventListener('click',()=>{const list=steps();go(list[list.findIndex(s=>s.key===activeStep)+1].key);});
@@ -165,7 +180,28 @@ el('confirm').addEventListener('click',()=>run(async()=>{
 }));
 el('revert').addEventListener('click',()=>run(()=>preview('revert',null)));
 el('reset').addEventListener('click',()=>el('resetDialog').showModal());el('resetCancel').addEventListener('click',()=>el('resetDialog').close());
-el('resetConfirm').addEventListener('click',()=>{current=null;sessionId=null;pending=null;el('build').hidden=true;el('buildActions').hidden=true;el('setup').hidden=false;el('notice').textContent='';el('resetDialog').close();el('start').disabled=false;el('model').focus();});
+el('resetConfirm').addEventListener('click',()=>{current=null;keep(null);pending=null;el('build').hidden=true;el('buildActions').hidden=true;el('setup').hidden=false;el('notice').textContent='';el('resetDialog').close();el('start').disabled=false;el('model').focus();});
 el('export').addEventListener('click',()=>run(async()=>{const order=await api('/api/order',{});const url=URL.createObjectURL(new Blob([JSON.stringify(order,null,2)],{type:'application/json'}));const a=node('a','');a.href=url;a.download='corvette-build.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}));
-catalogDealer.init({api,state:()=>({catalog,current,pending,sessionId,busy})});el('dealerOpen').addEventListener('click',()=>run(()=>catalogDealer.open()));
-(async()=>{try{const r=await fetch('/api/catalog');catalog=await r.json();if(!r.ok)throw new Error(catalog.error);el('release').textContent=`Release ${catalog.release_id}`;Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>option(el('model'),key,c.presentation.model_master[0].model_label));el('model').value=catalog.default_model;configurations();el('start').disabled=false;}catch(e){el('error').textContent=e.message;}})();
+catalogDealer.init({api,state:()=>({catalog,current,pending,buildToken,busy})});el('dealerOpen').addEventListener('click',()=>run(()=>catalogDealer.open()));
+async function restore() {
+  buildToken=saved.get(); if(!buildToken) return;
+  try {
+    const r=await api('/api/restore',{});
+    el('model').value=r.model;configurations();el('bodyStyle').value=model.configurations[r.configuration_id].body_style;trims();el('configuration').value=r.configuration_id;
+    current=r;activeStep=null;interiorPath=[];render();
+    if(r.notice)el('notice').textContent=r.notice;
+  } catch(e) {
+    // A build that cannot be replayed on this catalog starts over; an outage keeps it for later.
+    if(e.message===UNAVAILABLE) throw e;
+    keep(null);el('notice').textContent='Your saved build could not be reopened. Please start a new build.';
+  }
+}
+(async()=>{
+  try{
+    let r;
+    try { r=await fetch('/api/catalog');catalog=await r.json(); } catch { throw new Error(UNAVAILABLE); }
+    if(!r.ok)throw new Error(r.status>=500?UNAVAILABLE:catalog.error);
+    el('release').textContent=`Release ${catalog.release_id}`;Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>option(el('model'),key,c.presentation.model_master[0].model_label));el('model').value=catalog.default_model;configurations();el('start').disabled=false;
+    await restore();
+  }catch(e){el('error').textContent=e.message;}
+})();
