@@ -31,6 +31,10 @@ static form remains available at every rollout stage until retirement.
 | 9 | Public beta, freeze, cutover (D–E) | Last; needs explicit approval |
 | 10 | Model-year foundations and guide intake | Before the next guide |
 
+Progress: task 1 is done (PR #62, CI on every PR; PR #63 split the slow
+files and brought a full run to about 7 minutes). Task 2 adds automatic
+draft and release backups through the editor's `--backup-dir` option.
+
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the
 running checkout (`catalog/consumer_server.py`), and each completed release
