@@ -62,14 +62,37 @@ python -m catalog.authoring_server \
 ```
 
 Initialization exits after creating the workspace. These commands refuse to
-overwrite existing databases. For normal use, start the existing workspace:
+overwrite existing databases. For normal use, start the existing workspace with
+backups going to iCloud Drive:
 
 ```sh
-python -m catalog.authoring_server --database .local/authoring/draft.sqlite
+python -m catalog.authoring_server --database .local/authoring/draft.sqlite \
+  --backup-dir ~/Library/Mobile\ Documents/com~apple~CloudDocs/CorvetteCatalog-backups
 ```
 
 Open [the catalog editor](http://127.0.0.1:8766). Leave the terminal running;
 press `Ctrl+C` to stop it. Saved edits persist in `draft.sqlite`.
+
+With `--backup-dir`, the editor saves a compressed copy of the draft when it
+starts and after every saved edit, acceptance or intake decision, and copies
+each release it creates into `releases/` there. It keeps the newest 20 draft
+copies plus the newest one from each of the last 30 days; each is about 25 MB
+and each release copy is about 190 MB. If the folder cannot be written, the
+editor refuses to start; if a later backup fails, the edit stays saved and the
+terminal reports the failure. Without `--backup-dir` the editor warns that
+backups are off.
+
+To see or restore backups:
+
+```sh
+python -m catalog.draft_backup list ~/Library/Mobile\ Documents/com~apple~CloudDocs/CorvetteCatalog-backups
+python -m catalog.draft_backup restore BACKUP_FILE --database .local/authoring/restored.sqlite
+```
+
+Restore returns the draft exactly as it was, including saved edits that were
+not yet accepted, and never overwrites an existing file. Start the editor with
+`--database` pointing at the restored file. Restore a release copy with the
+`restore` command under "Verify and back up a release".
 
 | Page | Use it for |
 | --- | --- |

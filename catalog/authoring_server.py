@@ -8,18 +8,25 @@ from multiprocessing import get_context
 from pathlib import Path
 import secrets
 import sqlite3
+import sys
 from urllib.parse import parse_qs, urlsplit
 
 from catalog import authoring
 from catalog import authoring_records as records, authoring_acceptance as acceptance
 from catalog import authoring_relationships as relationships
 from catalog import authoring_components as components
+from catalog import draft_backup
 from catalog.consumers import encode
+
+# Requests that change the draft; each success is followed by a backup.
+MUTATIONS = {'/api/save', '/api/records/save', '/api/acceptance/save', '/api/intake/stage',
+             '/api/intake/disposition', '/api/relationship/save', '/api/component-rate/save'}
 
 
 class Application:
-    def __init__(self, database):
+    def __init__(self, database, backup_dir=None):
         self.database = Path(database)
+        self.backup_dir = Path(backup_dir) if backup_dir else None
         self.pending = {}
         self.release_jobs = {}
         # The audit is CPU-bound. A separate process keeps SQLite-backed editor
@@ -30,6 +37,20 @@ class Application:
             components.prepare(db)
             records.prepare(db)
             acceptance.prepare(db)
+        if self.backup_dir:
+            # Fail at startup, not after an edit, if the location is unusable.
+            draft_backup.snapshot(self.database, self.backup_dir)
+
+    def backup(self):
+        """A failed backup never undoes a saved edit; it is reported instead."""
+        if not self.backup_dir:
+            return None
+        try:
+            path = draft_backup.snapshot(self.database, self.backup_dir)
+            return dict(saved=True, path=str(path) if path else None)
+        except Exception as error:
+            print(f'Draft backup failed: {error}', file=sys.stderr, flush=True)
+            return dict(saved=False, error=str(error))
 
     def read(self, path):
         url = urlsplit(path)
@@ -72,11 +93,19 @@ class Application:
         raise ValueError('Unknown operation')
 
     def dispatch(self, path, body):
+        result = self._dispatch(path, body)
+        if path in MUTATIONS:
+            backup = self.backup()
+            if backup is not None:
+                result = dict(result, backup=backup)
+        return result
+
+    def _dispatch(self, path, body):
         if path == '/api/release/create':
             if any(not f.done() for f in self.release_jobs.values()):
                 raise ValueError('A release is already being built')
             job = secrets.token_urlsafe(24)
-            self.release_jobs[job] = self.release_worker.submit(build_release, self.database, body['etag'])
+            self.release_jobs[job] = self.release_worker.submit(build_release, self.database, body['etag'], self.backup_dir)
             return {'job': job}
         if path == '/api/cancel':
             self.pending.pop(body['token'], None)
@@ -150,15 +179,25 @@ class Application:
         raise ValueError('Unknown operation')
 
 
-def build_release(database, expected_digest):
+def build_release(database, expected_digest, backup_dir=None):
     from catalog.releases import ReleaseStore
     store = ReleaseStore(Path(database).resolve().parent / 'releases')
     with closing(authoring.open_workspace(database)) as db:
         frozen = store.freeze(db, expected_digest)
     release = store.complete(frozen)
     manifest = store.verify(release)
-    return dict(release_id=release, frozen_id=frozen, artifact_count=len(manifest['artifacts']),
-                store=str(store.root), evidence=str(store.completed / release / 'reviewed-edits.json'))
+    result = dict(release_id=release, frozen_id=frozen, artifact_count=len(manifest['artifacts']),
+                  store=str(store.root), evidence=str(store.completed / release / 'reviewed-edits.json'))
+    if backup_dir:
+        # Releases are immutable; an existing verified copy is kept as is.
+        destination = Path(backup_dir) / 'releases' / release
+        try:
+            if not destination.exists():
+                store.backup(release, destination)
+            result['backup'] = str(destination)
+        except Exception as error:
+            result['backup_error'] = str(error)
+    return result
 
 
 def handler(app):
@@ -220,12 +259,19 @@ def main():
     parser.add_argument('--database', type=Path, required=True, help='Separate local authoring database')
     parser.add_argument('--initialize-from', type=Path, help='Create a new workspace from a source-verified draft; then exit')
     parser.add_argument('--port', type=int, default=8766)
+    parser.add_argument('--backup-dir', type=Path,
+                        help='Back up the draft here at startup and after every saved change, and copy each created release')
     args = parser.parse_args()
     if args.initialize_from:
         print('Created authoring workspace from baseline', authoring.initialize(args.initialize_from, args.database))
         return
-    with HTTPServer(('127.0.0.1', args.port), handler(Application(args.database))) as server:
+    app = Application(args.database, args.backup_dir)
+    with HTTPServer(('127.0.0.1', args.port), handler(app)) as server:
         print(f'Local catalog authoring: http://127.0.0.1:{server.server_port}', flush=True)
+        if args.backup_dir:
+            print(f'Backing up the draft to {args.backup_dir}', flush=True)
+        else:
+            print('Warning: draft backups are off. Add --backup-dir to keep copies of your edits.', flush=True)
         server.serve_forever()
 
 
