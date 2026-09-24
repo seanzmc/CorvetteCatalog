@@ -1,5 +1,6 @@
 """Regression coverage for the reproduction verifier's generated-directory input."""
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -33,6 +34,9 @@ class DiscoveryComparisonTests(unittest.TestCase):
         mutate(data)
         path.write_text(json.dumps(data, sort_keys=True))
 
+    # The full verifier reads the Git-ignored raw guide; CI declares it absent.
+    @unittest.skipIf(os.environ.get('CATALOG_RAW_SOURCES') == 'absent',
+                     'raw manufacturer guide is Git-ignored and absent (CATALOG_RAW_SOURCES=absent)')
     def test_timestamp_changes_and_key_order_pass_full_verifier(self):
         def timestamps(data):
             snapshots = [row['state'] for row in data['foundations'] + data['seat_transitions']]

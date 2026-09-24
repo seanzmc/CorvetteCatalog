@@ -59,6 +59,9 @@ class ModelDiscoveryReproductionTests(unittest.TestCase):
                     self.assertEqual(price['rpo'], row['rpo'])
                     self.assertEqual(price['baseline_amount'], row['price'])
 
+    # The ZR1/ZR1X extractor reads the Git-ignored raw guide; CI declares it absent.
+    @unittest.skipIf(os.environ.get('CATALOG_RAW_SOURCES') == 'absent',
+                     'raw manufacturer guide is Git-ignored and absent (CATALOG_RAW_SOURCES=absent)')
     def test_extractors_reproduce_committed_bytes(self):
         for lane in ('zr1', 'zr1x'):
             with self.subTest(lane=lane), tempfile.TemporaryDirectory(dir=ROOT / '.local') as directory:
@@ -83,6 +86,9 @@ class ModelDiscoveryReproductionTests(unittest.TestCase):
                 executable = shutil.which(name)
                 self.assertIsNotNone(executable, f'{name} is required')
                 (tools / name).symlink_to(executable)
+            # GNU tar (Linux CI) runs gzip for .tar.gz; bsdtar has it built in.
+            if gzip := shutil.which('gzip'):
+                (tools / 'gzip').symlink_to(gzip)
             environment = {**os.environ, 'PATH': str(tools), 'TMPDIR': directory}
             for lane in schema['lanes']['models']:
                 with self.subTest(lane=lane):
