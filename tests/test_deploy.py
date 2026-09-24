@@ -2,6 +2,7 @@
 import json
 import os
 from pathlib import Path
+import shutil
 import socket
 import subprocess
 import sys
@@ -56,6 +57,7 @@ class DeployTests(unittest.TestCase):
         server = subprocess.Popen([sys.executable, '-P', '-m', 'catalog.consumer_server', '--store', str(folder / 'store'),
                                    '--release', self.release, '--port', str(port)],
                                   cwd=self.tmp.name, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        self.addCleanup(server.stderr.close)
         self.addCleanup(server.wait)
         self.addCleanup(server.terminate)
         for _ in range(120):
@@ -95,15 +97,33 @@ class DeployTests(unittest.TestCase):
                 deploy.publish(self.store, self.release, version + 1, self.deploy)
         self.assertEqual(self.store.pointer(deploy.CHANNEL)['version'], version + 1)
 
+    def draft_store(self):
+        """The releases store beside a draft, where the editor builds releases."""
+        store = ReleaseStore(Path(self.tmp.name) / 'releases')
+        shutil.copytree(self.store.completed / self.release, store.completed / self.release)
+        return Path(self.tmp.name) / 'draft.sqlite', store
+
     def test_ship_releases_publishes_and_packages_an_accepted_draft(self):
-        database = Path(self.tmp.name) / 'draft.sqlite'
-        built = dict(release_id=self.release, store=str(self.store.root))
+        database, store = self.draft_store()
+        built = dict(release_id=self.release, store=str(store.root))
         with patch('catalog.deploy.authoring.open_workspace', return_value=self.db_copy()), \
                 patch('catalog.authoring_server.build_release', return_value=built) as build:
             result = deploy.ship(database, 'backups')
         build.assert_called_once_with(database, self.digest, 'backups')
-        self.assertEqual(result['pointer']['release_id'], self.release)
+        self.assertEqual(result['pointer'], dict(release_id=self.release, version=1))
         self.assertEqual(Path(result['package']), Path(self.tmp.name).resolve() / 'deploy' / self.release)
+
+    def test_ship_refuses_a_publish_made_during_the_build(self):
+        database, store = self.draft_store()
+        def build(*args):
+            # Someone else publishes while this release is being built.
+            store.publish(self.release, store.pointer(deploy.CHANNEL)['version'], deploy.CHANNEL)
+            return dict(release_id=self.release, store=str(store.root))
+        with patch('catalog.deploy.authoring.open_workspace', return_value=self.db_copy()), \
+                patch('catalog.authoring_server.build_release', side_effect=build):
+            with self.assertRaisesRegex(ValueError, 'Stale publication pointer'):
+                deploy.ship(database)
+        self.assertEqual(store.pointer(deploy.CHANNEL)['version'], 1)
 
     def test_channel_serving_needs_a_published_release(self):
         empty = Path(self.tmp.name) / 'empty-store'

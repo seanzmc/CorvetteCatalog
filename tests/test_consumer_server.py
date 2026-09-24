@@ -10,7 +10,7 @@ from unittest.mock import patch
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-from catalog.consumer_server import Application, Tokens, handler, token_key, ThreadingHTTPServer
+from catalog.consumer_server import Application, ChannelApp, Tokens, handler, token_key, ThreadingHTTPServer
 
 
 class StubApp:
@@ -115,6 +115,40 @@ class EvaluationLockTests(unittest.TestCase):
         for thread in threads: thread.start()
         for thread in threads: thread.join()
         self.assertEqual(peak, 1)
+
+
+class ChannelTests(unittest.TestCase):
+    def test_follows_the_channel_and_reports_code_it_cannot_run(self):
+        class Store:
+            named = 'release-a'
+            def pointer(self, channel):
+                return {'release_id': self.named, 'version': 1}
+        class Release:
+            def __init__(self, store, identifier, dealer, key):
+                if identifier == 'release-new-code':
+                    raise ValueError('Use the runtime pinned in this release')
+                self.identifier, self.key, self.artwork_root = identifier, key, None
+            def dispatch(self, path, body):
+                return {'release': self.identifier}
+        store = Store()
+        with patch('catalog.consumer_server.Application', Release), redirect_stderr(io.StringIO()) as log:
+            app = ChannelApp(store, 'production', interval=3600)
+            store.named = 'release-b'
+            self.assertEqual(app.identifier, 'release-a')  # checked at most once per interval
+            app.interval = 0
+            self.assertEqual(app.dispatch('/api/restore', {}), {'release': 'release-b'})
+            self.assertIs(app.current.key, app.key)  # saved builds stay valid across the switch
+            store.named = 'release-new-code'
+            self.assertEqual(app.identifier, 'release-b')
+            self.assertEqual(app.restart_required, 'release-new-code')
+        self.assertIn('Restart to serve release release-new-code', log.getvalue())
+        port_app = app
+        server = ThreadingHTTPServer(('127.0.0.1', 0), handler(port_app))
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        self.addCleanup(server.server_close); self.addCleanup(server.shutdown)
+        with redirect_stderr(io.StringIO()), patch('catalog.consumer_server.Application', Release), \
+                urlopen(f'http://127.0.0.1:{server.server_port}/healthz', timeout=10) as response:
+            self.assertEqual(json.loads(response.read())['restart_required_for'], 'release-new-code')
 
 
 if __name__ == '__main__':

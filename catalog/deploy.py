@@ -88,9 +88,12 @@ def ship(database, backup_dir=None):
     database = Path(database)
     with closing(authoring.open_workspace(database)) as db:
         digest = database_hash(db)
+    # Read the pointer before the long build so a publish made meanwhile is
+    # reported as stale rather than silently replaced.
+    expected = ReleaseStore(database.resolve().parent / 'releases').pointer(CHANNEL)['version']
     built = build_release(database, digest, backup_dir)
     store = ReleaseStore(built['store'])
-    published = publish(store, built['release_id'], store.pointer(CHANNEL)['version'], database.resolve().parent / 'deploy')
+    published = publish(store, built['release_id'], expected, database.resolve().parent / 'deploy')
     return dict(built, **published)
 
 

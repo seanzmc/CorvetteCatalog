@@ -143,6 +143,10 @@ port 8080. To roll back, move the pointer with `python -m catalog.releases
 with `python -m catalog.deploy package --store .local/authoring/releases
 --release RELEASE_ID` if needed. To serve whatever production names locally, use
 `python -m catalog.consumer_server --store .local/authoring/releases --channel production`.
+It checks the channel every few seconds and switches when a release on the same
+pinned code is published. A release pinned to different code needs a restart;
+until then the server keeps its current release, says so in the terminal and
+reports `restart_required_for` from `/healthz`.
 
 To try the form with the checked-in catalog before making any edits, build a
 source release instead:
