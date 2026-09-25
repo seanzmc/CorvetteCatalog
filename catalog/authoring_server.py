@@ -15,7 +15,7 @@ from catalog import authoring
 from catalog import authoring_records as records, authoring_acceptance as acceptance
 from catalog import authoring_relationships as relationships
 from catalog import authoring_components as components
-from catalog import draft_backup
+from catalog import draft_backup, deploy
 from catalog.consumers import encode
 
 # Requests that change the draft; each success is followed by a backup.
@@ -110,6 +110,11 @@ class Application:
         if path == '/api/cancel':
             self.pending.pop(body['token'], None)
             return {'cancelled': True}
+        if path == '/api/release/publish':
+            from catalog.releases import ReleaseStore
+            store = ReleaseStore(self.database.resolve().parent / 'releases')
+            return deploy.publish(store, body['release_id'], body['expected_version'],
+                                  self.database.resolve().parent / 'deploy')
         with closing(authoring.open_workspace(self.database)) as db:
             if path in ('/api/records/preview','/api/acceptance/preview'):
                 self.pending.pop(body.get('previous_token'), None)
@@ -187,7 +192,8 @@ def build_release(database, expected_digest, backup_dir=None):
     release = store.complete(frozen)
     manifest = store.verify(release)
     result = dict(release_id=release, frozen_id=frozen, artifact_count=len(manifest['artifacts']),
-                  store=str(store.root), evidence=str(store.completed / release / 'reviewed-edits.json'))
+                  store=str(store.root), evidence=str(store.completed / release / 'reviewed-edits.json'),
+                  production=store.pointer('production'))
     if backup_dir:
         # Releases are immutable. An existing copy is verified, never replaced;
         # a damaged one is reported so it can be moved aside and rebuilt.

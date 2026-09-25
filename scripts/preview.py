@@ -13,7 +13,7 @@ import webbrowser
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from catalog import foundation as f
+from catalog import authoring, foundation as f
 from catalog.behavior_sources import import_behavior
 from catalog.consumers import import_mappings
 from catalog.consumer_server import Application, handler
@@ -71,9 +71,28 @@ def build_release(local):
     return store, release
 
 
+def draft_release(database):
+    """Reuse or build the release of an accepted editing draft, beside that draft."""
+    store = ReleaseStore(Path(database).resolve().parent / 'releases')
+    with closing(authoring.open_workspace(database)) as db:
+        digest = database_hash(db)
+    runtime = pins()
+    for path in sorted(store.completed.glob('*/manifest.json')):
+        manifest = json.loads(path.read_text())
+        if manifest['freeze']['draft_sha256'] == digest and manifest['runtime'] == runtime:
+            store.verify(path.parent.name)
+            print('Reusing the release of this exact draft.', flush=True)
+            return store, path.parent.name
+    print('Building a release of your accepted draft. This can take several minutes…', flush=True)
+    with closing(authoring.open_workspace(database)) as db:
+        frozen = store.freeze(db, digest)
+    return store, store.complete(frozen)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', type=int, default=8765)
+    parser.add_argument('--draft', type=Path, help='Preview an accepted editing draft instead of the checked-in catalog')
     parser.add_argument('--no-browser', action='store_true', help='Print the URL without opening a browser')
     args = parser.parse_args()
     if not 1 <= args.port <= 65535:
@@ -85,12 +104,15 @@ def main():
         parser.exit(1, f'Cannot open port {args.port}: {error}. Try --port {8767 if args.port != 8767 else 8768}.\n')
     with server:
         try:
-            print('Looking for a verified release matching this checkout…', flush=True)
-            local = ROOT / '.local'
-            result = find_release(local)
-            if result:
-                print('Reusing the current verified build.', flush=True)
-            store, release = result or build_release(local)
+            if args.draft:
+                store, release = draft_release(args.draft)
+            else:
+                print('Looking for a verified release matching this checkout…', flush=True)
+                local = ROOT / '.local'
+                result = find_release(local)
+                if result:
+                    print('Reusing the current verified build.', flush=True)
+                store, release = result or build_release(local)
             # Application verifies the bundle again and keeps live delivery off.
             server.RequestHandlerClass = handler(Application(store, release))
             url = f'http://127.0.0.1:{args.port}'

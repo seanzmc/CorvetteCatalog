@@ -166,6 +166,56 @@ class Application:
         raise ValueError('Unknown operation')
 
 
+class ChannelApp:
+    """Serve whatever a channel names and follow it when it moves.
+
+    A release pinned to different code cannot run in this process. The server
+    then keeps its current release and reports that a restart is required.
+    """
+    def __init__(self, store, channel, dealer_submissions=False, token_key=None, interval=5.0):
+        self.store, self.channel, self.interval = store, channel, interval
+        self.dealer_submissions = dealer_submissions
+        # One key for every release this process serves keeps saved builds valid.
+        self.key = token_key or secrets.token_bytes(32)
+        self.lock = threading.Lock()
+        self.checked, self.restart_required = time.monotonic(), None
+        release = store.pointer(channel)['release_id']
+        if not release:
+            raise ValueError(f'Nothing is published to the {channel} channel')
+        self.current = Application(store, release, dealer_submissions, self.key)
+
+    def refresh(self):
+        with self.lock:
+            if time.monotonic() - self.checked < self.interval:
+                return self.current
+            self.checked = time.monotonic()
+            named = self.store.pointer(self.channel)['release_id']
+            if named and named != self.current.identifier:
+                try:
+                    self.current = Application(self.store, named, self.dealer_submissions, self.key)
+                    self.restart_required = None
+                    print(f'Now serving release {named} from the {self.channel} channel', file=sys.stderr, flush=True)
+                except ValueError as error:
+                    if self.restart_required != named:
+                        print(f'Restart to serve release {named}: {error}', file=sys.stderr, flush=True)
+                    self.restart_required = named
+            return self.current
+
+    @property
+    def identifier(self):
+        return self.refresh().identifier
+
+    @property
+    def artwork_root(self):
+        return self.refresh().artwork_root
+
+    def catalog(self):
+        return self.refresh().catalog()
+
+    def dispatch(self, path, body):
+        return self.refresh().dispatch(path, body)
+
+
 def handler(app, origins=None):
     """origins: allowed browser origins; None allows only this loopback port."""
     class Handler(BaseHTTPRequestHandler):
@@ -201,7 +251,10 @@ def handler(app, origins=None):
         def do_GET(self):
             if self.path == '/healthz':
                 # Platform health probes may not send the public Host header.
-                return self.send(200, {'status': 'ok', 'release_id': app.identifier})
+                health = {'status': 'ok', 'release_id': app.identifier}
+                if getattr(app, 'restart_required', None):
+                    health['restart_required_for'] = app.restart_required
+                return self.send(200, health)
             if not self.allowed():
                 return self.send(403, {'error': 'Wrong origin'})
             if self.path == '/api/catalog':
@@ -248,7 +301,9 @@ def token_key(host):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--store', type=Path, required=True)
-    parser.add_argument('--release', required=True)
+    chosen = parser.add_mutually_exclusive_group(required=True)
+    chosen.add_argument('--release', help='Completed release ID to serve')
+    chosen.add_argument('--channel', help='Serve the release a channel names, e.g. production')
     parser.add_argument('--host', default='127.0.0.1', help='Interface to listen on (default loopback only)')
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--origin', action='append', default=[],
@@ -256,7 +311,14 @@ def main():
     parser.add_argument('--enable-dealer-submissions', action='store_true',
                         help='Enable the existing dealer endpoint and Turnstile; otherwise preview without sending')
     args = parser.parse_args()
-    app = Application(ReleaseStore(args.store), args.release, args.enable_dealer_submissions, token_key(args.host))
+    store = ReleaseStore(args.store)
+    if args.release:
+        app = Application(store, args.release, args.enable_dealer_submissions, token_key(args.host))
+    else:
+        try:
+            app = ChannelApp(store, args.channel, args.enable_dealer_submissions, token_key(args.host))
+        except ValueError as error:
+            raise SystemExit(f'{error} in {args.store}') from None
     with ThreadingHTTPServer((args.host, args.port), handler(app, args.origin or None)) as server:
         print(f'Customer build form: http://{args.host}:{server.server_port}', flush=True)
         server.serve_forever()

@@ -120,6 +120,33 @@ Saving an edit updates the draft. To make that draft available to the customer f
    bundle. This can take several minutes.
 4. Copy the completed **Release** ID and **Store** path shown on the page. With the
    setup above, the store is `.local/authoring/releases`.
+5. To make it the production release, click **Publish to production** and confirm.
+   This writes a deploy package to `.local/authoring/deploy/RELEASE_ID` and then
+   moves the `production` pointer. Uploading the package to the host is a separate
+   step that is not set up yet.
+
+To preview an accepted draft in the customer form without copying IDs, run
+`python3 scripts/preview.py --draft .local/authoring/draft.sqlite`. It reuses the
+release of that exact draft or builds one; a draft with unaccepted edits must be
+accepted first.
+
+The same release, publish and package steps run from the command line with
+`python -m catalog.deploy ship --database .local/authoring/draft.sqlite`. Add
+`--backup-dir` to copy the release there too.
+
+A deploy package holds a `Dockerfile`, a `start.sh` and a store with only that
+release, which runs on the code pinned in it. The container needs
+`CATALOG_ORIGIN` (the public address) and `CATALOG_BUILD_TOKEN_KEY`, and listens on
+port 8080. To roll back, move the pointer with `python -m catalog.releases
+--store .local/authoring/releases rollback --channel production
+--expected-version N` and deploy the previous release's package, recreating it
+with `python -m catalog.deploy package --store .local/authoring/releases
+--release RELEASE_ID` if needed. To serve whatever production names locally, use
+`python -m catalog.consumer_server --store .local/authoring/releases --channel production`.
+It checks the channel every few seconds and switches when a release on the same
+pinned code is published. A release pinned to different code needs a restart;
+until then the server keeps its current release, says so in the terminal and
+reports `restart_required_for` from `/healthz`.
 
 To try the form with the checked-in catalog before making any edits, build a
 source release instead:
