@@ -184,7 +184,9 @@ el('revert').addEventListener('click',()=>run(()=>preview('revert',null)));
 el('reset').addEventListener('click',()=>el('resetDialog').showModal());el('resetCancel').addEventListener('click',()=>el('resetDialog').close());
 el('resetConfirm').addEventListener('click',()=>{current=null;keep(null);pending=null;el('build').hidden=true;el('buildActions').hidden=true;el('setup').hidden=false;el('notice').textContent='';el('resetDialog').close();el('start').disabled=false;el('model').focus();});
 // Same Markdown summary as the existing form's Download Build, from the confirmed order.
-const dollars = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(n||0));
+// Whole dollars as in the existing form, but never round away cents: an edited
+// price such as $61.25 must reconcile with the total (same rule as dealer.money).
+const dollars = n => { const c=Math.round(Number(n||0)*100); return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:c%100?2:0,maximumFractionDigits:c%100?2:0}).format(c/100); };
 function buildMarkdown(order, master) {
   const lines=[`# ${master.model_year} Corvette ${master.model_label}`,'',`Generated: ${new Date().toISOString()}`,'','### Variant','',`- ${order.vehicle.display_name||''}`,''];
   for(const section of order.sections){
