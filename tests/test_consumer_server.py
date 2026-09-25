@@ -65,6 +65,19 @@ class ServerTests(unittest.TestCase):
         self.assertIn('/healthz', log.getvalue())
         self.assertNotIn('127.0.0.1', log.getvalue())
 
+    def test_brand_assets_and_dealership_images_are_allowed(self):
+        port = self.serve(None)
+        with redirect_stderr(io.StringIO()):
+            with urlopen(f'http://127.0.0.1:{port}/brand/crossflags-white.png', timeout=10) as response:
+                self.assertEqual(response.headers['Content-Type'], 'image/png')
+                self.assertEqual(response.read()[:8], b'\x89PNG\r\n\x1a\n')
+                policy = response.headers['Content-Security-Policy']
+            with urlopen(f'http://127.0.0.1:{port}/', timeout=10) as response:
+                page = response.read().decode()
+        self.assertIn("img-src 'self' https://stingraychevroletcorvette.com", policy)
+        self.assertIn('/brand/stingray-wordmark-white.png', page)
+        self.assertIn('Stingray Order Form', page)
+
     def test_default_allows_only_this_loopback_port(self):
         port = self.serve(None)
         with redirect_stderr(io.StringIO()):

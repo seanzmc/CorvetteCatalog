@@ -199,7 +199,8 @@ restores the previous build after confirmation. Seats and interior colors narrow
 to the catalog's exact interior choices.
 
 Use **Review build** to see your selections, remaining requirements and total.
-Complete required selections before using **Download build** or **Preview dealer
+**Download build** saves the same Markdown summary as the existing form
+(`<model>-build.md`). Complete required selections before using **Download build** or **Preview dealer
 submission**. **Start over** asks before clearing your selections. Prices,
 equipment, artwork and order output follow the confirmed build.
 

@@ -41,6 +41,8 @@ async function run(action) {
 }
 function configurations() {
   model=catalog.models[el('model').value]; el('bodyStyle').replaceChildren();
+  // The existing form names itself after the chosen model.
+  document.title=el('appTitle').textContent=`${model.presentation.model_master[0].model_label} Order Form`;
   const bodies=[...new Set(Object.values(model.configurations).filter(c=>active(c.active)).sort((a,b)=>a.display_order-b.display_order).map(c=>c.body_style))];
   bodies.forEach(body=>option(el('bodyStyle'),body,body[0].toUpperCase()+body.slice(1))); trims();
 }
@@ -181,7 +183,26 @@ el('confirm').addEventListener('click',()=>run(async()=>{
 el('revert').addEventListener('click',()=>run(()=>preview('revert',null)));
 el('reset').addEventListener('click',()=>el('resetDialog').showModal());el('resetCancel').addEventListener('click',()=>el('resetDialog').close());
 el('resetConfirm').addEventListener('click',()=>{current=null;keep(null);pending=null;el('build').hidden=true;el('buildActions').hidden=true;el('setup').hidden=false;el('notice').textContent='';el('resetDialog').close();el('start').disabled=false;el('model').focus();});
-el('export').addEventListener('click',()=>run(async()=>{const order=await api('/api/order',{});const url=URL.createObjectURL(new Blob([JSON.stringify(order,null,2)],{type:'application/json'}));const a=node('a','');a.href=url;a.download='corvette-build.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}));
+// Same Markdown summary as the existing form's Download Build, from the confirmed order.
+// Whole dollars as in the existing form, but never round away cents: an edited
+// price such as $61.25 must reconcile with the total (same rule as dealer.money).
+const dollars = n => { const c=Math.round(Number(n||0)*100); return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:c%100?2:0,maximumFractionDigits:c%100?2:0}).format(c/100); };
+function buildMarkdown(order, master) {
+  const lines=[`# ${master.model_year} Corvette ${master.model_label}`,'',`Generated: ${new Date().toISOString()}`,'','### Variant','',`- ${order.vehicle.display_name||''}`,''];
+  for(const section of order.sections){
+    if(!section.items.length)continue;
+    lines.push(`### ${section.section}`,'');
+    for(const item of section.items)lines.push(`- ${item.rpo?`${item.rpo} `:''}${item.label||''}: ${dollars(item.price)}`);
+    lines.push('');
+  }
+  lines.push('### MSRP','',`- Total MSRP: ${order.msrp}`,'');
+  return lines.join('\n').replace(/\n{3,}/g,'\n\n');
+}
+el('export').addEventListener('click',()=>run(async()=>{
+  const order=await api('/api/dealer/review',{version:current.version}), master=model.presentation.model_master[0];
+  const url=URL.createObjectURL(new Blob([buildMarkdown(order,master)],{type:'text/markdown'}));
+  const a=node('a','');a.href=url;a.download=`${master.export_slug||'corvette'}-build.md`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}));
 catalogDealer.init({api,state:()=>({catalog,current,pending,buildToken,busy})});el('dealerOpen').addEventListener('click',()=>run(()=>catalogDealer.open()));
 async function restore() {
   buildToken=saved.get(); if(!buildToken) return;
@@ -201,7 +222,7 @@ async function restore() {
     let r;
     try { r=await fetch('/api/catalog');catalog=await r.json(); } catch { throw new Error(UNAVAILABLE); }
     if(!r.ok)throw new Error(r.status>=500?UNAVAILABLE:catalog.error);
-    el('release').textContent=`Release ${catalog.release_id}`;Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>option(el('model'),key,c.presentation.model_master[0].model_label));el('model').value=catalog.default_model;configurations();el('start').disabled=false;
+    el('release').textContent=`Release ${catalog.release_id}`;el('deliveryMode').textContent=catalog.dealer.enabled?'Build requests are sent to Stingray Chevrolet.':'Preview mode · Build requests are not sent to the dealership.';Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>option(el('model'),key,c.presentation.model_master[0].model_label));el('model').value=catalog.default_model;configurations();el('start').disabled=false;
     await restore();
   }catch(e){el('error').textContent=e.message;}
 })();
