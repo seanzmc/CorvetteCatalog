@@ -82,7 +82,7 @@ Ranked by how much each one blocks going live.
 
 | Live form has | New form | Note |
 | --- | --- | --- |
-| CSV build download | JSON only | Customers can open CSV; JSON is for machines |
+| Markdown build summary (`<model>-build.md`) from **Download Build** | JSON only | Corrected September 25: the live CSV/JSON exports are not wired to any control; customers get Markdown |
 | Model-card photos (`image_url` from the workbook `asset_map`) | Text drop-downs | Model/body/trim chooser is plainer than live |
 | WordPress styling, logo and favicon | Local theme, "Local preview" footer | Needs production copy and branding |
 | Works after reload (state in the page) | Build lost on reload | See 2.1 item 3 |
@@ -301,7 +301,7 @@ detail. Keep the two in sync when tasks are re-ordered or added.
 | 2 | Automatic draft/release backup | Protects edits already made |
 | 3 | Consumer hardening (4.2) | Required for any hosting |
 | 4 | Channel-following server and one-step publish (5.1, 5.3) | Makes edits easy locally and remotely |
-| 5 | Parity items: CSV download, model photos, production branding | Customers notice these |
+| 5 | Parity items: Markdown build download, card photos, production branding | Customers notice these |
 | 6 | Cloudflare staging (stage B): Worker, Container, secrets | Hosting decided |
 | 7 | Real dealer receipt proof (stage C) | Needs dealership coordination |
 | 8 | Artwork for launch: delivery through Cloudflare, swatches, optional lower-trim exports, second view | Launches with the form; can run in parallel after 3 |

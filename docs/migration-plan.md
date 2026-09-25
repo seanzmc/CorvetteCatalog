@@ -24,7 +24,7 @@ static form remains available at every rollout stage until retirement.
 | 2 | Automatic draft/release backup | Protects edits already made |
 | 3 | Consumer hardening (audit §4.2) | Required for any hosting |
 | 4 | Channel-following server and one-step publish (audit §5.1, §5.3) | Makes edits easy locally and remotely |
-| 5 | Parity items: CSV download, model photos, production branding | Customers notice these |
+| 5 | Parity items: Markdown build download, card photos, production branding | Customers notice these |
 | 6 | Cloudflare staging (stage B): Worker, Container, secrets | Hosting decided |
 | 7 | Real dealer receipt proof (stage C) | Needs dealership coordination |
 | 8 | Artwork for launch: delivery through Cloudflare, swatches, optional lower-trim exports, second view | Launches with the form; can run in parallel after 3 |
@@ -41,7 +41,11 @@ address-free access logs. Rate limits belong in Cloudflare rules (PR #65).
 Task 4 adds one-step publish: the editor's **Publish to production** (or
 `catalog.deploy ship`) packages a release as a container build folder running
 its own pinned code, then moves the `production` pointer. `preview.py --draft`
-previews an accepted draft. Uploading packages to Cloudflare is task 6.
+previews an accepted draft. Uploading packages to Cloudflare is task 6 (PR #66).
+Task 5 corrects the audit: the live form's **Download Build** saves a Markdown
+summary (its CSV/JSON exports have no control), and its photos cover model,
+body-style and option cards, not just models. Part one matches the Markdown
+download and the dealership branding; card photos follow separately.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the

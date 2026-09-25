@@ -233,7 +233,8 @@ def handler(app, origins=None):
             self.send_header('Content-Length', str(len(raw)))
             self.send_header('Cache-Control', 'no-store')
             self.send_header('X-Content-Type-Options', 'nosniff')
-            security = "default-src 'self'; style-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
+            # Dealership-hosted images (favicon, catalog card photos) as in the existing form.
+            security = "default-src 'self'; img-src 'self' https://stingraychevroletcorvette.com; style-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
             if app.dealer_submissions:
                 security += "; script-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com https://stingraychevroletcorvette.com"
             else:
@@ -265,7 +266,9 @@ def handler(app, origins=None):
                     return self.send(200, path.read_bytes(), 'image/webp')
                 return self.send(404, {'error':'Artwork not found'})
             files = {'/': ('index.html','text/html; charset=utf-8'), '/app.js': ('app.js','text/javascript'),
-                     '/dealer.js': ('dealer.js','text/javascript'), '/artwork.js': ('artwork.js','text/javascript'), '/style.css': ('style.css','text/css')}
+                     '/dealer.js': ('dealer.js','text/javascript'), '/artwork.js': ('artwork.js','text/javascript'), '/style.css': ('style.css','text/css'),
+                     '/brand/crossflags-white.png': ('brand/crossflags-white.png','image/png'),
+                     '/brand/stingray-wordmark-white.png': ('brand/stingray-wordmark-white.png','image/png')}
             if self.path not in files:
                 return self.send(404, {'error':'Not found'})
             name, mime = files[self.path]
