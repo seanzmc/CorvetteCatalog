@@ -45,7 +45,10 @@ previews an accepted draft. Uploading packages to Cloudflare is task 6 (PR #66).
 Task 5 corrects the audit: the live form's **Download Build** saves a Markdown
 summary (its CSV/JSON exports have no control), and its photos cover model,
 body-style and option cards, not just models. Part one matches the Markdown
-download and the dealership branding; card photos follow separately.
+download and the dealership branding (PR #67). Part two carries the pinned
+`asset_map` rows into each model's presentation, so model, body-style and option
+cards show the existing photos; a test compares every card image with the
+baseline runtime contracts.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the

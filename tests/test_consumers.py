@@ -1,5 +1,6 @@
 """Cross-lane consumer transactions and source-owned output expectations."""
 import json
+import tarfile
 import unittest
 from unittest.mock import patch
 
@@ -48,6 +49,32 @@ class ConsumerTests(unittest.TestCase):
                     oid=row['option_id']
                     override=next((o for o in rows[data['sheet_roles']['variant_overrides']] if o['option_id']==oid and o['variant_id']==cfg and str(o['active']).lower()=='true'),{})
                     self.assertEqual(cat.contexts[oid,cfg]['section_id'], override.get('section_id') or row['section_id'])
+
+    def test_card_photos_match_the_existing_runtime(self):
+        fields = ('image_url', 'image_alt', 'image_fit', 'image_position')
+        with tarfile.open(f.ROOT / 'baselines/2026-09-06/workbook-runtime.tar.gz') as baseline:
+            registry = baseline.extractfile('form-app/data.js').read().decode()
+            for key, cat in self.catalogs.items():
+                with self.subTest(model=key):
+                    runtime = json.load(baseline.extractfile(f'form-output/runtime/{key.replace("_", "-")}-runtime-contract.json'))
+                    assets = cat.model['presentation']['asset_map']
+                    # Every option photo the existing form shows, for options this catalog offers.
+                    expected = {c['option_id']: {k: c[k] for k in fields} for c in runtime['choices']
+                                if c.get('image_url') and c['option_id'] in cat.ev.options}
+                    actual = {r['target_id']: {k: r[k] for k in fields} for r in assets
+                              if r['target_type'] == 'option' and r['target_id'] in cat.ev.options}
+                    # Two photos belong to options the existing runtime never lists:
+                    # ZR1 EFR is hidden everywhere, and GSX R88 is factory-unavailable,
+                    # which this form shows as a visible, unselectable card.
+                    extra = actual.keys() - expected.keys()
+                    self.assertEqual({cat.ev.options[k]['rpo'] for k in extra},
+                                     {'grand_sport_x': {'R88'}, 'zr1': {'EFR'}}.get(key, set()))
+                    self.assertEqual({k: v for k, v in actual.items() if k not in extra}, expected)
+                    body = {c['context_choice_id']: (c['image_url'], c.get('hover_image_url')) for c in runtime['contextChoices'] if c.get('image_url')}
+                    self.assertEqual({r['target_id']: (r['image_url'], r['hover_image_url']) for r in assets
+                                      if r['target_type'] == 'context_choice'}, body)
+                    photo, = [r['image_url'] for r in assets if r['target_type'] == 'model']
+                    self.assertIn(json.dumps(photo), registry)
 
     def test_card_price_change_matches_confirmed_preview(self):
         # The UI quotes the complete transition, including package consequences,

@@ -217,6 +217,10 @@ check. Live delivery requires starting the consumer server with
 and the existing dealership endpoint. Local preview does not establish production
 delivery or dealer receipt.
 
+Model, body-style and option cards show the same photos as the existing form.
+They come from the source `asset_map` rows and load from the dealership website;
+a photo that fails to load is hidden and never changes what can be selected.
+
 Artwork currently covers selected paint/spoiler combinations for coupe and
 convertible Grand Sport and Stingray in 3LT, and Z06, ZR1 and ZR1X in 3LZ.
 Stingray supports GBA, G8G and GKZ with 5ZU; other supported families have ten
