@@ -56,28 +56,32 @@ function media(row, alt, parent, eager=false) {
   add(row.image_url,row.image_alt||alt);
   if(row.hover_image_url) add(row.hover_image_url,'','hover-media');
 }
-function setupCards() {
+// Cards are rebuilt after each choice; focus returns to the activated card so
+// keyboard users continue from it rather than from the top of the page.
+function setupCards(focus) {
   el('modelCards').replaceChildren();
   Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,m])=>{
-    const master=m.presentation.model_master[0], b=node('button','',el('modelCards'));b.type='button';b.className='setup-card';
+    const master=m.presentation.model_master[0], b=node('button','',el('modelCards'));b.type='button';b.className='setup-card';b.dataset.value=key;
     b.setAttribute('aria-pressed',String(key===el('model').value));media(assetsFor(m).model,`Corvette ${master.model_label}`,b,true);
     node('span',master.model_label,b);if(master.setup_card_subtitle)node('small',master.setup_card_subtitle,b);
-    b.addEventListener('click',()=>{el('model').value=key;configurations();});
+    // Reselecting the current choice changes nothing, as with the former select.
+    b.addEventListener('click',()=>{if(key===el('model').value)return;el('model').value=key;configurations({group:'modelCards',value:key});});
   });
   el('bodyCards').replaceChildren();
   const assets=assetsFor(model);
   [...el('bodyStyle').options].forEach(o=>{
-    const b=node('button','',el('bodyCards'));b.type='button';b.className='setup-card';b.setAttribute('aria-pressed',String(o.value===el('bodyStyle').value));
+    const b=node('button','',el('bodyCards'));b.type='button';b.className='setup-card';b.dataset.value=o.value;b.setAttribute('aria-pressed',String(o.value===el('bodyStyle').value));
     media(assets.context.get(`body_style__${o.value}`),`Corvette ${model.presentation.model_master[0].model_label} ${o.textContent}`,b,true);node('span',o.textContent,b);
-    b.addEventListener('click',()=>{el('bodyStyle').value=o.value;trims();setupCards();});
+    b.addEventListener('click',()=>{if(o.value===el('bodyStyle').value)return;el('bodyStyle').value=o.value;trims();setupCards({group:'bodyCards',value:o.value});});
   });
+  if(focus?.group)[...el(focus.group).children].find(c=>c.dataset.value===focus.value)?.focus();
 }
-function configurations() {
+function configurations(focus) {
   model=catalog.models[el('model').value]; el('bodyStyle').replaceChildren();
   // The existing form names itself after the chosen model.
   document.title=el('appTitle').textContent=`${model.presentation.model_master[0].model_label} Order Form`;
   const bodies=[...new Set(Object.values(model.configurations).filter(c=>active(c.active)).sort((a,b)=>a.display_order-b.display_order).map(c=>c.body_style))];
-  bodies.forEach(body=>option(el('bodyStyle'),body,body[0].toUpperCase()+body.slice(1))); trims(); setupCards();
+  bodies.forEach(body=>option(el('bodyStyle'),body,body[0].toUpperCase()+body.slice(1))); trims(); setupCards(focus);
 }
 function trims() {
   el('configuration').replaceChildren();
