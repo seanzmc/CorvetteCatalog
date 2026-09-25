@@ -37,7 +37,9 @@ Form, order and visualizer artifacts share one snapshot and revision membership.
 The visualizer contract consumes installed equipment and supplied content. Its
 asset list is explicitly empty with `art_not_bound` coverage. No unverified remote
 images or unprocessed PSB files are included as release assets. Missing artwork
-has no effect on product eligibility or price.
+has no effect on product eligibility or price. Card photos are different: the
+model presentation carries the source `asset_map` rows as links to images hosted
+by the dealership, as the existing form does; they are not release assets.
 
 The new interface is server-evaluated. It does not export executable rules to the
 old JavaScript engine, and it does not claim wire compatibility with that engine

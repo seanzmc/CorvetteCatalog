@@ -84,6 +84,9 @@ def import_mappings(db, source_dir=f.ROOT / 'docs'):
             promotion, = rows['model_registry_promotion']
             meta = {k: rows[k] for k in ('model_master', 'runtime_steps', 'section_master', 'section_presentation',
                     'order_summary_sections', 'step_order_summary_map', 'context_section_master', 'context_choice_copy')}
+            # Card photos (model, body style, option) are presentation only; a
+            # missing image never changes availability or price.
+            meta['asset_map'] = [r for r in rows['asset_map'] if active(r['active'])]
             policy_hash = hashlib.sha256((source_dir / 'compatibility-notice-policy.json').read_bytes()).hexdigest()
             db.execute('INSERT INTO consumer_model VALUES (?,?,?,?,?,?,?,?)',
                        (revision, promotion['registry_key'], promotion['legacy_alias'], promotion['display_order'],

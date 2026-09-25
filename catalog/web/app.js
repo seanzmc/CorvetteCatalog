@@ -39,12 +39,45 @@ async function run(action) {
     if(pending) el('cancel').focus();
   }
 }
+// Card photos come from the catalog's source asset rows; a failed image is
+// hidden and never affects what can be selected.
+function assetsFor(m) {
+  const rows=m.presentation.asset_map||[];
+  return {option:new Map(rows.filter(r=>r.target_type==='option').map(r=>[r.target_id,r])),
+          context:new Map(rows.filter(r=>r.target_type==='context_choice').map(r=>[r.target_id,r])),
+          model:rows.find(r=>r.target_type==='model')};
+}
+function media(row, alt, parent, eager=false) {
+  if(!row?.image_url) return;
+  const box=node('span','',parent);box.className='choice-media';box.dataset.fit=row.image_fit==='contain'?'contain':'cover';
+  const add=(url,text,cls)=>{const img=document.createElement('img');img.src=url;img.alt=text||'';img.loading=eager?'eager':'lazy';img.decoding='async';img.draggable=false;
+    if(/^[\w\s.%/-]+$/.test(row.image_position||''))img.style.objectPosition=row.image_position;
+    if(cls)img.className=cls;img.addEventListener('error',()=>box.remove());box.append(img);};
+  add(row.image_url,row.image_alt||alt);
+  if(row.hover_image_url) add(row.hover_image_url,'','hover-media');
+}
+function setupCards() {
+  el('modelCards').replaceChildren();
+  Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,m])=>{
+    const master=m.presentation.model_master[0], b=node('button','',el('modelCards'));b.type='button';b.className='setup-card';
+    b.setAttribute('aria-pressed',String(key===el('model').value));media(assetsFor(m).model,`Corvette ${master.model_label}`,b,true);
+    node('span',master.model_label,b);if(master.setup_card_subtitle)node('small',master.setup_card_subtitle,b);
+    b.addEventListener('click',()=>{el('model').value=key;configurations();});
+  });
+  el('bodyCards').replaceChildren();
+  const assets=assetsFor(model);
+  [...el('bodyStyle').options].forEach(o=>{
+    const b=node('button','',el('bodyCards'));b.type='button';b.className='setup-card';b.setAttribute('aria-pressed',String(o.value===el('bodyStyle').value));
+    media(assets.context.get(`body_style__${o.value}`),`Corvette ${model.presentation.model_master[0].model_label} ${o.textContent}`,b,true);node('span',o.textContent,b);
+    b.addEventListener('click',()=>{el('bodyStyle').value=o.value;trims();setupCards();});
+  });
+}
 function configurations() {
   model=catalog.models[el('model').value]; el('bodyStyle').replaceChildren();
   // The existing form names itself after the chosen model.
   document.title=el('appTitle').textContent=`${model.presentation.model_master[0].model_label} Order Form`;
   const bodies=[...new Set(Object.values(model.configurations).filter(c=>active(c.active)).sort((a,b)=>a.display_order-b.display_order).map(c=>c.body_style))];
-  bodies.forEach(body=>option(el('bodyStyle'),body,body[0].toUpperCase()+body.slice(1))); trims();
+  bodies.forEach(body=>option(el('bodyStyle'),body,body[0].toUpperCase()+body.slice(1))); trims(); setupCards();
 }
 function trims() {
   el('configuration').replaceChildren();
@@ -92,13 +125,13 @@ function render() {
   renderOptions();renderSummary();catalogDealer.sync();
 }
 function renderOptions() {
-  el('options').replaceChildren();const groups=new Map(), query=el('search').value.toLowerCase();
+  el('options').replaceChildren();const groups=new Map(), query=el('search').value.toLowerCase(), photos=assetsFor(model).option;
   let parent=el('options');
   if(activeStep==='interior') { parent=node('details','',parent);node('summary','Individual seat options',parent); }
   choiceCards().filter(c=>(c.step_key===activeStep || activeStep==='interior' && ['seat','base_interior'].includes(c.step_key)) && `${c.rpo} ${c.label}`.toLowerCase().includes(query)).forEach(c=>{
     if(!groups.has(c.section_id)){const section=node('section','',parent);node('h3',c.section_label,section);const grid=node('div','',section);grid.className='cards';groups.set(c.section_id,grid);}
     const card=node('article','',groups.get(c.section_id));card.className=`choice-card ${c.selected?'selected':''}`;
-    node('span',c.rpo||'Option',card).className='rpo';node('h4',c.label,card);
+    media(photos.get(c.option_id),c.label,card);node('span',c.rpo||'Option',card).className='rpo';node('h4',c.label,card);
     if(c.selected)node('p','Selected',card).className='selected-label';
     if(c.selectable && c.delta_minor!==undefined)node('p',`${c.selected?'Removing':'Selecting'}: ${c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))} to build total`}`,card);
     if(c.description || c.detail_raw || c.reason){const d=node('details','',card);node('summary','Option details',d);for(const text of new Set([c.description,c.detail_raw,c.reason].filter(Boolean)))node('p',text,d);}
@@ -206,7 +239,7 @@ async function restore() {
   buildToken=saved.get(); if(!buildToken) return;
   try {
     const r=await api('/api/restore',{});
-    el('model').value=r.model;configurations();el('bodyStyle').value=model.configurations[r.configuration_id].body_style;trims();el('configuration').value=r.configuration_id;
+    el('model').value=r.model;configurations();el('bodyStyle').value=model.configurations[r.configuration_id].body_style;trims();setupCards();el('configuration').value=r.configuration_id;
     current=r;activeStep=null;interiorPath=[];render();
     if(r.notice)el('notice').textContent=r.notice;
   } catch(e) {
