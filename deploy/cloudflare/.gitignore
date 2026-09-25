@@ -1,0 +1,4 @@
+node_modules/
+# Generated deploy package copied in before each deploy.
+package/
+.wrangler/

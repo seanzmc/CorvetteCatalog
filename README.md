@@ -232,6 +232,32 @@ The form serves a completed release, so editing the draft does not update an
 already running form. Create a new release and restart the consumer server with
 its new ID to see accepted changes.
 
+## Staging on Cloudflare
+
+`deploy/cloudflare` holds a Cloudflare Worker that forwards every request to a
+container running one release package. The **Deploy staging** GitHub workflow
+builds a verified release of the checked-in catalog, packages it, deploys it and
+checks that `/healthz` reports the new release. Staging never sends build requests
+to the dealership. Containers need the Cloudflare Workers Paid plan; containers
+bill only while awake and sleep after 15 idle minutes.
+
+One-time setup:
+
+1. In Cloudflare, create an API token from the **Edit Cloudflare Workers**
+   template. If the permission list offers **Containers: Edit**, add it.
+2. In GitHub (**Settings → Secrets and variables → Actions**), add the secrets
+   `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` and `STAGING_BUILD_TOKEN_KEY`
+   (any random value of 32 or more characters, kept the same between deploys),
+   and optionally `STAGING_PASSWORD` to require a password for the whole site
+   (user name is ignored).
+3. Add the variable `STAGING_ORIGIN` with the address the site will have, such as
+   `https://corvette-catalog-staging.YOUR-SUBDOMAIN.workers.dev` (your
+   `workers.dev` subdomain is shown under **Workers & Pages** in Cloudflare).
+
+Then run **Actions → Deploy staging → Run workflow**. A run takes about 20–30
+minutes, most of it the six-model audit. Staging serves the checked-in catalog;
+releases of edited drafts on this Mac are not uploaded yet.
+
 ## Verify and back up a release
 
 Use the store and completed release ID from your build:

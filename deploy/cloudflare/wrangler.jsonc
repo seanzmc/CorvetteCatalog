@@ -1,0 +1,30 @@
+// Cloudflare staging for the customer form. The container image is the deploy
+// package written by `python -m catalog.deploy package`, copied to ./package
+// before `wrangler deploy` (the Deploy staging workflow does this).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "corvette-catalog-staging",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": true,
+  "vars": {
+    // Overridden at deploy time with the staging address (GitHub variable STAGING_ORIGIN).
+    "CATALOG_ORIGIN": "",
+    "CONTAINER_INSTANCES": "2"
+  },
+  "containers": [
+    {
+      "class_name": "CatalogForm",
+      "image": "./package/Dockerfile",
+      // Half a CPU and 4 GiB: the form uses about 240 MB, and a quarter CPU
+      // would make each change noticeably slower.
+      "instance_type": "standard-1",
+      "max_instances": 2
+    }
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "CATALOG_FORM", "class_name": "CatalogForm" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["CatalogForm"] }],
+  "observability": { "enabled": true }
+}

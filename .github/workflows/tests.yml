@@ -86,6 +86,29 @@ jobs:
           done
           exit $status
 
+  cloudflare-config:
+    name: Cloudflare staging config
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: deploy/cloudflare/package-lock.json
+      - run: npm ci
+        working-directory: deploy/cloudflare
+      # Bundles the Worker and validates wrangler.jsonc. The container image is
+      # built only by the Deploy staging workflow, so a placeholder stands in.
+      - name: Bundle the Worker
+        working-directory: deploy/cloudflare
+        env:
+          WRANGLER_SEND_METRICS: "false"
+        run: |
+          mkdir -p package && echo 'FROM scratch' > package/Dockerfile
+          npx wrangler deploy --dry-run --containers-rollout=none --outdir "$RUNNER_TEMP/worker"
+
   six-model-audit:
     name: Six-model semantic audit
     if: github.event_name == 'workflow_dispatch' && inputs.six_model_audit

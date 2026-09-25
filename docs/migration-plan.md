@@ -49,6 +49,11 @@ download and the dealership branding (PR #67). Part two carries the pinned
 `asset_map` rows into each model's presentation, so model, body-style and option
 cards show the existing photos; a test compares every card image with the
 baseline runtime contracts.
+Task 6 adds Cloudflare staging (stage B): `deploy/cloudflare` holds the Worker
+and container configuration, and the manual **Deploy staging** workflow builds,
+packages and deploys a release of the checked-in catalog with an optional site
+password and dealer delivery off. Account setup (Workers Paid plan, API token,
+secrets) is the owner's; a first run proves the deployment.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the
