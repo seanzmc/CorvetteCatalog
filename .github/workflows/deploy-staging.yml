@@ -77,7 +77,13 @@ jobs:
           PASSWORD: ${{ secrets.STAGING_PASSWORD }}
         run: |
           printf '%s' "$KEY" | npx wrangler secret put CATALOG_BUILD_TOKEN_KEY
-          if [ -n "$PASSWORD" ]; then printf '%s' "$PASSWORD" | npx wrangler secret put STAGING_PASSWORD; fi
+          if [ -n "$PASSWORD" ]; then
+            printf '%s' "$PASSWORD" | npx wrangler secret put STAGING_PASSWORD
+          else
+            # Removing the secret disables staging auth; tolerate the case
+            # where no STAGING_PASSWORD secret was ever uploaded.
+            npx wrangler secret delete STAGING_PASSWORD || true
+          fi
 
       - name: Check the deployed release answers
         env:

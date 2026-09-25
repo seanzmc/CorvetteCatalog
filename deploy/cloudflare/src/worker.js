@@ -22,7 +22,10 @@ function authorized(request, password) {
   if (scheme !== "Basic" || !encoded) return false;
   let supplied;
   try {
-    supplied = atob(encoded).split(":").slice(1).join(":");
+    // atob() yields byte-valued characters; decode those bytes as UTF-8 so
+    // credentials with non-ASCII characters compare correctly.
+    const bytes = Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0));
+    supplied = new TextDecoder("utf-8").decode(bytes).split(":").slice(1).join(":");
   } catch {
     return false;
   }
