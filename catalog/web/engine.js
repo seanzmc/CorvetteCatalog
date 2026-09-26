@@ -42,7 +42,10 @@ window.catalogEngine = (() => {
       return {status: response.status, result: await response.json()};
     }
     if (path === '/api/catalog') {
-      const response = await fetch(`${bundle.contract}?v=${bundle.release_id}`);
+      // Version the catalog by its own digest: bundle.json (fetched no-cache)
+      // lists it, so rebuilding the same release in the other dealer mode gets
+      // a different cache key instead of a stale opposite-mode copy.
+      const response = await fetch(`${bundle.contract}?v=${bundle.files[bundle.contract]}`);
       if (!response.ok) return {status: response.status, result: {error: 'Catalog not found'}};
       return {status: 200, result: JSON.parse(new TextDecoder().decode(await gunzip(response)))};
     }

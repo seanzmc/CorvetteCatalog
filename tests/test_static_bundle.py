@@ -124,6 +124,9 @@ class StaticBundleTests(unittest.TestCase):
         self.assertTrue(live['dealer_submissions'])
         self.assertEqual({k: v for k, v in live['files'].items() if k != 'catalog.json.gz'},
                          {k: v for k, v in self.description['files'].items() if k != 'catalog.json.gz'})
+        # The mode-dependent catalog gets its own cache identity (the engine
+        # versions its fetch with this digest instead of the shared release ID).
+        self.assertNotEqual(live['files']['catalog.json.gz'], self.description['files']['catalog.json.gz'])
         dealer = json.loads(gzip.decompress((again / 'catalog.json.gz').read_bytes()))['dealer']
         self.assertEqual(dealer, json.loads(encode(Application(self.store, self.release, dealer_submissions=True).catalog()))['dealer'])
         self.assertTrue(dealer['enabled'])
