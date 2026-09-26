@@ -111,7 +111,7 @@ class ServerTests(unittest.TestCase):
 
 class EvaluationLockTests(unittest.TestCase):
     def test_concurrent_requests_never_evaluate_at_the_same_time(self):
-        # Evaluators rebuild shared indexes per call; overlapping calls corrupt them.
+        # Evaluation stays serialized until concurrent evaluation has been validated.
         app = object.__new__(Application)
         app.evaluation = threading.Lock()
         active, peak, guard = 0, 0, threading.Lock()
