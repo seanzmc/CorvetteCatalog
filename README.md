@@ -234,10 +234,10 @@ its new ID to see accepted changes.
 
 ## Static bundle for the browser form
 
-The customer form will run in the shopper's browser from static files on the
-dealership's WordPress site. A bundle holds, for one completed release, each
-model's trimmed catalog, the release's engine code, its artwork and a
-`bundle.json` listing every file's hash:
+The customer form can run in the shopper's browser from static files on the
+dealership's WordPress site. A bundle is the whole site for one completed
+release: the release's own form page, each model's trimmed catalog, the engine
+code, the artwork and a `bundle.json` listing every file's hash:
 
 ```sh
 python -m catalog.static_bundle build --store STORE --release RELEASE_ID --output DIR
@@ -246,8 +246,17 @@ python -m catalog.static_bundle verify DIR
 
 Build with the code pinned in that release (the same rule as serving it). The
 build refuses to finish unless every trimmed model gives the same contract and
-option cards as the full release. The page that loads a bundle and the upload to
-WordPress are still to come.
+option cards as the full release.
+
+To try a bundle, serve its folder over HTTP (browsers do not run workers from
+`file://` pages) and open it, for example
+`python3 -m http.server --directory DIR 8000`. The first screen comes from
+`catalog.json.gz`; meanwhile a Web Worker downloads Pyodide from jsDelivr and
+starts the release's Python engine (`catalog.browser`), which gives the same
+answers as `catalog.consumer_server`. Only the chosen model's catalog is
+downloaded, and only the visible step's option cards are priced. Dealer
+submission is a preview in the bundle; sending it and the WordPress upload are
+still to come.
 
 ## Verify and back up a release
 

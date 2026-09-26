@@ -21,7 +21,7 @@ window.catalogArtwork = (() => {
     try {
       const images=await Promise.all(view.assets.map(async asset=>{
         const image=new Image(asset.width,asset.height);
-        image.alt=''; image.src=asset.url;
+        image.alt=''; image.src=asset.url.replace(/^\//,''); // relative: a static bundle may sit in a folder
         await image.decode(); return image;
       }));
       if(version!==generation) return;

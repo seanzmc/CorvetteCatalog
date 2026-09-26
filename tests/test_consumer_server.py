@@ -75,7 +75,7 @@ class ServerTests(unittest.TestCase):
             with urlopen(f'http://127.0.0.1:{port}/', timeout=10) as response:
                 page = response.read().decode()
         self.assertIn("img-src 'self' https://stingraychevroletcorvette.com", policy)
-        self.assertIn('/brand/stingray-wordmark-white.png', page)
+        self.assertIn('brand/stingray-wordmark-white.png', page)
         self.assertIn('Stingray Order Form', page)
 
     def test_default_allows_only_this_loopback_port(self):
@@ -111,7 +111,7 @@ class ServerTests(unittest.TestCase):
 
 class EvaluationLockTests(unittest.TestCase):
     def test_concurrent_requests_never_evaluate_at_the_same_time(self):
-        # Evaluators rebuild shared indexes per call; overlapping calls corrupt them.
+        # Evaluation stays serialized until concurrent evaluation has been validated.
         app = object.__new__(Application)
         app.evaluation = threading.Lock()
         active, peak, guard = 0, 0, threading.Lock()

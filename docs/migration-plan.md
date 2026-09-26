@@ -61,7 +61,11 @@ release, a page that runs the engine in the browser and prices only the visible
 step, dealer submission from the browser to the existing endpoint, and an upload
 to WordPress. The first part, `catalog.static_bundle`, writes each model's
 trimmed catalog (394–578 KB compressed), the release's engine code and its
-verified artwork, with a hash-checked `bundle.json`.
+verified artwork, with a hash-checked `bundle.json` (PR #70). The second part
+makes the bundle a complete site: the release's form page runs the engine in a
+Web Worker through Pyodide, the server and the browser share the build logic
+(`catalog.builds`), and cards are priced one step at a time; a test checks that
+the browser engine answers exactly like the server.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the
