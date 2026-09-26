@@ -168,8 +168,12 @@ def verify(path):
     description = json.loads((path / 'bundle.json').read_text())
     if description.get('format') != FORMAT:
         raise ValueError('Not a catalog static bundle')
+    # A bundle is self-contained: links could point outside it or hide entries.
+    if any(p.is_symlink() for p in path.rglob('*')):
+        raise ValueError('Bundles may not contain symbolic links')
+    manifest = path / 'bundle.json'
     actual = {str(p.relative_to(path)): sha256(p) for p in sorted(path.rglob('*'))
-              if p.is_file() and p.name != 'bundle.json'}
+              if p.is_file() and p != manifest}
     if actual != description['files']:
         raise ValueError('Missing, altered or unexpected bundle files')
     return description

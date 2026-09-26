@@ -79,6 +79,16 @@ class StaticBundleTests(unittest.TestCase):
     def test_rebuild_is_identical_and_tampering_is_caught(self):
         again = sb.build(self.store, self.release, Path(self.root.name) / 'again')
         self.assertEqual(sb.verify(again)['files'], self.description['files'])
+        # Only the root bundle.json is exempt from the file list.
+        (again / 'artwork/bundle.json').write_text('{}')
+        with self.assertRaisesRegex(ValueError, 'altered or unexpected'):
+            sb.verify(again)
+        (again / 'artwork/bundle.json').unlink()
+        (again / 'engine/link.py').symlink_to(again / 'engine/catalog/evaluator.py')
+        with self.assertRaisesRegex(ValueError, 'symbolic links'):
+            sb.verify(again)
+        (again / 'engine/link.py').unlink()
+        self.assertEqual(sb.verify(again)['files'], self.description['files'])
         (again / 'engine/catalog/evaluator.py').write_text('# altered\n')
         with self.assertRaisesRegex(ValueError, 'altered or unexpected'):
             sb.verify(again)
