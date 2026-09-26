@@ -283,11 +283,12 @@ class Audit:
             try:
                 for table in tables:
                     self.ev.rows[table] = list(reversed(original[table]))
+                self.ev.reindex()
                 again = session.preview(action, target)
                 assert again == preview, 'Transaction depends on source row order'
             finally:
                 self.ev.rows.update(original)
-                self.ev._index()
+                self.ev.reindex()
             assert session.confirm(again) == after
             if after != before:
                 assert session.revert() == before

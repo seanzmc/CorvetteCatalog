@@ -370,6 +370,7 @@ class EvaluatorTests(unittest.TestCase):
         rng = random.Random(42)
         for rows in e.rows.values():
             rng.shuffle(rows)
+        e.reindex()
         self.assertEqual(e.state('2lz_h07', ('opt_pdd_001', 'opt_roz_001')), expected)
         self.assertEqual(self.evaluator('z06').state('2lz_h07', ('opt_pdd_001', 'opt_roz_001')), expected)
         self.assertEqual(self.db.total_changes, changes)
@@ -396,6 +397,7 @@ class EvaluatorTests(unittest.TestCase):
         row = dict(s.evaluator.rows['replacement_plan'][0], id='synthetic-plan')
         s.evaluator.rows['replacement_plan'].append(row)
         s.evaluator.scopes['replacement_plan'].add((row['id'], '2lt_c07'))
+        s.evaluator.reindex()
         with self.assertRaisesRegex(EvaluationError, 'Ambiguous applicable replacements'):
             s.preview('select', 'opt_5do_001')
         self.assertIs(s.state, before)
@@ -411,6 +413,7 @@ class EvaluatorTests(unittest.TestCase):
         row = dict(e.rows['acquisition'][0], id='synthetic-oscillation', condition_id=cid, target_option_id='opt_uqt_002', origin_kind='default')
         e.rows['acquisition'].append(row)
         e.scopes['acquisition'].add((row['id'], '1lt_c07'))
+        e.reindex()
         original = s.state
         with self.assertRaisesRegex(EvaluationError, 'nonconvergence'):
             s.preview('select', 'opt_qe6_001')
@@ -425,6 +428,7 @@ class EvaluatorTests(unittest.TestCase):
             row = dict(row, id=cid, condition_id=cid, target_option_id=b, origin_kind='included')
             e.rows['acquisition'].append(row)
             e.scopes['acquisition'].add((cid, '1lt_c07'))
+        e.reindex()
         self.assertEqual(e.state('1lt_c07').resolved, frozenset())
         rooted = e.state('1lt_c07', ('opt_uqt_002',))
         self.assertEqual(rooted.resolved, {'opt_uqt_002', 'opt_qe6_001'})
@@ -439,11 +443,13 @@ class EvaluatorTests(unittest.TestCase):
         competing = dict(row, id='synthetic-peer', target_option_id='opt_roz_001')
         e.rows['acquisition'].append(competing)
         e.scopes['acquisition'].add((competing['id'], '2lz_h07'))
+        e.reindex()
         with self.assertRaisesRegex(EvaluationError, 'Ambiguous competing defaults'):
             s.preview('select', 'opt_pdb_001')
         self.assertIs(s.state, original)
         e.rows['acquisition'].remove(competing)
         e.scopes['choice_group'].remove(('z06_group_pdb_requires_carbon_wheel', '2lz_h07'))
+        e.reindex()
         with self.assertRaisesRegex(EvaluationError, 'out-of-scope group'):
             s.preview('select', 'opt_pdb_001')
         self.assertIs(s.state, original)

@@ -84,9 +84,11 @@ class Application:
         self.dealer_submissions = dealer_submissions
         # Without a configured key, tokens are valid only for this process.
         self.tokens = Tokens(token_key or secrets.token_bytes(32))
-        # Evaluators rebuild shared indexes on every call, so evaluation runs one
-        # request at a time. Threads still keep pages, artwork and health checks
-        # responsive; capacity comes from more instances, which tokens allow.
+        # Evaluators index their snapshot once and each request builds its own
+        # session, so evaluation no longer rewrites shared indexes. It still runs
+        # one request at a time until concurrent evaluation has been validated.
+        # Threads keep pages, artwork and health checks responsive; capacity
+        # comes from more instances, which tokens allow.
         self.evaluation = threading.Lock()
 
     def catalog(self):

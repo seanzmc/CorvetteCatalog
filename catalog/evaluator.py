@@ -102,11 +102,16 @@ class Evaluator:
                         cancel_action='preserve_whole_state', revert_action='restore_whole_state')
         if any(policy[k] != v for k, v in expected.items()):
             raise EvaluationError('Unsupported interaction policy')
-        self._index()
+        self.reindex()
 
-    def _index(self):
-        # Index each public evaluation boundary, retaining the mutable snapshot
-        # used by adversarial tests without rescanning every clause per rule.
+    def reindex(self):
+        """Rebuild clause, member and scoped-row indexes from rows and scopes.
+
+        Evaluation reads these indexes rather than rescanning every row per
+        rule. Callers that add, remove or reorder condition_clause,
+        condition_member or scoped rows, or change scopes, must call this
+        afterwards. Edits to non-key fields of existing rows need no reindex.
+        """
         self.clauses = defaultdict(list)
         self.condition_members = defaultdict(list)
         for row in self.rows['condition_clause']:
@@ -261,7 +266,6 @@ class Evaluator:
         return amount
 
     def state(self, config, intent=(), interior=None):
-        self._index()
         configuration = self.configs.get(config)
         if not configuration or not configuration['enabled']:
             raise EvaluationError('Unknown or disabled configuration in this revision')
@@ -366,7 +370,6 @@ class Evaluator:
         return found
 
     def transition(self, before, action, target=None):
-        self._index()
         if before.revision_id != self.revision_id:
             raise EvaluationError('State belongs to another revision')
         config, intent, interior = before.configuration_id, list(before.intent), before.interior_id
