@@ -259,8 +259,30 @@ downloaded, and only the visible step's option cards are priced.
 Dealer submission is a preview unless the bundle is built with
 `--enable-dealer-submissions`, which works like the server option of the same
 name: the page loads Turnstile and posts to the existing WordPress endpoint (see
-[dealer submission](docs/dealer-submission.md)). The WordPress upload is still
-to come.
+[dealer submission](docs/dealer-submission.md)).
+
+## Put the form on WordPress
+
+`catalog.static_site` uploads a bundle into its own folder under the form's
+address and switches `index.html` to it; `check` then fetches every file back
+from the site and compares it with `bundle.json`:
+
+```sh
+python -m catalog.static_site publish BUNDLE --target USER@sftp.wp.com --root htdocs/order-form
+python -m catalog.static_site check https://SITE/order-form/
+```
+
+One-time setup on WordPress.com (owner): add your SSH public key under
+Account > Security > SSH keys, then under the site's Hosting settings enable
+SFTP/SSH, attach the key and note the SFTP username. Uploads use your own
+`sftp` login; nothing in the repository holds credentials. Start with the
+staging site (`staging-427b-stingraychevroletcorvette.wpcomstaging.com`).
+
+Each bundle lives in `releases/<digest>/` with URLs no other release shares, so
+caches cannot mix releases. Publishing an earlier bundle again switches back to
+it without uploading. `check` exits with an error if any file is missing or
+different, and reports each file type's content type, encoding and caching so
+serving problems (for example `.gz` or `.py` files) show up before shoppers do.
 
 ## Verify and back up a release
 
