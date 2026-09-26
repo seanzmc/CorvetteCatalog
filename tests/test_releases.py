@@ -218,7 +218,7 @@ class ReleaseTests(unittest.TestCase):
             Application(self.store,release,token_key=b'x'*32).dispatch('/api/restore',{'build_token':s1['build_token']})
         # An expired review cannot be applied.
         p2=keyed.dispatch('/api/preview',dict(build_token=s1['build_token'],action='select',target=codes['DPB'],version=1))
-        with patch('catalog.consumer_server.time.time',return_value=10**12):
+        with patch('catalog.builds.time.time',return_value=10**12):
             with self.assertRaises(ValueError):keyed.dispatch('/api/confirm',dict(p2,build_token=s1['build_token']))
         # Undo is a replayed action, not server memory.
         p3=keyed.dispatch('/api/preview',dict(build_token=s1['build_token'],action='revert',version=1))

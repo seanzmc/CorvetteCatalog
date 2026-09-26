@@ -10,8 +10,9 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from catalog import foundation as f, static_bundle as sb
+from catalog import browser, foundation as f, static_bundle as sb
 from catalog.behavior_sources import import_behavior
+from catalog.consumer_server import Application
 from catalog.consumers import ConsumerCatalog, ConsumerSession, encode, import_mappings
 from catalog.releases import ReleaseStore, database_hash
 
@@ -76,6 +77,46 @@ class StaticBundleTests(unittest.TestCase):
             return out
         self.assertEqual(play(trimmed), play(full))
 
+    def test_browser_form_answers_exactly_like_the_server(self):
+        form, server = browser.Form(self.bundle), Application(self.store, self.release, token_key=browser.KEY)
+        def both(path, body):
+            ours = json.loads(form.call(path, encode(body)))
+            try:
+                theirs = dict(status=200, result=json.loads(encode(server.dispatch(path, body))))
+            except (ValueError, KeyError, TypeError) as error:
+                theirs = dict(status=409, result=dict(error=str(error)))
+            self.assertEqual(ours, theirs, path)
+            return ours['result']
+        with patch('catalog.builds.time.time', return_value=1_000_000):
+            state = both('/api/session', {'model': 'z06', 'configuration_id': '3lz_h07', 'cards_for': []})
+            catalog = server.catalogs['z06']
+            for step in [s['step_key'] for s in state['card_steps']][:6]:
+                state = both('/api/cards', {'build_token': state['build_token'], 'cards_for': [step]})
+                for card in [c for c in state['cards']['options'] if c['selectable']][:3]:
+                    body = dict(build_token=state['build_token'], action='remove' if card['selected'] else 'select',
+                                target=card['option_id'], version=state['version'], cards_for=[step])
+                    p = both('/api/preview', body)
+                    if 'token' in p:
+                        state = both('/api/confirm', dict(p, build_token=state['build_token'], cards_for=[step]))
+            self.assertGreater(state['version'], 3)
+            both('/api/preview', dict(build_token=state['build_token'], action='select', target='missing', version=state['version']))
+            both('/api/dealer/review', dict(build_token=state['build_token'], version=state['version']))
+        # Cached builds match a fresh replay of the same token.
+        fresh = browser.Form(self.bundle)
+        self.assertEqual(json.loads(fresh.call('/api/restore', encode({'build_token': state['build_token']})))['result'],
+                         json.loads(form.call('/api/restore', encode({'build_token': state['build_token']})))['result'])
+        self.assertEqual(set(form.builds.catalogs), {'z06'})  # only the model in use is loaded
+        self.assertEqual(json.loads(form.call('/api/restore', '[]'))['status'], 409)
+        self.assertEqual(json.loads(form.call('/api/restore', encode({'build_token': 'x.y'})))['status'], 409)
+
+    def test_bundle_is_the_whole_site(self):
+        for page in ('index.html', 'app.js', 'engine.js', 'engine-worker.js', 'brand/crossflags-white.png'):
+            self.assertIn(page, self.description['files'])
+        self.assertFalse([p for p in self.description['files'] if p.endswith('.py') and not p.startswith('engine/')])
+        contract = json.loads(gzip.decompress((self.bundle / self.description['contract']).read_bytes()))
+        self.assertEqual((contract['release_id'], contract['dealer']['enabled']), (self.release, False))
+        self.assertEqual(contract, json.loads(encode(Application(self.store, self.release).catalog())))
+
     def test_rebuild_is_identical_and_tampering_is_caught(self):
         again = sb.build(self.store, self.release, Path(self.root.name) / 'again')
         self.assertEqual(sb.verify(again)['files'], self.description['files'])
@@ -96,7 +137,7 @@ class StaticBundleTests(unittest.TestCase):
             sb.build(self.store, self.release, again)
 
     def test_engine_list_is_the_import_closure_of_the_form_engine(self):
-        code = "import sys; import catalog.consumers; print(sorted(m.split('.', 1)[1] if '.' in m else '__init__' for m in sys.modules if m == 'catalog' or m.startswith('catalog.')))"
+        code = "import sys; import catalog.browser; print(sorted(m.split('.', 1)[1] if '.' in m else '__init__' for m in sys.modules if m == 'catalog' or m.startswith('catalog.')))"
         out = subprocess.run([sys.executable, '-c', code], cwd=ROOT, capture_output=True, text=True, check=True).stdout
         self.assertEqual(json.loads(out.replace("'", '"')), sorted(sb.ENGINE))
 
