@@ -75,7 +75,7 @@ class ServerTests(unittest.TestCase):
             with urlopen(f'http://127.0.0.1:{port}/', timeout=10) as response:
                 page = response.read().decode()
         self.assertIn("img-src 'self' https://stingraychevroletcorvette.com", policy)
-        self.assertIn('/brand/stingray-wordmark-white.png', page)
+        self.assertIn('brand/stingray-wordmark-white.png', page)
         self.assertIn('Stingray Order Form', page)
 
     def test_default_allows_only_this_loopback_port(self):

@@ -16,14 +16,16 @@ function option(parent, value, label) { const n=node('option',label,parent); n.v
 function button(parent, label, action, disabled=false) {
   const b=node('button',label,parent); b.disabled=disabled || busy || !!pending; b.addEventListener('click',action); return b;
 }
+// Only the shown step's cards are priced: pricing every card takes about half a
+// second on a phone when the engine runs in the browser.
+function pricing(step) { return step==='interior'?['seat','base_interior']:step&&step!=='summary'?[step]:[]; }
 async function api(path, body) {
-  let response, result;
-  try {
-    response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(path==='/api/session'?body:{...body,build_token:buildToken})});
-    result=await response.json();
-  } catch { throw new Error(UNAVAILABLE); }
-  if(response.status>=500) throw new Error(UNAVAILABLE);
-  if(!response.ok) throw new Error(result.error);
+  let status, result;
+  body={cards_for:pricing(activeStep),...body};
+  try { ({status,result}=await catalogEngine.call(path,path==='/api/session'?body:{...body,build_token:buildToken})); }
+  catch(error) { console.error(error); throw new Error(UNAVAILABLE); }
+  if(status>=500) throw new Error(UNAVAILABLE);
+  if(status<200 || status>=300) throw new Error(result.error);
   if(result.build_token) keep(result.build_token);
   return result;
 }
@@ -77,7 +79,7 @@ function setupCards(focus) {
   if(focus?.group)[...el(focus.group).children].find(c=>c.dataset.value===focus.value)?.focus();
 }
 function configurations(focus) {
-  model=catalog.models[el('model').value]; el('bodyStyle').replaceChildren();
+  model=catalog.models[el('model').value]; el('bodyStyle').replaceChildren(); catalogEngine.warm(el('model').value);
   // The existing form names itself after the chosen model.
   document.title=el('appTitle').textContent=`${model.presentation.model_master[0].model_label} Order Form`;
   const bodies=[...new Set(Object.values(model.configurations).filter(c=>active(c.active)).sort((a,b)=>a.display_order-b.display_order).map(c=>c.body_style))];
@@ -91,21 +93,32 @@ function trims() {
 function startingPrice() { el('startingPrice').textContent=`Starting MSRP ${money(model.configurations[el('configuration').value].base_price*100)}`; }
 function choiceCards() { return current.cards.options.filter(c=>model.options[c.option_id].customer_selectable); }
 function steps() {
-  const result=[], seen=new Set();
+  // Every step with cards is known without pricing them (card_steps, in card order).
+  const result=[], seen=new Set(), present=new Map(current.card_steps.map(s=>[s.step_key,s.section_label]));
   for(const s of model.presentation.runtime_steps.filter(s=>active(s.active)).sort((a,b)=>a.runtime_order-b.runtime_order)) {
     let key=s.step_key, label=s.step_label;
     if(['body_style','trim_level','summary'].includes(key)) continue;
     if(['seat','base_interior'].includes(key)) { key='interior'; label='Seats & interior'; }
-    if(seen.has(key) || (key!=='interior' && !choiceCards().some(c=>c.step_key===key))) continue;
+    if(seen.has(key) || (key!=='interior' && !present.has(key))) continue;
     seen.add(key); result.push({key,label});
   }
   // Keep any newly authored sections reachable even without step metadata.
-  for(const c of choiceCards()) if(!seen.has(c.step_key) && !['seat','base_interior'].includes(c.step_key)) {
-    seen.add(c.step_key);result.push({key:c.step_key,label:c.step_key==='standard_equipment'?'Additional equipment':c.section_label});
+  for(const [key,label] of present) if(!seen.has(key) && !['seat','base_interior'].includes(key)) {
+    seen.add(key);result.push({key,label:key==='standard_equipment'?'Additional equipment':label});
   }
   result.push({key:'summary',label:'Review build'});return result;
 }
-function go(key) { activeStep=key; el('search').value=''; render(); el('stepTitle').focus(); el('stepTitle').scrollIntoView({block:'start',behavior:'smooth'}); }
+async function go(key) {
+  // The step changes only once its cards are priced.
+  let moved=false;
+  await run(async()=>{current=await api('/api/cards',{cards_for:pricing(key)});activeStep=key;el('search').value='';moved=true;});
+  if(moved){el('stepTitle').focus();el('stepTitle').scrollIntoView({block:'start',behavior:'smooth'});}
+}
+// A new or reopened build opens on its first step, priced.
+async function openBuild(result) {
+  current=result;activeStep=steps()[0].key;interiorPath=[];
+  current=await api('/api/cards',{});
+}
 function render() {
   const b=current.build, cfg=model.configurations[b.configuration_id], list=steps();
   if(!list.some(s=>s.key===activeStep)) activeStep=list[0].key;
@@ -207,7 +220,7 @@ async function preview(action,target,label) {
 }
 async function cancel() {current=await api('/api/cancel',{version:current.version});pending=null;el('warning').close();el('stepTitle').focus();}
 el('model').addEventListener('change',configurations);el('bodyStyle').addEventListener('change',trims);el('configuration').addEventListener('change',startingPrice);
-el('start').addEventListener('click',()=>run(async()=>{const r=await api('/api/session',{model:el('model').value,configuration_id:el('configuration').value});current=r;activeStep=null;interiorPath=[];}));
+el('start').addEventListener('click',()=>run(async()=>{activeStep=null;await openBuild(await api('/api/session',{model:el('model').value,configuration_id:el('configuration').value}));}));
 el('search').addEventListener('input',renderOptions);el('stepSelect').addEventListener('change',()=>go(el('stepSelect').value));
 el('previous').addEventListener('click',()=>{const list=steps();go(list[list.findIndex(s=>s.key===activeStep)-1].key);});
 el('next').addEventListener('click',()=>{const list=steps();go(list[list.findIndex(s=>s.key===activeStep)+1].key);});
@@ -244,9 +257,9 @@ catalogDealer.init({api,state:()=>({catalog,current,pending,buildToken,busy})});
 async function restore() {
   buildToken=saved.get(); if(!buildToken) return;
   try {
-    const r=await api('/api/restore',{});
+    activeStep=null;const r=await api('/api/restore',{});
     el('model').value=r.model;configurations();el('bodyStyle').value=model.configurations[r.configuration_id].body_style;trims();setupCards();el('configuration').value=r.configuration_id;
-    current=r;activeStep=null;interiorPath=[];render();
+    await openBuild(r);render();
     if(r.notice)el('notice').textContent=r.notice;
   } catch(e) {
     // A build that cannot be replayed on this catalog starts over; an outage keeps it for later.
@@ -257,8 +270,8 @@ async function restore() {
 (async()=>{
   try{
     let r;
-    try { r=await fetch('/api/catalog');catalog=await r.json(); } catch { throw new Error(UNAVAILABLE); }
-    if(!r.ok)throw new Error(r.status>=500?UNAVAILABLE:catalog.error);
+    try { r=await catalogEngine.call('/api/catalog');catalog=r.result; } catch { throw new Error(UNAVAILABLE); }
+    if(r.status!==200)throw new Error(r.status>=500?UNAVAILABLE:catalog.error);
     el('release').textContent=`Release ${catalog.release_id}`;el('deliveryMode').textContent=catalog.dealer.enabled?'Build requests are sent to Stingray Chevrolet.':'Preview mode · Build requests are not sent to the dealership.';Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>option(el('model'),key,c.presentation.model_master[0].model_label));el('model').value=catalog.default_model;configurations();el('start').disabled=false;
     await restore();
   }catch(e){el('error').textContent=e.message;}
