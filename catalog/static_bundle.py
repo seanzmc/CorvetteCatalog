@@ -3,7 +3,11 @@
 Run: python -m catalog.static_bundle build --store STORE --release RELEASE_ID --output DIR
      python -m catalog.static_bundle verify DIR
 
-A bundle is made from one verified completed release and holds:
+A bundle is made from one verified completed release and is a complete static
+site: open index.html from any folder. It holds:
+- the release's own form page (index.html, scripts, styles, brand images), which
+  runs the engine in a Web Worker through Pyodide (catalog.browser);
+- catalog.json.gz: every model's contract, so the first screen needs no Python;
 - catalog/<model>.sqlite.gz: only the tables the engine reads for that model,
   observed while loading it, so a shopper downloads one small model;
 - engine/catalog/*.py: the release's own engine code;
@@ -25,14 +29,15 @@ import sqlite3
 import tempfile
 
 from catalog import artwork
+from catalog import builds
 from catalog.consumers import ConsumerCatalog, encode
 from catalog.releases import ReleaseStore, pins
 
 FORMAT = 'catalog-static-bundle-v1'
 # The browser runtime the bundle was measured with; the page loads this version.
 PYODIDE_VERSION = '314.0.7'
-# The import closure of catalog.consumers (checked by a test).
-ENGINE = ('__init__', 'artwork', 'consumers', 'evaluator', 'foundation', 'foundation_schema')
+# The import closure of catalog.browser (checked by a test).
+ENGINE = ('__init__', 'artwork', 'browser', 'builds', 'consumers', 'dealer', 'evaluator', 'foundation', 'foundation_schema')
 
 
 def sha256(path):
@@ -116,7 +121,7 @@ def build(store, release, destination):
     destination.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix='.bundle-', dir=destination.parent))
     try:
-        models = []
+        models, contracts = [], {}
         (stage / 'catalog').mkdir()
         with closing(sqlite3.connect(':memory:')) as db:
             with closing(sqlite3.connect((bundle / 'catalog.sqlite').resolve().as_uri() + '?mode=ro', uri=True)) as source:
@@ -124,6 +129,7 @@ def build(store, release, destination):
             db.row_factory = sqlite3.Row
             for model in sorted(record['models'], key=lambda m: m['display_order']):
                 full, tables = read_tables(db, model['revision_id'], manifest)
+                contracts[model['model_key']] = full
                 small, tables = trimmed_catalog(db, model['revision_id'], tables, manifest)
                 with closing(small):
                     if not same_behavior(full, ConsumerCatalog(small, model['revision_id'], artwork_manifest=manifest)):
@@ -139,6 +145,15 @@ def build(store, release, destination):
                 models.append(dict(model_key=model['model_key'], registry_key=model['registry_key'],
                                    display_order=model['display_order'], revision_id=model['revision_id'],
                                    catalog=name, tables=tables, uncompressed_bytes=len(raw)))
+        # Dealer delivery from the browser is not enabled yet: the page previews it.
+        form = builds.description(release, record['default_model'], contracts)
+        (stage / 'catalog.json.gz').write_bytes(gzip_bytes(encode(form).encode()))
+        web = runtime / 'web'
+        for source in sorted(web.rglob('*')):
+            if source.is_file() and not source.relative_to(web).parts[0] == 'artwork':
+                target = stage / source.relative_to(web)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, target)
         for name in ENGINE:
             target = stage / 'engine/catalog' / (name + '.py')
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -151,7 +166,7 @@ def build(store, release, destination):
         (stage / 'artwork-manifest.json').write_text(encode(manifest) + '\n')
         files = {str(p.relative_to(stage)): sha256(p) for p in sorted(stage.rglob('*')) if p.is_file()}
         description = dict(format=FORMAT, release_id=release, default_model=record['default_model'],
-                           pyodide=PYODIDE_VERSION, engine=[f'engine/catalog/{n}.py' for n in ENGINE],
+                           pyodide=PYODIDE_VERSION, contract='catalog.json.gz', engine=[f'engine/catalog/{n}.py' for n in ENGINE],
                            artwork_manifest='artwork-manifest.json', models=models, files=files)
         (stage / 'bundle.json').write_text(json.dumps(description, indent=2, sort_keys=True) + '\n')
         verify(stage)

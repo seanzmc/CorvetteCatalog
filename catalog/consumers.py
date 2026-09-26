@@ -254,12 +254,32 @@ class ConsumerCatalog:
             visualizer=dict(**common, installed_option_ids=sorted(state.installed), interior_id=state.interior_id,
                             content=[asdict(c) for c in state.content], **artwork.project(self, state)))
 
-    def cards(self, state):
+    def _shown(self, configuration):
+        """Options that appear as cards in this configuration."""
+        return [oid for oid, opt in self.ev.options.items() if opt['lifecycle'] != 'retired'
+                and self.contexts[oid, configuration]['display_behavior'] not in ('hidden', 'auto_only')]
+
+    def _card_order(self, oid, configuration):
+        context = self.contexts[oid, configuration]
+        return (context['section_order'] or 0, context['section_id'],
+                self.maps['option'][oid]['display_order'] or 0, self.maps['option'][oid]['key'])
+
+    def card_steps(self, configuration):
+        """Steps holding customer-selectable cards, in card order, with the first
+        card's section label; known without pricing any card."""
+        steps = {}
+        for oid in sorted((o for o in self._shown(configuration) if self.ev.options[o]['customer_selectable']),
+                          key=lambda o: self._card_order(o, configuration)):
+            context = self.contexts[oid, configuration]
+            steps.setdefault(context['step_key'], context['section_label'])
+        return [dict(step_key=key, section_label=label) for key, label in steps.items()]
+
+    def cards(self, state, step_keys=None):
+        """Option cards with their price change; step_keys limits pricing to those steps."""
         cards = []
-        for oid, opt in self.ev.options.items():
-            if opt['lifecycle'] == 'retired':
-                continue
-            if self.contexts[oid, state.configuration_id]['display_behavior'] in ('hidden', 'auto_only'):
+        for oid in self._shown(state.configuration_id):
+            opt = self.ev.options[oid]
+            if step_keys is not None and self.contexts[oid, state.configuration_id]['step_key'] not in step_keys:
                 continue
             selected = oid in state.resolved
             reason, conflict, delta_minor = '', False, None
@@ -275,7 +295,7 @@ class ConsumerCatalog:
                               description=view['description'], detail_raw=view['detail_raw'],
                               selected=selected, selectable=not bool(reason), conflict=conflict, reason=reason, delta_minor=delta_minor,
                               display_order=view['display_order'] or 0))
-        cards.sort(key=lambda r: (r['section_order'] or 0, r['section_id'], r['display_order'], r['consumer_key']))
+        cards.sort(key=lambda r: self._card_order(r['option_id'], state.configuration_id))
         interiors = [dict(interior_id=iid, label=' › '.join(json.loads(
                          self.maps['interior'][iid]['hierarchy']['interior_hierarchy_levels'])))
                      for iid in self.ev.interiors if self.ev.interiors[iid]['enabled'] and (iid, state.configuration_id) in self.ev.interior_scopes]

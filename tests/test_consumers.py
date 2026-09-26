@@ -234,6 +234,20 @@ class ConsumerTests(unittest.TestCase):
         self.assertEqual(b['visualizer']['installed_option_ids'],sorted(i['option_id'] for i in b['installed_equipment']))
         self.assertEqual(b['visualizer']['release_id'],b['release_id'])
 
+    def test_step_pricing_matches_full_pricing(self):
+        for key, c in self.catalogs.items():
+            for cfg in sorted(c.ev.configs)[:2]:
+                with self.subTest(model=key, configuration=cfg):
+                    state = c.ev.state(cfg); full = c.cards(state)['options']
+                    shown = [x for x in full if c.ev.options[x['option_id']]['customer_selectable']]
+                    expected = list({x['step_key']: x['section_label'] for x in reversed(shown)}.items())[::-1]
+                    steps = c.card_steps(cfg)
+                    self.assertEqual(sorted((s['step_key'], s['section_label']) for s in steps), sorted(expected))
+                    self.assertEqual([s['step_key'] for s in steps], list(dict.fromkeys(x['step_key'] for x in shown)))
+                    for step in {x['step_key'] for x in full}:
+                        self.assertEqual(c.cards(state, [step])['options'], [x for x in full if x['step_key'] == step])
+                    self.assertEqual(c.cards(state, [])['options'], [])
+
     def test_corrected_copy_and_disabled_unavailable_cards(self):
         c=self.catalogs['grand_sport_x'];hp=self.oid(c,'HP1')
         self.assertEqual(c.maps['option'][hp]['description'],'Electrified front axle: 186 hp (138.7 kW), 145 lb-ft of front torque (196.6 N-m).')
