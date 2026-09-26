@@ -65,7 +65,11 @@ verified artwork, with a hash-checked `bundle.json` (PR #70). The second part
 makes the bundle a complete site: the release's form page runs the engine in a
 Web Worker through Pyodide, the server and the browser share the build logic
 (`catalog.builds`), and cards are priced one step at a time; a test checks that
-the browser engine answers exactly like the server.
+the browser engine answers exactly like the server (PR #71). The third part
+lets a bundle send builds to the existing dealer endpoint
+(`--enable-dealer-submissions`); the browser engine then requires Turnstile like
+the live server. Turnstile hostnames and receiver CORS for the chosen host are
+owner checks at upload.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the

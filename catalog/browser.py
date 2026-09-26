@@ -31,7 +31,8 @@ class Form:
         self.bundle = json.loads((self.root / 'bundle.json').read_text())
         self.manifest = json.loads((self.root / self.bundle['artwork_manifest']).read_text())
         self.models = {m['model_key']: m for m in self.bundle['models']}
-        self.builds = Builds(self.bundle['release_id'], {}, Tokens(KEY))
+        # Live bundles require the security check before preparing a dealer payload.
+        self.builds = Builds(self.bundle['release_id'], {}, Tokens(KEY), self.bundle.get('dealer_submissions') is True)
 
     def model_for(self, path, body):
         if path == '/api/session':
