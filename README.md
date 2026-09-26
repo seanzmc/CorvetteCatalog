@@ -232,6 +232,23 @@ The form serves a completed release, so editing the draft does not update an
 already running form. Create a new release and restart the consumer server with
 its new ID to see accepted changes.
 
+## Static bundle for the browser form
+
+The customer form will run in the shopper's browser from static files on the
+dealership's WordPress site. A bundle holds, for one completed release, each
+model's trimmed catalog, the release's engine code, its artwork and a
+`bundle.json` listing every file's hash:
+
+```sh
+python -m catalog.static_bundle build --store STORE --release RELEASE_ID --output DIR
+python -m catalog.static_bundle verify DIR
+```
+
+Build with the code pinned in that release (the same rule as serving it). The
+build refuses to finish unless every trimmed model gives the same contract and
+option cards as the full release. The page that loads a bundle and the upload to
+WordPress are still to come.
+
 ## Verify and back up a release
 
 Use the store and completed release ID from your build:
