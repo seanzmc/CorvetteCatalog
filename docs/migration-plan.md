@@ -25,7 +25,7 @@ static form remains available at every rollout stage until retirement.
 | 3 | Consumer hardening (audit §4.2) | Required for any hosting |
 | 4 | Channel-following server and one-step publish (audit §5.1, §5.3) | Makes edits easy locally and remotely |
 | 5 | Parity items: Markdown build download, card photos, production branding | Customers notice these |
-| 6 | Cloudflare staging (stage B): Worker, Container, secrets | Hosting decided |
+| 6 | WordPress static hosting (stage B): static bundle, in-browser page, browser dealer submission, upload | Owner chose WordPress over Cloudflare, September 26 |
 | 7 | Real dealer receipt proof (stage C) | Needs dealership coordination |
 | 8 | Artwork for launch: delivery through Cloudflare, swatches, optional lower-trim exports, second view | Launches with the form; can run in parallel after 3 |
 | 9 | Public beta, freeze, cutover (D–E) | Last; needs explicit approval |
@@ -49,6 +49,19 @@ download and the dealership branding (PR #67). Part two carries the pinned
 `asset_map` rows into each model's presentation, so model, body-style and option
 cards show the existing photos; a test compares every card image with the
 baseline runtime contracts.
+
+September 26 hosting decision: the owner chose to serve the customer form as
+static files from the existing WordPress.com site instead of Cloudflare
+Containers (PR #69, closed unmerged). A measured prototype ran the unchanged
+Python engine in the browser through Pyodide 314.0.7 on a trimmed catalog:
+all six models played 142 changes identically to the full release, and an
+iPhone (Safari, iOS 18.7) was ready in 3.3 s with 11 ms per preview and 41 ms
+to re-price a typical step. Task 6 is now four parts: a static bundle per
+release, a page that runs the engine in the browser and prices only the visible
+step, dealer submission from the browser to the existing endpoint, and an upload
+to WordPress. The first part, `catalog.static_bundle`, writes each model's
+trimmed catalog (394–578 KB compressed), the release's engine code and its
+verified artwork, with a hash-checked `bundle.json`.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the
