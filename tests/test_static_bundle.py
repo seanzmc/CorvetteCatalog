@@ -117,9 +117,35 @@ class StaticBundleTests(unittest.TestCase):
         self.assertEqual((contract['release_id'], contract['dealer']['enabled']), (self.release, False))
         self.assertEqual(contract, json.loads(encode(Application(self.store, self.release).catalog())))
 
-    def test_rebuild_is_identical_and_tampering_is_caught(self):
-        again = sb.build(self.store, self.release, Path(self.root.name) / 'again')
-        self.assertEqual(sb.verify(again)['files'], self.description['files'])
+    def test_rebuild_matches_live_dealer_mode_and_tampering_is_caught(self):
+        # A live dealer build differs only in its dealer settings.
+        again = sb.build(self.store, self.release, Path(self.root.name) / 'again', dealer_submissions=True)
+        live = sb.verify(again)
+        self.assertTrue(live['dealer_submissions'])
+        self.assertEqual({k: v for k, v in live['files'].items() if k != 'catalog.json.gz'},
+                         {k: v for k, v in self.description['files'].items() if k != 'catalog.json.gz'})
+        # The mode-dependent catalog gets its own cache identity (the engine
+        # versions its fetch with this digest instead of the shared release ID).
+        self.assertNotEqual(live['files']['catalog.json.gz'], self.description['files']['catalog.json.gz'])
+        dealer = json.loads(gzip.decompress((again / 'catalog.json.gz').read_bytes()))['dealer']
+        self.assertEqual(dealer, json.loads(encode(Application(self.store, self.release, dealer_submissions=True).catalog()))['dealer'])
+        self.assertTrue(dealer['enabled'])
+        # The browser engine then requires the security check, as the live server does.
+        for form, required in ((browser.Form(again), True), (browser.Form(self.bundle), False)):
+            call = lambda path, body: json.loads(form.call(path, encode(body)))
+            state = call('/api/session', {'model': 'stingray', 'configuration_id': '1lt_c07', 'cards_for': []})['result']
+            catalog = form.builds.catalogs['stingray']
+            gba = next(o for o, v in catalog.ev.options.items() if v['rpo'] == 'GBA' and v['lifecycle'] == 'active')
+            for action, target in (('select', gba), ('interior', '1LT_AQ9_HTA')):
+                p = call('/api/preview', dict(build_token=state['build_token'], action=action, target=target, version=state['version']))['result']
+                state = call('/api/confirm', dict(p, build_token=state['build_token']))['result']
+            body = dict(build_token=state['build_token'], version=state['version'], turnstile_token='',
+                        customer=dict(name='Test Shopper', email='shopper@example.test'), cards_for=[])
+            answer = call('/api/dealer/prepare', body)
+            self.assertEqual(answer['status'], 409 if required else 200)
+            if required:
+                self.assertIn('Security check', answer['result']['error'])
+                self.assertEqual(call('/api/dealer/prepare', dict(body, turnstile_token='t'))['result']['payload']['turnstile_token'], 't')
         # Only the root bundle.json is exempt from the file list.
         (again / 'artwork/bundle.json').write_text('{}')
         with self.assertRaisesRegex(ValueError, 'altered or unexpected'):
@@ -129,7 +155,7 @@ class StaticBundleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'symbolic links'):
             sb.verify(again)
         (again / 'engine/link.py').unlink()
-        self.assertEqual(sb.verify(again)['files'], self.description['files'])
+        self.assertEqual(sb.verify(again)['files'], live['files'])
         (again / 'engine/catalog/evaluator.py').write_text('# altered\n')
         with self.assertRaisesRegex(ValueError, 'altered or unexpected'):
             sb.verify(again)

@@ -254,9 +254,13 @@ To try a bundle, serve its folder over HTTP (browsers do not run workers from
 `catalog.json.gz`; meanwhile a Web Worker downloads Pyodide from jsDelivr and
 starts the release's Python engine (`catalog.browser`), which gives the same
 answers as `catalog.consumer_server`. Only the chosen model's catalog is
-downloaded, and only the visible step's option cards are priced. Dealer
-submission is a preview in the bundle; sending it and the WordPress upload are
-still to come.
+downloaded, and only the visible step's option cards are priced.
+
+Dealer submission is a preview unless the bundle is built with
+`--enable-dealer-submissions`, which works like the server option of the same
+name: the page loads Turnstile and posts to the existing WordPress endpoint (see
+[dealer submission](docs/dealer-submission.md)). The WordPress upload is still
+to come.
 
 ## Verify and back up a release
 

@@ -26,6 +26,22 @@ processing the order. Production host allowlisting, CORS, receiver verification
 and actual delivery are separate deployment checks. This local loopback server
 is not a public hosting configuration.
 
+## From a static bundle
+
+A static bundle (`catalog.static_bundle build --enable-dealer-submissions`)
+sends from the shopper's browser in the same way. The page and its dealer script
+are the release's own; the payload is prepared by the release engine running in
+the browser (`catalog.browser`), which requires the Turnstile token exactly as the
+live server does. Without the option the bundle previews only.
+
+Before enabling it on a host, the owner confirms two things outside this
+repository:
+
+- the Turnstile widget's hostname list includes the host that serves the form;
+- the receiver accepts requests from that host. A form served from
+  `stingraychevroletcorvette.com` itself is same-origin; any other host (such as
+  today's `order.stingraychevroletcorvette.com`) needs the receiver's CORS allowance.
+
 ## Preserved contract
 
 The reference is `27vette/form-app/app.js`: `compactOrder`,
