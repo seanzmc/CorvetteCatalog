@@ -1,6 +1,6 @@
 """Put static bundles on the WordPress site and check what it serves.
 
-Run: python -m catalog.static_site publish BUNDLE --target USER@sftp.wp.com --root htdocs/order-form
+Run: python -m catalog.static_site publish BUNDLE --target USER@sftp.wp.com --root order-form
      python -m catalog.static_site check https://SITE/order-form/
 
 Each bundle is uploaded once into its own folder, releases/<id>/, named by the
@@ -171,7 +171,7 @@ def main():
     put = commands.add_parser('publish', help='Upload a bundle (if new) and switch the form to it')
     put.add_argument('bundle', type=Path)
     put.add_argument('--target', required=True, help='SFTP login, e.g. USER@sftp.wp.com')
-    put.add_argument('--root', required=True, help='Remote folder of the form, e.g. htdocs/order-form')
+    put.add_argument('--root', required=True, help='Remote folder of the form, relative to the SFTP login (the web root on WordPress.com), e.g. order-form')
     look = commands.add_parser('check', help='Fetch the published form and compare every file')
     look.add_argument('url')
     args = parser.parse_args()
