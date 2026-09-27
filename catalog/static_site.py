@@ -37,13 +37,16 @@ def folder_name(bundle):
     return hashlib.sha256((Path(bundle) / 'bundle.json').read_bytes()).hexdigest()[:16]
 
 
-def pointer_page(bundle, folder):
-    """The bundle's own page, resolving every relative URL inside its release folder."""
-    page = (Path(bundle) / 'index.html').read_text()
+def pointer_html(page, folder):
+    """A bundle page resolving every relative URL inside its release folder."""
     head = re.search(r'<head[^>]*>', page)
     if head is None or '<base' in page:
         raise ValueError('The bundle page needs a <head> and no <base> of its own')
     return page[:head.end()] + f'<base href="releases/{folder}/">' + page[head.end():]
+
+
+def pointer_page(bundle, folder):
+    return pointer_html((Path(bundle) / 'index.html').read_text(), folder)
 
 
 def _quote(path):
@@ -89,8 +92,16 @@ def publish(bundle, target, root, run=sftp):
     with tempfile.TemporaryDirectory() as scratch:
         (Path(scratch) / 'current.json').write_text(json.dumps(current, indent=2, sort_keys=True) + '\n')
         (Path(scratch) / 'index.html').write_text(pointer_page(bundle, folder))
+        # Each file is uploaded under a temporary name and renamed over the live
+        # one. OpenSSH sftp renames with the server's posix-rename extension, which
+        # replaces atomically; without it the rename fails and the live page stays.
         # current.json first: it only describes; index.html is the switch.
-        run(target, [f'put {_quote(Path(scratch) / name)} {_quote(f"{root}/{name}")}' for name in ('current.json', 'index.html')])
+        token, commands = secrets.token_hex(4), []
+        for name in ('current.json', 'index.html'):
+            temporary = f'{root}/.{name}.{token}'
+            commands += [f'put {_quote(Path(scratch) / name)} {_quote(temporary)}',
+                         f'rename {_quote(temporary)} {_quote(f"{root}/{name}")}']
+        run(target, commands)
     return dict(current, uploaded=folder not in present)
 
 
@@ -117,10 +128,27 @@ def check(url, workers=8):
     base = re.search(r'<base href="([^"]+)"', page.decode())
     if base is None:
         raise ValueError(f'{url} is not a published form page (no <base>)')
+    folder = base.group(1).removeprefix('releases/').rstrip('/')
     base = urljoin(url, base.group(1))
     _, _, raw = _get(base + 'bundle.json')
     description = json.loads(raw)
     _, _, current = _get(urljoin(url, 'current.json'))
+    _, _, release_page = _get(base + 'index.html')
+    try:
+        current = json.loads(current)
+    except ValueError:
+        current = None
+    # The two pointer files are written separately; both must name this release.
+    problems = []
+    expected = dict(folder=folder, release_id=description['release_id'],
+                    dealer_submissions=description.get('dealer_submissions') is True)
+    if current != expected:
+        problems.append(f'current.json does not describe the served release: {current}')
+    try:
+        if pointer_html(release_page.decode(), folder).encode() != page:
+            problems.append('The form page is not the release page with its <base>')
+    except (ValueError, UnicodeDecodeError):
+        problems.append('The release page cannot be checked')
     def fetch(item):
         path, expected = item
         status, headers, body = _get(base + path)
@@ -133,7 +161,7 @@ def check(url, workers=8):
             content_encoding=headers.get('Content-Encoding'), cache_control=headers.get('Cache-Control')))
     return dict(page=dict(url=url, cache_control=page_headers.get('Cache-Control')), release_folder=base,
                 release_id=description['release_id'], dealer_submissions=description.get('dealer_submissions') is True,
-                current=json.loads(current) if current else None, files=len(results),
+                current=current, problems=problems, files=len(results),
                 failed=[path for path, status, _, same in results if status != 200 or not same], kinds=kinds)
 
 
@@ -152,8 +180,8 @@ def main():
     else:
         result = check(args.url)
         print(json.dumps(result, indent=2))
-        if result['failed']:
-            raise SystemExit(f'{len(result["failed"])} files missing or different')
+        if result['failed'] or result['problems']:
+            raise SystemExit(f'{len(result["failed"])} files missing or different; {len(result["problems"])} pointer problems')
 
 
 if __name__ == '__main__':

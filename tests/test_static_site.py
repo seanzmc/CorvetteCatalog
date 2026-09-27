@@ -36,9 +36,10 @@ def local_sftp(server_root, log):
                 elif op == 'put':
                     shutil.copyfile(args[0], server_root / args[1])
                 elif op == 'rename':
-                    if (server_root / args[1]).exists():
+                    # posix-rename: a file is replaced atomically, a folder never is.
+                    if (server_root / args[1]).is_dir():
                         raise OSError('exists')
-                    (server_root / args[0]).rename(server_root / args[1])
+                    (server_root / args[0]).replace(server_root / args[1])
                 elif op == 'ls':
                     out += [p.name for p in (server_root / args[-1]).iterdir()]
                 else:
@@ -70,7 +71,7 @@ class StaticSiteTests(unittest.TestCase):
         result = self.publish(first)
         self.assertEqual((result['release_id'], result['uploaded']), ('release-a', True))
         checked = static_site.check(self.url)
-        self.assertEqual((checked['release_id'], checked['failed'], checked['files']), ('release-a', [], 3))
+        self.assertEqual((checked['release_id'], checked['failed'], checked['problems'], checked['files']), ('release-a', [], [], 3))
         self.assertEqual(checked['current']['folder'], static_site.folder_name(first))
         self.assertTrue(checked['release_folder'].endswith(f'/order-form/releases/{result["folder"]}/'))
         # The pointer page is the bundle page, resolving inside its release folder.
@@ -82,6 +83,8 @@ class StaticSiteTests(unittest.TestCase):
         uploads = len(self.log)
         self.assertFalse(self.publish(first)['uploaded'])
         self.assertEqual(len(self.log), uploads + 2)  # listing and pointer only
+        self.assertTrue(all(c.startswith('put') and '/.' in c or c.startswith('rename') for c in self.log[-1]))
+        self.assertEqual([p.name for p in (self.server / 'htdocs/order-form').iterdir() if p.name.startswith('.')], [])
         self.assertEqual(static_site.check(self.url)['release_id'], 'release-a')
         self.assertEqual(sorted(p.name for p in (self.server / 'htdocs/order-form/releases').iterdir() if not p.name.startswith('.')),
                          sorted([static_site.folder_name(first), static_site.folder_name(second)]))
@@ -92,6 +95,20 @@ class StaticSiteTests(unittest.TestCase):
         (served / 'style.css').write_text('/* stale */')
         (served / 'catalog/model.sqlite.gz').unlink()
         self.assertEqual(static_site.check(self.url)['failed'], ['catalog/model.sqlite.gz', 'style.css'])
+
+    def test_check_reports_pointer_files_that_disagree(self):
+        first, second = bundle(self.root / 'a', 'release-a'), bundle(self.root / 'b', 'release-b')
+        self.publish(first); stale = (self.server / 'htdocs/order-form/current.json').read_text()
+        self.publish(second)
+        live = self.server / 'htdocs/order-form'
+        (live / 'current.json').write_text(stale)  # an interrupted switch
+        self.assertIn('current.json', static_site.check(self.url)['problems'][0])
+        (live / 'current.json').unlink()
+        self.assertEqual(len(static_site.check(self.url)['problems']), 1)
+        self.publish(second)
+        page = (live / 'index.html').read_text()
+        (live / 'index.html').write_text(page.replace('</body>', '<script>x</script></body>'))
+        self.assertEqual(static_site.check(self.url)['problems'], ['The form page is not the release page with its <base>'])
 
     def test_a_bundle_that_does_not_verify_is_not_uploaded(self):
         folder = bundle(self.root / 'a', 'release-a')
