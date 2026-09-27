@@ -69,7 +69,12 @@ the browser engine answers exactly like the server (PR #71). The third part
 lets a bundle send builds to the existing dealer endpoint
 (`--enable-dealer-submissions`); the browser engine then requires Turnstile like
 the live server. Turnstile hostnames and receiver CORS for the chosen host are
-owner checks at upload.
+owner checks at upload (PR #73). The fourth part, `catalog.static_site`, uploads
+bundles over the owner's SFTP login into per-release folders under
+`/order-form/`, switches the address by rewriting one page, and checks what the
+site serves. The owner chose the WordPress.com staging site first, `/order-form/`
+and Pyodide from jsDelivr (September 26). The first real upload and an iPhone
+check follow the owner's SSH setup; production and cutover remain task 9.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the
