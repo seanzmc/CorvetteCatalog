@@ -73,8 +73,15 @@ owner checks at upload (PR #73). The fourth part, `catalog.static_site`, uploads
 bundles over the owner's SFTP login into per-release folders under
 `/order-form/`, switches the address by rewriting one page, and checks what the
 site serves. The owner chose the WordPress.com staging site first, `/order-form/`
-and Pyodide from jsDelivr (September 26). The first real upload and an iPhone
-check follow the owner's SSH setup; production and cutover remain task 9.
+and Pyodide from jsDelivr (September 26), PR #74. On September 27 release
+`bdb52c39…` (full six-model audit, no findings) was published to the staging
+site in preview mode at
+`https://staging-427b-stingraychevroletcorvette.wpcomstaging.com/order-form/`:
+all 218 files and both pointer files checked. Staging serves `.gz` and `.py` as
+`application/octet-stream` and caches scripts, styles and images for a year,
+which per-release folders make safe; the page, `bundle.json` and `current.json`
+are not cached. An iPhone check on staging is next; production and cutover
+remain task 9.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the

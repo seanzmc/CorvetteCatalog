@@ -268,13 +268,16 @@ address and switches `index.html` to it; `check` then fetches every file back
 from the site and compares it with `bundle.json`:
 
 ```sh
-python -m catalog.static_site publish BUNDLE --target USER@sftp.wp.com --root htdocs/order-form
+python -m catalog.static_site publish BUNDLE --target USER@sftp.wp.com --root order-form
 python -m catalog.static_site check https://SITE/order-form/
 ```
 
 One-time setup on WordPress.com (owner): add your SSH public key under
 Account > Security > SSH keys, then under the site's Hosting settings enable
-SFTP/SSH, attach the key and note the SFTP username. Uploads use your own
+SFTP/SSH, attach the key and note the SFTP username. The SFTP login lands in the site's
+web root (`/srv/htdocs`), so `--root order-form` serves the form at
+`https://SITE/order-form/`. A newly attached key can take a few minutes to be
+accepted. Uploads use your own
 `sftp` login; nothing in the repository holds credentials. Start with the
 staging site (`staging-427b-stingraychevroletcorvette.wpcomstaging.com`).
 
