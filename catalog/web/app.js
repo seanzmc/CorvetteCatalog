@@ -188,15 +188,26 @@ function renderInteriors() {
   }
 }
 function renderSummary() {
-  const b=current.build;el('recap').replaceChildren();
-  if(b.selected_interior)node('p',current.cards.interiors.find(i=>i.interior_id===b.interior_id)?.label || b.selected_interior.key,el('recap'));
-  const sections=new Map();for(const item of b.summary_items) {
-    if(!sections.has(item.section_label)){node('h4',item.section_label,el('recap'));sections.set(item.section_label,node('ul','',el('recap')));}
-    node('li',`${item.rpo||''} ${item.label}`,sections.get(item.section_label));
+  // Selections by summary section (as the existing form's summary), then charges
+  // the shopper did not choose, then everything the trim includes in one list,
+  // then the rest of the standard equipment, collapsed.
+  const b=current.build, recap=el('recap'), cfg=model.configurations[b.configuration_id];recap.replaceChildren();
+  const price=new Map(b.charges.filter(c=>c.owner_kind==='option').map(c=>[c.owner_id,c.amount_minor]));
+  const line=(item,parent)=>{const li=node('li','',parent);node('span',`${item.rpo?item.rpo+' ':''}${item.label}`,li);const m=price.get(item.option_id);if(m)node('span',money(m),li).className='recap-price';};
+  const group=(title,items,parent=recap)=>{if(!items.length)return;node('h4',title,parent);const ul=node('ul','',parent);ul.className='recap-list';items.forEach(i=>line(i,ul));};
+  const chosen=b.summary_items.filter(i=>i.step_key!=='standard_equipment'), standard=b.summary_items.filter(i=>i.step_key==='standard_equipment');
+  for(const section of model.presentation.order_summary_sections.filter(r=>active(r.active)).sort((a,c)=>a.display_order-c.display_order)) {
+    const items=chosen.filter(i=>i.summary_section_id===section.section_key);
+    if(section.section_key==='seats_interior' && b.selected_interior) {
+      const levels=JSON.parse(model.interiors[b.interior_id].hierarchy.interior_hierarchy_levels).slice(1);
+      group(section.section_label,[{label:`Interior: ${[...new Set(levels)].join(' · ')}`,rpo:null,option_id:null},...items]);
+    } else group(section.section_label,items);
   }
-  for(const [label,items] of [['Installed equipment',b.installed_equipment],['Standard equipment',b.informational_standard_equipment]]) {
-    const d=node('details','',el('recap'));node('summary',`${label} (${items.length})`,d);const ul=node('ul','',d);items.forEach(i=>node('li',`${i.rpo||''} ${i.label}`,ul));
-  }
+  const shown=new Set(chosen.map(i=>i.option_id));
+  group('Charges',standard.filter(i=>price.get(i.option_id)));
+  group(`${cfg.trim_level.toUpperCase()} equipment`,standard.filter(i=>i.standard_equipment_group_type==='trim_equipment'));
+  const rest=standard.filter(i=>i.standard_equipment_group_type!=='trim_equipment' && !price.get(i.option_id) && !shown.has(i.option_id));
+  if(rest.length){const d=node('details','',recap);node('summary',`Standard equipment (${rest.length})`,d);const ul=node('ul','',d);ul.className='recap-list';rest.forEach(i=>line(i,ul));}
   el('requirements').replaceChildren();b.missing_requirements.forEach(text=>node('li',text,el('requirements')));el('requirementsPanel').hidden=!b.missing_requirements.length;
   el('exportHint').textContent=b.missing_requirements.length?'Complete the required selections above to download your build or continue to the dealer form.':'Download saves a build file. The dealer form lets you review your request before sending.';
 }

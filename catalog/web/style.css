@@ -79,6 +79,9 @@ select,input,textarea{border:1px solid #52585d;border-radius:6px;padding:12px;ba
 details{margin:16px 0}
 summary{cursor:pointer;line-height:1.5}
 #recap ul{padding-left:20px}
+.recap-list li{display:flex;justify-content:space-between;gap:12px}
+.recap-price{flex:none;font-variant-numeric:tabular-nums}
+#recap details{margin-top:16px}
 #requirementsPanel{color:#f0bd78}
 #exportHint{color:var(--muted);font-size:14px}
 dialog{width:min(700px,92vw);max-height:88vh;overflow:auto;border:1px solid #52585d;border-radius:12px;padding:28px;background:var(--panel);color:var(--ink)}
