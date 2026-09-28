@@ -88,7 +88,8 @@ dialog li{margin:10px 0}
 #technicalChanges{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
 .price-change{font-size:18px;font-weight:700}
 #error:not(:empty){padding:16px;background:#54202b;margin:0}
-#notice:not(:empty){padding:10px 24px;background:#193523;margin:0}
+#notice:not(:empty){position:fixed;z-index:20;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(640px,calc(100% - 32px));box-sizing:border-box;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;background:#193523;border:1px solid #2f6b45;border-radius:8px;margin:0;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.notice-undo{flex:none;background:transparent;border:1px solid currentColor;padding:6px 14px}
 .contact-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 textarea{resize:vertical}
 pre,small{white-space:pre-wrap;overflow-wrap:anywhere}
