@@ -221,6 +221,7 @@ function asks(action,target,c) {
   });
 }
 let noticeTimer;
+function dismissNotice() { clearTimeout(noticeTimer); el('notice').replaceChildren(); el('notice').style.transform=''; }
 function announce(action,label,c) {
   const names=items=>items.map(i=>i.label).join(', ');
   const others=items=>items.filter(i=>i.label!==label);
@@ -230,24 +231,37 @@ function announce(action,label,c) {
   // Dependent removals that do not ask (same-section package children) still
   // leave the build, so the automatic notice names them too.
   if(action==='remove' && others(c.removed).length)parts.push(`also removes ${names(others(c.removed))}`);
-  if(others(c.removed_independent_ownership).length)parts.push(`ends separate ownership of ${names(others(c.removed_independent_ownership))}`);
+  // Ended ownership matters only when the item stays in the build.
+  const gone=new Set(c.removed.map(i=>i.option_id)), kept=others(c.removed_independent_ownership).filter(i=>!gone.has(i.option_id));
+  if(kept.length)parts.push(`ends separate ownership of ${names(kept)}`);
   if(others(c.added).length && action!=='revert')parts.push(`also adds ${names(others(c.added))}`);
-  const box=el('notice');box.replaceChildren();node('span',parts.join(' · '),box);
+  const box=el('notice');dismissNotice();node('span',parts.join(' · '),box);
   if(action!=='revert'){const undo=button(box,'Undo',()=>run(()=>preview('revert',null)));undo.className='notice-undo';undo.disabled=false;}
-  clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>{if(!box.contains(document.activeElement))box.replaceChildren();},10000);
+  const close=button(box,'×',dismissNotice);close.className='notice-close';close.disabled=false;close.setAttribute('aria-label','Dismiss');
+  noticeTimer=setTimeout(()=>{if(!box.contains(document.activeElement))dismissNotice();},6000);
 }
+// Swipe the notice away (sideways or down) so it never blocks the step controls.
+(()=>{
+  const box=el('notice');let start=null;
+  box.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;start={x:e.clientX,y:e.clientY};box.setPointerCapture(e.pointerId);clearTimeout(noticeTimer);});
+  box.addEventListener('pointermove',e=>{if(!start)return;const dx=e.clientX-start.x,dy=Math.max(0,e.clientY-start.y);box.style.transform=`translate(calc(-50% + ${dx}px), ${dy}px)`;});
+  const end=e=>{if(!start)return;const dx=e.clientX-start.x,dy=e.clientY-start.y;start=null;
+    if(Math.abs(dx)>60||dy>30)dismissNotice();else{box.style.transform='';noticeTimer=setTimeout(dismissNotice,6000);}};
+  box.addEventListener('pointerup',end);box.addEventListener('pointercancel',end);
+})();
 async function preview(action,target,label) {
-  pending=null;el('changes').replaceChildren();el('technicalChanges').replaceChildren();
+  pending=null;el('changes').replaceChildren();
   const result=await api('/api/preview',{action,target,version:current.version}), w=result.warning,c=w.changes;
   if(!asks(action,target,c)) {
     current=await api('/api/confirm',{token:result.token,warning_sha256:result.warning_sha256,version:result.version});
     announce(action,label,c);refocus=action==='interior'?(target||current.build.interior_id):target;return;
   }
   el('warningTitle').textContent=action==='revert'?'Undo your last change?':`${action==='remove'?'Remove':'Select'} ${label}?`;
-  // Lead with what the choice takes away (the reason for asking). Ending
-  // independent ownership keeps the equipment in the build, so it is disclosed as
-  // such rather than as a removal; additions are summarised, and the complete
-  // record stays under "Full change details".
+  // One plain list: what the choice takes away (the reason for asking), kept items
+  // whose price changes, then what it adds. The server still confirms the exact
+  // full change record; the relationship detail stays out of the customer view.
+  const charges=new Map(c.charge_changes.filter(x=>(x.after||x.before).owner_kind==='option').map(x=>[(x.after||x.before).owner_id,x]));
+  const amount=m=>m?money(m):'included';
   const name=item=>`${item.label}${item.rpo?` (${item.rpo})`:''}`, seen=new Set([target]);
   for(const item of c.removed) {
     if(seen.has(item.option_id))continue;seen.add(item.option_id);node('li',`Removes ${name(item)}`,el('changes'));
@@ -257,15 +271,17 @@ async function preview(action,target,label) {
     node('li',`Ends separate ownership of ${name(item)}; it stays in your build`,el('changes'));
   }
   if(c.interior.before!==c.interior.after)node('li',`Interior: ${current.cards.interiors.find(i=>i.interior_id===c.interior.after)?.label||'No interior selected'}`,el('changes'));
+  const added=new Set(c.added.map(i=>i.option_id));
+  for(const [id,x] of charges) {
+    if(seen.has(id)||added.has(id)||!x.before||!x.after||x.before.amount_minor===x.after.amount_minor)continue;
+    node('li',`${model.options[id]?.name||'Price'}: ${amount(x.before.amount_minor)} → ${amount(x.after.amount_minor)}`,el('changes'));
+  }
   const extra=c.added.filter(item=>item.option_id!==target);
-  if(extra.length){const li=node('li','',el('changes')),d=node('details','',li);node('summary',`Also adds ${extra.length} item${extra.length===1?'':'s'}`,d);const ul=node('ul','',d);extra.forEach(item=>node('li',name(item),ul));}
-  // Retain all supporting relationships and disclosures with the exact server warning.
-  for(const line of w.lines)node('li',line,el('technicalChanges'));
+  if(extra.length){const li=node('li','',el('changes')),d=node('details','',li);node('summary',`Also adds ${extra.length} item${extra.length===1?'':'s'}`,d);const ul=node('ul','',d);
+    extra.forEach(item=>{const x=charges.get(item.option_id)?.after;node('li',name(item)+(x?.amount_minor?` · ${money(x.amount_minor)}`:''),ul);});}
   for(const line of w.lines.filter(line=>line.startsWith('Selecting this hash mark')))node('li',line,el('changes'));
-  if(!el('changes').children.length)node('li','Update your selection; your equipment stays the same.',el('changes'));
   el('priceChange').textContent=`Total MSRP ${money(c.total_after_minor)} (${c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))}`})`;
-  el('technicalChanges').parentElement.open=false;
-  pending=result;el('warning').showModal();el('cancel').focus();
+  pending={...result,choice:{action,label,target}};el('warning').showModal();el('cancel').focus();
 }
 async function cancel() {current=await api('/api/cancel',{version:current.version});pending=null;el('warning').close();el('stepTitle').focus();}
 el('model').addEventListener('change',configurations);el('bodyStyle').addEventListener('change',trims);el('configuration').addEventListener('change',startingPrice);
@@ -277,7 +293,7 @@ for(const id of ['review','summaryReview'])el(id).addEventListener('click',()=>g
 el('cancel').addEventListener('click',()=>run(cancel));el('warning').addEventListener('cancel',event=>{event.preventDefault();run(cancel);});
 el('confirm').addEventListener('click',()=>run(async()=>{
   if(!pending)throw new Error('No selection to apply');
-  current=await api('/api/confirm',{token:pending.token,warning_sha256:pending.warning_sha256,version:pending.version});pending=null;el('warning').close();el('notice').textContent='Your build has been updated.';el('stepTitle').focus();
+  const {choice,warning}=pending;current=await api('/api/confirm',{token:pending.token,warning_sha256:pending.warning_sha256,version:pending.version});pending=null;el('warning').close();announce(choice.action,choice.label,warning.changes);el('stepTitle').focus();
 }));
 el('revert').addEventListener('click',()=>run(()=>preview('revert',null)));
 el('reset').addEventListener('click',()=>el('resetDialog').showModal());el('resetCancel').addEventListener('click',()=>el('resetDialog').close());
