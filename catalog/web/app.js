@@ -203,14 +203,16 @@ function contexts() {
   const cfg=current.build.configuration_id;
   return new Map(model.option_contexts.filter(c=>c.configuration_id===cfg).map(c=>[c.option_id,c]));
 }
-// Ask first only when a choice takes away something outside its own section, or
-// an option changes the interior. Everything else applies at once, like the
-// existing form, with a notice that names what came along and offers Undo.
+// Ask first only when a choice takes away equipment outside its own section, or
+// an option changes the interior. Ending independent ownership (a package takes
+// over an earlier separate purchase) keeps the equipment in the build, so it
+// never asks by itself. Everything else applies at once, like the existing form,
+// with a notice that names what came along and offers Undo.
 function asks(action,target,c) {
   if(action==='revert') return false;
   if(action!=='interior' && c.interior.before!==c.interior.after) return true;
   const ctx=contexts(), own=ctx.get(target)?.section_id;
-  return [...c.removed,...c.removed_independent_ownership].some(i=>{
+  return c.removed.some(i=>{
     if(i.option_id===target) return false;
     const where=ctx.get(i.option_id);
     return action==='interior' ? !['seat','base_interior'].includes(where?.step_key) : where?.section_id!==own;
@@ -223,6 +225,10 @@ function announce(action,label,c) {
   const price=c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))}`;
   const parts=[action==='revert'?'Undid your last change':action==='remove'?`Removed ${label}`:action==='interior'?`Interior: ${label}`:`Added ${label}`, price];
   if(others(c.removed).length && action!=='remove' && action!=='revert')parts.push(`replaces ${names(others(c.removed))}`);
+  // Dependent removals that do not ask (same-section package children) still
+  // leave the build, so the automatic notice names them too.
+  if(action==='remove' && others(c.removed).length)parts.push(`also removes ${names(others(c.removed))}`);
+  if(others(c.removed_independent_ownership).length)parts.push(`ends separate ownership of ${names(others(c.removed_independent_ownership))}`);
   if(others(c.added).length && action!=='revert')parts.push(`also adds ${names(others(c.added))}`);
   const box=el('notice');box.replaceChildren();node('span',parts.join(' · '),box);
   if(action!=='revert'){const undo=button(box,'Undo',()=>run(()=>preview('revert',null)));undo.className='notice-undo';undo.disabled=false;}
@@ -236,11 +242,17 @@ async function preview(action,target,label) {
     announce(action,label,c);refocus=action==='interior'?(target||current.build.interior_id):target;return;
   }
   el('warningTitle').textContent=action==='revert'?'Undo your last change?':`${action==='remove'?'Remove':'Select'} ${label}?`;
-  // Lead with what the choice takes away (the reason for asking); additions are
-  // summarised, and the complete record stays under "Full change details".
+  // Lead with what the choice takes away (the reason for asking). Ending
+  // independent ownership keeps the equipment in the build, so it is disclosed as
+  // such rather than as a removal; additions are summarised, and the complete
+  // record stays under "Full change details".
   const name=item=>`${item.label}${item.rpo?` (${item.rpo})`:''}`, seen=new Set([target]);
-  for(const item of [...c.removed,...c.removed_independent_ownership]) {
+  for(const item of c.removed) {
     if(seen.has(item.option_id))continue;seen.add(item.option_id);node('li',`Removes ${name(item)}`,el('changes'));
+  }
+  for(const item of c.removed_independent_ownership) {
+    if(seen.has(item.option_id))continue;seen.add(item.option_id);
+    node('li',`Ends separate ownership of ${name(item)}; it stays in your build`,el('changes'));
   }
   if(c.interior.before!==c.interior.after)node('li',`Interior: ${current.cards.interiors.find(i=>i.interior_id===c.interior.after)?.label||'No interior selected'}`,el('changes'));
   const extra=c.added.filter(item=>item.option_id!==target);
