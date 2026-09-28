@@ -195,7 +195,11 @@ function renderSummary() {
   const price=new Map(b.charges.filter(c=>c.owner_kind==='option').map(c=>[c.owner_id,c.amount_minor]));
   const line=(item,parent)=>{const li=node('li','',parent);node('span',`${item.rpo?item.rpo+' ':''}${item.label}`,li);const m=price.get(item.option_id);if(m)node('span',money(m),li).className='recap-price';};
   const group=(title,items,parent=recap)=>{if(!items.length)return;node('h4',title,parent);const ul=node('ul','',parent);ul.className='recap-list';items.forEach(i=>line(i,ul));};
-  const chosen=b.summary_items.filter(i=>i.step_key!=='standard_equipment'), standard=b.summary_items.filter(i=>i.step_key==='standard_equipment');
+  const chosen=b.summary_items.filter(i=>i.step_key!=='standard_equipment');
+  // Z06/ZR1/ZR1X map their standard equipment into the summary bucket; the
+  // other models do not, so fall back to the build's standard-equipment
+  // projection instead of leaving their review without any standard items.
+  const standard=b.summary_items.some(i=>i.step_key==='standard_equipment') ? b.summary_items.filter(i=>i.step_key==='standard_equipment') : b.informational_standard_equipment||[];
   for(const section of model.presentation.order_summary_sections.filter(r=>active(r.active)).sort((a,c)=>a.display_order-c.display_order)) {
     const items=chosen.filter(i=>i.summary_section_id===section.section_key);
     if(section.section_key==='seats_interior' && b.selected_interior) {
