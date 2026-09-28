@@ -261,6 +261,30 @@ class ConsumerTests(unittest.TestCase):
         self.assertEqual((coupe['AUP'], coupe['E60']), ('Only available on 3LT', 'Only available on 2LT and 3LT'))
         self.assertEqual(reasons('3lt_c07')['AUP'], '')
 
+    def test_blocked_options_name_the_option_that_unlocks_them(self):
+        # "Available with X": adding X really makes the option selectable.
+        checked = 0
+        for key, c in self.catalogs.items():
+            for cfg in sorted(c.ev.configs)[:2]:
+                state = c.ev.state(cfg)
+                for card in c.cards(state)['options']:
+                    if not card['unlocked_by']:
+                        continue
+                    self.assertFalse(card['selectable'])
+                    self.assertTrue(card['reason'].startswith('Available with '), card['reason'])
+                    for other in card['unlocked_by']:
+                        after = c.ev.transition(state, 'select', other)
+                        unlocked = next(x for x in c.cards(after, [card['step_key']])['options'] if x['option_id'] == card['option_id'])
+                        self.assertTrue(unlocked['selectable'], (key, cfg, card['rpo'], c.ev.options[other]['rpo']))
+                        checked += 1
+        self.assertGreater(checked, 20)
+        z06 = self.catalogs['z06']
+        pbc = next(x for x in z06.cards(z06.ev.state('1lz_h67'))['options'] if x['rpo'] == 'PBC')
+        self.assertEqual(pbc['reason'], 'Available with ZZ3 Convertible Engine Appearance Package')
+        stingray = self.catalogs['stingray']
+        t0a = next(x for x in stingray.cards(stingray.ev.state('1lt_c07'))['options'] if x['rpo'] == 'T0A')
+        self.assertEqual(t0a['reason'], 'Available with Z51 Performance Package')
+
     def test_step_pricing_matches_full_pricing(self):
         for key, c in self.catalogs.items():
             for cfg in sorted(c.ev.configs)[:2]:

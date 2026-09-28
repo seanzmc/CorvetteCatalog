@@ -262,6 +262,22 @@ class ConsumerCatalog:
                         and self.ev.statuses.get((oid, cid)) in ('available', 'standard'))
         return [trim for _, trim in others]
 
+    def unlocked_by(self, state, oid):
+        """Options that, once added, let this option be chosen: members of its unmet
+        requirements' "any present" clauses, each confirmed by trying it."""
+        cfg, found = state.configuration_id, []
+        candidates = sorted({m['option_id'] for r in self.ev.scoped('requirement', cfg) if r['source_option_id'] == oid
+                             for clause in self.ev.clauses[r['satisfaction_condition_id']] if clause['mode'] == 'any_present'
+                             for m in self.ev.condition_members[r['satisfaction_condition_id'], clause['clause_id']]
+                             if m['option_id'] and m['option_id'] != oid})
+        for other in candidates:
+            try:
+                self.ev.transition(self.ev.transition(state, 'select', other), 'select', oid)
+                found.append(other)
+            except EvaluationError:
+                pass
+        return found
+
     def _shown(self, configuration):
         """Options that appear as cards in this configuration. An option this body
         style offers in no trim (a convertible top on a coupe) is not shown; one
@@ -293,7 +309,7 @@ class ConsumerCatalog:
             if step_keys is not None and self.contexts[oid, state.configuration_id]['step_key'] not in step_keys:
                 continue
             selected = oid in state.resolved
-            reason, conflict, delta_minor = '', False, None
+            reason, conflict, delta_minor, unlock = '', False, None, []
             trims = self.available_on(oid, state.configuration_id) if self.ev.statuses.get((oid, state.configuration_id)) == 'unavailable' else []
             if opt['lifecycle'] == 'factory_unavailable' and trims:
                 reason = 'Unavailable at this time'
@@ -307,11 +323,18 @@ class ConsumerCatalog:
                                     or state.interior_id != candidate.interior_id)
                 except EvaluationError as error:
                     reason = 'Unavailable at this time' if opt['lifecycle'] == 'factory_unavailable' else str(error)
+                    if not selected and reason.startswith('Requested option cannot satisfy'):
+                        unlock = self.unlocked_by(state, oid)
+                        if unlock:
+                            def named(o):
+                                rpo, label = self.option(o)['rpo'] or '', self.option(o)['label']
+                                return label if label.startswith(rpo) else f'{rpo} {label}'.strip()
+                            reason = 'Available with ' + ' or '.join(named(o) for o in unlock)
             view = self.maps['option'][oid]
             cards.append(dict(**self.option(oid), **self.contexts[oid, state.configuration_id],
                               description=view['description'], detail_raw=view['detail_raw'],
                               selected=selected, selectable=not bool(reason), conflict=conflict, reason=reason, delta_minor=delta_minor,
-                              available_on=trims,
+                              available_on=trims, unlocked_by=unlock,
                               display_order=view['display_order'] or 0))
         cards.sort(key=lambda r: self._card_order(r['option_id'], state.configuration_id))
         interiors = [dict(interior_id=iid, label=' › '.join(json.loads(
