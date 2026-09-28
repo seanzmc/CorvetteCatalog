@@ -254,11 +254,20 @@ class ConsumerCatalog:
             visualizer=dict(**common, installed_option_ids=sorted(state.installed), interior_id=state.interior_id,
                             content=[asdict(c) for c in state.content], **artwork.project(self, state)))
 
+    def available_on(self, oid, configuration):
+        """Other trims of this body style that offer an option this configuration does not."""
+        body = self.maps['configuration'][configuration]['body_style']
+        others = sorted((row['display_order'] or 0, row['trim_level'].upper()) for cid, row in self.maps['configuration'].items()
+                        if cid != configuration and cid in self.ev.configs and active(row['active']) and row['body_style'] == body
+                        and self.ev.statuses.get((oid, cid)) in ('available', 'standard'))
+        return [trim for _, trim in others]
+
     def _shown(self, configuration):
-        """Options that appear as cards in this configuration. Like the existing form,
-        an option unavailable for this body style and trim is not shown at all."""
+        """Options that appear as cards in this configuration. An option this body
+        style offers in no trim (a convertible top on a coupe) is not shown; one
+        another trim offers stays visible, marked with those trims."""
         return [oid for oid, opt in self.ev.options.items() if opt['lifecycle'] != 'retired'
-                and self.ev.statuses.get((oid, configuration)) != 'unavailable'
+                and (self.ev.statuses.get((oid, configuration)) != 'unavailable' or self.available_on(oid, configuration))
                 and self.contexts[oid, configuration]['display_behavior'] not in ('hidden', 'auto_only')]
 
     def _card_order(self, oid, configuration):
@@ -285,17 +294,24 @@ class ConsumerCatalog:
                 continue
             selected = oid in state.resolved
             reason, conflict, delta_minor = '', False, None
-            try:
-                candidate = self.ev.transition(state, 'remove' if selected else 'select', oid)
-                delta_minor = candidate.total_minor - state.total_minor
-                conflict = bool(state.resolved - candidate.resolved or set(state.intent) - set(candidate.intent)
-                                or state.interior_id != candidate.interior_id)
-            except EvaluationError as error:
-                reason = 'Unavailable at this time' if opt['lifecycle'] == 'factory_unavailable' else str(error)
+            trims = self.available_on(oid, state.configuration_id) if self.ev.statuses.get((oid, state.configuration_id)) == 'unavailable' else []
+            if opt['lifecycle'] == 'factory_unavailable' and trims:
+                reason = 'Unavailable at this time'
+            elif trims:
+                reason = 'Only available on ' + (' and '.join(trims) if len(trims) < 3 else ', '.join(trims[:-1]) + ' and ' + trims[-1])
+            else:
+                try:
+                    candidate = self.ev.transition(state, 'remove' if selected else 'select', oid)
+                    delta_minor = candidate.total_minor - state.total_minor
+                    conflict = bool(state.resolved - candidate.resolved or set(state.intent) - set(candidate.intent)
+                                    or state.interior_id != candidate.interior_id)
+                except EvaluationError as error:
+                    reason = 'Unavailable at this time' if opt['lifecycle'] == 'factory_unavailable' else str(error)
             view = self.maps['option'][oid]
             cards.append(dict(**self.option(oid), **self.contexts[oid, state.configuration_id],
                               description=view['description'], detail_raw=view['detail_raw'],
                               selected=selected, selectable=not bool(reason), conflict=conflict, reason=reason, delta_minor=delta_minor,
+                              available_on=trims,
                               display_order=view['display_order'] or 0))
         cards.sort(key=lambda r: self._card_order(r['option_id'], state.configuration_id))
         interiors = [dict(interior_id=iid, label=' › '.join(json.loads(
