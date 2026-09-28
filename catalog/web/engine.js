@@ -7,6 +7,30 @@
 window.catalogEngine = (() => {
   let worker, bundle, next = 0;
   const waiting = new Map();
+  // Hosts may send the form page without caching rules, so a browser can keep
+  // the previous page, and with it the previous release, after a switch. The
+  // page published by catalog.static_site sits beside current.json (never cached
+  // here); when that names another release, refresh the page and reload. The
+  // host's edge cache can answer that refresh with the previous page too, so
+  // the reload is retried a few times, spaced out, and the attempt budget is
+  // only spent while this page is off the release current.json names.
+  (async () => {
+    const own = document.baseURI.match(/\/releases\/([^/]+)\/$/)?.[1];
+    if (!own) return;
+    try {
+      const current = await (await fetch(new URL('current.json', location.href), {cache: 'no-cache'})).json();
+      if (!current.folder || current.folder === own) {
+        sessionStorage.removeItem('corvette-follow-attempts');  // reached it: budget back for the next switch
+        return;
+      }
+      const attempts = Number(sessionStorage.getItem('corvette-follow-attempts')) || 0;
+      if (attempts >= 3) return;  // bounded: never reload in a loop
+      if (attempts) await new Promise(resolve => setTimeout(resolve, 2000));  // let the edge cache catch up
+      sessionStorage.setItem('corvette-follow-attempts', attempts + 1);
+      await fetch(location.href, {cache: 'reload'});
+      location.reload();
+    } catch {}  // unreachable pointer or storage: keep the page as it is
+  })();
   const mode = (async () => {
     let response;
     try { response = await fetch('bundle.json', {cache: 'no-cache'}); } catch { return 'server'; }
