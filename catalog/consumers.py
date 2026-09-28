@@ -255,8 +255,10 @@ class ConsumerCatalog:
                             content=[asdict(c) for c in state.content], **artwork.project(self, state)))
 
     def _shown(self, configuration):
-        """Options that appear as cards in this configuration."""
+        """Options that appear as cards in this configuration. Like the existing form,
+        an option unavailable for this body style and trim is not shown at all."""
         return [oid for oid, opt in self.ev.options.items() if opt['lifecycle'] != 'retired'
+                and self.ev.statuses.get((oid, configuration)) != 'unavailable'
                 and self.contexts[oid, configuration]['display_behavior'] not in ('hidden', 'auto_only')]
 
     def _card_order(self, oid, configuration):

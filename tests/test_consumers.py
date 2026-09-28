@@ -234,6 +234,21 @@ class ConsumerTests(unittest.TestCase):
         self.assertEqual(b['visualizer']['installed_option_ids'],sorted(i['option_id'] for i in b['installed_equipment']))
         self.assertEqual(b['visualizer']['release_id'],b['release_id'])
 
+    def test_options_unavailable_for_the_body_style_and_trim_are_not_shown(self):
+        # As in the existing form (shouldHideChoice): status "unavailable" hides the card.
+        for key, c in self.catalogs.items():
+            for cfg in c.ev.configs:
+                shown = {x['option_id'] for x in c.cards(c.ev.state(cfg), [s['step_key'] for s in c.card_steps(cfg)])['options']}
+                self.assertFalse({o for o in shown if c.ev.statuses.get((o, cfg)) == 'unavailable'}, (key, cfg))
+                self.assertEqual({s['step_key'] for s in c.card_steps(cfg)},
+                                 {c.contexts[o, cfg]['step_key'] for o in shown if c.ev.options[o]['customer_selectable']})
+        c = self.catalogs['stingray']
+        def rpos(cfg):
+            return {c.ev.options[x['option_id']]['rpo'] for x in c.cards(c.ev.state(cfg))['options']}
+        # Convertible hardtop colors only on the convertible; roof panels only on the coupe.
+        self.assertIn('CM9', rpos('1lt_c67') - rpos('1lt_c07'))
+        self.assertIn('CF7', rpos('1lt_c07') - rpos('1lt_c67'))
+
     def test_step_pricing_matches_full_pricing(self):
         for key, c in self.catalogs.items():
             for cfg in sorted(c.ev.configs)[:2]:
