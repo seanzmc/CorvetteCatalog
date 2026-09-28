@@ -276,9 +276,14 @@ async function preview(action,target,label) {
     if(seen.has(id)||added.has(id)||!x.before||!x.after||x.before.amount_minor===x.after.amount_minor)continue;
     node('li',`${model.options[id]?.name||'Price'}: ${amount(x.before.amount_minor)} → ${amount(x.after.amount_minor)}`,el('changes'));
   }
+  // Factory equipment the choice swaps out (e.g. Z51 replaces G0J, JL9, M1L, XFN).
+  const swapped=c.installed_removed.filter(i=>!seen.has(i.option_id)&&!c.removed.some(r=>r.option_id===i.option_id));
+  if(swapped.length)node('li',`Replaces standard equipment: ${swapped.map(name).join(', ')}`,el('changes'));
   const extra=c.added.filter(item=>item.option_id!==target);
-  if(extra.length){const li=node('li','',el('changes')),d=node('details','',li);node('summary',`Also adds ${extra.length} item${extra.length===1?'':'s'}`,d);const ul=node('ul','',d);
-    extra.forEach(item=>{const x=charges.get(item.option_id)?.after;node('li',name(item)+(x?.amount_minor?` · ${money(x.amount_minor)}`:''),ul);});}
+  const included=c.installed_added.filter(i=>i.option_id!==target&&!added.has(i.option_id));
+  const adds=[...extra,...included];
+  if(adds.length){const li=node('li','',el('changes')),d=node('details','',li);node('summary',`Also adds ${adds.length} item${adds.length===1?'':'s'}`,d);const ul=node('ul','',d);
+    adds.forEach(item=>{const x=charges.get(item.option_id)?.after;node('li',name(item)+(x?.amount_minor?` · ${money(x.amount_minor)}`:''),ul);});}
   for(const line of w.lines.filter(line=>line.startsWith('Selecting this hash mark')))node('li',line,el('changes'));
   el('priceChange').textContent=`Total MSRP ${money(c.total_after_minor)} (${c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))}`})`;
   pending={...result,choice:{action,label,target}};el('warning').showModal();el('cancel').focus();
