@@ -283,7 +283,11 @@ staging site (`staging-427b-stingraychevroletcorvette.wpcomstaging.com`).
 
 Each bundle lives in `releases/<digest>/` with URLs no other release shares, so
 caches cannot mix releases. Publishing an earlier bundle again switches back to
-it without uploading. `check` exits with an error if any file is missing or
+it without uploading. WordPress.com sends the form page without caching rules, so
+a browser may keep the previous page for a while; the page then finds a newer
+release in `current.json` and reloads onto it once. Its edge cache can also
+serve the previous page for a few seconds after a switch, so run `check` again
+if it still reports the previous release. `check` exits with an error if any file is missing or
 different, and reports each file type's content type, encoding and caching so
 serving problems (for example `.gz` or `.py` files) show up before shoppers do.
 

@@ -7,6 +7,21 @@
 window.catalogEngine = (() => {
   let worker, bundle, next = 0;
   const waiting = new Map();
+  // Hosts may send the form page without caching rules, so a browser can keep
+  // the previous page, and with it the previous release, after a switch. The
+  // page published by catalog.static_site sits beside current.json (never cached
+  // here); when that names another release, refresh the page once and reload.
+  (async () => {
+    const own = document.baseURI.match(/\/releases\/([^/]+)\/$/)?.[1];
+    if (!own) return;
+    try {
+      const current = await (await fetch(new URL('current.json', location.href), {cache: 'no-cache'})).json();
+      if (!current.folder || current.folder === own || sessionStorage.getItem('corvette-followed') === current.folder) return;
+      sessionStorage.setItem('corvette-followed', current.folder);  // at most once per release
+      await fetch(location.href, {cache: 'reload'});
+      location.reload();
+    } catch {}  // unreachable pointer or storage: keep the page as it is
+  })();
   const mode = (async () => {
     let response;
     try { response = await fetch('bundle.json', {cache: 'no-cache'}); } catch { return 'server'; }
