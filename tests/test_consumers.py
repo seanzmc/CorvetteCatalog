@@ -234,6 +234,33 @@ class ConsumerTests(unittest.TestCase):
         self.assertEqual(b['visualizer']['installed_option_ids'],sorted(i['option_id'] for i in b['installed_equipment']))
         self.assertEqual(b['visualizer']['release_id'],b['release_id'])
 
+    def test_options_follow_body_style_and_name_the_trims_that_offer_them(self):
+        # An option this body style offers in no trim is hidden; one another trim of
+        # the same body style offers is shown, unselectable, naming those trims.
+        for key, c in self.catalogs.items():
+            for cfg in c.ev.configs:
+                cards = c.cards(c.ev.state(cfg))['options']
+                shown = {x['option_id'] for x in cards}
+                for oid in c.ev.options:
+                    if (c.ev.statuses.get((oid, cfg)) == 'unavailable' and c.ev.options[oid]['lifecycle'] != 'retired'
+                            and c.contexts[oid, cfg]['display_behavior'] not in ('hidden', 'auto_only')):
+                        self.assertEqual(oid in shown, bool(c.available_on(oid, cfg)), (key, cfg, oid))
+                for x in cards:
+                    if x['available_on']:
+                        self.assertFalse(x['selectable']); self.assertIsNone(x['delta_minor'])
+                        self.assertIn(x['reason'], ('Unavailable at this time', 'Only available on ' + ' and '.join(x['available_on'])))
+                self.assertEqual({s['step_key'] for s in c.card_steps(cfg)},
+                                 {x['step_key'] for x in cards if c.ev.options[x['option_id']]['customer_selectable']})
+        c = self.catalogs['stingray']
+        def reasons(cfg):
+            return {c.ev.options[x['option_id']]['rpo']: x['reason'] for x in c.cards(c.ev.state(cfg))['options']}
+        coupe, convertible = reasons('1lt_c07'), reasons('1lt_c67')
+        # Convertible tops only on the convertible; roof panels only on the coupe.
+        self.assertIn('CM9', convertible.keys() - coupe.keys())
+        self.assertIn('C2Z', coupe.keys() - convertible.keys())
+        self.assertEqual((coupe['AUP'], coupe['E60']), ('Only available on 3LT', 'Only available on 2LT and 3LT'))
+        self.assertEqual(reasons('3lt_c07')['AUP'], '')
+
     def test_step_pricing_matches_full_pricing(self):
         for key, c in self.catalogs.items():
             for cfg in sorted(c.ev.configs)[:2]:
