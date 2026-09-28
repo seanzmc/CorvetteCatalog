@@ -193,9 +193,12 @@ for `/api/session` and `/api/preview`).
 
 Choose a model, body style and trim, then click **Choose options**. Use the step
 navigation or **Continue** to work through one group at a time. Option cards show
-the change to your build total; **Select** or **Remove** opens a confirmation with
-equipment and price changes. **Keep current build** cancels; **Undo last change**
-restores the previous build after confirmation. Seats and interior colors narrow
+the change to your build total. Most **Select** and **Remove** choices apply at
+once, with a notice at the bottom of the screen naming the price and any
+equipment that came along or was replaced; its **Undo** (and the toolbar's
+**Undo last change**) also applies at once. A confirmation opens only when a
+choice would remove equipment from another group of the build, or change the
+interior; **Keep current build** cancels it. Seats and interior colors narrow
 to the catalog's exact interior choices.
 
 Use **Review build** to see your selections, remaining requirements and total.

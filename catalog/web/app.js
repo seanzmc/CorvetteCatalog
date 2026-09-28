@@ -1,6 +1,6 @@
 'use strict';
 const el = id => document.getElementById(id);
-let catalog, model, buildToken, current, pending, busy = false, activeStep, interiorPath = [];
+let catalog, model, buildToken, current, pending, busy = false, activeStep, interiorPath = [], refocus = null;
 const UNAVAILABLE = 'The build form is temporarily unavailable. Please try again in a few minutes.';
 // The signed build token lets a reload continue the same build. Storage can be
 // unavailable (private windows, blocked site data); the form works without it.
@@ -37,6 +37,9 @@ async function run(action) {
   finally {
     busy=false; disabled.forEach(([n,value])=>n.disabled=value);
     if(current) render();
+    // A choice applied without a dialog returns focus to its re-rendered card.
+    if(refocus && !pending) document.querySelector(`[data-choice="${CSS.escape(refocus)}"] button`)?.focus();
+    refocus=null;
     el('cancel').disabled=false; el('confirm').disabled=!pending;
     if(pending) el('cancel').focus();
   }
@@ -147,7 +150,7 @@ function renderOptions() {
   if(activeStep==='interior') { parent=node('details','',parent);node('summary','Individual seat options',parent); }
   choiceCards().filter(c=>(c.step_key===activeStep || activeStep==='interior' && ['seat','base_interior'].includes(c.step_key)) && `${c.rpo} ${c.label}`.toLowerCase().includes(query)).forEach(c=>{
     if(!groups.has(c.section_id)){const section=node('section','',parent);node('h3',c.section_label,section);const grid=node('div','',section);grid.className='cards';groups.set(c.section_id,grid);}
-    const card=node('article','',groups.get(c.section_id));card.className=`choice-card ${c.selected?'selected':''}`;
+    const card=node('article','',groups.get(c.section_id));card.className=`choice-card ${c.selected?'selected':''}`;card.dataset.choice=c.option_id;
     media(photos.get(c.option_id),c.label,card);node('span',c.rpo||'Option',card).className='rpo';node('h4',c.label,card);
     if(c.selected)node('p','Selected',card).className='selected-label';
     if(c.selectable && c.delta_minor!==undefined)node('p',`${c.selected?'Removing':'Selecting'}: ${c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))} to build total`}`,card);
@@ -176,7 +179,7 @@ function renderInteriors() {
     matches=matches.filter(r=>r.levels[depth]===interiorPath[depth]);
   }
   for(const row of matches) {
-    const selected=current.build.interior_id===row.interior_id, card=node('article','',el('interiorChoices'));card.className=`choice-card ${selected?'selected':''}`;
+    const selected=current.build.interior_id===row.interior_id, card=node('article','',el('interiorChoices'));card.className=`choice-card ${selected?'selected':''}`;card.dataset.choice=row.interior_id;
     node('h4',row.levels.slice(interiorPath.length).join(' · ')||row.label,card);
     const source=model.interiors[row.interior_id].source;
     node('p',[source.Material,source.Stitch && `Stitching: ${source.Stitch}`,source.Suede && `Suede: ${source.Suede}`].filter(Boolean).join(' · '),card);
@@ -197,21 +200,65 @@ function renderSummary() {
   el('requirements').replaceChildren();b.missing_requirements.forEach(text=>node('li',text,el('requirements')));el('requirementsPanel').hidden=!b.missing_requirements.length;
   el('exportHint').textContent=b.missing_requirements.length?'Complete the required selections above to download your build or continue to the dealer form.':'Download saves a build file. The dealer form lets you review your request before sending.';
 }
+// Each option's section and step in the chosen configuration.
+function contexts() {
+  const cfg=current.build.configuration_id;
+  return new Map(model.option_contexts.filter(c=>c.configuration_id===cfg).map(c=>[c.option_id,c]));
+}
+// Ask first only when a choice takes away equipment outside its own section, or
+// an option changes the interior. Ending independent ownership (a package takes
+// over an earlier separate purchase) keeps the equipment in the build, so it
+// never asks by itself. Everything else applies at once, like the existing form,
+// with a notice that names what came along and offers Undo.
+function asks(action,target,c) {
+  if(action==='revert') return false;
+  if(action!=='interior' && c.interior.before!==c.interior.after) return true;
+  const ctx=contexts(), own=ctx.get(target)?.section_id;
+  return c.removed.some(i=>{
+    if(i.option_id===target) return false;
+    const where=ctx.get(i.option_id);
+    return action==='interior' ? !['seat','base_interior'].includes(where?.step_key) : where?.section_id!==own;
+  });
+}
+let noticeTimer;
+function announce(action,label,c) {
+  const names=items=>items.map(i=>i.label).join(', ');
+  const others=items=>items.filter(i=>i.label!==label);
+  const price=c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))}`;
+  const parts=[action==='revert'?'Undid your last change':action==='remove'?`Removed ${label}`:action==='interior'?`Interior: ${label}`:`Added ${label}`, price];
+  if(others(c.removed).length && action!=='remove' && action!=='revert')parts.push(`replaces ${names(others(c.removed))}`);
+  // Dependent removals that do not ask (same-section package children) still
+  // leave the build, so the automatic notice names them too.
+  if(action==='remove' && others(c.removed).length)parts.push(`also removes ${names(others(c.removed))}`);
+  if(others(c.removed_independent_ownership).length)parts.push(`ends separate ownership of ${names(others(c.removed_independent_ownership))}`);
+  if(others(c.added).length && action!=='revert')parts.push(`also adds ${names(others(c.added))}`);
+  const box=el('notice');box.replaceChildren();node('span',parts.join(' · '),box);
+  if(action!=='revert'){const undo=button(box,'Undo',()=>run(()=>preview('revert',null)));undo.className='notice-undo';undo.disabled=false;}
+  clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>{if(!box.contains(document.activeElement))box.replaceChildren();},10000);
+}
 async function preview(action,target,label) {
   pending=null;el('changes').replaceChildren();el('technicalChanges').replaceChildren();
   const result=await api('/api/preview',{action,target,version:current.version}), w=result.warning,c=w.changes;
+  if(!asks(action,target,c)) {
+    current=await api('/api/confirm',{token:result.token,warning_sha256:result.warning_sha256,version:result.version});
+    announce(action,label,c);refocus=action==='interior'?(target||current.build.interior_id):target;return;
+  }
   el('warningTitle').textContent=action==='revert'?'Undo your last change?':`${action==='remove'?'Remove':'Select'} ${label}?`;
-  const displayed=new Set();
-  for(const [field,prefix] of [['removed','Remove'],['added','Add'],['installed_removed','Remove equipment'],['installed_added','Include equipment']])for(const item of c[field]) {
-    if(displayed.has(item.option_id))continue;displayed.add(item.option_id);node('li',`${prefix}: ${item.label}${item.rpo?` (${item.rpo})`:''}`,el('changes'));
+  // Lead with what the choice takes away (the reason for asking). Ending
+  // independent ownership keeps the equipment in the build, so it is disclosed as
+  // such rather than as a removal; additions are summarised, and the complete
+  // record stays under "Full change details".
+  const name=item=>`${item.label}${item.rpo?` (${item.rpo})`:''}`, seen=new Set([target]);
+  for(const item of c.removed) {
+    if(seen.has(item.option_id))continue;seen.add(item.option_id);node('li',`Removes ${name(item)}`,el('changes'));
+  }
+  for(const item of c.removed_independent_ownership) {
+    if(seen.has(item.option_id))continue;seen.add(item.option_id);
+    node('li',`Ends separate ownership of ${name(item)}; it stays in your build`,el('changes'));
   }
   if(c.interior.before!==c.interior.after)node('li',`Interior: ${current.cards.interiors.find(i=>i.interior_id===c.interior.after)?.label||'No interior selected'}`,el('changes'));
-  for(const change of c.charge_changes) {
-    const charge=change.after||change.before;
-    if((change.before?.amount_minor||0)===(change.after?.amount_minor||0))continue;
-    const name=charge.owner_kind==='option'?model.options[charge.owner_id]?.name:w.candidate.charges.find(i=>i.owner_kind===charge.owner_kind&&i.owner_id===charge.owner_id)?.label || current.build.charges.find(i=>i.owner_kind===charge.owner_kind&&i.owner_id===charge.owner_id)?.label;
-    node('li',`${name||'Price'}: ${change.before?money(change.before.amount_minor):'Not in build'} → ${change.after?money(change.after.amount_minor):'Removed'}`,el('changes'));
-  }
+  const extra=c.added.filter(item=>item.option_id!==target);
+  if(extra.length){const li=node('li','',el('changes')),d=node('details','',li);node('summary',`Also adds ${extra.length} item${extra.length===1?'':'s'}`,d);const ul=node('ul','',d);extra.forEach(item=>node('li',name(item),ul));}
   // Retain all supporting relationships and disclosures with the exact server warning.
   for(const line of w.lines)node('li',line,el('technicalChanges'));
   for(const line of w.lines.filter(line=>line.startsWith('Selecting this hash mark')))node('li',line,el('changes'));
