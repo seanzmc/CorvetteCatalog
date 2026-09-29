@@ -199,7 +199,11 @@ function renderSummary() {
   // Z06/ZR1/ZR1X map their standard equipment into the summary bucket; the
   // other models do not, so fall back to the build's standard-equipment
   // projection instead of leaving their review without any standard items.
-  const standard=b.summary_items.some(i=>i.step_key==='standard_equipment') ? b.summary_items.filter(i=>i.step_key==='standard_equipment') : b.informational_standard_equipment||[];
+  // The option contexts still mark trim equipment for those models, so the
+  // projection is classified the same way (step and trim-equipment group).
+  const ctx=contexts();
+  const standard=b.summary_items.some(i=>i.step_key==='standard_equipment') ? b.summary_items.filter(i=>i.step_key==='standard_equipment')
+    : (b.informational_standard_equipment||[]).map(i=>({...i,...ctx.get(i.option_id)})).filter(i=>i.step_key==='standard_equipment');
   for(const section of model.presentation.order_summary_sections.filter(r=>active(r.active)).sort((a,c)=>a.display_order-c.display_order)) {
     const items=chosen.filter(i=>i.summary_section_id===section.section_key);
     if(section.section_key==='seats_interior' && b.selected_interior) {
