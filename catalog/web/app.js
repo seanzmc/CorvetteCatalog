@@ -164,13 +164,18 @@ function renderOptions() {
   if(!groups.size && activeStep!=='interior' && activeStep!=='summary')node('p',query?'No matching options in this step.':'No options in this step.',el('options'));
 }
 function renderInteriors() {
-  const rows=current.cards.interiors.map(c=>({...c,levels:JSON.parse(model.interiors[c.interior_id].hierarchy.interior_hierarchy_levels).slice(1)}));
+  // Order leaves, and so each filter's values, as the existing form's interior display order.
+  const rank=h=>[h.interior_group_display_order,h.interior_material_display_order,h.interior_choice_display_order].map(v=>Number(v||0));
+  const rows=current.cards.interiors.map(c=>{const h=model.interiors[c.interior_id].hierarchy;return {...c,rank:rank(h),levels:JSON.parse(h.interior_hierarchy_levels).slice(1)};})
+    .sort((a,b)=>a.rank[0]-b.rank[0]||a.rank[1]-b.rank[1]||a.rank[2]-b.rank[2]||a.label.localeCompare(b.label));
   el('interiorFilters').replaceChildren();el('interiorChoices').replaceChildren();
   let matches=rows;
   // Narrow the existing interior hierarchy without changing its exact catalog leaves.
   for(let depth=0; matches.length && matches.every(r=>r.levels.length>depth+1);depth++) {
     if(depth>0 && matches.length<=6) break;
     const values=[...new Set(matches.map(r=>r.levels[depth]).filter(Boolean))];
+    // Seat styles follow the seat options' order; interior order is a global leaf sequence.
+    if(depth===0){const seats=current.cards.options.filter(c=>c.step_key==='seat').map(c=>c.rpo),at=v=>{const i=seats.indexOf(v.split(' ')[0]);return i<0?seats.length:i;};values.sort((a,b)=>at(a)-at(b));}
     if(!values.includes(interiorPath[depth])) interiorPath=interiorPath.slice(0,depth);
     const title=['Seat style','Interior color','Material','Finish'][depth]||'Interior detail';
     const label=node('label',title,el('interiorFilters')), select=node('select','',label);
