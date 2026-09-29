@@ -264,13 +264,22 @@ class ConsumerCatalog:
 
     def unlocked_by(self, state, oid):
         """Options that, once added, let this option be chosen: members of its unmet
-        requirements' "any present" clauses, each confirmed by trying it."""
-        cfg, found = state.configuration_id, []
-        candidates = sorted({m['option_id'] for r in self.ev.scoped('requirement', cfg) if r['source_option_id'] == oid
-                             for clause in self.ev.clauses[r['satisfaction_condition_id']] if clause['mode'] == 'any_present'
-                             for m in self.ev.condition_members[r['satisfaction_condition_id'], clause['clause_id']]
-                             if m['option_id'] and m['option_id'] != oid})
-        for other in candidates:
+        requirements' "any present" clauses — expanding scoped choice groups the way
+        the evaluator does — each confirmed by trying it."""
+        cfg, candidates = state.configuration_id, set()
+        for r in self.ev.scoped('requirement', cfg):
+            if r['source_option_id'] != oid:
+                continue
+            for clause in self.ev.clauses[r['satisfaction_condition_id']]:
+                if clause['mode'] != 'any_present':
+                    continue
+                for m in self.ev.condition_members[r['satisfaction_condition_id'], clause['clause_id']]:
+                    if m['option_id']:
+                        candidates.add(m['option_id'])
+                    elif m['group_id'] and (m['group_id'], cfg) in self.ev.scopes['choice_group']:
+                        candidates.update(self.ev.members[m['group_id']])
+        found = []
+        for other in sorted(candidates - {oid}):
             try:
                 self.ev.transition(self.ev.transition(state, 'select', other), 'select', oid)
                 found.append(other)

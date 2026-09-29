@@ -284,6 +284,18 @@ class ConsumerTests(unittest.TestCase):
         stingray = self.catalogs['stingray']
         t0a = next(x for x in stingray.cards(stingray.ev.state('1lt_c07'))['options'] if x['rpo'] == 'T0A')
         self.assertEqual(t0a['reason'], 'Available with Z51 Performance Package')
+        # A requirement whose "any present" clause names a choice group, not an
+        # option, still names the group's members as unlockers.
+        z5u = next(x for x in stingray.cards(stingray.ev.state('1lt_c07'))['options'] if x['rpo'] == '5ZU')
+        self.assertEqual({stingray.ev.options[o]['rpo'] for o in z5u['unlocked_by']}, {'G8G', 'GBA', 'GKZ'})
+        gs = self.catalogs['grand_sport']
+        j57 = next(x for x in gs.cards(gs.ev.state('1lt_e67'))['options'] if x['rpo'] == 'J57')
+        self.assertEqual({gs.ev.options[o]['rpo'] for o in j57['unlocked_by']}, {'FEB', 'FEY'})
+        # No viable single unlocker stays unnamed: 5V7's group holds 5ZU, itself
+        # paint-blocked, and retired options, so the generic message remains.
+        v57 = next(x for x in stingray.cards(stingray.ev.state('1lt_c07'))['options'] if x['rpo'] == '5V7')
+        self.assertEqual(v57['unlocked_by'], [])
+        self.assertEqual(v57['reason'], 'Requested option cannot satisfy its prerequisites')
 
     def test_step_pricing_matches_full_pricing(self):
         for key, c in self.catalogs.items():
