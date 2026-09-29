@@ -154,8 +154,9 @@ function renderOptions() {
     media(photos.get(c.option_id),c.label,card);node('span',c.rpo||'Option',card).className='rpo';node('h4',c.label,card);
     if(c.selected)node('p','Selected',card).className='selected-label';
     if(c.selectable && c.delta_minor!==undefined)node('p',`${c.selected?'Removing':'Selecting'}: ${c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))} to build total`}`,card);
-    // Another trim's options and factory-unavailable ones say so on the card itself.
-    const plain=c.available_on?.length || c.reason==='Unavailable at this time';
+    // Another trim's options, options another choice unlocks and factory-unavailable
+    // ones say so on the card itself.
+    const plain=c.available_on?.length || c.unlocked_by?.length || c.reason==='Unavailable at this time';
     if(c.description || c.detail_raw || c.reason && !plain){const d=node('details','',card);node('summary','Option details',d);for(const text of new Set([c.description,c.detail_raw,plain?'':c.reason].filter(Boolean)))node('p',text,d);}
     if(!c.selectable)node('p',c.selected?'Included with your current build':plain?c.reason:'Unavailable with your current build',card).className=plain&&!c.selected?'trim-note':'';
     button(card,c.selected?(c.selectable?'Remove':'Included'):(c.selectable?'Select':'Unavailable'),()=>run(()=>preview(c.selected?'remove':'select',c.option_id,c.label)),!c.selectable);
