@@ -260,8 +260,12 @@ function announce(action,label,c) {
   const gone=new Set(c.removed.map(i=>i.option_id)), kept=others(c.removed_independent_ownership).filter(i=>!gone.has(i.option_id));
   if(kept.length)parts.push(`ends separate ownership of ${names(kept)}`);
   if(others(c.added).length && action!=='revert')parts.push(`also adds ${names(others(c.added))}`);
-  const box=el('notice');dismissNotice();node('span',parts.join(' · '),box);
-  if(action!=='revert'){const undo=button(box,'Undo',()=>run(()=>preview('revert',null)));undo.className='notice-undo';undo.disabled=false;}
+  showNotice(parts.join(' · '),action!=='revert');
+}
+// Every notice can be closed or swiped away and hides itself after a moment.
+function showNotice(text,undoable) {
+  const box=el('notice');dismissNotice();node('span',text,box);
+  if(undoable){const undo=button(box,'Undo',()=>run(()=>preview('revert',null)));undo.className='notice-undo';undo.disabled=false;}
   const close=button(box,'×',dismissNotice);close.className='notice-close';close.disabled=false;close.setAttribute('aria-label','Dismiss');
   noticeTimer=setTimeout(()=>{if(!box.contains(document.activeElement))dismissNotice();},6000);
 }
@@ -355,11 +359,11 @@ async function restore() {
     activeStep=null;const r=await api('/api/restore',{});
     el('model').value=r.model;configurations();el('bodyStyle').value=model.configurations[r.configuration_id].body_style;trims();setupCards();el('configuration').value=r.configuration_id;
     await openBuild(r);render();
-    if(r.notice)el('notice').textContent=r.notice;
+    if(r.notice)showNotice(r.notice);
   } catch(e) {
     // A build that cannot be replayed on this catalog starts over; an outage keeps it for later.
     if(e.message===UNAVAILABLE) throw e;
-    keep(null);el('notice').textContent='Your saved build could not be reopened. Please start a new build.';
+    keep(null);showNotice('Your saved build could not be reopened. Please start a new build.');
   }
 }
 (async()=>{
