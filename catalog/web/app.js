@@ -57,9 +57,30 @@ function media(row, alt, parent, eager=false) {
   const box=node('span','',parent);box.className='choice-media';box.dataset.fit=row.image_fit==='contain'?'contain':'cover';
   const add=(url,text,cls)=>{const img=document.createElement('img');img.src=url;img.alt=text||'';img.loading=eager?'eager':'lazy';img.decoding='async';img.draggable=false;
     if(/^[\w\s.%/-]+$/.test(row.image_position||''))img.style.objectPosition=row.image_position;
-    if(cls)img.className=cls;img.addEventListener('error',()=>box.remove());box.append(img);};
+    if(cls)img.className=cls;img.addEventListener('error',()=>cls?img.remove():frame(box));box.append(img);};
   add(row.image_url,row.image_alt||alt);
   if(row.hover_image_url) add(row.hover_image_url,'','hover-media');
+}
+// The change to the build total, led by the amount so it reads at a glance.
+function priceLine(card,selected,delta) {
+  if(delta===null||delta===undefined) return;
+  const amount=delta===0?'No price change':`${delta>0?'+':'−'}${money(Math.abs(delta))}`, p=node('p','',card);p.className='price-line';
+  if(selected)p.textContent=`Removing: ${delta===0?'no price change':`${amount} to total`}`;
+  else if(delta){node('strong',amount,p);p.append(' to total');}
+  else p.textContent=amount;
+}
+// Cards in a grid share one layout: where some have a photo, the others get a
+// plain frame with their code, so every card has the same shape.
+// A photo that fails to load leaves the same frame, so its card keeps its shape.
+function evenMedia(grid) {
+  if(!grid.querySelector('.choice-media')) return;
+  for(const card of grid.children) if(!card.querySelector('.choice-media')) {
+    const box=document.createElement('span');card.prepend(box);frame(box);
+  }
+}
+function frame(box) {
+  box.className='choice-media placeholder';box.setAttribute('aria-hidden','true');
+  box.textContent=box.parentElement?.querySelector('.rpo')?.textContent||'';
 }
 // Cards are rebuilt after each choice; focus returns to the activated card so
 // keyboard users continue from it rather than from the top of the page.
@@ -151,18 +172,25 @@ function renderOptions() {
   el('options').replaceChildren();const groups=new Map(), query=el('search').value.toLowerCase(), photos=assetsFor(model).option;
   const parent=el('options');
   choiceCards().filter(c=>c.step_key===activeStep && `${c.rpo} ${c.label}`.toLowerCase().includes(query)).forEach(c=>{
-    if(!groups.has(c.section_id)){const section=node('section','',parent);node('h3',c.section_label,section);const grid=node('div','',section);grid.className='cards';groups.set(c.section_id,grid);}
+    if(!groups.has(c.section_id)){const section=node('section','',parent);section.className='option-section';node('h3',c.section_label,section);const grid=node('div','',section);grid.className='cards';groups.set(c.section_id,grid);}
     const card=node('article','',groups.get(c.section_id));card.className=`choice-card ${c.selected?'selected':''}`;card.dataset.choice=c.option_id;
     media(photos.get(c.option_id),c.label,card);node('span',c.rpo||'Option',card).className='rpo';node('h4',c.label,card);
     if(c.selected)node('p','Selected',card).className='selected-label';
-    if(c.selectable && c.delta_minor!==undefined)node('p',`${c.selected?'Removing':'Selecting'}: ${c.delta_minor===0?'no price change':`${c.delta_minor>0?'+':'−'}${money(Math.abs(c.delta_minor))} to build total`}`,card);
+    if(c.selectable)priceLine(card,c.selected,c.delta_minor);
     // Another trim's options, options another choice unlocks and factory-unavailable
     // ones say so on the card itself.
     const plain=c.available_on?.length || c.unlocked_by?.length || c.reason==='Unavailable at this time';
     if(c.description || c.detail_raw || c.reason && !plain){const d=node('details','',card);node('summary','Option details',d);for(const text of new Set([c.description,c.detail_raw,plain?'':c.reason].filter(Boolean)))node('p',text,d);}
-    if(!c.selectable)node('p',c.selected?'Included with your current build':plain?c.reason:'Unavailable with your current build',card).className=plain&&!c.selected?'trim-note':'';
+    if(!c.selectable&&!c.selected)node('p',plain?c.reason:'Unavailable with your current build',card).className=plain?'trim-note':'';
     button(card,c.selected?(c.selectable?'Remove':'Included'):(c.selectable?'Select':'Unavailable'),()=>run(()=>preview(c.selected?'remove':'select',c.option_id,c.label)),!c.selectable);
   });
+  for(const grid of groups.values()){evenMedia(grid);node('span',`${grid.children.length} ${grid.children.length===1?'option':'options'}`,grid.previousSibling).className='section-count';}
+  // A step with several sections opens with shortcuts to each.
+  if(groups.size>1) {
+    const jumps=document.createElement('nav');jumps.className='section-jumps';jumps.setAttribute('aria-label','Sections in this step');parent.prepend(jumps);
+    for(const grid of groups.values()){const heading=grid.previousSibling;heading.tabIndex=-1;
+      const b=button(jumps,heading.firstChild.textContent,()=>{heading.scrollIntoView({behavior:'smooth',block:'start'});heading.focus({preventScroll:true});});b.className='ghost-button';b.disabled=false;}
+  }
   if(!groups.size && activeStep!=='interior' && activeStep!=='summary')node('p',query?'No matching options in this step.':'No options in this step.',el('options'));
 }
 // Interiors are chosen by tapping through their catalog hierarchy (seats, then
@@ -223,7 +251,6 @@ function renderInteriors() {
   const title=leaves?'Choose your interior':['Choose your seats','Choose an interior color','Choose a material','Choose a finish'][depth]||'Choose an interior';
   const heading=node('h3',title,choices);heading.id='interiorHeading';heading.tabIndex=-1;
   const grid=node('div','',choices);grid.className='cards';
-  const change=d=>d===null||d===undefined?'':d===0?'no price change':`${d>0?'+':'−'}${money(Math.abs(d))}`;
   function unoffered(seat) {
     const card=node('article','',grid);card.className='choice-card';
     media(photos.get(seat.option_id),seat.label,card);node('span',seat.rpo||'Seat',card).className='rpo';node('h4',seat.label,card);
@@ -238,11 +265,11 @@ function renderInteriors() {
     const details=[...rest.slice(0,-1).filter(t=>!name.startsWith(t)),source.Stitch&&`Stitching: ${source.Stitch}`,source.Suede&&`Suede: ${source.Suede}`].filter(Boolean);
     if(details.length)node('p',details.join(' · '),card);
     if(selected)node('p','Selected',card).className='selected-label';
-    if(row.selectable&&row.delta_minor!==null&&row.delta_minor!==undefined)node('p',`${selected?'Removing':'Selecting'}: ${change(row.delta_minor)}${row.delta_minor?' to build total':''}`,card);
+    if(row.selectable)priceLine(card,selected,row.delta_minor);
     if(!row.selectable)node('p',row.reason,card);
     button(card,selected?'Remove interior':'Select interior',()=>run(()=>preview('interior',selected?null:row.interior_id,selected?'no interior':name)),!row.selectable);
   };
-  if(leaves){matches.forEach(leaf);return;}
+  if(leaves){matches.forEach(leaf);evenMedia(grid);return;}
   // One card per value of this level; a value with a single interior is that interior.
   const groups=new Map();matches.forEach(r=>{const v=r.levels[depth];if(!groups.has(v))groups.set(v,[]);groups.get(v).push(r);});
   // Seats follow the seat options' order; one this trim does not offer stays in
@@ -262,6 +289,7 @@ function renderInteriors() {
     if(mine)node('p',`Your interior: ${mine.levels.slice(depth+1).at(-1)||mine.levels.at(-1)}`,card).className='selected-label';
     button(card,`See ${members.length===1?'this choice':`${members.length} choices`}`,()=>move([...interiorPath.slice(0,depth),v])).className='ghost-button';
   }
+  evenMedia(grid);
 }
 function renderSummary() {
   // Selections by summary section (as the existing form's summary), then charges
