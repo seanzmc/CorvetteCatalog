@@ -310,8 +310,9 @@ class ConsumerCatalog:
             steps.setdefault(context['step_key'], context['section_label'])
         return [dict(step_key=key, section_label=label) for key, label in steps.items()]
 
-    def cards(self, state, step_keys=None):
-        """Option cards with their price change; step_keys limits pricing to those steps."""
+    def cards(self, state, step_keys=None, interior_ids=None):
+        """Option and interior cards with their price change. step_keys limits option
+        pricing to those steps; interiors are then priced only if listed in interior_ids."""
         cards = []
         for oid in self._shown(state.configuration_id):
             opt = self.ev.options[oid]
@@ -346,9 +347,22 @@ class ConsumerCatalog:
                               available_on=trims, unlocked_by=unlock,
                               display_order=view['display_order'] or 0))
         cards.sort(key=lambda r: self._card_order(r['option_id'], state.configuration_id))
-        interiors = [dict(interior_id=iid, label=' › '.join(json.loads(
-                         self.maps['interior'][iid]['hierarchy']['interior_hierarchy_levels'])))
-                     for iid in self.ev.interiors if self.ev.interiors[iid]['enabled'] and (iid, state.configuration_id) in self.ev.interior_scopes]
+        # An interior's price is the change to the build total of choosing, or
+        # removing, it. Pricing every interior of a trim takes about a second in a
+        # phone's browser, so the form asks only for the few it shows.
+        interiors = []
+        for iid in self.ev.interiors:
+            if not self.ev.interiors[iid]['enabled'] or (iid, state.configuration_id) not in self.ev.interior_scopes:
+                continue
+            reason, delta_minor = '', None
+            if step_keys is None or iid in (interior_ids or ()):
+                try:
+                    delta_minor = self.ev.transition(state, 'interior', None if iid == state.interior_id else iid).total_minor - state.total_minor
+                except EvaluationError as error:
+                    reason = str(error)
+            interiors.append(dict(interior_id=iid, label=' › '.join(json.loads(
+                self.maps['interior'][iid]['hierarchy']['interior_hierarchy_levels'])),
+                selectable=not reason, reason=reason, delta_minor=delta_minor))
         return dict(options=cards, interiors=interiors)
 
     def warning(self, preview, release_id, action, target):

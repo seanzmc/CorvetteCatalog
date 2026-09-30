@@ -69,7 +69,11 @@ select,input,textarea{border:1px solid #52585d;border-radius:6px;padding:12px;ba
 .rpo{font-size:11px;letter-spacing:.1em;color:var(--muted)}
 .selected-label{color:#79d498!important;font-weight:700}
 .step-navigation{display:flex;justify-content:space-between;gap:14px;border-top:1px solid var(--line);padding-top:24px;margin-top:28px}
-.interior-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.interior-trail{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;color:var(--muted)}
+.interior-trail:empty{display:none}
+.interior-trail button{min-height:36px;padding:6px 12px}
+.interior-trail [aria-current]{color:var(--ink);font-weight:700}
+#interiorHeading{margin:20px 0 0}
 #artwork{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:30px;background:var(--panel)}
 #artwork h2{font-size:14px;padding:16px;margin:0}
 #artworkStage{position:relative;aspect-ratio:1500/844;background:#e7e7e7;overflow:hidden}
