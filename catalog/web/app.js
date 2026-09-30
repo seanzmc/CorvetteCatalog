@@ -57,7 +57,7 @@ function media(row, alt, parent, eager=false) {
   const box=node('span','',parent);box.className='choice-media';box.dataset.fit=row.image_fit==='contain'?'contain':'cover';
   const add=(url,text,cls)=>{const img=document.createElement('img');img.src=url;img.alt=text||'';img.loading=eager?'eager':'lazy';img.decoding='async';img.draggable=false;
     if(/^[\w\s.%/-]+$/.test(row.image_position||''))img.style.objectPosition=row.image_position;
-    if(cls)img.className=cls;img.addEventListener('error',()=>box.remove());box.append(img);};
+    if(cls)img.className=cls;img.addEventListener('error',()=>cls?img.remove():frame(box));box.append(img);};
   add(row.image_url,row.image_alt||alt);
   if(row.hover_image_url) add(row.hover_image_url,'','hover-media');
 }
@@ -71,12 +71,16 @@ function priceLine(card,selected,delta) {
 }
 // Cards in a grid share one layout: where some have a photo, the others get a
 // plain frame with their code, so every card has the same shape.
+// A photo that fails to load leaves the same frame, so its card keeps its shape.
 function evenMedia(grid) {
   if(!grid.querySelector('.choice-media')) return;
   for(const card of grid.children) if(!card.querySelector('.choice-media')) {
-    const box=document.createElement('span');box.className='choice-media placeholder';box.setAttribute('aria-hidden','true');
-    box.textContent=card.querySelector('.rpo')?.textContent||'';card.prepend(box);
+    const box=document.createElement('span');card.prepend(box);frame(box);
   }
+}
+function frame(box) {
+  box.className='choice-media placeholder';box.setAttribute('aria-hidden','true');
+  box.textContent=box.parentElement?.querySelector('.rpo')?.textContent||'';
 }
 // Cards are rebuilt after each choice; focus returns to the activated card so
 // keyboard users continue from it rather than from the top of the page.
