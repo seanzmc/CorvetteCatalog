@@ -1,6 +1,6 @@
 'use strict';
 const el = id => document.getElementById(id);
-let catalog, model, buildToken, current, pending, busy = false, activeStep, interiorPath = [], refocus = null;
+let catalog, model, buildToken, current, pending, busy = false, activeStep, interiorPath = null, refocus = null;
 const UNAVAILABLE = 'The build form is temporarily unavailable. Please try again in a few minutes.';
 // The signed build token lets a reload continue the same build. Storage can be
 // unavailable (private windows, blocked site data); the form works without it.
@@ -21,7 +21,7 @@ function button(parent, label, action, disabled=false) {
 function pricing(step) { return step==='interior'?['seat','base_interior']:step&&step!=='summary'?[step]:[]; }
 async function api(path, body) {
   let status, result;
-  body={cards_for:pricing(activeStep),...body};
+  body={cards_for:pricing(activeStep),interiors_for:activeStep==='interior'?shownInteriors():[],...body};
   try { ({status,result}=await catalogEngine.call(path,path==='/api/session'?body:{...body,build_token:buildToken})); }
   catch(error) { console.error(error); throw new Error(UNAVAILABLE); }
   if(status>=500) throw new Error(UNAVAILABLE);
@@ -114,12 +114,15 @@ function steps() {
 async function go(key) {
   // The step changes only once its cards are priced.
   let moved=false;
-  await run(async()=>{current=await api('/api/cards',{cards_for:pricing(key)});activeStep=key;el('search').value='';moved=true;});
+  await run(async()=>{
+    if(key==='interior')interiorPath=null;
+    current=await api('/api/cards',{cards_for:pricing(key),interiors_for:key==='interior'?shownInteriors():[]});activeStep=key;el('search').value='';moved=true;
+  });
   if(moved){el('stepTitle').focus();el('stepTitle').scrollIntoView({block:'start',behavior:'smooth'});}
 }
 // A new or reopened build opens on its first step, priced.
 async function openBuild(result) {
-  current=result;activeStep=steps()[0].key;interiorPath=[];
+  current=result;activeStep=steps()[0].key;interiorPath=null;
   current=await api('/api/cards',{});
 }
 function render() {
@@ -146,9 +149,8 @@ function render() {
 }
 function renderOptions() {
   el('options').replaceChildren();const groups=new Map(), query=el('search').value.toLowerCase(), photos=assetsFor(model).option;
-  let parent=el('options');
-  if(activeStep==='interior') { parent=node('details','',parent);node('summary','Individual seat options',parent); }
-  choiceCards().filter(c=>(c.step_key===activeStep || activeStep==='interior' && ['seat','base_interior'].includes(c.step_key)) && `${c.rpo} ${c.label}`.toLowerCase().includes(query)).forEach(c=>{
+  const parent=el('options');
+  choiceCards().filter(c=>c.step_key===activeStep && `${c.rpo} ${c.label}`.toLowerCase().includes(query)).forEach(c=>{
     if(!groups.has(c.section_id)){const section=node('section','',parent);node('h3',c.section_label,section);const grid=node('div','',section);grid.className='cards';groups.set(c.section_id,grid);}
     const card=node('article','',groups.get(c.section_id));card.className=`choice-card ${c.selected?'selected':''}`;card.dataset.choice=c.option_id;
     media(photos.get(c.option_id),c.label,card);node('span',c.rpo||'Option',card).className='rpo';node('h4',c.label,card);
@@ -163,34 +165,102 @@ function renderOptions() {
   });
   if(!groups.size && activeStep!=='interior' && activeStep!=='summary')node('p',query?'No matching options in this step.':'No options in this step.',el('options'));
 }
-function renderInteriors() {
-  // Order leaves, and so each filter's values, as the existing form's interior display order.
-  const rank=h=>[h.interior_group_display_order,h.interior_material_display_order,h.interior_choice_display_order].map(v=>Number(v||0));
-  const rows=current.cards.interiors.map(c=>{const h=model.interiors[c.interior_id].hierarchy;return {...c,rank:rank(h),levels:JSON.parse(h.interior_hierarchy_levels).slice(1)};})
-    .sort((a,b)=>a.rank[0]-b.rank[0]||a.rank[1]-b.rank[1]||a.rank[2]-b.rank[2]||a.label.localeCompare(b.label));
-  el('interiorFilters').replaceChildren();el('interiorChoices').replaceChildren();
+// Interiors are chosen by tapping through their catalog hierarchy (seats, then
+// color, then material or finish) until a few exact leaves remain; the trail
+// steps back. interiorPath null means "open where the build's interior is".
+function interiorView(rows,path) {
   let matches=rows;
-  // Narrow the existing interior hierarchy without changing its exact catalog leaves.
-  for(let depth=0; matches.length && matches.every(r=>r.levels.length>depth+1);depth++) {
-    if(depth>0 && matches.length<=6) break;
-    const values=[...new Set(matches.map(r=>r.levels[depth]).filter(Boolean))];
-    // Seat styles follow the seat options' order; interior order is a global leaf sequence.
-    if(depth===0){const seats=current.cards.options.filter(c=>c.step_key==='seat').map(c=>c.rpo),at=v=>{const i=seats.indexOf(v.split(' ')[0]);return i<0?seats.length:i;};values.sort((a,b)=>at(a)-at(b));}
-    if(!values.includes(interiorPath[depth])) interiorPath=interiorPath.slice(0,depth);
-    const title=['Seat style','Interior color','Material','Finish'][depth]||'Interior detail';
-    const label=node('label',title,el('interiorFilters')), select=node('select','',label);
-    option(select,'','Choose '+title.toLowerCase()); values.forEach(v=>option(select,v,v));select.value=interiorPath[depth]||'';
-    select.addEventListener('change',()=>{interiorPath=interiorPath.slice(0,depth);if(select.value)interiorPath.push(select.value);renderInteriors();});
-    if(!interiorPath[depth]) return;
-    matches=matches.filter(r=>r.levels[depth]===interiorPath[depth]);
+  for(let depth=0;;depth++) {
+    const leaves=depth>0 && matches.length<=6 || matches.every(r=>r.levels.length<=depth+1);
+    if(leaves || depth>=path.length) return {depth,matches,leaves};
+    const next=matches.filter(r=>r.levels[depth]===path[depth]);
+    if(!next.length) return {depth,matches,leaves,stale:true};
+    matches=next;
   }
-  for(const row of matches) {
-    const selected=current.build.interior_id===row.interior_id, card=node('article','',el('interiorChoices'));card.className=`choice-card ${selected?'selected':''}`;card.dataset.choice=row.interior_id;
-    node('h4',row.levels.slice(interiorPath.length).join(' · ')||row.label,card);
-    const source=model.interiors[row.interior_id].source;
-    node('p',[source.Material,source.Stitch && `Stitching: ${source.Stitch}`,source.Suede && `Suede: ${source.Suede}`].filter(Boolean).join(' · '),card);
+}
+function interiorRows() {
+  // Order leaves, and so each level's values, as the existing form's interior display order.
+  const rank=h=>[h.interior_group_display_order,h.interior_material_display_order,h.interior_choice_display_order].map(v=>Number(v||0));
+  return current.cards.interiors.map(c=>{const h=model.interiors[c.interior_id].hierarchy;return {...c,rank:rank(h),levels:JSON.parse(h.interior_hierarchy_levels).slice(1)};})
+    .sort((a,b)=>a.rank[0]-b.rank[0]||a.rank[1]-b.rank[1]||a.rank[2]-b.rank[2]||a.label.localeCompare(b.label));
+}
+function currentInteriorView(rows) {
+  if(interiorPath===null) {
+    const mine=rows.find(r=>r.interior_id===current.build.interior_id);interiorPath=[];
+    // Descend to the level that shows the build's interior as a card.
+    while(mine){const v=interiorView(rows,interiorPath);if(v.leaves||v.depth<interiorPath.length)break;const sibling=v.matches.filter(r=>r.levels[v.depth]===mine.levels[v.depth]);if(sibling.length<2)break;interiorPath.push(mine.levels[v.depth]);}
+  }
+  const view=interiorView(rows,interiorPath);
+  if(!view.stale) return view;
+  interiorPath=interiorPath.slice(0,view.depth);return interiorView(rows,interiorPath);
+}
+// The interiors shown as selectable cards: the only ones priced.
+function shownInteriors() {
+  if(!current) return [];
+  const {depth,matches,leaves}=currentInteriorView(interiorRows());
+  if(leaves) return matches.map(r=>r.interior_id);
+  const counts=new Map();matches.forEach(r=>counts.set(r.levels[depth],(counts.get(r.levels[depth])||0)+1));
+  return depth===0?[]:matches.filter(r=>counts.get(r.levels[depth])===1).map(r=>r.interior_id);
+}
+function renderInteriors() {
+  const rows=interiorRows(), trail=el('interiorTrail'), choices=el('interiorChoices');trail.replaceChildren();choices.replaceChildren();
+  const {depth,matches,leaves}=currentInteriorView(rows), photos=assetsFor(model).option;
+  const seats=choiceCards().filter(c=>c.step_key==='seat'), seatFor=v=>seats.find(c=>c.rpo===v.split(' ')[0]);
+  // Moving between levels prices the interiors the new level shows.
+  const move=async path=>{
+    interiorPath=path;
+    const priced=new Set(current.cards.interiors.filter(i=>i.delta_minor!==null&&i.delta_minor!==undefined||!i.selectable).map(i=>i.interior_id));
+    if(shownInteriors().every(id=>priced.has(id)))renderInteriors();else await run(async()=>{current=await api('/api/cards',{});});
+    el('interiorHeading').focus();
+  };
+  // The trail names each chosen level; each earlier level is a way back.
+  if(interiorPath.length) {
+    const all=button(trail,'All seats',()=>move([]));all.className='ghost-button';all.disabled=false;
+    interiorPath.slice(0,depth).forEach((v,i)=>{node('span','›',trail).setAttribute('aria-hidden','true');
+      if(i<depth-1){const b=button(trail,seatFor(v)&&i===0?seatFor(v).label:v,()=>move(interiorPath.slice(0,i+1)));b.className='ghost-button';b.disabled=false;}
+      else node('span',i===0&&seatFor(v)?seatFor(v).label:v,trail).setAttribute('aria-current','location');});
+  }
+  const title=leaves?'Choose your interior':['Choose your seats','Choose an interior color','Choose a material','Choose a finish'][depth]||'Choose an interior';
+  const heading=node('h3',title,choices);heading.id='interiorHeading';heading.tabIndex=-1;
+  const grid=node('div','',choices);grid.className='cards';
+  const change=d=>d===null||d===undefined?'':d===0?'no price change':`${d>0?'+':'−'}${money(Math.abs(d))}`;
+  function unoffered(seat) {
+    const card=node('article','',grid);card.className='choice-card';
+    media(photos.get(seat.option_id),seat.label,card);node('span',seat.rpo||'Seat',card).className='rpo';node('h4',seat.label,card);
+    if(seat.reason)node('p',seat.reason,card).className=seat.available_on?.length||seat.reason==='Unavailable at this time'?'trim-note':'';
+    button(card,'Unavailable',()=>{},true);
+  }
+  const leaf=row=>{
+    const selected=current.build.interior_id===row.interior_id, card=node('article','',grid);card.className=`choice-card ${selected?'selected':''}`;card.dataset.choice=row.interior_id;
+    const source=model.interiors[row.interior_id].source, rest=row.levels.slice(depth), name=rest.at(-1)||row.label;
+    node('span',source['Interior Code']||'Interior',card).className='rpo';node('h4',name,card);
+    // Levels still above the leaf (a material), less any the name already says.
+    const details=[...rest.slice(0,-1).filter(t=>!name.startsWith(t)),source.Stitch&&`Stitching: ${source.Stitch}`,source.Suede&&`Suede: ${source.Suede}`].filter(Boolean);
+    if(details.length)node('p',details.join(' · '),card);
     if(selected)node('p','Selected',card).className='selected-label';
-    button(card,selected?'Remove interior':'Select interior',()=>run(()=>preview('interior',selected?null:row.interior_id,selected?'no interior':row.label)));
+    if(row.selectable&&row.delta_minor!==null&&row.delta_minor!==undefined)node('p',`${selected?'Removing':'Selecting'}: ${change(row.delta_minor)}${row.delta_minor?' to build total':''}`,card);
+    if(!row.selectable)node('p',row.reason,card);
+    button(card,selected?'Remove interior':'Select interior',()=>run(()=>preview('interior',selected?null:row.interior_id,selected?'no interior':name)),!row.selectable);
+  };
+  if(leaves){matches.forEach(leaf);return;}
+  // One card per value of this level; a value with a single interior is that interior.
+  const groups=new Map();matches.forEach(r=>{const v=r.levels[depth];if(!groups.has(v))groups.set(v,[]);groups.get(v).push(r);});
+  // Seats follow the seat options' order; one this trim does not offer stays in
+  // its place, marked with the trims that do.
+  let values=[...groups.keys()];
+  if(depth===0){const offered=new Set(values.map(seatFor));values=[...seats.map(c=>offered.has(c)?values.find(v=>seatFor(v)===c):c),...values.filter(v=>!seatFor(v))];}
+  for(const v of values) {
+    if(typeof v!=='string'){unoffered(v);continue;}
+    const members=groups.get(v), seat=depth===0?seatFor(v):null;
+    if(!seat&&members.length===1){leaf(members[0]);continue;}
+    const card=node('article','',grid), mine=members.find(r=>r.interior_id===current.build.interior_id);
+    card.className=`choice-card ${mine?'selected':''}`;
+    if(seat)media(photos.get(seat.option_id),seat.label,card);
+    node('span',seat?.rpo||['Seats','Color','Material','Finish'][depth]||'Interior',card).className='rpo';
+    node('h4',seat?.label||v,card);
+    node('p',`${members.length} ${members.length===1?'choice':'choices'}`,card);
+    if(mine)node('p',`Your interior: ${mine.levels.slice(depth+1).at(-1)||mine.levels.at(-1)}`,card).className='selected-label';
+    button(card,`See ${members.length===1?'this choice':`${members.length} choices`}`,()=>move([...interiorPath.slice(0,depth),v])).className='ghost-button';
   }
 }
 function renderSummary() {

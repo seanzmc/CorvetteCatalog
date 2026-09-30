@@ -211,6 +211,27 @@ class ConsumerTests(unittest.TestCase):
         with self.assertRaises(EvaluationError):a.preview('select','not-an-option',1)
         with self.assertRaises(EvaluationError):a.confirm(p['token'],p['warning_sha256'],1)
 
+    def test_interior_price_change_matches_confirmed_preview(self):
+        # Interior cards quote the whole transition (seat, suede wheel and other
+        # parts); with limited pricing, only the interiors asked for are priced.
+        for key, cat in self.catalogs.items():
+            with self.subTest(model=key):
+                cfg = next(iter(cat.ev.configs))
+                session = ConsumerSession(cat, cfg, 'local-test')
+                state = session._session.state
+                interiors = cat.cards(state)['interiors']
+                self.assertTrue(all(i['delta_minor'] is None for i in cat.cards(state, ['seat'])['interiors']))
+                asked = {i['interior_id'] for i in interiors[::2]}
+                self.assertEqual(cat.cards(state, [], sorted(asked))['interiors'],
+                                 [i if i['interior_id'] in asked else dict(i, delta_minor=None) for i in interiors])
+                choice = max(interiors, key=lambda i: i['delta_minor'])
+                self.assertTrue(choice['selectable']); self.assertGreater(choice['delta_minor'], 0)
+                preview = session.preview('interior', choice['interior_id'], session.version)
+                self.assertEqual(choice['delta_minor'], preview['warning']['changes']['delta_minor'])
+                session.confirm(preview['token'], preview['warning_sha256'], preview['version'])
+                chosen = next(i for i in cat.cards(session._session.state)['interiors'] if i['interior_id'] == choice['interior_id'])
+                self.assertEqual(chosen['delta_minor'], -choice['delta_minor'])
+
     def test_interior_clear_warning_all_lanes(self):
         for c in self.catalogs.values():
             cfg=next(iter(c.ev.configs));s=ConsumerSession(c,cfg,'release')

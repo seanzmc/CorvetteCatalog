@@ -70,14 +70,14 @@ class Builds:
         # every action. Only an exact token match with an unchanged version reuses it.
         self.last = None
 
-    def response(self, build, session, cards_for, notice=None):
+    def response(self, build, session, cards_for, notice=None, interiors_for=None):
         build = dict(r=self.identifier, m=build['m'], c=build['c'], h=build['h'])
         token = self.tokens.sign('build', build)
         self.last = (token, build, session)
         catalog = session.catalog
         result = dict(build_token=token, model=build['m'], configuration_id=build['c'], **session.current(),
                       card_steps=catalog.card_steps(build['c']),
-                      cards=catalog.cards(session._session.state, cards_for))
+                      cards=catalog.cards(session._session.state, cards_for, interiors_for))
         return dict(result, notice=notice) if notice else result
 
     def rebuild(self, token):
@@ -105,19 +105,25 @@ class Builds:
         cards_for = body.get('cards_for')
         if cards_for is not None and not (isinstance(cards_for, list) and all(isinstance(k, str) for k in cards_for)):
             raise ValueError('cards_for must be a list of step keys')
+        # Which interiors to price when cards_for limits pricing.
+        interiors_for = body.get('interiors_for')
+        if interiors_for is not None and not (isinstance(interiors_for, list) and all(isinstance(k, str) for k in interiors_for)):
+            raise ValueError('interiors_for must be a list of interior IDs')
+        def respond(build, session, notice=None):
+            return self.response(build, session, cards_for, notice, interiors_for)
         if path == '/api/session':
             catalog = self.catalogs.get(body['model'])
             if catalog is None or body['configuration_id'] not in catalog.ev.configs:
                 raise ValueError('Choose an available model and configuration')
             session = ConsumerSession(catalog, body['configuration_id'], self.identifier)
-            return self.response(dict(m=body['model'], c=body['configuration_id'], h=[]), session, cards_for)
+            return respond(dict(m=body['model'], c=body['configuration_id'], h=[]), session)
         build, session = self.rebuild(body.get('build_token'))
         if path == '/api/restore':
             notice = None if build['r'] == self.identifier else \
                 'The catalog was updated since this build was saved. Prices and availability reflect the current catalog.'
-            return self.response(build, session, cards_for, notice)
+            return respond(build, session, notice)
         if path == '/api/cards':
-            return self.response(build, session, cards_for)
+            return respond(build, session)
         if path == '/api/preview':
             if len(build['h']) >= MAX_HISTORY:
                 raise ValueError('This build has reached its change limit; download it or start a new build')
@@ -136,16 +142,16 @@ class Builds:
             if fresh['warning_sha256'] != pending['w']:
                 raise ValueError('This change no longer matches what you reviewed; review it again')
             session.confirm(fresh['token'], fresh['warning_sha256'], session.version)
-            return self.response(dict(build, h=build['h'] + [[pending['a'], pending['t']]]), session, cards_for)
+            return respond(dict(build, h=build['h'] + [[pending['a'], pending['t']]]), session)
         if path == '/api/cancel':
             session._version(body['version'])
-            return self.response(build, session, cards_for)
+            return respond(build, session)
         if path == '/api/order':
             return session.order()
         if path == '/api/dealer/review':
             return dealer.review(session, body['version'])
         if path == '/api/dealer/prepare':
             # The dealer contract accepts only contact details, version and security token.
-            fields = {k: v for k, v in body.items() if k not in ('build_token', 'cards_for')}
+            fields = {k: v for k, v in body.items() if k not in ('build_token', 'cards_for', 'interiors_for')}
             return dealer.prepare(session, fields, require_turnstile=self.dealer_submissions)
         raise ValueError('Unknown operation')
