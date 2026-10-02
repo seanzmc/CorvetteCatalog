@@ -221,7 +221,7 @@
             "model_specific_preservation": {"$ref": "#/$defs/string_list"},
             "model_policies": {"description": "Named model-specific policy objects (e.g. hp1_target, pdb_z07_interaction, displaced_cover_policy). Keep them here, never as new owner_review keys.", "type": "object", "additionalProperties": {"type": "object"}},
             "compatibility_notice_policy": {"type": "object", "required": ["$ref"], "additionalProperties": false, "properties": {"$ref": {"const": "compatibility-notice-policy.json"}}},
-            "interior_label_corrections": {"description": "Accepted customer-facing interior label corrections: the source leaf label (the last hierarchy level) is shown as target_label; the frozen baseline row is unchanged.", "type": "array", "items": {"type": "object", "required": ["interior_id", "baseline_label", "target_label", "authority"], "additionalProperties": false, "properties": {"interior_id": {"type": "string"}, "baseline_label": {"type": "string"}, "target_label": {"type": "string", "minLength": 1}, "authority": {"type": "string"}}}},
+            "interior_label_corrections": {"description": "Accepted customer-facing interior label corrections: the source leaf label (the last hierarchy level) is shown as target_label; the frozen baseline row is unchanged.", "type": "array", "items": {"type": "object", "required": ["interior_id", "baseline_label", "target_label", "authority"], "additionalProperties": false, "properties": {"interior_id": {"type": "string"}, "baseline_label": {"type": "string"}, "target_label": {"type": "string", "pattern": "\\S"}, "authority": {"type": "string"}}}},
             "unresolved_decisions": {"type": "array"}
           }
         }

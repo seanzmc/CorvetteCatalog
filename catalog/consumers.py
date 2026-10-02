@@ -101,7 +101,8 @@ def import_mappings(db, source_dir=f.ROOT / 'docs'):
             for fix in review['interior_label_corrections']:
                 scope = dict(scopes[fix['interior_id']])
                 levels = json.loads(scope['interior_hierarchy_levels'])
-                if levels[-1] != fix['baseline_label'] or scope['interior_leaf_label'] != fix['baseline_label']:
+                if (levels[-1] != fix['baseline_label'] or scope['interior_leaf_label'] != fix['baseline_label']
+                        or not fix['target_label'].strip()):
                     raise ValueError('Interior label correction no longer matches its source: ' + fix['interior_id'])
                 levels[-1] = fix['target_label']
                 scope.update(interior_leaf_label=fix['target_label'], interior_hierarchy_levels=json.dumps(levels, ensure_ascii=False))
