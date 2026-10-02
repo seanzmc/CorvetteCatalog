@@ -80,8 +80,21 @@ site in preview mode at
 all 218 files and both pointer files checked. Staging serves `.gz` and `.py` as
 `application/octet-stream` and caches scripts, styles and images for a year,
 which per-release folders make safe; the page, `bundle.json` and `current.json`
-are not cached. An iPhone check on staging is next; production and cutover
-remain task 9.
+are not cached. The owner's iPhone check on staging passed (model and option
+cards respond almost at once; a mid-build reload keeps the build). Production
+and cutover remain task 9.
+
+Pre-production form feedback (September 28 – October 1), each on staging after
+merge:
+- options follow body style, and other trims' options stay visible with "Only available on …" (PR #76);
+- a confirmation appears only when a choice removes something (#78);
+- the change notice can be dismissed or swiped away, and the review is grouped (#79, #80, #83);
+- blocked options name what unlocks them (#81);
+- interior order matches the existing form (#82);
+- interiors are chosen by tapping through seat, color and material cards, with only the shown interiors priced (#84);
+- cards are uniform and compact, with separated sections; phone pages are 35–50% shorter (#85).
+
+Task 8 starts with owner-supplied interior material swatches on interior and color cards, matched by interior code.
 
 Any hosting work that follows a release **channel** must be runtime-aware:
 `Application.__init__` rejects a release whose runtime hashes differ from the
