@@ -281,6 +281,17 @@
     "model_specific_preservation": [],
     "model_policies": {},
     "compatibility_notice_policy": {"$ref": "compatibility-notice-policy.json"},
+    "interior_label_corrections": [
+      {"interior_id": "1LT_AE4_HTJ_N26", "baseline_label": "HTJ Jet Black", "target_label": "Jet Black", "authority": "Owner request, October 2, 2026: interior labels must not repeat the interior code, which the form shows separately."},
+      {"interior_id": "1LT_AQ9_HTA", "baseline_label": "HTA Jet Black", "target_label": "Jet Black", "authority": "Owner request, October 2, 2026: interior labels must not repeat the interior code, which the form shows separately."},
+      {"interior_id": "1LT_AQ9_HUP", "baseline_label": "HUP Sky Cool Gray", "target_label": "Sky Cool Gray", "authority": "Owner request, October 2, 2026: interior labels must not repeat the interior code, which the form shows separately."},
+      {"interior_id": "1LT_AQ9_HUQ", "baseline_label": "HUQ Adrenaline Red", "target_label": "Adrenaline Red", "authority": "Owner request, October 2, 2026: interior labels must not repeat the interior code, which the form shows separately."},
+      {"interior_id": "3LT_R6X_AH2_HUU", "baseline_label": "Adrenaline Red interior / Jet Black seats (HUU)", "target_label": "Adrenaline Red interior / Jet Black seats", "authority": "Owner request, October 2, 2026: interior labels must not repeat the interior code, which the form shows separately."},
+      {"interior_id": "3LT_R6X_AH2_HVT_N26", "baseline_label": "Sky Cool Gray interior / Jet Black seats Suede (HVT)", "target_label": "Sky Cool Gray interior / Jet Black seats Suede", "authority": "Owner request, October 2, 2026: interior labels must not repeat the interior code, which the form shows separately."},
+      {"interior_id": "3LT_R6X_AH2_HVV", "baseline_label": "Jet Black interior / Sky Cool Gray seats (HVV)", "target_label": "Jet Black interior / Sky Cool Gray seats", "authority": "Owner request, October 2, 2026: interior labels must not repeat the interior code, which the form shows separately."},
+      {"interior_id": "3LT_R6X_AH2_HXO_N26_38S_TU7", "baseline_label": "Jet Black interior / Adrenaline Red seats Suede HXO", "target_label": "Jet Black interior / Adrenaline Red seats Suede", "authority": "Owner request, October 2, 2026: interior labels must not repeat the interior code, which the form shows separately."},
+      {"interior_id": "3LT_R6X_AH2_HZB", "baseline_label": "Sky Cool Gray interior / Jet Black seats (HZB)", "target_label": "Sky Cool Gray interior / Jet Black seats", "authority": "Owner request, October 2, 2026: interior labels must not repeat the interior code, which the form shows separately."}
+    ],
     "unresolved_decisions": []
   }
 }

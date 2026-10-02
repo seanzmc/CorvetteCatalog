@@ -96,6 +96,18 @@ def import_mappings(db, source_dir=f.ROOT / 'docs'):
                            (revision, cfg['variant_id'], cfg['variant_id'], encode(cfg),
                             f'baseline_rows/variant_master/_row={cfg["_row"]}'))
             scopes = {r['interior_id']: r for r in rows['model_interior_scope']}
+            # Accepted label corrections replace the leaf label shown to customers;
+            # the frozen baseline row keeps its original text.
+            for fix in review['interior_label_corrections']:
+                scope = dict(scopes[fix['interior_id']])
+                levels = json.loads(scope['interior_hierarchy_levels'])
+                if levels[-1] != fix['baseline_label'] or scope['interior_leaf_label'] != fix['baseline_label']:
+                    raise ValueError('Interior label correction no longer matches its source: ' + fix['interior_id'])
+                levels[-1] = fix['target_label']
+                scope.update(interior_leaf_label=fix['target_label'], interior_hierarchy_levels=json.dumps(levels, ensure_ascii=False))
+                if scope.get('interior_variant_label') == fix['baseline_label']:
+                    scope['interior_variant_label'] = fix['target_label']
+                scopes[fix['interior_id']] = scope
             for interior in rows[roles['interiors']]:
                 iid = interior['interior_id']
                 if db.execute('SELECT 1 FROM interior WHERE revision_id=? AND id=?', (revision, iid)).fetchone():

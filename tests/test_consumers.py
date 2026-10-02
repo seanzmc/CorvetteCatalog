@@ -132,8 +132,16 @@ class ConsumerTests(unittest.TestCase):
                     levels = json.loads(cat.maps['interior'][iid]['hierarchy']['interior_hierarchy_levels'])
                     self.assertEqual(card['label'].split(' › '), levels)
         self.assertEqual(len(seen), 704)
+        # Accepted corrections: no customer-facing leaf label repeats its interior code.
+        for key, cat in self.catalogs.items():
+            for iid, mapped in cat.maps['interior'].items():
+                code = mapped['source']['Interior Code']
+                self.assertNotRegex(mapped['hierarchy']['interior_leaf_label'], rf'\b{code}\b', (key, iid))
         for key, cfg, iid, expected in (
-            ('stingray', '1lt_c07', '1LT_AQ9_HTA', '1LT › AQ9 GT1 Bucket Seats › HTA Jet Black'),
+            ('stingray', '1lt_c07', '1LT_AQ9_HTA', '1LT › AQ9 GT1 Bucket Seats › Jet Black'),
+            ('grand_sport', '3lt_e07', '3LT_R6X_AH2_HXO_N26_38S_TU7', '3LT › AH2 GT2 Bucket Seats › Custom Interior trim and seat combinations › '
+             'Jet Black interior / Adrenaline Red seats › Sueded microfiber seat inserts and sueded microfiber wrapped steering wheel. › '
+             'Jet Black interior / Adrenaline Red seats Suede'),
             ('z06', '1lz_h67', '1LZ_AQ9_HTA', '1LZ › AQ9 Seats › Jet Black › Mulan leather seating surfaces with perforated inserts › Jet Black'),
         ):
             cat = self.catalogs[key]
