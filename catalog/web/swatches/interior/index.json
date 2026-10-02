@@ -8,6 +8,13 @@
       "source_file": "33_EJH.webp",
       "source_sha256": "445aafe37f659c725b7aed821d0caed0f849053de774eff4425d4fdedc78a7e0"
     },
+    "EL9": {
+      "file": "EL9.webp",
+      "note": "Supplied as Z25; the owner confirmed on October 2, 2026 that it is the EL9 interior (the two go together).",
+      "sha256": "a3973352c58d3c341f6902840958f8739ddfbaef005e587fcf7aae0a4d5ce96e",
+      "source_file": "48_Z25.webp",
+      "source_sha256": "1e5579709c68a37b348c6c1998235287eb516d131b3119c5565ea61b96705655"
+    },
     "EPX": {
       "file": "EPX.webp",
       "sha256": "c081eb5c55529daeec9a8f752b7e42eae2e2d39b52daf301101f40fde5d1fcd9",
