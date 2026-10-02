@@ -14,6 +14,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
+import re
 import secrets
 import sys
 import threading
@@ -158,6 +159,12 @@ def handler(app, origins=None):
                 if path is not None:
                     return self.send(200, path.read_bytes(), 'image/webp')
                 return self.send(404, {'error':'Artwork not found'})
+            swatch = re.fullmatch(r'/swatches/interior/([A-Z0-9]+\.webp|index\.json)', self.path)
+            if swatch:
+                path = Path(__file__).with_name('web') / 'swatches/interior' / swatch[1]
+                if path.is_file():
+                    return self.send(200, path.read_bytes(), 'image/webp' if path.suffix == '.webp' else 'application/json')
+                return self.send(404, {'error':'Swatch not found'})
             files = {'/': ('index.html','text/html; charset=utf-8'), '/app.js': ('app.js','text/javascript'),
                      '/dealer.js': ('dealer.js','text/javascript'), '/engine.js': ('engine.js','text/javascript'), '/artwork.js': ('artwork.js','text/javascript'), '/style.css': ('style.css','text/css'),
                      '/brand/crossflags-white.png': ('brand/crossflags-white.png','image/png'),

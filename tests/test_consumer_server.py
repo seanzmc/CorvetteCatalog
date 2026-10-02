@@ -1,8 +1,10 @@
 """HTTP boundary of the customer form: hosts, origins, health, logs and tokens."""
 from contextlib import redirect_stderr
+import hashlib
 import io
 import json
 import os
+from pathlib import Path
 import threading
 import time
 import unittest
@@ -77,6 +79,22 @@ class ServerTests(unittest.TestCase):
         self.assertIn("img-src 'self' https://stingraychevroletcorvette.com", policy)
         self.assertIn('brand/stingray-wordmark-white.png', page)
         self.assertIn('Stingray Order Form', page)
+
+    def test_interior_swatches_match_their_index_and_are_served(self):
+        root = Path(__file__).resolve().parents[1] / 'catalog/web/swatches/interior'
+        index = json.loads((root / 'index.json').read_text())
+        self.assertEqual(sorted(p.name for p in root.glob('*.webp')), sorted(s['file'] for s in index['swatches'].values()))
+        for code, entry in index['swatches'].items():
+            self.assertEqual(entry['file'], f'{code}.webp')
+            self.assertEqual(hashlib.sha256((root / entry['file']).read_bytes()).hexdigest(), entry['sha256'])
+        port = self.serve(None)
+        with redirect_stderr(io.StringIO()):
+            with urlopen(f'http://127.0.0.1:{port}/swatches/interior/HTJ.webp', timeout=10) as response:
+                self.assertEqual(response.headers['Content-Type'], 'image/webp')
+                self.assertEqual(response.read(), (root / 'HTJ.webp').read_bytes())
+            self.assertEqual(self.call(port, '/swatches/interior/index.json')[1], index)
+            self.assertEqual(self.call(port, '/swatches/interior/NONE.webp')[0], 404)
+            self.assertEqual(self.call(port, '/swatches/interior/..%2Fapp.js')[0], 404)
 
     def test_default_allows_only_this_loopback_port(self):
         port = self.serve(None)
