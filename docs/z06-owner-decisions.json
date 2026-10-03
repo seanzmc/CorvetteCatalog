@@ -297,6 +297,7 @@
       }
     },
     "compatibility_notice_policy": {"$ref": "compatibility-notice-policy.json"},
+    "interior_label_corrections": [],
     "unresolved_decisions": []
   }
 }
