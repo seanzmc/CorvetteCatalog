@@ -159,7 +159,7 @@ def handler(app, origins=None):
                 if path is not None:
                     return self.send(200, path.read_bytes(), 'image/webp')
                 return self.send(404, {'error':'Artwork not found'})
-            swatch = re.fullmatch(r'/swatches/interior/([A-Z0-9]+\.webp|index\.json)', self.path)
+            swatch = re.fullmatch(r'/swatches/interior/([A-Z0-9]+(?:-[A-Z0-9]+)*\.webp|index\.json)', self.path)
             if swatch:
                 path = Path(__file__).with_name('web') / 'swatches/interior' / swatch[1]
                 if path.is_file():

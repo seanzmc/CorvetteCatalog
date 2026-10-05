@@ -1,6 +1,6 @@
 {
   "format": "catalog-interior-swatches-v1",
-  "source": "Owner-supplied interior material swatches (C8-iCloud/27img/int-swa/compressimage-io), October 2, 2026; resized to 640x360 WebP for cards.",
+  "source": "Owner-supplied interior material swatches (C8-iCloud/27img/int-swa/compressimage-io), October 2 and 5, 2026; resized to 640x360 WebP for cards. A key is the interior code, optionally followed by its stitching and two-tone codes (HTE-36S, HU1-TU7, HU0-38S-TU7).",
   "swatches": {
     "EJH": {
       "file": "EJH.webp",
@@ -27,6 +27,24 @@
       "source_file": "10_H1Y.webp",
       "source_sha256": "a51ff7f55b302e6fb2fad17ea9d55f8e04692366957ef8547fbacfaa41c0177e"
     },
+    "H1Y-36S": {
+      "file": "H1Y-36S.webp",
+      "sha256": "3bc14a273db9ab0e37f0231750c48b71c6d39d1a4e4284a03610c9513570f3e2",
+      "source_file": "H1Y-36S.webp",
+      "source_sha256": "f24048569cbd7f8fe8a88746b7234d2b798088ae256ff740b3f5183b1c54ae57"
+    },
+    "H1Y-37S": {
+      "file": "H1Y-37S.webp",
+      "sha256": "d977fb747736436fb6d7bf86533fc1ea07e46ca8d6a3f623a6f11b50b54b710d",
+      "source_file": "H1Y-37S.webp",
+      "source_sha256": "21a191aaa89b0019adc0ecac6a2df5a7cec0e2c03a97392ac006069e3ef850d1"
+    },
+    "H1Y-38S": {
+      "file": "H1Y-38S.webp",
+      "sha256": "23802802be75eba03073c9a2ccb3a80e8a99b1399d4904749ef8bbc4e5aec082",
+      "source_file": "H1Y-38S.webp",
+      "source_sha256": "0161259b5a2c87526f9cea0e79826ae407a48799aded8cedee1d98bfa83d325c"
+    },
     "H8T": {
       "file": "H8T.webp",
       "sha256": "4ace4c2fb4298d48f58131dfa0916badfad2fe394bb05f57cb7c43a48d70d01d",
@@ -38,6 +56,18 @@
       "sha256": "d67c9b265156ec29b31547d64c883d330f8283b438ff9eca046c02a65b34bbb5",
       "source_file": "36_HAG.webp",
       "source_sha256": "62d46d43f1a97587dfe58171a21eedb5f42c4e2a2917a0893edce1fa53e50297"
+    },
+    "HMO": {
+      "file": "HMO.webp",
+      "sha256": "de624de5487bca0d55f458ebe85b525fcfbc410a07187c0a7ee0a27783e3b8a0",
+      "source_file": "HMO.webp",
+      "source_sha256": "92c2255e6a2cc48dd2cad265e4d51fe268d1621f756933713f9c4cdf914afb81"
+    },
+    "HMO-TU7": {
+      "file": "HMO-TU7.webp",
+      "sha256": "0a9033edc1f9888c3b4bb5aacac1122c81a2b294b3c44efb806d2ed3279889c4",
+      "source_file": "HMO-TU7.webp",
+      "source_sha256": "64f15ead675deb00669de9fdbc21e6d0750d881b7e56d978443eb766840c2c1a"
     },
     "HNK": {
       "file": "HNK.webp",
@@ -57,11 +87,35 @@
       "source_file": "25_HTE.webp",
       "source_sha256": "d44f585079258e190eb7864e00f70f1ec19a7091f71899fe7376651a6e7eeaa4"
     },
+    "HTE-36S": {
+      "file": "HTE-36S.webp",
+      "sha256": "fe78ea1b49a98dffb2f72decbba755c2d07f9cd17353ce0e4ed1434c89ecacad",
+      "source_file": "HTE-36S.webp",
+      "source_sha256": "df10919b9c7022eebf8d4f90d332e670b1571350553a434153679e2d4ec40252"
+    },
+    "HTE-37S": {
+      "file": "HTE-37S.webp",
+      "sha256": "bb05d3d237db0d7dbcb052943522ad0e5e5359e89c791fa2d03cbed8c2ce2899",
+      "source_file": "HTE-37S.webp",
+      "source_sha256": "0584e9a307ac4af01e0a7e2e8e91e3477b0fcab010de7d33db08022d5e95045e"
+    },
+    "HTE-38S": {
+      "file": "HTE-38S.webp",
+      "sha256": "b33ff6fdb3fd9d8c5f2e5e9b8e08c24db13f65daab1e4760a2eb144109e15356",
+      "source_file": "HTE-38S.webp",
+      "source_sha256": "e75dd3748f814d8af7b1d88bd626fc07d1911121c80a767555b15c9c93ae88a4"
+    },
     "HTG": {
       "file": "HTG.webp",
       "sha256": "494db39a3a80cef308a185c63f7ae170f77f4cfe007597f2389441fcc34d1aa3",
       "source_file": "41_HTG.webp",
       "source_sha256": "627f2b0405017458960c25251c72157c57b6ec9490ae4de9e721089ddc1da69a"
+    },
+    "HTG-TU7": {
+      "file": "HTG-TU7.webp",
+      "sha256": "41d99f16fc1233fcc9f4a2d9770938f5c44eef22a37b33de64a199327a1f81b7",
+      "source_file": "HTG-TU7.webp",
+      "source_sha256": "5be07b63873938f6e3a5577f5baff6a4143fb851b87d2a3dde46c69851bbbd54"
     },
     "HTJ": {
       "file": "HTJ.webp",
@@ -75,11 +129,35 @@
       "source_file": "15_HTM.webp",
       "source_sha256": "d44f585079258e190eb7864e00f70f1ec19a7091f71899fe7376651a6e7eeaa4"
     },
+    "HTM-36S": {
+      "file": "HTM-36S.webp",
+      "sha256": "fe78ea1b49a98dffb2f72decbba755c2d07f9cd17353ce0e4ed1434c89ecacad",
+      "source_file": "HTM-36S.webp",
+      "source_sha256": "df10919b9c7022eebf8d4f90d332e670b1571350553a434153679e2d4ec40252"
+    },
+    "HTM-37S": {
+      "file": "HTM-37S.webp",
+      "sha256": "bb05d3d237db0d7dbcb052943522ad0e5e5359e89c791fa2d03cbed8c2ce2899",
+      "source_file": "HTM-37S.webp",
+      "source_sha256": "0584e9a307ac4af01e0a7e2e8e91e3477b0fcab010de7d33db08022d5e95045e"
+    },
+    "HTM-38S": {
+      "file": "HTM-38S.webp",
+      "sha256": "b33ff6fdb3fd9d8c5f2e5e9b8e08c24db13f65daab1e4760a2eb144109e15356",
+      "source_file": "HTM-38S.webp",
+      "source_sha256": "e75dd3748f814d8af7b1d88bd626fc07d1911121c80a767555b15c9c93ae88a4"
+    },
     "HTN": {
       "file": "HTN.webp",
       "sha256": "6beea16bcfe7f1bae72133965dc4e4b0ffcb094601172c8720d0b646dc64e819",
       "source_file": "18_HTN.webp",
       "source_sha256": "4daa2cd65813ee5757dcfabd532b93bc09e9807e059f5d4f5a8a75b825bde651"
+    },
+    "HTN-TU7": {
+      "file": "HTN-TU7.webp",
+      "sha256": "4a51aa47c1037a14be29a14c136a48de1e400a54fe141f784249ea27b71e6990",
+      "source_file": "HTN-TU7.webp",
+      "source_sha256": "aa1f356a462a48fd2b02658843c094146cf66d76066c86cd982395b7defc4f5d"
     },
     "HTP": {
       "file": "HTP.webp",
@@ -87,11 +165,35 @@
       "source_file": "20_HTP.webp",
       "source_sha256": "aafe185ee3d890d4b2c8389ac1830fb2ffbcbd9ae01e092848a3756aacbc0cee"
     },
+    "HTP-36S": {
+      "file": "HTP-36S.webp",
+      "sha256": "4f57b8bab604aee65080e627001564c1530eb1673238033c013766a25a93d92d",
+      "source_file": "HTP-36S.webp",
+      "source_sha256": "c1d43be9fa92e4463a0549314becaa107ddc3c29cd93c9e21fa36d5cd0079b87"
+    },
+    "HTP-37S": {
+      "file": "HTP-37S.webp",
+      "sha256": "dbaecf11b50f56ac30015279dd614913d6764b255e08a8a047fc5b358826e137",
+      "source_file": "HTP-37S.webp",
+      "source_sha256": "b74d658b5cda8efd2d32b6078db19e4664faca9749335dd699aaf52e4a349047"
+    },
+    "HTP-38S": {
+      "file": "HTP-38S.webp",
+      "sha256": "d32d9a5ba4c1f2e3d37c49f86b3269c47aa6a2f780162d7624685c08bc30d53a",
+      "source_file": "HTP-38S.webp",
+      "source_sha256": "82512dc60338118a8638a2a21d5c9747d613c76d2b64759cc02b2aa7930dd7df"
+    },
     "HTQ": {
       "file": "HTQ.webp",
       "sha256": "494db39a3a80cef308a185c63f7ae170f77f4cfe007597f2389441fcc34d1aa3",
       "source_file": "23_HTQ.webp",
       "source_sha256": "627f2b0405017458960c25251c72157c57b6ec9490ae4de9e721089ddc1da69a"
+    },
+    "HTQ-TU7": {
+      "file": "HTQ-TU7.webp",
+      "sha256": "41d99f16fc1233fcc9f4a2d9770938f5c44eef22a37b33de64a199327a1f81b7",
+      "source_file": "HTQ-TU7.webp",
+      "source_sha256": "5be07b63873938f6e3a5577f5baff6a4143fb851b87d2a3dde46c69851bbbd54"
     },
     "HTT": {
       "file": "HTT.webp",
@@ -99,11 +201,47 @@
       "source_file": "38_HTT.webp",
       "source_sha256": "aafe185ee3d890d4b2c8389ac1830fb2ffbcbd9ae01e092848a3756aacbc0cee"
     },
+    "HTT-36S": {
+      "file": "HTT-36S.webp",
+      "sha256": "4f57b8bab604aee65080e627001564c1530eb1673238033c013766a25a93d92d",
+      "source_file": "HTT-36S.webp",
+      "source_sha256": "c1d43be9fa92e4463a0549314becaa107ddc3c29cd93c9e21fa36d5cd0079b87"
+    },
+    "HTT-37S": {
+      "file": "HTT-37S.webp",
+      "sha256": "dbaecf11b50f56ac30015279dd614913d6764b255e08a8a047fc5b358826e137",
+      "source_file": "HTT-37S.webp",
+      "source_sha256": "b74d658b5cda8efd2d32b6078db19e4664faca9749335dd699aaf52e4a349047"
+    },
+    "HTT-38S": {
+      "file": "HTT-38S.webp",
+      "sha256": "d32d9a5ba4c1f2e3d37c49f86b3269c47aa6a2f780162d7624685c08bc30d53a",
+      "source_file": "HTT-38S.webp",
+      "source_sha256": "82512dc60338118a8638a2a21d5c9747d613c76d2b64759cc02b2aa7930dd7df"
+    },
+    "HU0": {
+      "file": "HU0.webp",
+      "sha256": "47ca9d699d056d331165a2d876fbfbbaf3a9a4cc60398e2485701f9e84b132a7",
+      "source_file": "HU0.webp",
+      "source_sha256": "8261222d376dd24da4813ae2afb0ce27e7a2c6aadec9d0ccbb8e18ed2cf8be59"
+    },
+    "HU0-38S-TU7": {
+      "file": "HU0-38S-TU7.webp",
+      "sha256": "3225b86c6445101f7c8ba14df7e73b42c026e1e703f322fc55465bb19dc3746e",
+      "source_file": "HU0-38S-TU7.webp",
+      "source_sha256": "cf20e981e9b1938e66e7d42895163ee46fb631dd4bb8a0193c29b542a3c0a0b4"
+    },
     "HU1": {
       "file": "HU1.webp",
       "sha256": "a66511e240b37b3851bdcf62ed98459cfdc7f13a64037fade9524976a37526e2",
       "source_file": "26_HU1.webp",
       "source_sha256": "c37887b8a1d3506e7a4f9d4289390dbb8de7befa037af8657b80f01b2bb552a7"
+    },
+    "HU1-TU7": {
+      "file": "HU1-TU7.webp",
+      "sha256": "2842e3ac9ca28bc39f802bdccf4951e8689ecfd69db42be67b9a100cad9c7c33",
+      "source_file": "HU1-TU7.webp",
+      "source_sha256": "ff50f80f22f40577af55ede02edb364ce5770dad00e05e756e3fa70a4c3fd5d4"
     },
     "HU2": {
       "file": "HU2.webp",
@@ -111,16 +249,34 @@
       "source_file": "27_HU2.webp",
       "source_sha256": "bfdedef944eaff56ae0358d792966a9ef42480f94c085aea34507194175265fe"
     },
+    "HU2-TU7": {
+      "file": "HU2-TU7.webp",
+      "sha256": "6ad16136d3f5734a95486bf5875f5bf5234419bcf1c9d2f83c9fdeb84b005ce6",
+      "source_file": "HU2-TU7.webp",
+      "source_sha256": "a4bd32b406a09ed4b6e7b80e92468c5d0ae506788dc2dd6e555d70b0af584a5e"
+    },
     "HU6": {
       "file": "HU6.webp",
       "sha256": "a4cee57dcdeac916eb5f2b913335f1c4268ca92dddef73907de9d94efb0ff7c3",
       "source_file": "21_HU6.webp",
       "source_sha256": "9db6e0dc188ff567cc04864b80786b03a7b073950a544f47e64f47be6f33034d"
     },
+    "HU6-TU7": {
+      "file": "HU6-TU7.webp",
+      "sha256": "7a0c6fb6b853477b069fdb3691eb5e839fee6b4973b74e5f4f98f7acff0ef545",
+      "source_file": "HU6-TU7.webp",
+      "source_sha256": "fb472713a86cf10671366639dd58a52167d5f4748a7c4349afff1bd260eeb6a8"
+    },
     "HU7": {
       "file": "HU7.webp",
       "sha256": "d476a09ed5aa93e9e984b29796020597d1c635245df022319cb48e16df1ffe5a",
       "source_file": "22_HU7.webp",
+      "source_sha256": "0518ed485c9d41d65529eb41c34fc2d5e08844ad298fc492b53b2c18940fa82e"
+    },
+    "HU7-TU7": {
+      "file": "HU7-TU7.webp",
+      "sha256": "d476a09ed5aa93e9e984b29796020597d1c635245df022319cb48e16df1ffe5a",
+      "source_file": "HU7-TU7.webp",
       "source_sha256": "0518ed485c9d41d65529eb41c34fc2d5e08844ad298fc492b53b2c18940fa82e"
     },
     "HU9": {
@@ -129,10 +285,22 @@
       "source_file": "39_HU9.webp",
       "source_sha256": "9db6e0dc188ff567cc04864b80786b03a7b073950a544f47e64f47be6f33034d"
     },
+    "HU9-TU7": {
+      "file": "HU9-TU7.webp",
+      "sha256": "7a0c6fb6b853477b069fdb3691eb5e839fee6b4973b74e5f4f98f7acff0ef545",
+      "source_file": "HU9-TU7.webp",
+      "source_sha256": "fb472713a86cf10671366639dd58a52167d5f4748a7c4349afff1bd260eeb6a8"
+    },
     "HUA": {
       "file": "HUA.webp",
       "sha256": "d476a09ed5aa93e9e984b29796020597d1c635245df022319cb48e16df1ffe5a",
       "source_file": "40_HUA.webp",
+      "source_sha256": "0518ed485c9d41d65529eb41c34fc2d5e08844ad298fc492b53b2c18940fa82e"
+    },
+    "HUA-TU7": {
+      "file": "HUA-TU7.webp",
+      "sha256": "d476a09ed5aa93e9e984b29796020597d1c635245df022319cb48e16df1ffe5a",
+      "source_file": "HUA-TU7.webp",
       "source_sha256": "0518ed485c9d41d65529eb41c34fc2d5e08844ad298fc492b53b2c18940fa82e"
     },
     "HUB": {
@@ -141,17 +309,59 @@
       "source_file": "45_HUB.webp",
       "source_sha256": "d0cc5759af57e5975011f1e3c350587b4174990f85e1afc57c52de37ac8f57df"
     },
+    "HUB-36S": {
+      "file": "HUB-36S.webp",
+      "sha256": "8a8e1d3782d43c3d835ddd56f664a4e72e3b3a3e7feac7c161aae901a41ef581",
+      "source_file": "HUB-36S.webp",
+      "source_sha256": "4768f9319346ad46ed5a5a2fce6b63772aee0354a3108dd4cf334fc54de39996"
+    },
+    "HUB-37S": {
+      "file": "HUB-37S.webp",
+      "sha256": "33d2310180c206ecb334fe9553b4437a4b892065e9d51a37e1f56f3c447aad5f",
+      "source_file": "HUB-37S.webp",
+      "source_sha256": "ebdd253b14762de797c43961219ffd8098a6d391c4ba940c412c4d3d06ef4572"
+    },
+    "HUB-38S": {
+      "file": "HUB-38S.webp",
+      "sha256": "e0070f23528650de85a17b11cf13f0a9eb3f5b6a9da35bf4468d164fd2d93129",
+      "source_file": "HUB-38S.webp",
+      "source_sha256": "4d1b7be4b732b99b836adf263605bc59b995dd5d4ef49e988b1cbfa6015d4697"
+    },
     "HUC": {
       "file": "HUC.webp",
       "sha256": "31a017a93812faa8e87e529b3e268fb93acc93a1aa9e97ed98f0c02561722f26",
       "source_file": "34_HUC.webp",
       "source_sha256": "24a4ea77817aa3947e3cc50279913c38b6fd454a37073c9248a340888ea61271"
     },
+    "HUC-36S": {
+      "file": "HUC-36S.webp",
+      "sha256": "77e31ff9b2e433e679e1ddb3ce759a34ff091b0881f2a5d866b16df709873323",
+      "source_file": "HUC-36S.webp",
+      "source_sha256": "507f6e3d1fe458765fea170e28d565f62351743ac6b8fac835eab2cd374b276c"
+    },
+    "HUC-37S": {
+      "file": "HUC-37S.webp",
+      "sha256": "06c8c4d8014a1fc2f21dbe0db5153927067295c2fd5468d9623a4393bf835000",
+      "source_file": "HUC-37S.webp",
+      "source_sha256": "f685e6c546d9b23715de6a282ef1b1a0e7c96db554d609c89931a51c6b2771b5"
+    },
+    "HUC-38S": {
+      "file": "HUC-38S.webp",
+      "sha256": "8c089c5a0417fcadcda9f09b887c9231bd08607f456650c19d38353dc7c859ae",
+      "source_file": "HUC-38S.webp",
+      "source_sha256": "35d2415677163cecfa01a5255623a653d3e5e87d5acc9f147f9c873e7d04514f"
+    },
     "HUE": {
       "file": "HUE.webp",
       "sha256": "6beea16bcfe7f1bae72133965dc4e4b0ffcb094601172c8720d0b646dc64e819",
       "source_file": "29_HUE.webp",
       "source_sha256": "4daa2cd65813ee5757dcfabd532b93bc09e9807e059f5d4f5a8a75b825bde651"
+    },
+    "HUE-TU7": {
+      "file": "HUE-TU7.webp",
+      "sha256": "4a51aa47c1037a14be29a14c136a48de1e400a54fe141f784249ea27b71e6990",
+      "source_file": "HUE-TU7.webp",
+      "source_sha256": "aa1f356a462a48fd2b02658843c094146cf66d76066c86cd982395b7defc4f5d"
     },
     "HUF": {
       "file": "HUF.webp",
@@ -165,11 +375,23 @@
       "source_file": "16_HUK.webp",
       "source_sha256": "c37887b8a1d3506e7a4f9d4289390dbb8de7befa037af8657b80f01b2bb552a7"
     },
+    "HUK-TU7": {
+      "file": "HUK-TU7.webp",
+      "sha256": "2842e3ac9ca28bc39f802bdccf4951e8689ecfd69db42be67b9a100cad9c7c33",
+      "source_file": "HUK-TU7.webp",
+      "source_sha256": "ff50f80f22f40577af55ede02edb364ce5770dad00e05e756e3fa70a4c3fd5d4"
+    },
     "HUL": {
       "file": "HUL.webp",
       "sha256": "f671efffe8564bfc1a3bff28d683d7184ecfec2a2716fcc13edabd13089436ed",
       "source_file": "17_HUL.webp",
       "source_sha256": "bfdedef944eaff56ae0358d792966a9ef42480f94c085aea34507194175265fe"
+    },
+    "HUL-TU7": {
+      "file": "HUL-TU7.webp",
+      "sha256": "6ad16136d3f5734a95486bf5875f5bf5234419bcf1c9d2f83c9fdeb84b005ce6",
+      "source_file": "HUL-TU7.webp",
+      "source_sha256": "a4bd32b406a09ed4b6e7b80e92468c5d0ae506788dc2dd6e555d70b0af584a5e"
     },
     "HUN": {
       "file": "HUN.webp",
@@ -195,6 +417,12 @@
       "source_file": "12_HUR.webp",
       "source_sha256": "5eae9405cacb12c70653cdabeaf788681821bc08fe313577112ba1e883e25aa7"
     },
+    "HUU": {
+      "file": "HUU.webp",
+      "sha256": "dffdce8d9775b0318d0423d5f60f745bd7179a86db02e860e6a1dfc06e018fd6",
+      "source_file": "HUU.webp",
+      "source_sha256": "e778c5eaafca856078a533a0329a2ea89c7057897bca90d73ed08a27f9f692f2"
+    },
     "HUV": {
       "file": "HUV.webp",
       "sha256": "ced26973b62094462c16ab8f80353f713a6b5c0e87d6a8126ba5ec41a110c35f",
@@ -213,17 +441,59 @@
       "source_file": "43_HUX.webp",
       "source_sha256": "13db5ced5d67393ce0b58612e691c815593360ffe3f14df2917a0eefe02ba7f2"
     },
+    "HVT": {
+      "file": "HVT.webp",
+      "sha256": "946135dc87c15c70a746088bd19483d80ff3125cd1c38493d5546e897356ab95",
+      "source_file": "HVT.webp",
+      "source_sha256": "86b2cc77cb471b0b0c0b3f219b8010a92ed55ae8cbaf6a0a7da0a3d7b4a9e1c8"
+    },
+    "HVV": {
+      "file": "HVV.webp",
+      "sha256": "93f9878aafab483b4292ac3c992d8097ce7c061d2c509978b253264b9b7240b3",
+      "source_file": "HVV.webp",
+      "source_sha256": "b3b6d977de3ed030ed0275de0e569af0dc509ea63d8f52670cdfa90d5ae834ae"
+    },
+    "HVV-TU7": {
+      "file": "HVV-TU7.webp",
+      "sha256": "ad69d986b8e557e4788f7f0b9c6f8eea1dbb99e06d51d89192b5f735d42c0a84",
+      "source_file": "HVV-TU7.webp",
+      "source_sha256": "7e25070f8176da09e03832682b9d1306dd5124530b9ad7ea0cdf595fe6f6311e"
+    },
     "HVZ": {
       "file": "HVZ.webp",
       "sha256": "f3a04d3cbd419762dc3c353a6dbc9e880fd401ecb954330a35a5244837a47728",
       "source_file": "35_HVZ.webp",
       "source_sha256": "b02479b5a26e576af32742925a9a0da30733765ab1049f3d20e8e6f4095509f2"
     },
+    "HXO": {
+      "file": "HXO.webp",
+      "sha256": "0fa6104730c07c38de7579a0f24b54e0e42fc0727b7fcc8cf1bfaf832f01db14",
+      "source_file": "HXO.webp",
+      "source_sha256": "474c6dfbf1102dbfa25a7692bd72c5d7895765a46346be6c421be1dbc55b9b05"
+    },
+    "HXO-TU7": {
+      "file": "HXO-TU7.webp",
+      "sha256": "6b071f13dfa8cb33fe07ad7d0192de7a55b4bf32c49161da599d03c093c8a845",
+      "source_file": "HXO-TU7.webp",
+      "source_sha256": "ecbf9bdcda0f0d101fa40016030977e0177f51b0840804a281fe84c6a2477b91"
+    },
+    "HZB": {
+      "file": "HZB.webp",
+      "sha256": "862aaca884b9f8252c98a63369f895b735fec2d7f51e885832398d54a07e9872",
+      "source_file": "HZB.webp",
+      "source_sha256": "6b9d9caf5a3c24fff7c7655bb8762bf595f39aedd038ff78c719e39baa10dae8"
+    },
     "HZN": {
       "file": "HZN.webp",
       "sha256": "6beea16bcfe7f1bae72133965dc4e4b0ffcb094601172c8720d0b646dc64e819",
       "source_file": "30_HZN.webp",
       "source_sha256": "4daa2cd65813ee5757dcfabd532b93bc09e9807e059f5d4f5a8a75b825bde651"
+    },
+    "HZP": {
+      "file": "HZP.webp",
+      "sha256": "dfab23b4e1dc4f8da8c828c8a7b2099f6900d5bdbe057126781a820b4e4fad80",
+      "source_file": "HZP.webp",
+      "source_sha256": "55145a250760c174c4b4b270ad1e2c3b03f6c1bdeab2dc8dc6e228a18d6e98ef"
     }
   }
 }

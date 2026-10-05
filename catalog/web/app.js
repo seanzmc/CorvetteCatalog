@@ -260,7 +260,7 @@ function renderInteriors() {
   const leaf=row=>{
     const selected=current.build.interior_id===row.interior_id, card=node('article','',grid);card.className=`choice-card ${selected?'selected':''}`;card.dataset.choice=row.interior_id;
     const source=model.interiors[row.interior_id].source, rest=row.levels.slice(depth), name=rest.at(-1)||row.label;
-    media(swatch(source['Interior Code']),name,card);
+    media(swatch(source),name,card);
     node('span',source['Interior Code']||'Interior',card).className='rpo';node('h4',name,card);
     // Levels still above the leaf (a material), less any the name already says.
     const details=[...rest.slice(0,-1).filter(t=>!name.startsWith(t)),source.Stitch&&`Stitching: ${source.Stitch}`,source.Suede&&`Suede: ${source.Suede}`].filter(Boolean);
@@ -285,7 +285,7 @@ function renderInteriors() {
     card.className=`choice-card ${mine?'selected':''}`;
     // A color shows its first interior's swatch.
     if(seat)media(photos.get(seat.option_id),seat.label,card);
-    else media(swatch(model.interiors[members[0].interior_id].source['Interior Code']),v,card);
+    else media(swatch(model.interiors[members[0].interior_id].source),v,card);
     node('span',seat?.rpo||['Seats','Color','Material','Finish'][depth]||'Interior',card).className='rpo';
     node('h4',seat?.label||v,card);
     node('p',`${members.length} ${members.length===1?'choice':'choices'}`,card);
@@ -467,13 +467,19 @@ async function restore() {
     keep(null);showNotice('Your saved build could not be reopened. Please start a new build.');
   }
 }
-// Interior material swatches, by interior code (swatches/interior/index.json);
-// an interior without one keeps the framed code.
+// Interior material swatches (swatches/interior/index.json), keyed by interior
+// code plus any stitching and two-tone codes (HTE-36S, HU1-TU7, HU0-38S-TU7);
+// the most specific one wins, and an interior without any keeps the framed code.
 let swatches={};
 fetch('swatches/interior/index.json').then(r=>r.ok?r.json():null).then(d=>{
   swatches=d?.swatches||{};if(current&&activeStep==='interior')renderInteriors();
 }).catch(()=>{});
-function swatch(code) { const s=swatches[code];return s&&{image_url:`swatches/interior/${s.file}`,image_fit:'cover'}; }
+function swatch(source) {
+  const code=source['Interior Code'], stitch=source.Stitch, tone=source['Two Tone'];
+  const keys=[[code,stitch,tone].filter(Boolean).join('-'),tone&&`${code}-${tone}`,stitch&&`${code}-${stitch}`,code];
+  const s=keys.map(k=>k&&swatches[k]).find(Boolean);
+  return s&&{image_url:`swatches/interior/${s.file}`,image_fit:'cover'};
+}
 (async()=>{
   try{
     let r;
