@@ -92,6 +92,8 @@ class ServerTests(unittest.TestCase):
             with urlopen(f'http://127.0.0.1:{port}/swatches/interior/HTJ.webp', timeout=10) as response:
                 self.assertEqual(response.headers['Content-Type'], 'image/webp')
                 self.assertEqual(response.read(), (root / 'HTJ.webp').read_bytes())
+            with urlopen(f'http://127.0.0.1:{port}/swatches/interior/HU0-38S-TU7.webp', timeout=10) as response:
+                self.assertEqual(response.read(), (root / 'HU0-38S-TU7.webp').read_bytes())
             self.assertEqual(self.call(port, '/swatches/interior/index.json')[1], index)
             self.assertEqual(self.call(port, '/swatches/interior/NONE.webp')[0], 404)
             self.assertEqual(self.call(port, '/swatches/interior/..%2Fapp.js')[0], 404)
