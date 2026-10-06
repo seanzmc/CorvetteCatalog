@@ -1,6 +1,6 @@
 """Card photos for options the workbook baseline has no photo for.
 
-Run: python -m catalog.photos refresh [--bundle DIR] [--library DIR]   # read the site, write the index, report
+Run: python -m catalog.photos refresh [--sftp LOGIN] [--bundle DIR] [--library DIR]   # read the site, write the index, report
      python -m catalog.photos report [--bundle DIR] [--library DIR]    # report from the saved index
 
 The existing form's photos come from its asset_map, which 27vette's
@@ -19,13 +19,19 @@ no photo. Per model and RPO, the first rule with exactly one file wins:
 4. a file without a prefix, for every model (cf8.png).
 
 Two files at the winning rule are a tie: neither is used, and the report names
-them. For each still-missing RPO the report lists site images outside
+them.
+
+The site's media list only holds files added through WordPress. With --sftp
+USER@sftp.wp.com, refresh instead lists the pictures folder read-only over the
+owner's SSH login (catalog.static_site's sftp), so files copied there count too.
+WordPress's generated sizes (name-300x200.jpg, name-scaled.jpg) are skipped. For each still-missing RPO the report lists site images outside
 /pictures/27vette/ (refresh only) and, with --library, local files whose names
 contain it, with the name to give a copy in /pictures/27vette/. --bundle limits the
 still-missing list to cards a built static bundle actually shows.
 """
 import argparse
 from collections import defaultdict
+import posixpath
 from datetime import datetime, timezone
 import json
 import os
@@ -115,6 +121,33 @@ def fetch_media(timeout=60):
         urls += [item['source_url'] for item in batch if item.get('source_url')]
         page += 1
     return sorted(set(urls))
+
+
+def list_sftp(target, run=None):
+    """Every original image URL under the site's pictures folder, listed over SFTP."""
+    from catalog.static_site import sftp
+    run = run or sftp
+    root, todo, urls = 'wp-content/uploads/pictures', ['wp-content/uploads/pictures'], []
+    while todo:
+        output = run(target, [f'ls -la "{folder}"' for folder in todo])
+        todo, folder = [], None
+        for line in output.splitlines():
+            if line.startswith('sftp> ls -la '):
+                folder = line.split('"')[1]
+                continue
+            parts = line.split(None, 8)
+            if folder is None or len(parts) != 9:
+                continue
+            name = posixpath.basename(parts[8].rstrip('/'))
+            path = f'{folder}/{name}'
+            if name in ('.', '..'):
+                continue
+            if parts[0].startswith('d'):
+                todo.append(path)
+            elif (os.path.splitext(name)[1].lower() in IMAGE
+                  and not re.search(r'-\d+x\d+(@2x)?$|-scaled$', os.path.splitext(name)[0])):
+                urls.append(f'{SITE}/{path}')
+    return sorted(urls)
 
 
 def targets(source_dir=f.ROOT / 'docs'):
@@ -225,16 +258,18 @@ def main():
     parser.add_argument('command', choices=('refresh', 'report'))
     parser.add_argument('--library', type=Path, help='Local image folder to search for still-missing RPOs')
     parser.add_argument('--bundle', type=Path, help='Built static bundle: count only the cards customers see')
+    parser.add_argument('--sftp', help='List the site folder over SFTP (USER@sftp.wp.com) instead of the media list')
     args = parser.parse_args()
     wanted = targets()
     if args.command == 'refresh':
-        everything = fetch_media()
+        everything = list_sftp(args.sftp) if args.sftp else fetch_media()
         urls = [u for u in everything if PATH_FILTER in u]
         elsewhere = [u for u in everything if PATH_FILTER not in u]
         models, report = build(urls, wanted)
         INDEX.parent.mkdir(exist_ok=True)
         INDEX.write_text(json.dumps(dict(
-            format='catalog-option-photos-v1', source=MEDIA_ENDPOINT + ' (' + PATH_FILTER + ')',
+            format='catalog-option-photos-v1',
+            source=(f'SFTP listing of {SITE}/wp-content/uploads/pictures' if args.sftp else MEDIA_ENDPOINT) + ' (' + PATH_FILTER + ')',
             fetched_at=datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), media_count=len(urls),
             models=models), indent=2, sort_keys=True) + '\n')
         print(f'{len(urls)} site images under {PATH_FILTER}; wrote {INDEX.relative_to(f.ROOT)}')

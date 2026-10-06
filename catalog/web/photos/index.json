@@ -1,9 +1,37 @@
 {
-  "fetched_at": "2026-10-06T01:03:26Z",
+  "fetched_at": "2026-10-06T18:48:41Z",
   "format": "catalog-option-photos-v1",
-  "media_count": 290,
+  "media_count": 360,
   "models": {
     "grand_sport": {
+      "5JR": {
+        "image_alt": "Visible Carbon Fiber Outside Mirror Covers",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/5jr.jpg",
+        "rule": "bare"
+      },
+      "AUP": {
+        "image_alt": "Asymmetrical Seats",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/aup.jpg",
+        "rule": "bare"
+      },
+      "B6P": {
+        "image_alt": "Coupe Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/b6p.jpg",
+        "rule": "bare"
+      },
+      "BV4": {
+        "image_alt": "Personalized Specification Plaque",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/bv4.jpg",
+        "rule": "bare"
+      },
       "CF8": {
         "image_alt": "Electrochromic Dimming Roof Panel",
         "image_fit": "cover",
@@ -17,9 +45,317 @@
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-cfl.png",
         "rule": "own"
+      },
+      "CFV": {
+        "image_alt": "Visible Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/cfv.jpg",
+        "rule": "bare"
+      },
+      "CFZ": {
+        "image_alt": "Carbon Flash Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/cfz.jpg",
+        "rule": "bare"
+      },
+      "D3V": {
+        "image_alt": "Engine Lighting",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d3v.jpg",
+        "rule": "bare"
+      },
+      "D84": {
+        "image_alt": "Carbon Flash Convertible Top",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d84.png",
+        "rule": "bare"
+      },
+      "D86": {
+        "image_alt": "Body-Color Roof, Carbon Flash-painted Nacelles",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d86.png",
+        "rule": "bare"
+      },
+      "DPB": {
+        "image_alt": "Carbon Flash/Blue Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpb.jpg",
+        "rule": "bare"
+      },
+      "DPC": {
+        "image_alt": "Carbon Flash/Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpc.png",
+        "rule": "bare"
+      },
+      "DPG": {
+        "image_alt": "Carbon Flash/Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpg.png",
+        "rule": "bare"
+      },
+      "DPL": {
+        "image_alt": "Carbon Flash/Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpl.jpg",
+        "rule": "bare"
+      },
+      "DPT": {
+        "image_alt": "Carbon Flash/Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpt.jpg",
+        "rule": "bare"
+      },
+      "DSY": {
+        "image_alt": "Edge Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsy.jpg",
+        "rule": "bare"
+      },
+      "DSZ": {
+        "image_alt": "Edge Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsz.jpg",
+        "rule": "bare"
+      },
+      "DT0": {
+        "image_alt": "Competition Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dt0.jpg",
+        "rule": "bare"
+      },
+      "DTH": {
+        "image_alt": "Carbon Flash Metallic Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dth.jpg",
+        "rule": "bare"
+      },
+      "DUB": {
+        "image_alt": "Sterling Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dub.jpg",
+        "rule": "bare"
+      },
+      "DZU": {
+        "image_alt": "Carbon Flash/Competition Yellow Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzu.jpg",
+        "rule": "bare"
+      },
+      "DZV": {
+        "image_alt": "Carbon Flash/Midnight Silver Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzv.jpg",
+        "rule": "bare"
+      },
+      "DZX": {
+        "image_alt": "Carbon Flash/Edge Red Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzx.jpg",
+        "rule": "bare"
+      },
+      "EDU": {
+        "image_alt": "Body-Color and Carbon Flash Accents",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/c-edu.png",
+        "rule": "fallback:stingray"
+      },
+      "EFR": {
+        "image_alt": "Carbon Flash Painted Accents",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/efr.jpg",
+        "rule": "bare"
+      },
+      "PDA": {
+        "image_alt": "Jake C8.R Graphics Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/pda.jpg",
+        "rule": "bare"
+      },
+      "PDY": {
+        "image_alt": "Roadside Safety Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/pdy.jpg",
+        "rule": "bare"
+      },
+      "R8C": {
+        "image_alt": "Corvette Museum Delivery",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/r8c.jpg",
+        "rule": "bare"
+      },
+      "RWH": {
+        "image_alt": "Black Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwh.jpg",
+        "rule": "bare"
+      },
+      "RWU": {
+        "image_alt": "Collapsible Cargo Area Organizer",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwu.jpg",
+        "rule": "bare"
+      },
+      "RYT": {
+        "image_alt": "First Aid Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/ryt.jpg",
+        "rule": "bare"
+      },
+      "RZ9": {
+        "image_alt": "Visible Carbon Fiber Grille Insert",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rz9.jpg",
+        "rule": "bare"
+      },
+      "S08": {
+        "image_alt": "Highway Safety Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/s08.jpg",
+        "rule": "bare"
+      },
+      "SAI": {
+        "image_alt": "",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sai.jpg",
+        "rule": "bare"
+      },
+      "SBT": {
+        "image_alt": "Dual Roof Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sbt.jpg",
+        "rule": "bare"
+      },
+      "SC7": {
+        "image_alt": "Roof Panel Storage Pouch",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sc7.jpg",
+        "rule": "bare"
+      },
+      "SHT": {
+        "image_alt": "Tech Bronze Jake Hood Graphic",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/sht.jpg",
+        "rule": "bare"
+      },
+      "SIG": {
+        "image_alt": "Clear Smoked Spoiler Extension",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sig.jpg",
+        "rule": "bare"
+      },
+      "T0F": {
+        "image_alt": "Carbon Flash-Painted Carbon Fiber Aero Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/t0f.jpg",
+        "rule": "bare"
+      },
+      "UQT": {
+        "image_alt": "Performance Data and Video Recorder",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/uqt.jpg",
+        "rule": "bare"
+      },
+      "VPO": {
+        "image_alt": "Tech Bronze Jake C8.R Rear Hash Graphic",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/vpo.jpg",
+        "rule": "bare"
+      },
+      "VWT": {
+        "image_alt": "Insect Protection Grille Screen",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/e-g-h-vwt.jpg",
+        "rule": "shared"
+      },
+      "WKR": {
+        "image_alt": "GT3.R Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/wkr.jpg",
+        "rule": "bare"
+      },
+      "XFS": {
+        "image_alt": "Michelin Pilot Sport Cup 2 R Tires",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/misc/xfs.png",
+        "rule": "bare"
+      },
+      "ZZ3": {
+        "image_alt": "Convertible Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/zz3.jpg",
+        "rule": "bare"
       }
     },
     "grand_sport_x": {
+      "5JR": {
+        "image_alt": "Visible Carbon Fiber Outside Mirror Covers",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/5jr.jpg",
+        "rule": "bare"
+      },
+      "AUP": {
+        "image_alt": "Asymmetrical Seats",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/aup.jpg",
+        "rule": "bare"
+      },
+      "B6P": {
+        "image_alt": "Coupe Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/b6p.jpg",
+        "rule": "bare"
+      },
+      "BV4": {
+        "image_alt": "Personalized Specification Plaque",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/bv4.jpg",
+        "rule": "bare"
+      },
       "CF8": {
         "image_alt": "Electrochromic Dimming Roof Panel",
         "image_fit": "cover",
@@ -33,18 +369,704 @@
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-cfl.png",
         "rule": "fallback:grand_sport"
+      },
+      "CFV": {
+        "image_alt": "Visible Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/cfv.jpg",
+        "rule": "bare"
+      },
+      "CFZ": {
+        "image_alt": "Carbon Flash Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/cfz.jpg",
+        "rule": "bare"
+      },
+      "D3V": {
+        "image_alt": "Engine Lighting",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d3v.jpg",
+        "rule": "bare"
+      },
+      "D84": {
+        "image_alt": "Carbon Flash Convertible Top",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d84.png",
+        "rule": "bare"
+      },
+      "D86": {
+        "image_alt": "Body-Color Roof, Carbon Flash-painted Nacelles",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d86.png",
+        "rule": "bare"
+      },
+      "DPB": {
+        "image_alt": "Carbon Flash/Blue Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpb.jpg",
+        "rule": "bare"
+      },
+      "DPC": {
+        "image_alt": "Carbon Flash/Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpc.png",
+        "rule": "bare"
+      },
+      "DPG": {
+        "image_alt": "Carbon Flash/Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpg.png",
+        "rule": "bare"
+      },
+      "DPL": {
+        "image_alt": "Carbon Flash/Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpl.jpg",
+        "rule": "bare"
+      },
+      "DPT": {
+        "image_alt": "Carbon Flash/Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpt.jpg",
+        "rule": "bare"
+      },
+      "DSY": {
+        "image_alt": "Edge Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsy.jpg",
+        "rule": "bare"
+      },
+      "DSZ": {
+        "image_alt": "Edge Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsz.jpg",
+        "rule": "bare"
+      },
+      "DT0": {
+        "image_alt": "Competition Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dt0.jpg",
+        "rule": "bare"
+      },
+      "DTH": {
+        "image_alt": "Carbon Flash Metallic Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dth.jpg",
+        "rule": "bare"
+      },
+      "DUB": {
+        "image_alt": "Sterling Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dub.jpg",
+        "rule": "bare"
+      },
+      "DZU": {
+        "image_alt": "Carbon Flash/Competition Yellow Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzu.jpg",
+        "rule": "bare"
+      },
+      "DZV": {
+        "image_alt": "Carbon Flash/Midnight Silver Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzv.jpg",
+        "rule": "bare"
+      },
+      "DZX": {
+        "image_alt": "Carbon Flash/Edge Red Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzx.jpg",
+        "rule": "bare"
+      },
+      "EDU": {
+        "image_alt": "Body-Color and Carbon Flash Accents",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/c-edu.png",
+        "rule": "fallback:stingray"
+      },
+      "EFR": {
+        "image_alt": "Carbon Flash Painted Accents",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/efr.jpg",
+        "rule": "bare"
+      },
+      "PDA": {
+        "image_alt": "Jake C8.R Graphics Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/pda.jpg",
+        "rule": "bare"
+      },
+      "PDY": {
+        "image_alt": "Roadside Safety Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/pdy.jpg",
+        "rule": "bare"
+      },
+      "R8C": {
+        "image_alt": "Corvette Museum Delivery",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/r8c.jpg",
+        "rule": "bare"
+      },
+      "RWH": {
+        "image_alt": "Black Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwh.jpg",
+        "rule": "bare"
+      },
+      "RWU": {
+        "image_alt": "Collapsible Cargo Area Organizer",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwu.jpg",
+        "rule": "bare"
+      },
+      "RYT": {
+        "image_alt": "First Aid Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/ryt.jpg",
+        "rule": "bare"
+      },
+      "RZ9": {
+        "image_alt": "Visible Carbon Fiber Grille Insert",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rz9.jpg",
+        "rule": "bare"
+      },
+      "S08": {
+        "image_alt": "Highway Safety Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/s08.jpg",
+        "rule": "bare"
+      },
+      "SAI": {
+        "image_alt": "",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sai.jpg",
+        "rule": "bare"
+      },
+      "SBT": {
+        "image_alt": "Dual Roof Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sbt.jpg",
+        "rule": "bare"
+      },
+      "SC7": {
+        "image_alt": "Roof Panel Storage Pouch",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sc7.jpg",
+        "rule": "bare"
+      },
+      "SHT": {
+        "image_alt": "Tech Bronze Jake Hood Graphic",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/sht.jpg",
+        "rule": "bare"
+      },
+      "SIG": {
+        "image_alt": "Clear Smoked Spoiler Extension",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sig.jpg",
+        "rule": "bare"
+      },
+      "UQT": {
+        "image_alt": "Performance Data and Video Recorder",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/uqt.jpg",
+        "rule": "bare"
+      },
+      "VK3": {
+        "image_alt": "Front License Plate Bracket",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/c-vk3.jpg",
+        "rule": "fallback:stingray"
+      },
+      "VPO": {
+        "image_alt": "Tech Bronze Jake C8.R Rear Hash Graphic",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/vpo.jpg",
+        "rule": "bare"
+      },
+      "VWT": {
+        "image_alt": "Insect Protection Grille Screen",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/e-g-h-vwt.jpg",
+        "rule": "shared"
+      },
+      "WKR": {
+        "image_alt": "GT3.R Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/wkr.jpg",
+        "rule": "bare"
+      },
+      "ZZ3": {
+        "image_alt": "Convertible Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/zz3.jpg",
+        "rule": "bare"
       }
     },
     "stingray": {
+      "5JR": {
+        "image_alt": "Visible Carbon Fiber Outside Mirror Covers",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/5jr.jpg",
+        "rule": "bare"
+      },
+      "5V7": {
+        "image_alt": "Black Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/5v7.jpg",
+        "rule": "bare"
+      },
+      "5VM": {
+        "image_alt": "Visible Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/5vm.jpg",
+        "rule": "bare"
+      },
+      "5W8": {
+        "image_alt": "Carbon Flash Metallic Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/5w8.jpg",
+        "rule": "bare"
+      },
+      "5ZW": {
+        "image_alt": "Visible Carbon Fiber Two-Stanchion Spoiler",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/c-5zw.jpg",
+        "rule": "own"
+      },
+      "5ZZ": {
+        "image_alt": "Carbon Flash Metallic High Wing Spoiler",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/5zz.jpg",
+        "rule": "bare"
+      },
+      "AUP": {
+        "image_alt": "Asymmetrical Seats",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/aup.jpg",
+        "rule": "bare"
+      },
+      "B6P": {
+        "image_alt": "Coupe Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/b6p.jpg",
+        "rule": "bare"
+      },
+      "BV4": {
+        "image_alt": "Personalized Specification Plaque",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/bv4.jpg",
+        "rule": "bare"
+      },
       "CF8": {
         "image_alt": "Electrochromic Dimming Removable Roof Panel",
         "image_fit": "cover",
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/cf8.png",
         "rule": "bare"
+      },
+      "D3V": {
+        "image_alt": "Engine Lighting",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d3v.jpg",
+        "rule": "bare"
+      },
+      "D84": {
+        "image_alt": "Carbon Flash Convertible Top",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d84.png",
+        "rule": "bare"
+      },
+      "D86": {
+        "image_alt": "Body-Color Roof, Carbon Flash-painted Nacelles",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d86.png",
+        "rule": "bare"
+      },
+      "DPB": {
+        "image_alt": "Carbon Flash/Blue Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpb.jpg",
+        "rule": "bare"
+      },
+      "DPC": {
+        "image_alt": "Carbon Flash/Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpc.png",
+        "rule": "bare"
+      },
+      "DPG": {
+        "image_alt": "Carbon Flash/Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpg.png",
+        "rule": "bare"
+      },
+      "DPL": {
+        "image_alt": "Carbon Flash/Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpl.jpg",
+        "rule": "bare"
+      },
+      "DPT": {
+        "image_alt": "Carbon Flash/Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpt.jpg",
+        "rule": "bare"
+      },
+      "DSY": {
+        "image_alt": "Edge Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsy.jpg",
+        "rule": "bare"
+      },
+      "DSZ": {
+        "image_alt": "Edge Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsz.jpg",
+        "rule": "bare"
+      },
+      "DT0": {
+        "image_alt": "Competition Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dt0.jpg",
+        "rule": "bare"
+      },
+      "DTH": {
+        "image_alt": "Carbon Flash Metallic Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dth.jpg",
+        "rule": "bare"
+      },
+      "DUB": {
+        "image_alt": "Sterling Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dub.jpg",
+        "rule": "bare"
+      },
+      "DZU": {
+        "image_alt": "Carbon Flash/Competition Yellow Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzu.jpg",
+        "rule": "bare"
+      },
+      "DZV": {
+        "image_alt": "Carbon Flash/Midnight Silver Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzv.jpg",
+        "rule": "bare"
+      },
+      "DZX": {
+        "image_alt": "Carbon Flash/Edge Red Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzx.jpg",
+        "rule": "bare"
+      },
+      "EDU": {
+        "image_alt": "Body-Color and Carbon Flash Accents",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/c-edu.png",
+        "rule": "own"
+      },
+      "EFR": {
+        "image_alt": "Carbon Flash Painted Accents",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/efr.jpg",
+        "rule": "bare"
+      },
+      "EFY": {
+        "image_alt": "Body-Color Exterior Accents",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/efy.jpg",
+        "rule": "bare"
+      },
+      "FE2": {
+        "image_alt": "Magnetic Selective Ride Control Suspension",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/fe2.jpg",
+        "rule": "bare"
+      },
+      "FE4": {
+        "image_alt": "Z51 Performance Magnetic Selective Ride Control Suspension",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/fe4.jpg",
+        "rule": "bare"
+      },
+      "PDV": {
+        "image_alt": "Stingray R Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/c-pdv.jpg",
+        "rule": "own"
+      },
+      "PDY": {
+        "image_alt": "Roadside Safety Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/pdy.jpg",
+        "rule": "bare"
+      },
+      "R8C": {
+        "image_alt": "Corvette Museum Delivery",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/r8c.jpg",
+        "rule": "bare"
+      },
+      "RNX": {
+        "image_alt": "Gray Premium Outdoor Car Cover with Access Panels",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rnx.jpg",
+        "rule": "bare"
+      },
+      "RWH": {
+        "image_alt": "Black Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwh.jpg",
+        "rule": "bare"
+      },
+      "RWU": {
+        "image_alt": "Collapsible Cargo Area Organizer",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwu.jpg",
+        "rule": "bare"
+      },
+      "RYQ": {
+        "image_alt": "Visible Carbon Fiber Door Intake Trim",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/ryq.jpg",
+        "rule": "bare"
+      },
+      "RYT": {
+        "image_alt": "First Aid Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/ryt.jpg",
+        "rule": "bare"
+      },
+      "RZ9": {
+        "image_alt": "Visible Carbon Fiber Grille Insert",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rz9.jpg",
+        "rule": "bare"
+      },
+      "S08": {
+        "image_alt": "Highway Safety Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/s08.jpg",
+        "rule": "bare"
+      },
+      "SAI": {
+        "image_alt": "",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sai.jpg",
+        "rule": "bare"
+      },
+      "SB7": {
+        "image_alt": "Corvette Racing Themed Jake and Stingray R Graphics Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/c-sb7.jpg",
+        "rule": "own"
+      },
+      "SBT": {
+        "image_alt": "Dual Roof Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sbt.jpg",
+        "rule": "bare"
+      },
+      "SC7": {
+        "image_alt": "Roof Panel Storage Pouch",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sc7.jpg",
+        "rule": "bare"
+      },
+      "SHQ": {
+        "image_alt": "Silver Fender Hash Stripes with Carbon Flash Accent",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/shq.jpg",
+        "rule": "bare"
+      },
+      "SHT": {
+        "image_alt": "Tech Bronze Jake Hood Graphic",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/sht.jpg",
+        "rule": "bare"
+      },
+      "SHW": {
+        "image_alt": "Carbon Flash Fender Hash Stripes with Edge Red Accent",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/shw.jpg",
+        "rule": "bare"
+      },
+      "SL1": {
+        "image_alt": "Red Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sl1.jpg",
+        "rule": "bare"
+      },
+      "SNG": {
+        "image_alt": "Carbon Flash Fender Hash Stripes with Tech Bronze Accent",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/sng.jpg",
+        "rule": "bare"
+      },
+      "UQT": {
+        "image_alt": "Performance Data and Video Recorder",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/uqt.jpg",
+        "rule": "bare"
+      },
+      "VK3": {
+        "image_alt": "Front License Plate Bracket",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/c-vk3.jpg",
+        "rule": "own"
+      },
+      "WKR": {
+        "image_alt": "GT3.R Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/wkr.jpg",
+        "rule": "bare"
+      },
+      "ZZ3": {
+        "image_alt": "Convertible Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/zz3.jpg",
+        "rule": "bare"
       }
     },
     "z06": {
+      "5JR": {
+        "image_alt": "Visible Carbon Fiber Outside Mirror Covers",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/5jr.jpg",
+        "rule": "bare"
+      },
+      "5V5": {
+        "image_alt": "Visible Carbon Fiber Spoiler",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/5v5.jpg",
+        "rule": "bare"
+      },
+      "AUP": {
+        "image_alt": "Asymmetrical Seats",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/aup.jpg",
+        "rule": "bare"
+      },
+      "B6P": {
+        "image_alt": "Coupe Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/b6p.jpg",
+        "rule": "bare"
+      },
+      "BV4": {
+        "image_alt": "Personalized Specification Plaque",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/bv4.jpg",
+        "rule": "bare"
+      },
+      "CBF": {
+        "image_alt": "Body-color painted Rockers and splitter",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-cbf.png",
+        "rule": "own"
+      },
       "CF8": {
         "image_alt": "Electrochromic Dimming Roof Panel",
         "image_fit": "cover",
@@ -52,11 +1074,144 @@
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/cf8.png",
         "rule": "bare"
       },
+      "CFL": {
+        "image_alt": "Extended Front Splitter, Carbon Flash",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/h-cfl.png",
+        "rule": "own"
+      },
+      "CFV": {
+        "image_alt": "Visible Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/cfv.jpg",
+        "rule": "bare"
+      },
+      "CFZ": {
+        "image_alt": "Carbon Flash Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/cfz.jpg",
+        "rule": "bare"
+      },
       "CM9": {
         "image_alt": "Body-Color Power Convertible Hardtop",
         "image_fit": "cover",
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-cm9.jpg",
+        "rule": "own"
+      },
+      "D3V": {
+        "image_alt": "Engine Lighting",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d3v.jpg",
+        "rule": "bare"
+      },
+      "DPB": {
+        "image_alt": "Carbon Flash/Blue Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpb.jpg",
+        "rule": "bare"
+      },
+      "DPC": {
+        "image_alt": "Carbon Flash/Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpc.png",
+        "rule": "bare"
+      },
+      "DPG": {
+        "image_alt": "Carbon Flash/Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpg.png",
+        "rule": "bare"
+      },
+      "DPL": {
+        "image_alt": "Carbon Flash/Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpl.jpg",
+        "rule": "bare"
+      },
+      "DPT": {
+        "image_alt": "Carbon Flash/Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpt.jpg",
+        "rule": "bare"
+      },
+      "DSY": {
+        "image_alt": "Edge Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsy.jpg",
+        "rule": "bare"
+      },
+      "DSZ": {
+        "image_alt": "Edge Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsz.jpg",
+        "rule": "bare"
+      },
+      "DT0": {
+        "image_alt": "Competition Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dt0.jpg",
+        "rule": "bare"
+      },
+      "DTH": {
+        "image_alt": "Carbon Flash Metallic Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dth.jpg",
+        "rule": "bare"
+      },
+      "DUB": {
+        "image_alt": "Sterling Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dub.jpg",
+        "rule": "bare"
+      },
+      "DZU": {
+        "image_alt": "Carbon Flash/Competition Yellow Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzu.jpg",
+        "rule": "bare"
+      },
+      "DZV": {
+        "image_alt": "Carbon Flash/Midnight Silver Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzv.jpg",
+        "rule": "bare"
+      },
+      "DZX": {
+        "image_alt": "Carbon Flash/Edge Red Stinger Stripe",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dzx.jpg",
+        "rule": "bare"
+      },
+      "EDU": {
+        "image_alt": "Body-Color and Carbon Flash Accents",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-edu.png",
+        "rule": "own"
+      },
+      "EFY": {
+        "image_alt": "Body-Color Exterior Accents",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-efy.png",
         "rule": "own"
       },
       "EYK": {
@@ -73,6 +1228,97 @@
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-g-h-r-s-eyt-cmp.webp",
         "rule": "shared"
       },
+      "PDA": {
+        "image_alt": "Jake C8.R Graphics Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/pda.jpg",
+        "rule": "bare"
+      },
+      "PDY": {
+        "image_alt": "Roadside Safety Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/pdy.jpg",
+        "rule": "bare"
+      },
+      "R8C": {
+        "image_alt": "Corvette Museum Delivery",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/r8c.jpg",
+        "rule": "bare"
+      },
+      "RWH": {
+        "image_alt": "Black Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwh.jpg",
+        "rule": "bare"
+      },
+      "RWU": {
+        "image_alt": "Collapsible Cargo Area Organizer",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwu.jpg",
+        "rule": "bare"
+      },
+      "RXI": {
+        "image_alt": "Visible Carbon Fiber LT6 Engine Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/rxi.jpg",
+        "rule": "bare"
+      },
+      "RYQ": {
+        "image_alt": "Visible Carbon Fiber Door Intake Trim",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/ryq.jpg",
+        "rule": "bare"
+      },
+      "RYT": {
+        "image_alt": "First Aid Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/ryt.jpg",
+        "rule": "bare"
+      },
+      "S08": {
+        "image_alt": "Highway Safety Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/s08.jpg",
+        "rule": "bare"
+      },
+      "SAI": {
+        "image_alt": "",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sai.jpg",
+        "rule": "bare"
+      },
+      "SBT": {
+        "image_alt": "Dual Roof Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sbt.jpg",
+        "rule": "bare"
+      },
+      "SC7": {
+        "image_alt": "Roof Panel Storage Pouch",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sc7.jpg",
+        "rule": "bare"
+      },
+      "SHT": {
+        "image_alt": "Tech Bronze Jake Hood Graphic",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/sht.jpg",
+        "rule": "bare"
+      },
       "SLN": {
         "image_alt": "Visible Carbon Fiber Engine Cross Brace",
         "image_fit": "cover",
@@ -80,11 +1326,25 @@
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-sln.jpg",
         "rule": "own"
       },
+      "T0F": {
+        "image_alt": "Carbon Flash-Painted Carbon Fiber Aero Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/t0f.jpg",
+        "rule": "bare"
+      },
       "T0G": {
         "image_alt": "Visible Carbon Fiber Aero Package",
         "image_fit": "cover",
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/t0g.jpg",
+        "rule": "bare"
+      },
+      "UQT": {
+        "image_alt": "Performance Data and Video Recorder",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/uqt.jpg",
         "rule": "bare"
       },
       "VK3": {
@@ -94,21 +1354,182 @@
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-vk3.png",
         "rule": "own"
       },
+      "VPO": {
+        "image_alt": "Tech Bronze Jake C8.R Rear Hash Graphic",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/vpo.jpg",
+        "rule": "bare"
+      },
+      "VWE": {
+        "image_alt": "Front Radiator Grille Screens",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-r-s-vwe.png",
+        "rule": "shared"
+      },
+      "VWT": {
+        "image_alt": "Insect Protection Grille Screen",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/e-g-h-vwt.jpg",
+        "rule": "shared"
+      },
+      "WKR": {
+        "image_alt": "GT3.R Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/wkr.jpg",
+        "rule": "bare"
+      },
+      "WKS": {
+        "image_alt": "Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/wks.jpg",
+        "rule": "bare"
+      },
       "WUB": {
         "image_alt": "Quad Center Exit Exhaust",
         "image_fit": "cover",
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/wub.png",
         "rule": "bare"
+      },
+      "XFS": {
+        "image_alt": "Michelin Pilot Sport Cup 2 R Tires",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/misc/xfs.png",
+        "rule": "bare"
+      },
+      "ZZ3": {
+        "image_alt": "Convertible Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/zz3.jpg",
+        "rule": "bare"
       }
     },
     "zr1": {
+      "5JR": {
+        "image_alt": "Visible Carbon Fiber Outside Mirror Covers",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/5jr.jpg",
+        "rule": "bare"
+      },
+      "AUP": {
+        "image_alt": "Asymmetrical Seats",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/aup.jpg",
+        "rule": "bare"
+      },
+      "B6P": {
+        "image_alt": "Coupe Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/b6p.jpg",
+        "rule": "bare"
+      },
+      "BV4": {
+        "image_alt": "Personalized Specification Plaque",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/r-bv4.jpg",
+        "rule": "own"
+      },
       "C2Z": {
         "image_alt": "Visible Carbon Fiber Roof Panel",
         "image_fit": "cover",
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-c2z.jpg",
         "rule": "fallback:z06"
+      },
+      "CFV": {
+        "image_alt": "Visible Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/cfv.jpg",
+        "rule": "bare"
+      },
+      "D3V": {
+        "image_alt": "Engine Lighting",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d3v.jpg",
+        "rule": "bare"
+      },
+      "DPB": {
+        "image_alt": "Carbon Flash/Blue Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpb.jpg",
+        "rule": "bare"
+      },
+      "DPC": {
+        "image_alt": "Carbon Flash/Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpc.png",
+        "rule": "bare"
+      },
+      "DPG": {
+        "image_alt": "Carbon Flash/Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpg.png",
+        "rule": "bare"
+      },
+      "DPL": {
+        "image_alt": "Carbon Flash/Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpl.jpg",
+        "rule": "bare"
+      },
+      "DPT": {
+        "image_alt": "Carbon Flash/Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpt.jpg",
+        "rule": "bare"
+      },
+      "DSY": {
+        "image_alt": "Edge Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsy.jpg",
+        "rule": "bare"
+      },
+      "DSZ": {
+        "image_alt": "Edge Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsz.jpg",
+        "rule": "bare"
+      },
+      "DT0": {
+        "image_alt": "Competition Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dt0.jpg",
+        "rule": "bare"
+      },
+      "DTH": {
+        "image_alt": "Carbon Flash Metallic Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dth.jpg",
+        "rule": "bare"
+      },
+      "DUB": {
+        "image_alt": "Sterling Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dub.jpg",
+        "rule": "bare"
       },
       "DY0": {
         "image_alt": "Carbon Fiber Display Hood",
@@ -137,6 +1558,69 @@
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-g-h-r-s-eyt-cmp.webp",
         "rule": "shared"
+      },
+      "PDY": {
+        "image_alt": "Roadside Safety Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/pdy.jpg",
+        "rule": "bare"
+      },
+      "R8C": {
+        "image_alt": "Corvette Museum Delivery",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/r8c.jpg",
+        "rule": "bare"
+      },
+      "RWH": {
+        "image_alt": "Black Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwh.jpg",
+        "rule": "bare"
+      },
+      "RWU": {
+        "image_alt": "Collapsible Cargo Area Organizer",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwu.jpg",
+        "rule": "bare"
+      },
+      "RYT": {
+        "image_alt": "First Aid Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/ryt.jpg",
+        "rule": "bare"
+      },
+      "S08": {
+        "image_alt": "Highway Safety Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/s08.jpg",
+        "rule": "bare"
+      },
+      "SAI": {
+        "image_alt": "",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sai.jpg",
+        "rule": "bare"
+      },
+      "SBT": {
+        "image_alt": "Dual Roof Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sbt.jpg",
+        "rule": "bare"
+      },
+      "SC7": {
+        "image_alt": "Roof Panel Storage Pouch",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sc7.jpg",
+        "rule": "bare"
       },
       "SL9": {
         "image_alt": "Engine Specification Plaque",
@@ -159,6 +1643,13 @@
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/r-s-tom.webp",
         "rule": "shared"
       },
+      "UQT": {
+        "image_alt": "Performance Data and Video Recorder",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/uqt.jpg",
+        "rule": "bare"
+      },
       "VK3": {
         "image_alt": "Front License Plate Bracket",
         "image_fit": "cover",
@@ -166,21 +1657,161 @@
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-vk3.png",
         "rule": "fallback:z06"
       },
+      "VWE": {
+        "image_alt": "Front Radiator Grille Screens",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-r-s-vwe.png",
+        "rule": "shared"
+      },
+      "WKR": {
+        "image_alt": "GT3.R Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/wkr.jpg",
+        "rule": "bare"
+      },
       "WUB": {
         "image_alt": "Quad Center Exit Exhaust",
         "image_fit": "cover",
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/wub.png",
         "rule": "bare"
+      },
+      "XFS": {
+        "image_alt": "Michelin Pilot Sport Cup 2 R Tires",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/misc/xfs.png",
+        "rule": "bare"
+      },
+      "ZZ3": {
+        "image_alt": "Convertible Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/zz3.jpg",
+        "rule": "bare"
       }
     },
     "zr1x": {
+      "5JR": {
+        "image_alt": "Visible Carbon Fiber Outside Mirror Covers",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/5jr.jpg",
+        "rule": "bare"
+      },
+      "AUP": {
+        "image_alt": "Asymmetrical Seats",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/aup.jpg",
+        "rule": "bare"
+      },
+      "B6P": {
+        "image_alt": "Coupe Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/b6p.jpg",
+        "rule": "bare"
+      },
+      "BV4": {
+        "image_alt": "Personalized Specification Plaque",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/bv4.jpg",
+        "rule": "bare"
+      },
       "C2Z": {
         "image_alt": "Visible Carbon Fiber Roof Panel",
         "image_fit": "cover",
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-c2z.jpg",
         "rule": "fallback:z06"
+      },
+      "CFV": {
+        "image_alt": "Visible Carbon Fiber Ground Effects",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/cfv.jpg",
+        "rule": "bare"
+      },
+      "D3V": {
+        "image_alt": "Engine Lighting",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/d3v.jpg",
+        "rule": "bare"
+      },
+      "DPB": {
+        "image_alt": "Carbon Flash/Blue Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpb.jpg",
+        "rule": "bare"
+      },
+      "DPC": {
+        "image_alt": "Carbon Flash/Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpc.png",
+        "rule": "bare"
+      },
+      "DPG": {
+        "image_alt": "Carbon Flash/Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpg.png",
+        "rule": "bare"
+      },
+      "DPL": {
+        "image_alt": "Carbon Flash/Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpl.jpg",
+        "rule": "bare"
+      },
+      "DPT": {
+        "image_alt": "Carbon Flash/Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dpt.jpg",
+        "rule": "bare"
+      },
+      "DSY": {
+        "image_alt": "Edge Orange Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsy.jpg",
+        "rule": "bare"
+      },
+      "DSZ": {
+        "image_alt": "Edge Red Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsz.jpg",
+        "rule": "bare"
+      },
+      "DT0": {
+        "image_alt": "Competition Yellow Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dt0.jpg",
+        "rule": "bare"
+      },
+      "DTH": {
+        "image_alt": "Carbon Flash Metallic Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dth.jpg",
+        "rule": "bare"
+      },
+      "DUB": {
+        "image_alt": "Sterling Silver Racing Stripes",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dub.jpg",
+        "rule": "bare"
       },
       "DY0": {
         "image_alt": "Carbon Fiber Display Hood",
@@ -210,6 +1841,69 @@
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-g-h-r-s-eyt-cmp.webp",
         "rule": "shared"
       },
+      "PDY": {
+        "image_alt": "Roadside Safety Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/pdy.jpg",
+        "rule": "bare"
+      },
+      "R8C": {
+        "image_alt": "Corvette Museum Delivery",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/delivery/r8c.jpg",
+        "rule": "bare"
+      },
+      "RWH": {
+        "image_alt": "Black Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwh.jpg",
+        "rule": "bare"
+      },
+      "RWU": {
+        "image_alt": "Collapsible Cargo Area Organizer",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/rwu.jpg",
+        "rule": "bare"
+      },
+      "RYT": {
+        "image_alt": "First Aid Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/ryt.jpg",
+        "rule": "bare"
+      },
+      "S08": {
+        "image_alt": "Highway Safety Kit",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/s08.jpg",
+        "rule": "bare"
+      },
+      "SAI": {
+        "image_alt": "",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sai.jpg",
+        "rule": "bare"
+      },
+      "SBT": {
+        "image_alt": "Dual Roof Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sbt.jpg",
+        "rule": "bare"
+      },
+      "SC7": {
+        "image_alt": "Roof Panel Storage Pouch",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/sc7.jpg",
+        "rule": "bare"
+      },
       "SL9": {
         "image_alt": "Engine Specification Plaque",
         "image_fit": "cover",
@@ -231,6 +1925,13 @@
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/r-s-tom.webp",
         "rule": "shared"
       },
+      "UQT": {
+        "image_alt": "Performance Data and Video Recorder",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/int/uqt.jpg",
+        "rule": "bare"
+      },
       "VK3": {
         "image_alt": "Front License Plate Bracket",
         "image_fit": "cover",
@@ -238,14 +1939,42 @@
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-vk3.png",
         "rule": "fallback:z06"
       },
+      "VWE": {
+        "image_alt": "Front Radiator Grille Screens",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-r-s-vwe.png",
+        "rule": "shared"
+      },
+      "WKR": {
+        "image_alt": "GT3.R Premium Indoor Car Cover",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/wkr.jpg",
+        "rule": "bare"
+      },
       "WUB": {
         "image_alt": "Quad Center Exit Exhaust",
         "image_fit": "cover",
         "image_position": "center",
         "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/wub.png",
         "rule": "bare"
+      },
+      "XFS": {
+        "image_alt": "Michelin Pilot Sport Cup 2 R Tires",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/misc/xfs.png",
+        "rule": "bare"
+      },
+      "ZZ3": {
+        "image_alt": "Convertible Engine Appearance Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/zz3.jpg",
+        "rule": "bare"
       }
     }
   },
-  "source": "https://stingraychevroletcorvette.com/wp-json/wp/v2/media (/wp-content/uploads/pictures/27vette/)"
+  "source": "SFTP listing of https://stingraychevroletcorvette.com/wp-content/uploads/pictures (/wp-content/uploads/pictures/27vette/)"
 }
