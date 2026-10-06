@@ -235,6 +235,23 @@ The form serves a completed release, so editing the draft does not update an
 already running form. Create a new release and restart the consumer server with
 its new ID to see accepted changes.
 
+### Option card photos
+
+Card photos come from the workbook's `asset_map` (September 6 baseline). For an
+option without one, the form uses a photo found on the dealership site under
+`/wp-content/uploads/pictures/27vette/` by the existing form's file-name rules
+(`c-`, `e-`, `g-`, `h-`, `r-`, `s-` model prefixes, shared prefixes such as
+`r-s-`, model fallbacks, then a bare `rpo.png`). After adding images there, run:
+
+```bash
+python3 -m catalog.photos refresh --bundle .local/bundles/BUNDLE --library ~/Library/Mobile\ Documents/com~apple~CloudDocs/C8-iCloud/27img
+```
+
+It rewrites `catalog/web/photos/index.json` (commit it; the next release carries
+it) and lists ties, the cards still without a photo, and candidate site or local
+images with the name to give them in `/27vette/`. Interior cards use the swatches
+in `catalog/web/swatches/interior/`.
+
 ## Static bundle for the browser form
 
 The customer form can run in the shopper's browser from static files on the
