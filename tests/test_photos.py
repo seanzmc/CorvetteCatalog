@@ -3,7 +3,7 @@ import json
 import unittest
 
 from catalog import foundation as f
-from catalog.photos import INDEX, LANES, PATH_FILTER, Media, targets
+from catalog.photos import INDEX, LANES, PATH_FILTER, Media, list_sftp, targets
 
 SITE = 'https://stingraychevroletcorvette.com' + PATH_FILTER
 
@@ -27,6 +27,29 @@ class PhotoRuleTests(unittest.TestCase):
         self.assertEqual(url('stingray', 'ABC'), ('imgi_4_c-abc-2.png', 'own'))
         self.assertEqual(url('stingray', 'DUP'), (None, 'own'))  # two files at one rule: neither
         self.assertEqual(url('zr1', 'TIE'), (None, 'shared'))
+
+    def test_sftp_listing_keeps_original_images_only(self):
+        tree = {
+            'wp-content/uploads/pictures': [('d', 'wp-content/uploads/pictures/27vette'), ('-', 'wp-content/uploads/pictures/x.jpg')],
+            'wp-content/uploads/pictures/27vette': [
+                ('d', 'wp-content/uploads/pictures/27vette/stripes'), ('-', 'wp-content/uploads/pictures/27vette/.'),
+                ('-', 'wp-content/uploads/pictures/27vette/h-vk3.png'),
+                ('-', 'wp-content/uploads/pictures/27vette/h-vk3-300x200.png'),
+                ('-', 'wp-content/uploads/pictures/27vette/big-scaled.jpg'),
+                ('-', 'wp-content/uploads/pictures/27vette/.rpmcreated')],
+            'wp-content/uploads/pictures/27vette/stripes': [('-', 'wp-content/uploads/pictures/27vette/stripes/dsy.jpg')],
+        }
+        def run(target, commands):
+            out = []
+            for command in commands:
+                folder = command.split('"')[1]
+                out.append(f'sftp> {command}')
+                out += [f'{kind}rwxr-xr-x 1 u g 10 Oct 6 12:00 {name}' for kind, name in tree[folder]]
+            return '\n'.join(out)
+        self.assertEqual(list_sftp('login', run), [
+            'https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/h-vk3.png',
+            'https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/stripes/dsy.jpg',
+            'https://stingraychevroletcorvette.com/wp-content/uploads/pictures/x.jpg'])
 
     def test_index_only_adds_photos_where_the_baseline_has_none(self):
         index = json.loads(INDEX.read_text())

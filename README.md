@@ -244,10 +244,12 @@ option without one, the form uses a photo found on the dealership site under
 `r-s-`, model fallbacks, then a bare `rpo.png`). After adding images there, run:
 
 ```bash
-python3 -m catalog.photos refresh --bundle .local/bundles/BUNDLE --library ~/Library/Mobile\ Documents/com~apple~CloudDocs/C8-iCloud/27img
+python3 -m catalog.photos refresh --sftp stingraychevroletcorvette.wordpress.com@sftp.wp.com --bundle .local/bundles/BUNDLE --library ~/Library/Mobile\ Documents/com~apple~CloudDocs/C8-iCloud/27img
 ```
 
-It rewrites `catalog/web/photos/index.json` (commit it; the next release carries
+`--sftp` lists the folder over your SSH login, so images copied there over SFTP
+count (without it, only images added through WordPress's media library do). It
+rewrites `catalog/web/photos/index.json` (commit it; the next release carries
 it) and lists ties, the cards still without a photo, and candidate site or local
 images with the name to give them in `/27vette/`. Interior cards use the swatches
 in `catalog/web/swatches/interior/`.
