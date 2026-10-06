@@ -46,9 +46,17 @@ async function run(action) {
 }
 // Card photos come from the catalog's source asset rows; a failed image is
 // hidden and never affects what can be selected.
+// An option without its own baseline photo uses the photo of another option
+// with the same RPO, then the site photo the photo step found for it
+// (catalog.photos, photos/index.json).
+let sitePhotos={};
+fetch('photos/index.json').then(r=>r.ok?r.json():null).then(d=>{sitePhotos=d?.models||{};if(current)render();}).catch(()=>{});
 function assetsFor(m) {
-  const rows=m.presentation.asset_map||[];
-  return {option:new Map(rows.filter(r=>r.target_type==='option').map(r=>[r.target_id,r])),
+  const rows=m.presentation.asset_map||[], key=Object.keys(catalog.models).find(k=>catalog.models[k]===m);
+  const own=new Map(rows.filter(r=>r.target_type==='option').map(r=>[r.target_id,r]));
+  const byRpo=new Map([...own].map(([id,r])=>[m.options[id]?.rpo,r]).filter(([rpo])=>rpo));
+  const rpo=id=>m.options[id]?.rpo;
+  return {option:{get:id=>own.get(id)||byRpo.get(rpo(id))||sitePhotos[key]?.[rpo(id)?.toUpperCase()]},
           context:new Map(rows.filter(r=>r.target_type==='context_choice').map(r=>[r.target_id,r])),
           model:rows.find(r=>r.target_type==='model')};
 }

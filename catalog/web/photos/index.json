@@ -1,0 +1,251 @@
+{
+  "fetched_at": "2026-10-06T01:03:26Z",
+  "format": "catalog-option-photos-v1",
+  "media_count": 290,
+  "models": {
+    "grand_sport": {
+      "CF8": {
+        "image_alt": "Electrochromic Dimming Roof Panel",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/cf8.png",
+        "rule": "bare"
+      },
+      "CFL": {
+        "image_alt": "Extended Front Splitter, Carbon Flash",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-cfl.png",
+        "rule": "own"
+      }
+    },
+    "grand_sport_x": {
+      "CF8": {
+        "image_alt": "Electrochromic Dimming Roof Panel",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/cf8.png",
+        "rule": "bare"
+      },
+      "CFL": {
+        "image_alt": "Extended Front Splitter, Carbon Flash",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-cfl.png",
+        "rule": "fallback:grand_sport"
+      }
+    },
+    "stingray": {
+      "CF8": {
+        "image_alt": "Electrochromic Dimming Removable Roof Panel",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/cf8.png",
+        "rule": "bare"
+      }
+    },
+    "z06": {
+      "CF8": {
+        "image_alt": "Electrochromic Dimming Roof Panel",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/cf8.png",
+        "rule": "bare"
+      },
+      "CM9": {
+        "image_alt": "Body-Color Power Convertible Hardtop",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-cm9.jpg",
+        "rule": "own"
+      },
+      "EYK": {
+        "image_alt": "Chrome Exterior Badge Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-g-h-r-s-eyk-cmp.webp",
+        "rule": "shared"
+      },
+      "EYT": {
+        "image_alt": "Carbon Flash Exterior Badge Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-g-h-r-s-eyt-cmp.webp",
+        "rule": "shared"
+      },
+      "SLN": {
+        "image_alt": "Visible Carbon Fiber Engine Cross Brace",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-sln.jpg",
+        "rule": "own"
+      },
+      "T0G": {
+        "image_alt": "Visible Carbon Fiber Aero Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/t0g.jpg",
+        "rule": "bare"
+      },
+      "VK3": {
+        "image_alt": "Front License Plate Bracket",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-vk3.png",
+        "rule": "own"
+      },
+      "WUB": {
+        "image_alt": "Quad Center Exit Exhaust",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/wub.png",
+        "rule": "bare"
+      }
+    },
+    "zr1": {
+      "C2Z": {
+        "image_alt": "Visible Carbon Fiber Roof Panel",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-c2z.jpg",
+        "rule": "fallback:z06"
+      },
+      "DY0": {
+        "image_alt": "Carbon Fiber Display Hood",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/h-dy0.png",
+        "rule": "fallback:z06"
+      },
+      "ETV": {
+        "image_alt": "Body-Color Carbon Fiber Split-Window Trim",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/r-s-etv.jpg",
+        "rule": "shared"
+      },
+      "EYK": {
+        "image_alt": "Chrome Exterior Badge Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-g-h-r-s-eyk-cmp.webp",
+        "rule": "shared"
+      },
+      "EYT": {
+        "image_alt": "Carbon Flash Exterior Badge Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-g-h-r-s-eyt-cmp.webp",
+        "rule": "shared"
+      },
+      "SL9": {
+        "image_alt": "Engine Specification Plaque",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/r-sl9.jpeg",
+        "rule": "own"
+      },
+      "SLN": {
+        "image_alt": "Visible Carbon Fiber Engine Cross Brace",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-sln.jpg",
+        "rule": "fallback:z06"
+      },
+      "TOM": {
+        "image_alt": "Visible Carbon Fiber Aero Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/r-s-tom.webp",
+        "rule": "shared"
+      },
+      "VK3": {
+        "image_alt": "Front License Plate Bracket",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-vk3.png",
+        "rule": "fallback:z06"
+      },
+      "WUB": {
+        "image_alt": "Quad Center Exit Exhaust",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/wub.png",
+        "rule": "bare"
+      }
+    },
+    "zr1x": {
+      "C2Z": {
+        "image_alt": "Visible Carbon Fiber Roof Panel",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-c2z.jpg",
+        "rule": "fallback:z06"
+      },
+      "DY0": {
+        "image_alt": "Carbon Fiber Display Hood",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/h-dy0.png",
+        "rule": "fallback:z06"
+      },
+      "ETV": {
+        "image_alt": "Body-Color Carbon Fiber Split-Window Trim",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/r-s-etv.jpg",
+        "rule": "shared"
+      },
+      "EYK": {
+        "image_alt": "Chrome Exterior Badge Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-g-h-r-s-eyk-cmp.webp",
+        "rule": "shared"
+      },
+      "EYT": {
+        "image_alt": "Carbon Flash Exterior Badge Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/e-g-h-r-s-eyt-cmp.webp",
+        "rule": "shared"
+      },
+      "SL9": {
+        "image_alt": "Engine Specification Plaque",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/s-sl9.jpeg",
+        "rule": "own"
+      },
+      "SLN": {
+        "image_alt": "Visible Carbon Fiber Engine Cross Brace",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-sln.jpg",
+        "rule": "fallback:z06"
+      },
+      "TOM": {
+        "image_alt": "Visible Carbon Fiber Aero Package",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/r-s-tom.webp",
+        "rule": "shared"
+      },
+      "VK3": {
+        "image_alt": "Front License Plate Bracket",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/h-vk3.png",
+        "rule": "fallback:z06"
+      },
+      "WUB": {
+        "image_alt": "Quad Center Exit Exhaust",
+        "image_fit": "cover",
+        "image_position": "center",
+        "image_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/mech/wub.png",
+        "rule": "bare"
+      }
+    }
+  },
+  "source": "https://stingraychevroletcorvette.com/wp-json/wp/v2/media (/wp-content/uploads/pictures/27vette/)"
+}
