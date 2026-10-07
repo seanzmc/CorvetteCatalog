@@ -291,9 +291,9 @@ rolls back.
 ## 6. Suggested task order
 
 Each row is a separately authorized task and PR. The authoritative version of
-this sequence lives in [migration-plan.md](migration-plan.md) ("September 22
-form audit and live-migration rollout"); this section is retained as audit
-detail. Keep the two in sync when tasks are re-ordered or added.
+this sequence lives in [migration-plan.md](migration-plan.md) (now the October 7
+remaining-work section, which replaced the September 22 rollout); this section
+is retained as audit detail. Keep the two in sync when tasks are re-ordered or added.
 
 | # | Task | Why now |
 | --- | --- | --- |
@@ -316,7 +316,7 @@ detail. Keep the two in sync when tasks are re-ordered or added.
 | 2 | Keeping builds across reloads (4.2) | Signed client-held build token |
 | 3 | 3LT/3LZ artwork for lower trims (3.2) | No; 1LT/2LT and 1LZ/2LZ differ visually |
 | 4 | Image publication rights (3.3) | Owner confirms the images may be published |
-| 5 | Artwork timing (3.4) | Launches with the form |
+| 5 | Artwork timing (3.4) | Launches with the form; superseded October 7: artwork is hidden until it ships ([migration plan](migration-plan.md)) |
 | 6 | Workbook freeze (4.4) | Change freeze now (workbook unchanged since baseline); generation stops at cutover |
 
 Still open: the cutover date (stage E) and the dealership coordination for the
