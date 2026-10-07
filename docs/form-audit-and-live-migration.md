@@ -151,12 +151,14 @@ folder; newly acquired sources need the same confirmation.
 
 ### 3.4 Launch scope
 
-**Decided:** artwork launches with the form. With the trim decision above, the
-launch shows artwork for the 10 bound 3LT/3LZ scenes, and an explicit
-"unavailable" state for Grand Sport X, all 1LT/2LT/1LZ/2LZ configurations and
-Stingray outside GBA, G8G and GKZ with 5ZU. The form stays fully usable in each
-of those cases. More coverage before launch is optional work under task 8; it
-does not block launch.
+**Superseded October 7:** the September 23 decision to launch artwork with the
+form no longer applies. Artwork is deferred to a later artwork release and does
+not block launch. Pending task R1 in the [current migration plan](migration-plan.md)
+will hide the visualizer, including all 10 bound 3LT/3LZ scenes, in the customer
+form and bundle; swatches and card photos will stay. The current implementation
+still renders and packages artwork. The trim-specific coverage restrictions in
+§3.2 remain evidence for later artwork work, not a requirement to show artwork
+or an "unavailable" state at launch.
 
 ### 3.5 Delivery weight
 
@@ -288,12 +290,14 @@ rolls back.
    (2.2 item 9) before the 2028 guide arrives; the editor cannot create a new
    year today.
 
-## 6. Suggested task order
+## 6. Historical task order — superseded
 
-Each row is a separately authorized task and PR. The authoritative version of
-this sequence lives in [migration-plan.md](migration-plan.md) (now the October 7
-remaining-work section, which replaced the September 22 rollout); this section
-is retained as audit detail. Keep the two in sync when tasks are re-ordered or added.
+The table below preserves the September 22 rollout with September 23 decisions
+as a historical audit snapshot, not the current work queue. Its Cloudflare
+staging and artwork-at-launch scope are obsolete. Follow the October 7
+remaining-work sequence **R1–R7** in [migration-plan.md](migration-plan.md) for
+current scope and ordering; each remaining task requires separate authorization.
+This historical table is not maintained in sync with that sequence.
 
 | # | Task | Why now |
 | --- | --- | --- |

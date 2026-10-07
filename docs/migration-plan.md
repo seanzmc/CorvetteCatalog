@@ -5,10 +5,12 @@
 Tasks 1–6 below are done; task 8's interior swatches and option photos are
 merged (#86–#90). Owner decisions, October 7:
 
-- **Artwork is hidden until it ships.** The visualizer no longer blocks launch
-  (supersedes the September 23 "launches with the form" decision). The form
-  shows no artwork, including the ten bound 3LT/3LZ scenes, until a later
-  artwork release turns it on. Swatches and card photos stay.
+- **Artwork will be hidden until it ships.** The visualizer no longer blocks
+  launch (supersedes the September 23 "launches with the form" decision).
+  Pending task R1 will hide all visualizer artwork, including the ten bound
+  3LT/3LZ scenes, until a later artwork release turns it on. The current form
+  still renders artwork and the bundle still packages it. Swatches and card
+  photos will stay.
 - **The catalog must be brought up to date with the manufacturer before
   go-live.** The catalog reflects the September 6 export (price schedule revised
   July 6). A model price change took effect Monday, October 5, so a newer
