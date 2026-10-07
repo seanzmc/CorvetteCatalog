@@ -53,9 +53,10 @@ class Tokens:
         return payload
 
 
-def description(release_id, default_model, catalogs, dealer_submissions=False):
-    """What the form loads first: release identity, dealer mode and every model's contract."""
-    return dict(release_id=release_id, default_model=default_model,
+def description(release_id, default_model, catalogs, dealer_submissions=False, artwork=True):
+    """What the form loads first: release identity, dealer mode, whether it shows
+    artwork and every model's contract."""
+    return dict(release_id=release_id, default_model=default_model, artwork=artwork,
                 dealer=dict(enabled=dealer_submissions, endpoint=dealer.ENDPOINT if dealer_submissions else None,
                             site_key=dealer.SITE_KEY if dealer_submissions else None),
                 models={key: catalog.contract() for key, catalog in catalogs.items()})

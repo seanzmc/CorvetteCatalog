@@ -1,12 +1,13 @@
 // A module worker (strict by default): Pyodide's module build needs one.
 // Runs the release's Python engine (catalog.browser.Form) in Pyodide. Messages
-// are handled one at a time; files are fetched with the release as a query so a
-// cache can never mix two releases.
+// are handled one at a time; files are fetched with their hash from bundle.json
+// as a query, so a cache can never mix two releases or two builds of one release
+// (with and without artwork).
 const ROOT = '/bundle';
 let pyodide, form, bundle, started, queue = Promise.resolve();
 
 async function fetchBytes(path) {
-  const response = await fetch(`${path}?v=${bundle.release_id}`);
+  const response = await fetch(`${path}?v=${bundle.files[path]}`);
   if (!response.ok) throw new Error(`Could not load ${path} (${response.status})`);
   return new Uint8Array(await response.arrayBuffer());
 }
