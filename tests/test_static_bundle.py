@@ -31,6 +31,8 @@ class StaticBundleTests(unittest.TestCase):
                 cls.release = cls.store.complete(cls.store.freeze(db, database_hash(db)))
         cls.bundle = sb.build(cls.store, cls.release, Path(cls.root.name) / 'bundle')
         cls.description = sb.verify(cls.bundle)
+        # Artwork is hidden until it ships; the engine is compared with the server on the artwork build.
+        cls.art = sb.build(cls.store, cls.release, Path(cls.root.name) / 'art', with_artwork=True)
 
     @classmethod
     def tearDownClass(cls):
@@ -48,7 +50,19 @@ class StaticBundleTests(unittest.TestCase):
         tables = {t for m in d['models'] for t in m['tables']}
         self.assertFalse({t for t in tables if 'translation' in t or 'evidence' in t or 'source_' in t})
         self.assertTrue(all((self.bundle / p).exists() for p in d['engine']))
-        self.assertTrue(any(p.startswith('artwork/') and p.endswith('.webp') for p in d['files']))
+        self.assertFalse(d['artwork'] or [p for p in d['files'] if p.startswith('artwork/')])
+        self.assertTrue(any(p.startswith('artwork/') and p.endswith('.webp') for p in sb.verify(self.art)['files']))
+
+    def test_bundle_without_artwork_hides_it_and_otherwise_matches(self):
+        contract = json.loads(gzip.decompress((self.bundle / 'catalog.json.gz').read_bytes()))
+        art = json.loads(gzip.decompress((self.art / 'catalog.json.gz').read_bytes()))
+        self.assertEqual((contract.pop('artwork'), art.pop('artwork')), (False, True))
+        self.assertEqual(contract, art)
+        call = lambda form, path, body: json.loads(form.call(path, encode(body)))['result']
+        hidden, shown = browser.Form(self.bundle), browser.Form(self.art)
+        body = {'model': 'z06', 'configuration_id': '3lz_h07', 'cards_for': []}
+        self.assertEqual(call(hidden, '/api/session', body)['build']['visualizer']['coverage'], 'art_not_bound')
+        self.assertNotEqual(call(shown, '/api/session', body)['build']['visualizer']['coverage'], 'art_not_bound')
 
     def test_trimmed_model_plays_a_build_exactly_like_the_release(self):
         model = next(m for m in self.description['models'] if m['model_key'] == 'z06')
@@ -78,7 +92,7 @@ class StaticBundleTests(unittest.TestCase):
         self.assertEqual(play(trimmed), play(full))
 
     def test_browser_form_answers_exactly_like_the_server(self):
-        form, server = browser.Form(self.bundle), Application(self.store, self.release, token_key=browser.KEY)
+        form, server = browser.Form(self.art), Application(self.store, self.release, token_key=browser.KEY)
         def both(path, body):
             ours = json.loads(form.call(path, encode(body)))
             try:
@@ -102,7 +116,7 @@ class StaticBundleTests(unittest.TestCase):
             both('/api/preview', dict(build_token=state['build_token'], action='select', target='missing', version=state['version']))
             both('/api/dealer/review', dict(build_token=state['build_token'], version=state['version']))
         # Cached builds match a fresh replay of the same token.
-        fresh = browser.Form(self.bundle)
+        fresh = browser.Form(self.art)
         self.assertEqual(json.loads(fresh.call('/api/restore', encode({'build_token': state['build_token']})))['result'],
                          json.loads(form.call('/api/restore', encode({'build_token': state['build_token']})))['result'])
         self.assertEqual(set(form.builds.catalogs), {'z06'})  # only the model in use is loaded
@@ -115,7 +129,7 @@ class StaticBundleTests(unittest.TestCase):
         self.assertFalse([p for p in self.description['files'] if p.endswith('.py') and not p.startswith('engine/')])
         contract = json.loads(gzip.decompress((self.bundle / self.description['contract']).read_bytes()))
         self.assertEqual((contract['release_id'], contract['dealer']['enabled']), (self.release, False))
-        self.assertEqual(contract, json.loads(encode(Application(self.store, self.release).catalog())))
+        self.assertEqual(dict(contract, artwork=True), json.loads(encode(Application(self.store, self.release).catalog())))
 
     def test_rebuild_matches_live_dealer_mode_and_tampering_is_caught(self):
         # A live dealer build differs only in its dealer settings.
@@ -147,10 +161,10 @@ class StaticBundleTests(unittest.TestCase):
                 self.assertIn('Security check', answer['result']['error'])
                 self.assertEqual(call('/api/dealer/prepare', dict(body, turnstile_token='t'))['result']['payload']['turnstile_token'], 't')
         # Only the root bundle.json is exempt from the file list.
-        (again / 'artwork/bundle.json').write_text('{}')
+        (again / 'brand/bundle.json').write_text('{}')
         with self.assertRaisesRegex(ValueError, 'altered or unexpected'):
             sb.verify(again)
-        (again / 'artwork/bundle.json').unlink()
+        (again / 'brand/bundle.json').unlink()
         (again / 'engine/link.py').symlink_to(again / 'engine/catalog/evaluator.py')
         with self.assertRaisesRegex(ValueError, 'symbolic links'):
             sb.verify(again)

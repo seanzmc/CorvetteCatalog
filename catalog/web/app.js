@@ -170,8 +170,8 @@ function render() {
   el('stepHint').textContent=reviewing?'Check your selections and total before downloading or contacting the dealer.':'Select an option to see its price and any changes needed for your build.';
   el('previous').disabled=index===0 || !!pending;el('next').hidden=reviewing;el('next').disabled=!!pending;
   el('next').textContent=index===list.length-2?'Review build':'Continue';
-  el('artwork').hidden=reviewing;
-  catalogArtwork.render(b.visualizer);
+  el('artwork').hidden=reviewing || catalog.artwork===false; // hidden until artwork ships
+  if(catalog.artwork!==false) catalogArtwork.render(b.visualizer);
   el('interiorPanel').hidden=activeStep!=='interior'; if(activeStep==='interior') renderInteriors();
   el('searchLabel').hidden=reviewing || activeStep==='interior';el('buildReview').hidden=!reviewing;
   renderOptions();renderSummary();catalogDealer.sync();

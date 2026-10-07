@@ -259,7 +259,8 @@ in `catalog/web/swatches/interior/`.
 The customer form can run in the shopper's browser from static files on the
 dealership's WordPress site. A bundle is the whole site for one completed
 release: the release's own form page, each model's trimmed catalog, the engine
-code, the artwork and a `bundle.json` listing every file's hash:
+code and a `bundle.json` listing every file's hash. Artwork is hidden until it
+ships: add `--with-artwork` to include the release's artwork and show it in the form.
 
 ```sh
 python -m catalog.static_bundle build --store STORE --release RELEASE_ID --output DIR

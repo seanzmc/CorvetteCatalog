@@ -1,6 +1,6 @@
 """Static files that let the customer form run in the browser (Pyodide).
 
-Run: python -m catalog.static_bundle build --store STORE --release RELEASE_ID --output DIR [--enable-dealer-submissions]
+Run: python -m catalog.static_bundle build --store STORE --release RELEASE_ID --output DIR [--enable-dealer-submissions] [--with-artwork]
      python -m catalog.static_bundle verify DIR
 
 A bundle is made from one verified completed release and is a complete static
@@ -11,7 +11,9 @@ site: open index.html from any folder. It holds:
 - catalog/<model>.sqlite.gz: only the tables the engine reads for that model,
   observed while loading it, so a shopper downloads one small model;
 - engine/catalog/*.py: the release's own engine code;
-- artwork/...: the release's verified artwork images, plus artwork-manifest.json;
+- artwork-manifest.json, and with --with-artwork the release's verified artwork
+  images under artwork/...; without it the manifest is empty and the form shows
+  no artwork (hidden until it ships, owner decision October 7);
 - bundle.json: release identity, models and the SHA-256 of every file.
 Building checks that every trimmed model gives the same contract and option
 cards as the full release. Output is reproducible for a given release.
@@ -108,9 +110,10 @@ def gzip_bytes(raw):
     return buffer.getvalue()
 
 
-def build(store, release, destination, dealer_submissions=False):
+def build(store, release, destination, dealer_submissions=False, with_artwork=False):
     """dealer_submissions: send builds to the existing dealer endpoint with Turnstile,
-    as the server's --enable-dealer-submissions; otherwise the page previews them."""
+    as the server's --enable-dealer-submissions; otherwise the page previews them.
+    with_artwork: ship the release's artwork; otherwise the form has none."""
     destination = Path(destination)
     if destination.exists():
         raise ValueError('Bundle destination already exists')
@@ -119,7 +122,7 @@ def build(store, release, destination, dealer_submissions=False):
         raise ValueError('Use the runtime pinned in this release')
     bundle = store.completed / release
     runtime = bundle / 'runtime/catalog'
-    manifest = artwork.load_collection(runtime / 'web/artwork')
+    manifest = artwork.load_collection(runtime / 'web/artwork') if with_artwork else []
     destination.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix='.bundle-', dir=destination.parent))
     try:
@@ -147,7 +150,7 @@ def build(store, release, destination, dealer_submissions=False):
                 models.append(dict(model_key=model['model_key'], registry_key=model['registry_key'],
                                    display_order=model['display_order'], revision_id=model['revision_id'],
                                    catalog=name, tables=tables, uncompressed_bytes=len(raw)))
-        form = builds.description(release, record['default_model'], contracts, dealer_submissions)
+        form = builds.description(release, record['default_model'], contracts, dealer_submissions, with_artwork)
         (stage / 'catalog.json.gz').write_bytes(gzip_bytes(encode(form).encode()))
         web = runtime / 'web'
         for source in sorted(web.rglob('*')):
@@ -160,14 +163,14 @@ def build(store, release, destination, dealer_submissions=False):
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(runtime / (name + '.py'), target)
         prefix = 'runtime/catalog/web/artwork/'
-        for asset in record['media'].get('assets', []):
+        for asset in record['media'].get('assets', []) if with_artwork else []:
             target = stage / 'artwork' / asset['path'].removeprefix(prefix)
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(bundle / asset['path'], target)
         (stage / 'artwork-manifest.json').write_text(encode(manifest) + '\n')
         files = {str(p.relative_to(stage)): sha256(p) for p in sorted(stage.rglob('*')) if p.is_file()}
         description = dict(format=FORMAT, release_id=release, default_model=record['default_model'],
-                           pyodide=PYODIDE_VERSION, contract='catalog.json.gz', dealer_submissions=dealer_submissions, engine=[f'engine/catalog/{n}.py' for n in ENGINE],
+                           pyodide=PYODIDE_VERSION, contract='catalog.json.gz', dealer_submissions=dealer_submissions, artwork=with_artwork, engine=[f'engine/catalog/{n}.py' for n in ENGINE],
                            artwork_manifest='artwork-manifest.json', models=models, files=files)
         (stage / 'bundle.json').write_text(json.dumps(description, indent=2, sort_keys=True) + '\n')
         verify(stage)
@@ -204,10 +207,12 @@ def main():
     make.add_argument('--output', type=Path, required=True)
     make.add_argument('--enable-dealer-submissions', action='store_true',
                       help='Send builds to the existing dealer endpoint with Turnstile; otherwise preview without sending')
+    make.add_argument('--with-artwork', action='store_true',
+                      help="Show the release's artwork in the form; otherwise the form has none")
     commands.add_parser('verify', help='Check a bundle against its bundle.json').add_argument('path', type=Path)
     args = parser.parse_args()
     if args.command == 'build':
-        print(build(ReleaseStore(args.store), args.release, args.output, args.enable_dealer_submissions))
+        print(build(ReleaseStore(args.store), args.release, args.output, args.enable_dealer_submissions, args.with_artwork))
     else:
         description = verify(args.path)
         print(f'Bundle for release {description["release_id"]}: {len(description["files"])} files verified')
