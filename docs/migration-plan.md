@@ -42,7 +42,7 @@ Remaining tasks, each separately authorized:
 | # | Task | Notes |
 | --- | --- | --- |
 | R1 | Hide artwork | Done (PR #92); `--with-artwork` turns it back on |
-| R2 | Source intake with manual-edit conflicts | Price schedule first (needed for the October 5 change), then whole-guide export, then distribution updates; three-way compare and keep/overwrite per flagged fact |
+| R2 | Source intake with manual-edit conflicts | Price schedules and interpreted distribution updates done (`catalog.source_intake`, October 8): three-way compare, keep/take per conflict, edits cite their source lines. A new whole-guide export (availability matrices) is not read yet |
 | R3 | Bring the catalog current | Process the October 5 price schedule and any distribution updates after September 6 through R2; release and verify all six models |
 | R4 | Real dealer receipt proof (task 7, stage C) | Owner: Turnstile hostnames, endpoint CORS, dealership coordination |
 | R5 | Final workbook-vs-catalog comparison (audit §4.4) | Separates intentional manufacturer updates from defects |

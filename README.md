@@ -108,6 +108,33 @@ A stale review must be reloaded and reviewed again. Saved history retains earlie
 values; restoring a value is another reviewed edit. A zero price and an item with
 no separate charge have different meanings.
 
+## Take in manufacturer updates
+
+`catalog.source_intake` reads a whole price schedule, or a file of interpreted
+distribution-update proposals, and compares each fact three ways: the last
+manufacturer value, the new one and the draft's current value. Run it with the
+editor stopped:
+
+```sh
+python -m catalog.source_intake prices .local/authoring/draft.sqlite NEW.csv --previous OLD.xlsx --review review.json
+python -m catalog.source_intake proposals .local/authoring/draft.sqlite intake/distribution-updates/FILE.json --review review.json
+python -m catalog.source_intake apply .local/authoring/draft.sqlite review.json --keep ID ... --take ID ...
+python -m catalog.source_intake accept .local/authoring/draft.sqlite --reviewer NAME --reason TEXT
+```
+
+The review lists **updates** (the manufacturer changed a value nobody edited),
+**conflicts** (it changed a value that was also edited by hand) and notes such
+as codes not in the catalog or prices that depend on another option.
+Unchanged manufacturer values are left alone, so manual edits to them stay.
+`apply` saves the updates and every conflict named with `--take`. Updates
+named with `--keep` are skipped, and a conflict must be named with one or the
+other. Each saved edit cites its intake assertion and the exact source lines.
+`accept` records the owner's acceptance and links each assertion to its edits;
+build a release afterwards as usual. Originals are copied into Git-ignored
+`sources/raw/<sha256>/`. Reading a workbook export needs `openpyxl`; the CSV a
+spreadsheet exports does not. See
+[authoring operations](docs/authoring-operations.md#take-in-a-whole-manufacturer-source).
+
 ## Create a release
 
 Saving an edit updates the draft. To make that draft available to the customer form:

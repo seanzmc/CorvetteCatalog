@@ -256,9 +256,12 @@ def operations(db, revision, requests):
         if action in ('clone','create'): allowed |= set(spec['keys'])-{'revision_id'}
         if not isinstance(values,dict) or set(values)-allowed:
             raise ValueError('Identity, source evidence and system fields are read-only')
+        # A new record's key is written too: SQLite would coerce a mistyped key
+        # and the recorded history would no longer replay.
+        checked=values|key if action=='create' else values
         for field in spec['fields']:
-            if field['name'] in values and values[field['name']] is not None:
-                value=values[field['name']]
+            if field['name'] in checked and checked[field['name']] is not None:
+                value=checked[field['name']]
                 if field['integer'] and type(value) is not int:
                     raise ValueError(field['name']+' requires an integer')
                 if not field['integer'] and not isinstance(value,str):
@@ -423,6 +426,12 @@ def projections(db,revision,scenarios):
     return result
 
 
+def withdrawn(patches):
+    """Options an edit makes unavailable (active to factory_unavailable or retired)."""
+    return {op['after']['id'] for op in patches if op['table']=='option' and op['before'] and op['after']
+            and op['before']['lifecycle']=='active' and op['after']['lifecycle']!='active'}
+
+
 def connected(db, revision, patches, strict=False):
     """Show actual condition witnesses and their charges for affected owners.
 
@@ -436,8 +445,16 @@ def connected(db, revision, patches, strict=False):
     rule_tables=set(SCOPES)|{'condition','condition_clause','condition_member','conflict_member','replacement_action','choice_group_member'}
     affected_tables={op['table'] for op in patches}
     cat=ConsumerCatalog(db,revision);result=[]
-    if affected_tables & rule_tables or any(t.endswith('_configuration') and t.removesuffix('_configuration') in SCOPES for t in affected_tables):
+    gone=withdrawn(patches)
+    if gone or affected_tables & rule_tables or any(t.endswith('_configuration') and t.removesuffix('_configuration') in SCOPES for t in affected_tables):
         audit=Audit(db,revision)
+        if gone:
+            # Rules that need a withdrawn option, directly or through a group, condition or member.
+            groups={m['group_id'] for m in audit.ev.rows['choice_group_member'] if m['option_id'] in gone}
+            ids|=groups
+            ids|={m['condition_id'] for m in audit.ev.rows['condition_member'] if m['option_id'] in gone or m['group_id'] in groups}
+            ids|={m['conflict_id'] for m in audit.ev.rows['conflict_member'] if m['option_id'] in gone}
+            ids|={a['plan_id'] for a in audit.ev.rows['replacement_action'] if a['option_id'] in gone}
         # Membership edits name the group/member, while dependent rules only
         # reference the condition that includes that group as a member; resolve
         # edited groups to every condition (and so every scoped rule) using them.
@@ -452,7 +469,9 @@ def connected(db, revision, patches, strict=False):
                     if rid!=rule['id']: continue
                     condition=rule.get('condition_id') or rule.get('activation_condition_id')
                     wanted=[endpoint(rule)] if table in ('requirement','conflict') else []
-                    state=next(audit.conditioned(cfg,condition,wanted),None) if condition else audit.witness(cfg,sorted(audit.ev.members[rule['id']])[:1])
+                    members=sorted(audit.ev.members[rule['id']])
+                    state=(next(audit.conditioned(cfg,condition,wanted),None) if condition else
+                           next((s for s in (audit.witness(cfg,[m]) for m in members) if s),None))
                     if table=='replacement_plan' and state is not None:
                         try:
                             state=cat.ev.transition(state,'select',rule['requested_option_id'])
@@ -461,14 +480,19 @@ def connected(db, revision, patches, strict=False):
                                 audit._disjoint.cache_clear()
                                 raise ValueError('Cannot execute affected replacement: '+str(exc)) from exc
                             state=None
+                    missing=None
                     if state is None and strict:
-                        missing=audit.unavailable_witness(cfg,condition,wanted) if condition else {'status':'unresolved'}
+                        missing=(audit.unavailable_witness(cfg,condition,wanted) if condition else
+                                 {'status':'inapplicable' if members and all(cat.ev.options.get(m,{}).get('lifecycle','active')!='active' for m in members) else 'unresolved'})
                         if missing['status'] in ('unresolved','no_witness','failed'):
                             audit._disjoint.cache_clear()
                             raise ValueError('Cannot verify affected '+table+' '+rule['id']+' in '+cfg+': '+encode(missing))
-                    result.append(dict(label=LABELS[table]+' · '+rule['id'], configuration_id=cfg,
+                    item=dict(label=LABELS[table]+' · '+rule['id'], configuration_id=cfg,
                         state=project(cat,state) if state else None,
-                        coverage='Condition witness found' if state else 'No valid witness found; release audit remains required'))
+                        coverage='Condition witness found' if state else 'No valid witness found; release audit remains required')
+                    if missing:
+                        item['witness_status']=missing['status']
+                    result.append(item)
         if strict:
             overlaps=audit.overlaps(affected)
             problems=findings({'lanes':{revision:{'overlaps':overlaps}}})
@@ -516,9 +540,16 @@ def preview(db,revision,etag,requests,reason,scenarios=None):
         after=projections(db,revision,scenarios)
         connected_after=connected(db,revision,patches,strict=True)
         prior={(item['label'],item['configuration_id']):item for item in connected_before}
+        # Making an option unavailable (for example a manufacturer "not available at
+        # this time") may leave rules that need it provably inapplicable, as the
+        # imported catalog already has for such options. Anything unproven still fails.
+        gone=withdrawn(patches)
         for item in connected_after:
             old=prior.get((item['label'],item['configuration_id']))
             if old and old.get('state') and not item.get('state') and 'coverage' in item:
+                if gone and item.get('witness_status')=='inapplicable':
+                    item['coverage']='Inapplicable: this edit makes an option it needs unavailable'
+                    continue
                 raise ValueError('Previously active relationship has no valid witness: '+item['label']+' in '+item['configuration_id']+'; revise its scope or dependencies')
     finally:
         db.execute('ROLLBACK TO record_preview');db.execute('RELEASE record_preview')
