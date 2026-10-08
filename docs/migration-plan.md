@@ -44,7 +44,7 @@ Remaining tasks, each separately authorized:
 | R1 | Hide artwork | Done (PR #92); `--with-artwork` turns it back on |
 | R2 | Source intake with manual-edit conflicts | Price schedules and interpreted distribution updates done (`catalog.source_intake`, October 8): three-way compare, keep/take per conflict, edits cite their source lines. A new whole-guide export (availability matrices) is not read yet |
 | R3 | Bring the catalog current | Accepted October 8 (reviewer Sean): September 28 price schedule (+$300 on all 32 base prices) and 17 distribution-update proposals, including 5ZU and 5V7 not available (manufacturer constraint) ([sources](../sources/README.md#sources-received-october-8-2026)) |
-| R4 | Real dealer receipt proof (task 7, stage C) | Owner: Turnstile hostnames, endpoint CORS, dealership coordination |
+| R4 | Real dealer receipt proof (task 7, stage C) | Done October 8: a staging order (reference 243794) reached the owner's inbox with the build as sent ([dealer submission](dealer-submission.md#receipt-proof)) |
 | R5 | Final workbook-vs-catalog comparison (audit §4.4) | Separates intentional manufacturer updates from defects |
 | R6 | Production upload and public beta (stage D) | Old form still primary; a week without errors |
 | R7 | Cutover (stage E) | Explicit owner approval and date |
@@ -52,10 +52,11 @@ Remaining tasks, each separately authorized:
 R2 replaces the guide-intake half of task 10; new model-year foundations
 remain task 10 and are needed before the 2028 guide, not for cutover.
 
-Open owner decision: the old form is still live and still generated from the
-frozen workbook, so it does not show the new (September 28) prices. Either the change is
-also made in the workbook (breaking the freeze, recorded as a dual edit), or the
-old form stays on the earlier prices until cutover.
+Old-form prices (owner decision, October 8): the September 28 base prices were
+also made in the 27vette workbook (seanzmc/27vette#80, +$300 on all 32 base
+prices) and stay there. This breaks the September 23 freeze: `stingray_master.xlsx`
+is now `ad371051…`, not the `3127e663…` pinned in `baselines/2026-09-06/`, so R5
+counts these 32 prices as a recorded dual edit rather than a defect.
 
 ## Prior direction — September 22 form audit and live-migration rollout
 
