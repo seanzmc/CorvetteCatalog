@@ -1,0 +1,2171 @@
+{
+  "format": "source-proposals-v1",
+  "source": {
+    "name": "27-dist-updates.pdf",
+    "path": "sources/raw/5fc087a23daaddfdb0b803108575dae39ff9b261889bb9d88fd44502e804a63b/27-dist-updates.pdf",
+    "sha256": "5fc087a23daaddfdb0b803108575dae39ff9b261889bb9d88fd44502e804a63b",
+    "title": "Distribution Updates, USA 2027 Chevrolet Car Corvette, weeks of 5/11/2026 to 10/5/2026",
+    "locators": "Page and line in the PDF text layer (macOS PDFKit order)",
+    "precedence": "Newer weekly notes override older entries for the same item (owner, October 8)"
+  },
+  "proposals": [
+    {
+      "id": "2026-10-05-grand-sport-x-hp1",
+      "model_key": "grand_sport_x",
+      "locator": "page 1, lines 7-9",
+      "quote": "Grand Sport X Mechanical section-(HP1) Front axle, electrified propulsion, updated extended description to now read \"(186 hp [138.7 kW], 145 lb-ft of front torque [196.6 N-m]). 721 (537.7 kW) total combined hp with LS6 engine\".",
+      "summary": "HP1 description adds 721 hp total combined with the LS6",
+      "steps": [
+        [
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_hp1_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"Electrified front axle: 186 hp (138.7 kW), 145 lb-ft of front torque (196.6 N-m); 721 hp (537.7 kW) total combined with LS6 engine.\",\"detail_raw\":null,\"display_behavior\":null,\"display_order\":90,\"emit_code\":true,\"name\":\"Electrified Front Axle\",\"projection\":\"installed_equipment\",\"rpo\":\"HP1\",\"section_id\":\"sec_stan_001\"}"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "consumer_option",
+          "key": {
+            "option_id": "opt_hp1_001"
+          },
+          "values": {
+            "presentation": "{\"description\":\"Electrified front axle: 186 hp (138.7 kW), 145 lb-ft of front torque (196.6 N-m).\",\"detail_raw\":null,\"display_behavior\":null,\"display_order\":90,\"emit_code\":true,\"name\":\"Electrified Front Axle\",\"projection\":\"installed_equipment\",\"rpo\":\"HP1\",\"section_id\":\"sec_stan_001\"}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-09-28-zr1-5js",
+      "model_key": "zr1",
+      "locator": "page 1, lines 15-19",
+      "quote": "ALL Exterior sections-Added (5JS) LPO, Torch Red mirror caps, Genuine Corvette Accessory. It is \"A/D1\" on all equipment groups with a footnote 1 that reads \"Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\"",
+      "summary": "5JS Torch Red mirror caps, $595, available on every trim; not available with ZYC, 5JR, G26, G4Z, GKZ or GPH",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_5js_001",
+            "values": {
+              "rpo": "5JS",
+              "name": "Torch Red Mirror Caps",
+              "purchase_amount_minor": 59500,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5js_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\",\"display_behavior\":null,\"display_order\":61,\"emit_code\":true,\"name\":\"Torch Red Mirror Caps\",\"projection\":\"resolved_selection\",\"rpo\":\"5JS\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "conflict",
+            "key": {
+              "id": "conflict_5js_not_available"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_5js_001",
+              "activation_condition_id": "cfc34e40-3794-4076-bfdf-13ebadd627e0"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_zyc_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "2"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_5jr_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "3"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g26_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "4"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g4z_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "5"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gkz_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "6"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gph_001"
+            }
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lz_r67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lz_r67"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-09-28-zr1x-5js",
+      "model_key": "zr1x",
+      "locator": "page 1, lines 15-19",
+      "quote": "ALL Exterior sections-Added (5JS) LPO, Torch Red mirror caps, Genuine Corvette Accessory. It is \"A/D1\" on all equipment groups with a footnote 1 that reads \"Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\"",
+      "summary": "5JS Torch Red mirror caps, $595, available on every trim; not available with ZYC, 5JR, G26, G4Z, GKZ or GPH",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_5js_001",
+            "values": {
+              "rpo": "5JS",
+              "name": "Torch Red Mirror Caps",
+              "purchase_amount_minor": 59500,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5js_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\",\"display_behavior\":null,\"display_order\":61,\"emit_code\":true,\"name\":\"Torch Red Mirror Caps\",\"projection\":\"resolved_selection\",\"rpo\":\"5JS\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "conflict",
+            "key": {
+              "id": "conflict_5js_not_available"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_5js_001",
+              "activation_condition_id": "f70dc522-a3b5-43b3-bc96-ede187fc7d81"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_zyc_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "2"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_5jr_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "3"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g26_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "4"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g4z_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "5"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gkz_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "6"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gph_001"
+            }
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lz_s67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lz_s67"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-09-28-z06-5js",
+      "model_key": "z06",
+      "locator": "page 1, lines 15-19",
+      "quote": "ALL Exterior sections-Added (5JS) LPO, Torch Red mirror caps, Genuine Corvette Accessory. It is \"A/D1\" on all equipment groups with a footnote 1 that reads \"Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\"",
+      "summary": "5JS Torch Red mirror caps, $595, available on every trim; not available with ZYC, 5JR, G26, G4Z, GKZ or GPH",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_5js_001",
+            "values": {
+              "rpo": "5JS",
+              "name": "Torch Red Mirror Caps",
+              "purchase_amount_minor": 59500,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "1lz_h07"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "2lz_h07"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "1lz_h67"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "2lz_h67"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5js_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\",\"display_behavior\":null,\"display_order\":61,\"emit_code\":true,\"name\":\"Torch Red Mirror Caps\",\"projection\":\"resolved_selection\",\"rpo\":\"5JS\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "conflict",
+            "key": {
+              "id": "conflict_5js_not_available"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_5js_001",
+              "activation_condition_id": "73900b37-d4f4-459a-a11b-3d3f8ce6b596"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_zyc_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "2"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_5jr_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "3"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g26_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "4"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g4z_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "5"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gkz_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "6"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gph_001"
+            }
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lz_h07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "2lz_h07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lz_h07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lz_h67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "2lz_h67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lz_h67"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-09-28-grand-sport-x-5js",
+      "model_key": "grand_sport_x",
+      "locator": "page 1, lines 15-19",
+      "quote": "ALL Exterior sections-Added (5JS) LPO, Torch Red mirror caps, Genuine Corvette Accessory. It is \"A/D1\" on all equipment groups with a footnote 1 that reads \"Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\"",
+      "summary": "5JS Torch Red mirror caps, $595, available on every trim; not available with ZYC, 5JR, G26, G4Z, GKZ or GPH",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_5js_001",
+            "values": {
+              "rpo": "5JS",
+              "name": "Torch Red Mirror Caps",
+              "purchase_amount_minor": 59500,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "1lt_g07"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "2lt_g07"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "1lt_g67"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "2lt_g67"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5js_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\",\"display_behavior\":null,\"display_order\":111,\"emit_code\":true,\"name\":\"Torch Red Mirror Caps\",\"projection\":\"resolved_selection\",\"rpo\":\"5JS\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "conflict",
+            "key": {
+              "id": "conflict_5js_not_available"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_5js_001",
+              "activation_condition_id": "fb18f864-9138-4a66-bd75-bdff03afde60"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_zyc_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "2"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_5jr_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "3"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g26_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "4"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g4z_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "5"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gkz_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "6"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gph_001"
+            }
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lt_g07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "2lt_g07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lt_g07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lt_g67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "2lt_g67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lt_g67"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-09-28-stingray-5js",
+      "model_key": "stingray",
+      "locator": "page 1, lines 15-19",
+      "quote": "ALL Exterior sections-Added (5JS) LPO, Torch Red mirror caps, Genuine Corvette Accessory. It is \"A/D1\" on all equipment groups with a footnote 1 that reads \"Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\"",
+      "summary": "5JS Torch Red mirror caps, $595, available on every trim; not available with ZYC, 5JR, G26, G4Z, GKZ or GPH",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_5js_001",
+            "values": {
+              "rpo": "5JS",
+              "name": "Torch Red Mirror Caps",
+              "purchase_amount_minor": 59500,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "1lt_c07"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "2lt_c07"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "1lt_c67"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "2lt_c67"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5js_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\",\"display_behavior\":null,\"display_order\":131,\"emit_code\":true,\"name\":\"Torch Red Mirror Caps\",\"projection\":\"resolved_selection\",\"rpo\":\"5JS\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "conflict",
+            "key": {
+              "id": "conflict_5js_not_available"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_5js_001",
+              "activation_condition_id": "0dff3ad2-f494-4e80-b1e2-4015b901de93"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_zyc_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "2"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_5jr_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "3"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g26_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "4"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g4z_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "5"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gkz_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "6"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gph_001"
+            }
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lt_c07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "2lt_c07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lt_c07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lt_c67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "2lt_c67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lt_c67"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-09-28-grand-sport-5js",
+      "model_key": "grand_sport",
+      "locator": "page 1, lines 15-19",
+      "quote": "ALL Exterior sections-Added (5JS) LPO, Torch Red mirror caps, Genuine Corvette Accessory. It is \"A/D1\" on all equipment groups with a footnote 1 that reads \"Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\"",
+      "summary": "5JS Torch Red mirror caps, $595, available on every trim; not available with ZYC, 5JR, G26, G4Z, GKZ or GPH",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_5js_001",
+            "values": {
+              "rpo": "5JS",
+              "name": "Torch Red Mirror Caps",
+              "purchase_amount_minor": 59500,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "1lt_e07"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "2lt_e07"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "1lt_e67"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5js_001",
+              "configuration_id": "2lt_e67"
+            },
+            "values": {
+              "status": "available"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5js_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Not available with (ZYC) Carbon Flash Metallic-painted outside mirrors, (5JR) visible Carbon Fiber mirror covers, LPO, or the following exterior colors: (G26) Sebring Orange Tintcoat, (G4Z) Roswell Green Metallic, (GKZ) Torch Red, (GPH) Red Mist Metallic Tintcoat.\",\"display_behavior\":null,\"display_order\":61,\"emit_code\":true,\"name\":\"Torch Red Mirror Caps\",\"projection\":\"resolved_selection\",\"rpo\":\"5JS\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "conflict",
+            "key": {
+              "id": "conflict_5js_not_available"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_5js_001",
+              "activation_condition_id": "625f35eb-41a6-464b-b79b-33f432da9538"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_zyc_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "2"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_5jr_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "3"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g26_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "4"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_g4z_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "5"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gkz_001"
+            }
+          },
+          {
+            "table": "conflict_member",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "member_id": "6"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_gph_001"
+            }
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lt_e07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "2lt_e07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lt_e07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "1lt_e67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "2lt_e67"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "conflict_configuration",
+            "key": {
+              "conflict_id": "conflict_5js_not_available",
+              "configuration_id": "3lt_e67"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-09-21-z06-sne",
+      "model_key": "z06",
+      "locator": "page 1, lines 22-24",
+      "quote": "Z06 Exterior section-(SNE) LPO, Jake hood graphic, updated footnote 1 to now read \"Not available with PCZ, SHT, VPO or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PDA) Jake C8.R Graphics Package, LPO.\"",
+      "summary": "SNE footnote wording (its PCZ, SHT, VPO and stripe conflicts are already in place)",
+      "steps": [
+        [
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_sne_001"
+            },
+            "values": {
+              "presentation": "{\"description\":null,\"detail_raw\":\"Not available with PCZ, SHT, VPO or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PDA) Jake C8.R Graphics Package, LPO.\",\"display_behavior\":null,\"display_order\":166,\"emit_code\":true,\"name\":\"Jake Hood Graphic\",\"projection\":\"resolved_selection\",\"rpo\":\"SNE\",\"section_id\":\"sec_stri_001\"}"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "consumer_option",
+          "key": {
+            "option_id": "opt_sne_001"
+          },
+          "values": {
+            "presentation": "{\"description\":null,\"detail_raw\":\"Included with (PDA) Jake C8.R Graphics Package, LPO. Not available with RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTH, DUB, DUE, DUK, DUW, DZU, DZV, DZX).\",\"display_behavior\":null,\"display_order\":166,\"emit_code\":true,\"name\":\"Jake Hood Graphic\",\"projection\":\"resolved_selection\",\"rpo\":\"SNE\",\"section_id\":\"sec_stri_001\"}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-09-21-grand-sport-gph-el9",
+      "model_key": "grand_sport",
+      "locator": "page 1, lines 25-26",
+      "quote": "Recommended Color and Trim section-(GPH) Red Mist Metallic Tintcoat, updated availability with (EL9) Santorini Blue Dipped with Torch Red accents to \"A\".",
+      "summary": "Red Mist (GPH) with the EL9 interior no longer adds the D30 color combination override ($1,495)",
+      "steps": [
+        [
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "6b2f2bdf-b736-43c4-9873-a2b279d8bfcc",
+              "configuration_id": "3lt_e07"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "6b2f2bdf-b736-43c4-9873-a2b279d8bfcc",
+              "configuration_id": "3lt_e67"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition",
+            "key": {
+              "id": "6b2f2bdf-b736-43c4-9873-a2b279d8bfcc"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "6c8da06d-00a3-4da0-872c-851032de39e4",
+              "configuration_id": "3lt_e07"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "6c8da06d-00a3-4da0-872c-851032de39e4",
+              "configuration_id": "3lt_e67"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition",
+            "key": {
+              "id": "6c8da06d-00a3-4da0-872c-851032de39e4"
+            },
+            "action": "delete"
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "acquisition",
+          "key": {
+            "id": "6b2f2bdf-b736-43c4-9873-a2b279d8bfcc"
+          },
+          "values": {
+            "target_option_id": "opt_d30_001"
+          }
+        },
+        {
+          "table": "acquisition",
+          "key": {
+            "id": "6c8da06d-00a3-4da0-872c-851032de39e4"
+          },
+          "values": {
+            "target_option_id": "opt_d30_001"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-09-21-grand-sport-x-gph-el9",
+      "model_key": "grand_sport_x",
+      "locator": "page 1, lines 25-26",
+      "quote": "Recommended Color and Trim section-(GPH) Red Mist Metallic Tintcoat, updated availability with (EL9) Santorini Blue Dipped with Torch Red accents to \"A\".",
+      "summary": "Red Mist (GPH) with the EL9 interior no longer adds the D30 color combination override ($1,495)",
+      "steps": [
+        [
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "877b4362-9c2f-4efe-be21-3a637d84b8dc",
+              "configuration_id": "3lt_g07"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "877b4362-9c2f-4efe-be21-3a637d84b8dc",
+              "configuration_id": "3lt_g67"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition",
+            "key": {
+              "id": "877b4362-9c2f-4efe-be21-3a637d84b8dc"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "de752a55-b117-45a9-9111-8ef5ed6bfa22",
+              "configuration_id": "3lt_g07"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "de752a55-b117-45a9-9111-8ef5ed6bfa22",
+              "configuration_id": "3lt_g67"
+            },
+            "action": "delete"
+          },
+          {
+            "table": "acquisition",
+            "key": {
+              "id": "de752a55-b117-45a9-9111-8ef5ed6bfa22"
+            },
+            "action": "delete"
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "acquisition",
+          "key": {
+            "id": "877b4362-9c2f-4efe-be21-3a637d84b8dc"
+          },
+          "values": {
+            "target_option_id": "opt_d30_001"
+          }
+        },
+        {
+          "table": "acquisition",
+          "key": {
+            "id": "de752a55-b117-45a9-9111-8ef5ed6bfa22"
+          },
+          "values": {
+            "target_option_id": "opt_d30_001"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-09-14-zr1-5wn",
+      "model_key": "zr1",
+      "locator": "page 1, lines 37-40",
+      "quote": "ZR1 and ZR1X Exterior section-Added (5WN) LPO, ZR1 and ZR1X aero enhancement kit, Genuine Corvette Accessory. It is \"A/D1\" on 1YR07 1LZ and 3LZ and 1YS07 1LZ and 3LZ with a footnote 1 that reads \"Requires (TOM) ZR1/ZR1X Carbon Fiber Aero Package. Included with (PCR) ZTK Track Performance Package with aero enhancement kit LPO.\"",
+      "summary": "5WN aero enhancement kit, $1,500, coupes only; requires TOM",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_5wn_001",
+            "values": {
+              "rpo": "5WN",
+              "name": "ZR1 and ZR1X Aero Enhancement Kit",
+              "purchase_amount_minor": 150000,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5wn_001",
+              "configuration_id": "1lz_r67"
+            },
+            "values": {
+              "status": "unavailable"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5wn_001",
+              "configuration_id": "3lz_r67"
+            },
+            "values": {
+              "status": "unavailable"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5wn_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Requires (TOM) ZR1/ZR1X Carbon Fiber Aero Package. Included with (PCR) ZTK Track Performance Package with aero enhancement kit LPO.\",\"display_behavior\":null,\"display_order\":62,\"emit_code\":true,\"name\":\"ZR1 and ZR1X Aero Enhancement Kit\",\"projection\":\"resolved_selection\",\"rpo\":\"5WN\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "requirement",
+            "key": {
+              "id": "rule_5wn_requires_tom"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_5wn_001",
+              "activation_condition_id": "cfc34e40-3794-4076-bfdf-13ebadd627e0",
+              "satisfaction_condition_id": "8f8ec2c7-589c-4e6b-b64b-0622dae6de76",
+              "source_state": "resolved_selection",
+              "loss_policy": "remove_source_with_notice_revert"
+            }
+          },
+          {
+            "table": "requirement_configuration",
+            "key": {
+              "requirement_id": "rule_5wn_requires_tom",
+              "configuration_id": "1lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "requirement_configuration",
+            "key": {
+              "requirement_id": "rule_5wn_requires_tom",
+              "configuration_id": "3lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-09-14-zr1-pcr",
+      "model_key": "zr1",
+      "locator": "page 1, lines 32-36",
+      "quote": "ZR1 and ZR1X Exterior section-Added (PCR) LPO, ZTK Track Performance Package with aero enhancement kit, Genuine Corvette Accessory, includes (5WN) ZR1 and ZR1X aero enhancement kit LPO and (ZTK) ZTK Track Performance Package. It is \"A/D1\" on 1YR07 1LZ and 3LZ and 1YS07 1LZ and 3LZ with a footnote 1 that reads \"Requires (TOM) ZR1/ZR1X Carbon Fiber Aero Package.\"",
+      "summary": "PCR ZTK Track Performance Package with aero enhancement kit, $7,495, coupes only; includes ZTK and 5WN at no separate charge; requires TOM (ZTK already adds TOM, owner decision ZR1-D06)",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_pcr_001",
+            "values": {
+              "rpo": "PCR",
+              "name": "ZTK Track Performance Package with Aero Enhancement Kit",
+              "purchase_amount_minor": 749500,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_pcr_001",
+              "configuration_id": "1lz_r67"
+            },
+            "values": {
+              "status": "unavailable"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_pcr_001",
+              "configuration_id": "3lz_r67"
+            },
+            "values": {
+              "status": "unavailable"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_pcr_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Includes (5WN) ZR1 and ZR1X aero enhancement kit LPO and (ZTK) ZTK Track Performance Package. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Requires (TOM) ZR1/ZR1X Carbon Fiber Aero Package.\",\"display_behavior\":null,\"display_order\":63,\"emit_code\":true,\"name\":\"ZTK Track Performance Package with Aero Enhancement Kit\",\"projection\":\"resolved_selection\",\"rpo\":\"PCR\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "condition",
+            "key": {
+              "id": "cond_pcr_present"
+            },
+            "action": "create",
+            "values": {
+              "mode": "conjunction"
+            }
+          },
+          {
+            "table": "condition_clause",
+            "key": {
+              "condition_id": "cond_pcr_present",
+              "clause_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "mode": "any_present"
+            }
+          },
+          {
+            "table": "condition_member",
+            "key": {
+              "condition_id": "cond_pcr_present",
+              "clause_id": "1",
+              "member_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_pcr_001",
+              "state": "resolved_selection"
+            }
+          },
+          {
+            "table": "acquisition",
+            "key": {
+              "id": "rule_pcr_includes_ztk"
+            },
+            "action": "create",
+            "values": {
+              "condition_id": "cond_pcr_present",
+              "target_option_id": "opt_ztk_001",
+              "origin_kind": "included",
+              "peer_policy": "locked",
+              "intent_policy": "preserve_prior",
+              "priority": 10
+            }
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "rule_pcr_includes_ztk",
+              "configuration_id": "1lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "rule_pcr_includes_ztk",
+              "configuration_id": "3lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "option_rate",
+            "key": {
+              "id": "rate_pcr_ztk_included"
+            },
+            "action": "create",
+            "values": {
+              "condition_id": "cond_pcr_present",
+              "target_option_id": "opt_ztk_001",
+              "priority": 1,
+              "amount_minor": 0,
+              "basis_id": "c06afeb9-0556-4dda-98e7-668124bae7b5"
+            }
+          },
+          {
+            "table": "option_rate_configuration",
+            "key": {
+              "rate_id": "rate_pcr_ztk_included",
+              "configuration_id": "1lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "option_rate_configuration",
+            "key": {
+              "rate_id": "rate_pcr_ztk_included",
+              "configuration_id": "3lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "acquisition",
+            "key": {
+              "id": "rule_pcr_includes_5wn"
+            },
+            "action": "create",
+            "values": {
+              "condition_id": "cond_pcr_present",
+              "target_option_id": "opt_5wn_001",
+              "origin_kind": "included",
+              "peer_policy": "locked",
+              "intent_policy": "preserve_prior",
+              "priority": 10
+            }
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "rule_pcr_includes_5wn",
+              "configuration_id": "1lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "rule_pcr_includes_5wn",
+              "configuration_id": "3lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "option_rate",
+            "key": {
+              "id": "rate_pcr_5wn_included"
+            },
+            "action": "create",
+            "values": {
+              "condition_id": "cond_pcr_present",
+              "target_option_id": "opt_5wn_001",
+              "priority": 1,
+              "amount_minor": 0,
+              "basis_id": "c06afeb9-0556-4dda-98e7-668124bae7b5"
+            }
+          },
+          {
+            "table": "option_rate_configuration",
+            "key": {
+              "rate_id": "rate_pcr_5wn_included",
+              "configuration_id": "1lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "option_rate_configuration",
+            "key": {
+              "rate_id": "rate_pcr_5wn_included",
+              "configuration_id": "3lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "requirement",
+            "key": {
+              "id": "rule_pcr_requires_tom"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_pcr_001",
+              "activation_condition_id": "cfc34e40-3794-4076-bfdf-13ebadd627e0",
+              "satisfaction_condition_id": "8f8ec2c7-589c-4e6b-b64b-0622dae6de76",
+              "source_state": "resolved_selection",
+              "loss_policy": "remove_source_with_notice_revert"
+            }
+          },
+          {
+            "table": "requirement_configuration",
+            "key": {
+              "requirement_id": "rule_pcr_requires_tom",
+              "configuration_id": "1lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "requirement_configuration",
+            "key": {
+              "requirement_id": "rule_pcr_requires_tom",
+              "configuration_id": "3lz_r07"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-09-14-zr1x-5wn",
+      "model_key": "zr1x",
+      "locator": "page 1, lines 37-40",
+      "quote": "ZR1 and ZR1X Exterior section-Added (5WN) LPO, ZR1 and ZR1X aero enhancement kit, Genuine Corvette Accessory. It is \"A/D1\" on 1YR07 1LZ and 3LZ and 1YS07 1LZ and 3LZ with a footnote 1 that reads \"Requires (TOM) ZR1/ZR1X Carbon Fiber Aero Package. Included with (PCR) ZTK Track Performance Package with aero enhancement kit LPO.\"",
+      "summary": "5WN aero enhancement kit, $1,500, coupes only; requires TOM",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_5wn_001",
+            "values": {
+              "rpo": "5WN",
+              "name": "ZR1 and ZR1X Aero Enhancement Kit",
+              "purchase_amount_minor": 150000,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5wn_001",
+              "configuration_id": "1lz_s67"
+            },
+            "values": {
+              "status": "unavailable"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_5wn_001",
+              "configuration_id": "3lz_s67"
+            },
+            "values": {
+              "status": "unavailable"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5wn_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Requires (TOM) ZR1/ZR1X Carbon Fiber Aero Package. Included with (PCR) ZTK Track Performance Package with aero enhancement kit LPO.\",\"display_behavior\":null,\"display_order\":62,\"emit_code\":true,\"name\":\"ZR1 and ZR1X Aero Enhancement Kit\",\"projection\":\"resolved_selection\",\"rpo\":\"5WN\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "requirement",
+            "key": {
+              "id": "rule_5wn_requires_tom"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_5wn_001",
+              "activation_condition_id": "f70dc522-a3b5-43b3-bc96-ede187fc7d81",
+              "satisfaction_condition_id": "407d56a5-fec8-4a3c-bfc0-7c962c560f33",
+              "source_state": "resolved_selection",
+              "loss_policy": "remove_source_with_notice_revert"
+            }
+          },
+          {
+            "table": "requirement_configuration",
+            "key": {
+              "requirement_id": "rule_5wn_requires_tom",
+              "configuration_id": "1lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "requirement_configuration",
+            "key": {
+              "requirement_id": "rule_5wn_requires_tom",
+              "configuration_id": "3lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-09-14-zr1x-pcr",
+      "model_key": "zr1x",
+      "locator": "page 1, lines 32-36",
+      "quote": "ZR1 and ZR1X Exterior section-Added (PCR) LPO, ZTK Track Performance Package with aero enhancement kit, Genuine Corvette Accessory, includes (5WN) ZR1 and ZR1X aero enhancement kit LPO and (ZTK) ZTK Track Performance Package. It is \"A/D1\" on 1YR07 1LZ and 3LZ and 1YS07 1LZ and 3LZ with a footnote 1 that reads \"Requires (TOM) ZR1/ZR1X Carbon Fiber Aero Package.\"",
+      "summary": "PCR ZTK Track Performance Package with aero enhancement kit, $3,000, coupes only; includes ZTK and 5WN at no separate charge; requires TOM (ZTK already adds TOM, owner decision ZR1-D06)",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5jr_001"
+            },
+            "action": "clone",
+            "new_id": "opt_pcr_001",
+            "values": {
+              "rpo": "PCR",
+              "name": "ZTK Track Performance Package with Aero Enhancement Kit",
+              "purchase_amount_minor": 300000,
+              "lifecycle": "active",
+              "customer_selectable": 1,
+              "charge_mode": "priced"
+            }
+          }
+        ],
+        [
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_pcr_001",
+              "configuration_id": "1lz_s67"
+            },
+            "values": {
+              "status": "unavailable"
+            }
+          },
+          {
+            "table": "option_configuration",
+            "key": {
+              "option_id": "opt_pcr_001",
+              "configuration_id": "3lz_s67"
+            },
+            "values": {
+              "status": "unavailable"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_pcr_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Includes (5WN) ZR1 and ZR1X aero enhancement kit LPO and (ZTK) ZTK Track Performance Package. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Requires (TOM) ZR1/ZR1X Carbon Fiber Aero Package.\",\"display_behavior\":null,\"display_order\":63,\"emit_code\":true,\"name\":\"ZTK Track Performance Package with Aero Enhancement Kit\",\"projection\":\"resolved_selection\",\"rpo\":\"PCR\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          },
+          {
+            "table": "condition",
+            "key": {
+              "id": "cond_pcr_present"
+            },
+            "action": "create",
+            "values": {
+              "mode": "conjunction"
+            }
+          },
+          {
+            "table": "condition_clause",
+            "key": {
+              "condition_id": "cond_pcr_present",
+              "clause_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "mode": "any_present"
+            }
+          },
+          {
+            "table": "condition_member",
+            "key": {
+              "condition_id": "cond_pcr_present",
+              "clause_id": "1",
+              "member_id": "1"
+            },
+            "action": "create",
+            "values": {
+              "option_id": "opt_pcr_001",
+              "state": "resolved_selection"
+            }
+          },
+          {
+            "table": "acquisition",
+            "key": {
+              "id": "rule_pcr_includes_ztk"
+            },
+            "action": "create",
+            "values": {
+              "condition_id": "cond_pcr_present",
+              "target_option_id": "opt_ztk_001",
+              "origin_kind": "included",
+              "peer_policy": "locked",
+              "intent_policy": "preserve_prior",
+              "priority": 10
+            }
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "rule_pcr_includes_ztk",
+              "configuration_id": "1lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "rule_pcr_includes_ztk",
+              "configuration_id": "3lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "option_rate",
+            "key": {
+              "id": "rate_pcr_ztk_included"
+            },
+            "action": "create",
+            "values": {
+              "condition_id": "cond_pcr_present",
+              "target_option_id": "opt_ztk_001",
+              "priority": 1,
+              "amount_minor": 0,
+              "basis_id": "c06afeb9-0556-4dda-98e7-668124bae7b5"
+            }
+          },
+          {
+            "table": "option_rate_configuration",
+            "key": {
+              "rate_id": "rate_pcr_ztk_included",
+              "configuration_id": "1lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "option_rate_configuration",
+            "key": {
+              "rate_id": "rate_pcr_ztk_included",
+              "configuration_id": "3lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "acquisition",
+            "key": {
+              "id": "rule_pcr_includes_5wn"
+            },
+            "action": "create",
+            "values": {
+              "condition_id": "cond_pcr_present",
+              "target_option_id": "opt_5wn_001",
+              "origin_kind": "included",
+              "peer_policy": "locked",
+              "intent_policy": "preserve_prior",
+              "priority": 10
+            }
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "rule_pcr_includes_5wn",
+              "configuration_id": "1lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "acquisition_configuration",
+            "key": {
+              "acquisition_id": "rule_pcr_includes_5wn",
+              "configuration_id": "3lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "option_rate",
+            "key": {
+              "id": "rate_pcr_5wn_included"
+            },
+            "action": "create",
+            "values": {
+              "condition_id": "cond_pcr_present",
+              "target_option_id": "opt_5wn_001",
+              "priority": 1,
+              "amount_minor": 0,
+              "basis_id": "c06afeb9-0556-4dda-98e7-668124bae7b5"
+            }
+          },
+          {
+            "table": "option_rate_configuration",
+            "key": {
+              "rate_id": "rate_pcr_5wn_included",
+              "configuration_id": "1lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "option_rate_configuration",
+            "key": {
+              "rate_id": "rate_pcr_5wn_included",
+              "configuration_id": "3lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "requirement",
+            "key": {
+              "id": "rule_pcr_requires_tom"
+            },
+            "action": "create",
+            "values": {
+              "source_option_id": "opt_pcr_001",
+              "activation_condition_id": "f70dc522-a3b5-43b3-bc96-ede187fc7d81",
+              "satisfaction_condition_id": "407d56a5-fec8-4a3c-bfc0-7c962c560f33",
+              "source_state": "resolved_selection",
+              "loss_policy": "remove_source_with_notice_revert"
+            }
+          },
+          {
+            "table": "requirement_configuration",
+            "key": {
+              "requirement_id": "rule_pcr_requires_tom",
+              "configuration_id": "1lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          },
+          {
+            "table": "requirement_configuration",
+            "key": {
+              "requirement_id": "rule_pcr_requires_tom",
+              "configuration_id": "3lz_s07"
+            },
+            "action": "create",
+            "values": {}
+          }
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "id": "2026-08-03-grand-sport-x-5zb",
+      "model_key": "grand_sport_x",
+      "locator": "page 3, line 46",
+      "quote": "Grand Sport X Exterior section-Removed (5ZB) LPO, Grand Sport logo wheel center caps.",
+      "summary": "5ZB Grand Sport logo wheel center caps removed from Grand Sport X",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5zb_001"
+            },
+            "values": {
+              "lifecycle": "retired"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_5zb_001"
+          },
+          "values": {
+            "lifecycle": "active"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-06-08-stingray-due",
+      "model_key": "stingray",
+      "locator": "page 12, lines 29-31",
+      "quote": "ALL Exterior sections-(DUE) Asymmetrical Santorini Blue/Carbon Flash Full Length Dual Racing Stripes, updated description to now read \"Asymmetrical Royal Blue/Carbon Flash Full Length Dual Racing Stripes\".",
+      "summary": "DUE renamed Royal Blue/Carbon Flash Racing Stripes, as in the other five models (the price schedule still says Santorini Blue)",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_due_001"
+            },
+            "values": {
+              "name": "Royal Blue/Carbon Flash Racing Stripes"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_due_001"
+          },
+          "values": {
+            "name": "Santorini Blue/Carbon Flash Racing Stripes"
+          }
+        }
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "kind": "owner_decision",
+      "locator": "page 1, lines 5-6",
+      "code": "5ZU",
+      "detail": "Not applied. Marking 5ZU not available leaves no orderable high-wing spoiler (5ZW and 5ZZ are already not available), so 5V7 Black Ground Effects, which requires 5ZU, 5ZW or 5ZZ, could no longer be built and the editor refuses the change. Choose: mark 5V7 not available as well and retire its spoiler requirement and conflicts (history keeps them), or keep 5ZU orderable until the manufacturer restores it."
+    },
+    {
+      "kind": "checked",
+      "locator": "page 1, lines 10-11",
+      "code": "HP1",
+      "detail": "ZR1X HP1 already reads 186 hp, 145 lb-ft and 1250 hp total combined with the LT7; ZR1 has no HP1. No change."
+    },
+    {
+      "kind": "checked",
+      "locator": "page 1, line 41",
+      "code": "ZTK",
+      "detail": "ZTK already requires and adds TOM (owner decision ZR1-D06); \"Included with PCR\" is carried by the PCR proposals. The ZTK footnote copy is owner wording and is left as is."
+    },
+    {
+      "kind": "checked",
+      "locator": "page 3, lines 1-2",
+      "code": "PDA",
+      "detail": "No direct PDA/SHT conflict, but PDA includes SNE and VPW and both conflict with SHT, so the pair cannot be built."
+    },
+    {
+      "kind": "checked",
+      "locator": "page 3, line 26",
+      "code": "",
+      "detail": "Fleet OnStar/API options are not in the customer catalog."
+    },
+    {
+      "kind": "checked",
+      "locator": "page 4, line 1",
+      "code": "NB8",
+      "detail": "Emissions overrides (NB8, NB9, NC7) are not in the customer catalog."
+    },
+    {
+      "kind": "checked",
+      "locator": "page 4, line 24",
+      "code": "",
+      "detail": "Dimensions and specifications are not in the catalog."
+    }
+  ]
+}
