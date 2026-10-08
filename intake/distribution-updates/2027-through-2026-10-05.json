@@ -83,7 +83,9 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_5js_001",
-              "activation_condition_id": "cfc34e40-3794-4076-bfdf-13ebadd627e0"
+              "activation_condition_id": {
+                "always": true
+              }
             }
           },
           {
@@ -235,7 +237,9 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_5js_001",
-              "activation_condition_id": "f70dc522-a3b5-43b3-bc96-ede187fc7d81"
+              "activation_condition_id": {
+                "always": true
+              }
             }
           },
           {
@@ -427,7 +431,9 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_5js_001",
-              "activation_condition_id": "73900b37-d4f4-459a-a11b-3d3f8ce6b596"
+              "activation_condition_id": {
+                "always": true
+              }
             }
           },
           {
@@ -637,7 +643,9 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_5js_001",
-              "activation_condition_id": "fb18f864-9138-4a66-bd75-bdff03afde60"
+              "activation_condition_id": {
+                "always": true
+              }
             }
           },
           {
@@ -847,7 +855,9 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_5js_001",
-              "activation_condition_id": "0dff3ad2-f494-4e80-b1e2-4015b901de93"
+              "activation_condition_id": {
+                "always": true
+              }
             }
           },
           {
@@ -1057,7 +1067,9 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_5js_001",
-              "activation_condition_id": "625f35eb-41a6-464b-b79b-33f432da9538"
+              "activation_condition_id": {
+                "always": true
+              }
             }
           },
           {
@@ -1224,73 +1236,22 @@
       "steps": [
         [
           {
-            "table": "acquisition_configuration",
-            "key": {
-              "acquisition_id": "6b2f2bdf-b736-43c4-9873-a2b279d8bfcc",
-              "configuration_id": "3lt_e07"
-            },
-            "action": "delete"
-          },
-          {
-            "table": "acquisition_configuration",
-            "key": {
-              "acquisition_id": "6b2f2bdf-b736-43c4-9873-a2b279d8bfcc",
-              "configuration_id": "3lt_e67"
-            },
-            "action": "delete"
-          },
-          {
             "table": "acquisition",
-            "key": {
-              "id": "6b2f2bdf-b736-43c4-9873-a2b279d8bfcc"
-            },
-            "action": "delete"
-          },
-          {
-            "table": "acquisition_configuration",
-            "key": {
-              "acquisition_id": "6c8da06d-00a3-4da0-872c-851032de39e4",
-              "configuration_id": "3lt_e07"
-            },
-            "action": "delete"
-          },
-          {
-            "table": "acquisition_configuration",
-            "key": {
-              "acquisition_id": "6c8da06d-00a3-4da0-872c-851032de39e4",
-              "configuration_id": "3lt_e67"
-            },
-            "action": "delete"
-          },
-          {
-            "table": "acquisition",
-            "key": {
-              "id": "6c8da06d-00a3-4da0-872c-851032de39e4"
-            },
-            "action": "delete"
+            "action": "delete",
+            "key": {},
+            "match": {
+              "target_option_id": "opt_d30_001",
+              "condition_options": [
+                "opt_gph_001"
+              ],
+              "condition_interior_codes": [
+                "EL9"
+              ]
+            }
           }
         ]
       ],
-      "expected": [
-        {
-          "table": "acquisition",
-          "key": {
-            "id": "6b2f2bdf-b736-43c4-9873-a2b279d8bfcc"
-          },
-          "values": {
-            "target_option_id": "opt_d30_001"
-          }
-        },
-        {
-          "table": "acquisition",
-          "key": {
-            "id": "6c8da06d-00a3-4da0-872c-851032de39e4"
-          },
-          "values": {
-            "target_option_id": "opt_d30_001"
-          }
-        }
-      ]
+      "expected": []
     },
     {
       "id": "2026-09-21-grand-sport-x-gph-el9",
@@ -1301,73 +1262,22 @@
       "steps": [
         [
           {
-            "table": "acquisition_configuration",
-            "key": {
-              "acquisition_id": "877b4362-9c2f-4efe-be21-3a637d84b8dc",
-              "configuration_id": "3lt_g07"
-            },
-            "action": "delete"
-          },
-          {
-            "table": "acquisition_configuration",
-            "key": {
-              "acquisition_id": "877b4362-9c2f-4efe-be21-3a637d84b8dc",
-              "configuration_id": "3lt_g67"
-            },
-            "action": "delete"
-          },
-          {
             "table": "acquisition",
-            "key": {
-              "id": "877b4362-9c2f-4efe-be21-3a637d84b8dc"
-            },
-            "action": "delete"
-          },
-          {
-            "table": "acquisition_configuration",
-            "key": {
-              "acquisition_id": "de752a55-b117-45a9-9111-8ef5ed6bfa22",
-              "configuration_id": "3lt_g07"
-            },
-            "action": "delete"
-          },
-          {
-            "table": "acquisition_configuration",
-            "key": {
-              "acquisition_id": "de752a55-b117-45a9-9111-8ef5ed6bfa22",
-              "configuration_id": "3lt_g67"
-            },
-            "action": "delete"
-          },
-          {
-            "table": "acquisition",
-            "key": {
-              "id": "de752a55-b117-45a9-9111-8ef5ed6bfa22"
-            },
-            "action": "delete"
+            "action": "delete",
+            "key": {},
+            "match": {
+              "target_option_id": "opt_d30_001",
+              "condition_options": [
+                "opt_gph_001"
+              ],
+              "condition_interior_codes": [
+                "EL9"
+              ]
+            }
           }
         ]
       ],
-      "expected": [
-        {
-          "table": "acquisition",
-          "key": {
-            "id": "877b4362-9c2f-4efe-be21-3a637d84b8dc"
-          },
-          "values": {
-            "target_option_id": "opt_d30_001"
-          }
-        },
-        {
-          "table": "acquisition",
-          "key": {
-            "id": "de752a55-b117-45a9-9111-8ef5ed6bfa22"
-          },
-          "values": {
-            "target_option_id": "opt_d30_001"
-          }
-        }
-      ]
+      "expected": []
     },
     {
       "id": "2026-09-14-zr1-5wn",
@@ -1432,8 +1342,12 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_5wn_001",
-              "activation_condition_id": "cfc34e40-3794-4076-bfdf-13ebadd627e0",
-              "satisfaction_condition_id": "8f8ec2c7-589c-4e6b-b64b-0622dae6de76",
+              "activation_condition_id": {
+                "always": true
+              },
+              "satisfaction_condition_id": {
+                "present": "opt_tom_001"
+              },
               "source_state": "resolved_selection",
               "loss_policy": "remove_source_with_notice_revert"
             }
@@ -1593,7 +1507,9 @@
               "target_option_id": "opt_ztk_001",
               "priority": 1,
               "amount_minor": 0,
-              "basis_id": "c06afeb9-0556-4dda-98e7-668124bae7b5"
+              "basis_id": {
+                "basis": "opt_ztk_001"
+              }
             }
           },
           {
@@ -1658,7 +1574,9 @@
               "target_option_id": "opt_5wn_001",
               "priority": 1,
               "amount_minor": 0,
-              "basis_id": "c06afeb9-0556-4dda-98e7-668124bae7b5"
+              "basis_id": {
+                "basis": "opt_ztk_001"
+              }
             }
           },
           {
@@ -1687,8 +1605,12 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_pcr_001",
-              "activation_condition_id": "cfc34e40-3794-4076-bfdf-13ebadd627e0",
-              "satisfaction_condition_id": "8f8ec2c7-589c-4e6b-b64b-0622dae6de76",
+              "activation_condition_id": {
+                "always": true
+              },
+              "satisfaction_condition_id": {
+                "present": "opt_tom_001"
+              },
               "source_state": "resolved_selection",
               "loss_policy": "remove_source_with_notice_revert"
             }
@@ -1778,8 +1700,12 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_5wn_001",
-              "activation_condition_id": "f70dc522-a3b5-43b3-bc96-ede187fc7d81",
-              "satisfaction_condition_id": "407d56a5-fec8-4a3c-bfc0-7c962c560f33",
+              "activation_condition_id": {
+                "always": true
+              },
+              "satisfaction_condition_id": {
+                "present": "opt_tom_002"
+              },
               "source_state": "resolved_selection",
               "loss_policy": "remove_source_with_notice_revert"
             }
@@ -1939,7 +1865,9 @@
               "target_option_id": "opt_ztk_001",
               "priority": 1,
               "amount_minor": 0,
-              "basis_id": "c06afeb9-0556-4dda-98e7-668124bae7b5"
+              "basis_id": {
+                "basis": "opt_ztk_001"
+              }
             }
           },
           {
@@ -2004,7 +1932,9 @@
               "target_option_id": "opt_5wn_001",
               "priority": 1,
               "amount_minor": 0,
-              "basis_id": "c06afeb9-0556-4dda-98e7-668124bae7b5"
+              "basis_id": {
+                "basis": "opt_ztk_001"
+              }
             }
           },
           {
@@ -2033,8 +1963,12 @@
             "action": "create",
             "values": {
               "source_option_id": "opt_pcr_001",
-              "activation_condition_id": "f70dc522-a3b5-43b3-bc96-ede187fc7d81",
-              "satisfaction_condition_id": "407d56a5-fec8-4a3c-bfc0-7c962c560f33",
+              "activation_condition_id": {
+                "always": true
+              },
+              "satisfaction_condition_id": {
+                "present": "opt_tom_002"
+              },
               "source_state": "resolved_selection",
               "loss_policy": "remove_source_with_notice_revert"
             }
