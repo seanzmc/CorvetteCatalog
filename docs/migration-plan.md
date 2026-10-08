@@ -1,6 +1,63 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — September 22 form audit and live-migration rollout
+## Current direction — October 7 remaining work before the new form replaces the old one
+
+Tasks 1–6 below are done; task 8's interior swatches and option photos are
+merged (#86–#90). Owner decisions, October 7:
+
+- **Artwork is hidden until it ships.** The visualizer no longer blocks
+  launch (supersedes the September 23 "launches with the form" decision).
+  R1 is done (PR #92): static bundles leave out all visualizer artwork,
+  including the ten bound 3LT/3LZ scenes, and the form hides its panel, unless
+  a bundle is built with `--with-artwork`. Swatches and card photos stay. The
+  local consumer server still shows artwork. Staging now serves release
+  `04074e01…` (full six-model audit, no findings) without artwork, in preview
+  mode; all 110 files checked (October 7).
+- **The catalog must be brought up to date with the manufacturer before
+  go-live.** The catalog reflects the September 6 export (price schedule revised
+  July 6). A model price change took effect Monday, October 5, so a newer
+  price schedule exists, and later distribution updates may apply.
+- **Manufacturer updates must reach the form quickly.** Distribution updates
+  change wording, compatibility and availability; price schedules change prices.
+  The owner wants them applied as soon as they arrive, not batched for a model year.
+- **Manual edits stay possible for nearly everything, and intake respects
+  them.** When a new guide, price schedule or distribution update is processed,
+  every fact the owner changed by hand since the last intake is flagged, and the
+  owner chooses to keep the manual value or take the manufacturer's.
+
+The existing editor already records every manual edit with evidence, and its
+intake accepts one interpreted assertion at a time without overwriting
+dealer-authored facts ([authoring operations](authoring-operations.md#review-intake-and-accept-a-draft)).
+What is missing is reading a whole source at once. The intake compares three
+values for each fact: the last manufacturer value, the new manufacturer value
+and the current catalog value. A manufacturer change to a fact with no manual
+edit is proposed as an update. A manual edit with no manufacturer change is
+kept. When both changed, the owner picks one. Nothing is applied without review.
+Distribution updates are prose (PDF or Markdown notes, for example
+`27vette/dist_updates/`), so they are interpreted into proposed changes that
+cite the exact source line, and the owner confirms each one.
+
+Remaining tasks, each separately authorized:
+
+| # | Task | Notes |
+| --- | --- | --- |
+| R1 | Hide artwork | Done (PR #92); `--with-artwork` turns it back on |
+| R2 | Source intake with manual-edit conflicts | Price schedule first (needed for the October 5 change), then whole-guide export, then distribution updates; three-way compare and keep/overwrite per flagged fact |
+| R3 | Bring the catalog current | Process the October 5 price schedule and any distribution updates after September 6 through R2; release and verify all six models |
+| R4 | Real dealer receipt proof (task 7, stage C) | Owner: Turnstile hostnames, endpoint CORS, dealership coordination |
+| R5 | Final workbook-vs-catalog comparison (audit §4.4) | Separates intentional manufacturer updates from defects |
+| R6 | Production upload and public beta (stage D) | Old form still primary; a week without errors |
+| R7 | Cutover (stage E) | Explicit owner approval and date |
+
+R2 replaces the guide-intake half of task 10; new model-year foundations
+remain task 10 and are needed before the 2028 guide, not for cutover.
+
+Open owner decision: the old form is still live and still generated from the
+frozen workbook, so it does not show the October 5 prices. Either the change is
+also made in the workbook (breaking the freeze, recorded as a dual edit), or the
+old form stays on the earlier prices until cutover.
+
+## Prior direction — September 22 form audit and live-migration rollout
 
 The [form audit and live-migration plan](form-audit-and-live-migration.md)
 audits the current checkout against the live static form and proposes a hosted
@@ -13,7 +70,7 @@ publication rights, artwork launching with the form, and a workbook change
 freeze now with generation stopping at cutover. The workbook still matches the
 September 6 baseline hash. The detailed audit (functional gaps, Photoshop asset coverage, server
 hardening and staged rollout A–F) lives in that document; this section is the
-authoritative task sequence for current priorities.
+task sequence that the October 7 section above now replaces for remaining work.
 
 Each row below is a separately authorized task and PR. Rollback to the old
 static form remains available at every rollout stage until retirement.
