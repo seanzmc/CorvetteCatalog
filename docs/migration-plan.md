@@ -5,12 +5,14 @@
 Tasks 1–6 below are done; task 8's interior swatches and option photos are
 merged (#86–#90). Owner decisions, October 7:
 
-- **Artwork will be hidden until it ships.** The visualizer no longer blocks
+- **Artwork is hidden until it ships.** The visualizer no longer blocks
   launch (supersedes the September 23 "launches with the form" decision).
-  Pending task R1 will hide all visualizer artwork, including the ten bound
-  3LT/3LZ scenes, until a later artwork release turns it on. The current form
-  still renders artwork and the bundle still packages it. Swatches and card
-  photos will stay.
+  R1 is done (PR #92): static bundles leave out all visualizer artwork,
+  including the ten bound 3LT/3LZ scenes, and the form hides its panel, unless
+  a bundle is built with `--with-artwork`. Swatches and card photos stay. The
+  local consumer server still shows artwork. Staging now serves release
+  `04074e01…` (full six-model audit, no findings) without artwork, in preview
+  mode; all 110 files checked (October 7).
 - **The catalog must be brought up to date with the manufacturer before
   go-live.** The catalog reflects the September 6 export (price schedule revised
   July 6). A model price change took effect Monday, October 5, so a newer
@@ -39,7 +41,7 @@ Remaining tasks, each separately authorized:
 
 | # | Task | Notes |
 | --- | --- | --- |
-| R1 | Hide artwork | Turn off the visualizer in the customer form and bundle until an artwork release turns it on |
+| R1 | Hide artwork | Done (PR #92); `--with-artwork` turns it back on |
 | R2 | Source intake with manual-edit conflicts | Price schedule first (needed for the October 5 change), then whole-guide export, then distribution updates; three-way compare and keep/overwrite per flagged fact |
 | R3 | Bring the catalog current | Process the October 5 price schedule and any distribution updates after September 6 through R2; release and verify all six models |
 | R4 | Real dealer receipt proof (task 7, stage C) | Owner: Turnstile hostnames, endpoint CORS, dealership coordination |

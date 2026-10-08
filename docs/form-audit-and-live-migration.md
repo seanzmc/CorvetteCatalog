@@ -153,10 +153,10 @@ folder; newly acquired sources need the same confirmation.
 
 **Superseded October 7:** the September 23 decision to launch artwork with the
 form no longer applies. Artwork is deferred to a later artwork release and does
-not block launch. Pending task R1 in the [current migration plan](migration-plan.md)
-will hide the visualizer, including all 10 bound 3LT/3LZ scenes, in the customer
-form and bundle; swatches and card photos will stay. The current implementation
-still renders and packages artwork. The trim-specific coverage restrictions in
+not block launch. Task R1 in the [current migration plan](migration-plan.md)
+(PR #92) hides the visualizer, including all 10 bound 3LT/3LZ scenes, in the
+customer form and bundle unless a bundle is built with `--with-artwork`;
+swatches and card photos stay. The trim-specific coverage restrictions in
 §3.2 remain evidence for later artwork work, not a requirement to show artwork
 or an "unavailable" state at launch.
 
