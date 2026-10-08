@@ -297,6 +297,9 @@ def compare_proposals(db, path):
     revs, edits, items = revisions(db), manual_edits(db), []
     for proposal in document['proposals']:
         revision = revs[proposal['model_key']]
+        # Resolve references to this draft's own identities; the review carries concrete keys.
+        proposal = dict(proposal, steps=[[resolved for request in step for resolved in _resolve(db, revision, request)]
+                                         for step in proposal['steps']])
         differs = []
         for expected in proposal.get('expected', []):
             key = dict(revision_id=revision, **expected['key'])
@@ -313,6 +316,65 @@ def compare_proposals(db, path):
                           differs=differs, manual_edits=manual))
     return dict(format='source-intake-review-v1', kind='proposals', draft_etag=database_hash(db),
                 source=dict(document['source'], proposals=_source(path)), items=items, notes=document.get('notes', []))
+
+
+def _reference(db, revision, value):
+    """A proposal names imported identities by meaning, not by an import's generated IDs.
+
+    {"always": true}: the model's unconditional condition; {"present": OPTION}: its
+    "OPTION is selected" condition; {"basis": OPTION}: that option's price basis.
+    """
+    if not isinstance(value, dict) or len(value) != 1 or next(iter(value)) not in ('always', 'present', 'basis'):
+        return value
+    kind, target = next(iter(value.items()))
+    if kind == 'basis':
+        row = records.lookup(db, 'option', dict(revision_id=revision, id=target))
+        found = row and [row['basis_id']]
+    elif kind == 'always':
+        found = [r[0] for r in db.execute('''SELECT c.activation_condition_id FROM conflict c JOIN condition d
+            ON d.revision_id=c.revision_id AND d.id=c.activation_condition_id
+            WHERE c.revision_id=? AND d.mode='always' GROUP BY 1 ORDER BY count(*) DESC, 1 LIMIT 1''', (revision,))]
+    else:
+        found = [r[0] for r in db.execute('''SELECT d.id FROM condition d WHERE d.revision_id=? AND d.mode='conjunction'
+            AND (SELECT count(*) FROM condition_member m WHERE m.revision_id=d.revision_id AND m.condition_id=d.id)=1
+            AND EXISTS (SELECT 1 FROM condition_clause c WHERE c.revision_id=d.revision_id AND c.condition_id=d.id AND c.mode='any_present')
+            AND EXISTS (SELECT 1 FROM condition_member m WHERE m.revision_id=d.revision_id AND m.condition_id=d.id
+                        AND m.option_id=? AND m.state='resolved_selection') ORDER BY d.id LIMIT 1''', (revision, target))]
+    if not found:
+        raise ValueError(f'No {kind} reference {target!r} in this draft')
+    return found[0]
+
+
+def _resolve(db, revision, request):
+    """Concrete requests for one proposal request.
+
+    A delete may `match` rules instead of naming a key: rule columns plus the
+    options and interior codes its condition mentions. Each matching rule is
+    deleted with its configuration scope; no match means nothing is left to do.
+    """
+    request = dict(request, values={k: _reference(db, revision, v) for k, v in request.get('values', {}).items()})
+    if 'match' not in request:
+        return [request]
+    table, match = request['table'], dict(request['match'])
+    if request.get('action') != 'delete' or table not in ('acquisition', 'requirement', 'conflict', 'option_rate'):
+        raise ValueError('Only rule deletes can match by description')
+    options, codes = match.pop('condition_options', []), match.pop('condition_interior_codes', [])
+    condition = 'activation_condition_id' if table in ('requirement', 'conflict') else 'condition_id'
+    result = []
+    for row in db.execute(f'SELECT * FROM "{table}" WHERE revision_id=? ORDER BY id', (revision,)):
+        if any(row[k] != v for k, v in match.items()):
+            continue
+        members = db.execute('''SELECT m.option_id, i.code FROM condition_member m LEFT JOIN interior i
+            ON i.revision_id=m.revision_id AND i.id=m.interior_id WHERE m.revision_id=? AND m.condition_id=?''',
+            (revision, row[condition])).fetchall()
+        if not set(options) <= {m[0] for m in members} or not set(codes) <= {m[1] for m in members}:
+            continue
+        column = 'rate_id' if table == 'option_rate' else table + '_id'
+        result += [dict(table=table + '_configuration', key={column: row['id'], 'configuration_id': c}, action='delete')
+                   for (c,) in db.execute(f'SELECT configuration_id FROM "{table}_configuration" WHERE revision_id=? AND {column}=? ORDER BY 1',
+                                          (revision, row['id']))]
+        result.append(dict(table=table, key=dict(id=row['id']), action='delete'))
+    return result
 
 
 def _target(revision, request):

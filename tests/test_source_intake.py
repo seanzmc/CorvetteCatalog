@@ -170,5 +170,28 @@ class IntakeTests(unittest.TestCase):
         self.assertIn('page 1, line 2', reason)
 
 
+    def test_proposals_name_imported_identities_by_meaning(self):
+        # Condition and rule IDs are generated at import; a proposal must work in any draft.
+        source = self.root / 'sources/notes.pdf'
+        source.write_bytes(b'distribution update')
+        pdb = self.db.execute("SELECT id FROM option WHERE revision_id=? AND rpo='PDY'", (self.rev,)).fetchone()[0]
+        rule = dict(self.db.execute("SELECT * FROM acquisition WHERE revision_id=? AND id='rule_opt_pdy_001_includes_opt_ryt_001'",
+                                    (self.rev,)).fetchone())
+        proposals = self.root / 'proposals.json'
+        proposals.write_text(json.dumps(dict(format='source-proposals-v1', source=si._source(source), notes=[], proposals=[dict(
+            id='refs', model_key='stingray', locator='page 1, line 3', quote='quoted', summary='references',
+            steps=[[dict(table='conflict', key=dict(id='conflict_new'), action='create',
+                         values=dict(source_option_id=pdb, activation_condition_id={'always': True})),
+                    dict(table='acquisition', action='delete', key={},
+                         match=dict(target_option_id=rule['target_option_id'], condition_options=[pdb]))]])])))
+        steps = si.compare_proposals(self.db, proposals)['items'][0]['steps'][0]
+        always = steps[0]['values']['activation_condition_id']
+        self.assertEqual(self.db.execute('SELECT mode FROM condition WHERE revision_id=? AND id=?', (self.rev, always)).fetchone()[0], 'always')
+        deleted = [s for s in steps[1:] if s['table'] == 'acquisition']
+        self.assertEqual([d['key']['id'] for d in deleted], [rule['id']])
+        self.assertTrue(all(s['action'] == 'delete' for s in steps[1:]))
+        self.assertIn('acquisition_configuration', {s['table'] for s in steps[1:]})
+
+
 if __name__ == '__main__':
     unittest.main()
