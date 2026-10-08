@@ -10,6 +10,73 @@
   },
   "proposals": [
     {
+      "id": "2026-10-05-stingray-5zu",
+      "model_key": "stingray",
+      "locator": "page 1, lines 5-6",
+      "quote": "Stingray Exterior section-(5ZU) LPO, High wing spoiler, updated footnote 1 by adding to the beginning \"Not available at this time.\"",
+      "summary": "5ZU body-color high wing spoiler is not available at this time; 5V7 Black Ground Effects, which requires 5ZU, 5ZW or 5ZZ, is therefore not available either (manufacturer constraint; owner decision October 8)",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5zu_001"
+            },
+            "values": {
+              "lifecycle": "factory_unavailable"
+            }
+          },
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_5v7_001"
+            },
+            "values": {
+              "lifecycle": "factory_unavailable"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5zu_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Available on G8G, GBA and GKZ only. Genuine Corvette Accessory.\",\"detail_raw\":\"1. Not available at this time. Requires exterior color (G8G) Arctic White, (GBA) Black or (GKZ) Torch Red. Not available with 5ZW, 5ZZ, TVS. Deletes (T0A) Z51 rear spoiler when ordered with (Z51) Z51 Performance Package.\",\"display_behavior\":null,\"display_order\":41,\"emit_code\":true,\"name\":\"Body-Color High Wing Spoiler\",\"projection\":\"installed_equipment\",\"rpo\":\"5ZU\",\"section_id\":\"sec_spoi_001\"}"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_5v7_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"LPO. Genuine Corvette Accessory.\",\"detail_raw\":\"Not available at this time: manufacturer constraint. 5V7 requires a high-wing spoiler (5ZU, 5ZW or 5ZZ), and the manufacturer lists all three as not available at this time (distribution update, week of 10/5/2026).\\n1. Requires 5ZU, 5ZW or 5ZZ. Not available with STI, TVS, Z51.\\n2. Requires 5ZU, 5ZW or 5ZZ. Not available with 5VM, 5W8, STI, TVS, Z51.\",\"display_behavior\":null,\"display_order\":40,\"emit_code\":true,\"name\":\"Black Ground Effects\",\"projection\":\"resolved_selection\",\"rpo\":\"5V7\",\"section_id\":\"sec_lpoe_001\"}"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_5zu_001"
+          },
+          "values": {
+            "lifecycle": "active"
+          }
+        },
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_5v7_001"
+          },
+          "values": {
+            "lifecycle": "active"
+          }
+        }
+      ]
+    },
+    {
       "id": "2026-10-05-grand-sport-x-hp1",
       "model_key": "grand_sport_x",
       "locator": "page 1, lines 7-9",
@@ -2059,12 +2126,6 @@
     }
   ],
   "notes": [
-    {
-      "kind": "owner_decision",
-      "locator": "page 1, lines 5-6",
-      "code": "5ZU",
-      "detail": "Not applied. Marking 5ZU not available leaves no orderable high-wing spoiler (5ZW and 5ZZ are already not available), so 5V7 Black Ground Effects, which requires 5ZU, 5ZW or 5ZZ, could no longer be built and the editor refuses the change. Choose: mark 5V7 not available as well and retire its spoiler requirement and conflicts (history keeps them), or keep 5ZU orderable until the manufacturer restores it."
-    },
     {
       "kind": "checked",
       "locator": "page 1, lines 10-11",

@@ -207,10 +207,13 @@ distribution updates that add them.
 **Distribution updates.** Every entry was checked against the catalog. The
 interpretation, with page and line for each entry, is
 [`intake/distribution-updates/2027-through-2026-10-05.json`](../intake/distribution-updates/2027-through-2026-10-05.json):
-16 proposals and 7 notes. Entries already in the catalog need nothing,
+17 proposals and 6 notes. Entries already in the catalog need nothing,
 including the 8/31 sill plates, the DTC stripes, the removal of DUW and DTB,
 the not-available notes for R88, 5ZZ, SLN, PCQ and VWT, the 6/22 and 7/6
 seat-belt rules, the 8/31 graphics conflicts, and the B4Z and PBC
-requirements. 5ZU (10/5) is not applied: it needs an owner decision because
-5V7 requires one of three spoilers that would all be unavailable. Locators
+requirements. 5ZU (10/5) is not available at this time; because 5V7 requires
+5ZU, 5ZW or 5ZZ and all three are now not available, 5V7 is not available
+either. The owner decided on October 8 to apply this as a manufacturer
+constraint, stated in 5V7's footnote. The owner also confirmed the DUE name
+Royal Blue, although the price schedule still says Santorini Blue. Locators
 refer to the PDF's text layer as macOS PDFKit orders it.
