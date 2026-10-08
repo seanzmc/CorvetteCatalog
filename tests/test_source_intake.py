@@ -154,6 +154,9 @@ class IntakeTests(unittest.TestCase):
         self.assertEqual(item['status'], 'conflict')
         self.assertEqual(item['differs'][0]['current'], dict(name='First Aid Kit (owner)'))
         self.assertEqual(si.apply(self.db, review, keep=['rename-ryt'])['applied'], 0)
+        changed = dict(review, source=dict(review['source'], sha256='0' * 64))
+        with self.assertRaisesRegex(ValueError, 'no longer matches its hash'):
+            si.apply(self.db, changed, take=['rename-ryt'])
         si.apply(self.db, si.compare_proposals(self.db, proposals), take=['rename-ryt'])
         self.assertEqual(si.compare_proposals(self.db, proposals)['items'][0]['status'], 'already_current')
         reason = self.db.execute('SELECT reason FROM authoring_record_change ORDER BY edit_version DESC').fetchone()[0]

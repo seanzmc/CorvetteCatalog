@@ -112,8 +112,10 @@ manufacturer value is treated as edited, which also covers values the baseline
 never matched. For proposals, a target record changed since interpretation, or
 touched by a manual edit, is a conflict. The review fingerprints the draft;
 any change before `apply` requires a new review. `apply` stops at the first
-edit the editor refuses, reporting what it saved. Rerunning it skips steps
-already in the draft.
+edit the editor refuses, reporting what it saved. Because the draft has
+changed, run the review again before applying the rest; `apply` skips steps
+already in the draft, so a partly applied proposal finishes where it stopped.
+`apply` checks the manufacturer source's hash before saving anything.
 
 ## Reproduce and recover an authored release
 
