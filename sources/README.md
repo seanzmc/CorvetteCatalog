@@ -181,3 +181,39 @@ These are local evaluator/consumer checks, not browser or dealer integration
 checks. Full parity, semantic-audit and release-recovery suites were not rerun:
 this task changes review documentation only, preserving code, frozen evidence,
 owner overlays and release artifacts.
+
+## Sources received October 8, 2026
+
+Both were supplied by Sean from his Downloads folder and copied byte-for-byte
+into Git-ignored `sources/raw/<sha256>/` by `catalog.source_intake`. The owner
+said newer distribution notes override older entries for the same item.
+
+| Source | SHA-256 | Size | Identity |
+| --- | --- | --- | --- |
+| `27 Corvette Pricing 9-28 - Sheet1.csv` | `2846d11295c408efc4c7dea748e9aebc0189ed4b8e4748d95b073fc287defe04` | 31,525 bytes | Spreadsheet export of the MY2027 price schedule. Line 3: `EFFECTIVE September 28, 2026`; footer line: `Revised September 09, 2026`. Same column layout as the September 6 export's Price Schedule sheet |
+| `27-dist-updates.pdf` | `5fc087a23daaddfdb0b803108575dae39ff9b261889bb9d88fd44502e804a63b` | 125,810 bytes | 13 pages: Distribution Updates for USA 2027 Chevrolet Car Corvette, weeks of 5/11/2026 through 10/5/2026 |
+
+**Dates.** The owner described a model price change effective Monday,
+October 5. This schedule reads effective September 28. It is the newest
+schedule supplied, and it is the source of the base-price change.
+
+**Price schedule against the September 6 export (Price Schedule sheet, revised
+July 6):** all 32 base model prices rose by $300; destination ($2,495) is
+unchanged. Four rows are new: 5JS ($595), 5WN ($1,500), and PCR ($3,000 ZR1X
+and $7,495 ZR1). No other option price, row or description changed. The 32 base
+prices are applied as intake edits; the four new codes come from the
+distribution updates that add them.
+
+**Distribution updates.** Every entry was checked against the catalog. The
+interpretation, with page and line for each entry, is
+[`intake/distribution-updates/2027-through-2026-10-05.json`](../intake/distribution-updates/2027-through-2026-10-05.json):
+17 proposals and 6 notes. Entries already in the catalog need nothing,
+including the 8/31 sill plates, the DTC stripes, the removal of DUW and DTB,
+the not-available notes for R88, 5ZZ, SLN, PCQ and VWT, the 6/22 and 7/6
+seat-belt rules, the 8/31 graphics conflicts, and the B4Z and PBC
+requirements. 5ZU (10/5) is not available at this time; because 5V7 requires
+5ZU, 5ZW or 5ZZ and all three are now not available, 5V7 is not available
+either. The owner decided on October 8 to apply this as a manufacturer
+constraint, stated in 5V7's footnote. The owner also confirmed the DUE name
+Royal Blue, although the price schedule still says Santorini Blue. Locators
+refer to the PDF's text layer as macOS PDFKit orders it.
