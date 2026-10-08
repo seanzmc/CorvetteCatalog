@@ -370,11 +370,16 @@ def _batches(db, review, chosen):
 def apply(db, review, keep=(), take=()):
     """Save each chosen batch as reviewed edits, then stage the intake assertion they cite.
 
-    Steps already in the draft are skipped, so an interrupted apply can be rerun.
+    After an interrupted apply, review again: steps already in the draft are skipped.
     """
     source = review['source']
     if not source.get('path') or not (review.get('previous') or source['proposals']).get('path'):
         raise ValueError('Preserve the sources in this repository (sources/raw) first')
+    # The assertion is staged after its edits, so its evidence must hold before any save.
+    original = (f.ROOT / source['path']).resolve()
+    if (not original.is_relative_to(f.ROOT) or not original.is_file()
+            or hashlib.sha256(original.read_bytes()).hexdigest() != source['sha256']):
+        raise ValueError(f"The manufacturer source {source['path']} is missing or no longer matches its hash")
     fresh = (compare_prices(db, f.ROOT / source['path'], f.ROOT / review['previous']['path'])
              if review['kind'] == 'price_schedule' else compare_proposals(db, f.ROOT / source['proposals']['path']))
     if fresh != review:
@@ -398,7 +403,8 @@ def apply(db, review, keep=(), take=()):
                 result = records.save(db, records.preview(db, revision, database_hash(db), requests, reason))
             except ValueError as error:
                 raise ValueError(f'{label[:120]} ({locator}) could not be saved: {error}. '
-                                 f'Saved before it: {json.dumps(saved)}') from error
+                                 f'Saved before it: {json.dumps(saved)}. Review again before applying the rest; '
+                                 'saved steps are skipped') from error
             refs.append(f"authoring_record_change:{revision}:{result['edit_version']}")
         staged = acceptance.stage(db, payload)
         saved.append(dict(intake_id=staged['intake_id'], change_refs=refs, locator=locator))
