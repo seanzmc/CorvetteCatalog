@@ -84,6 +84,37 @@ claim a new whole-guide parser, resolve the historical brake assertions by defau
 or modify C's immutable staging files or `accepted_operations` evidence. Those
 facts require their own explicit, evidence-backed decisions through this workflow.
 
+## Take in a whole manufacturer source
+
+`catalog.source_intake` (commands in the [README](../README.md#take-in-manufacturer-updates))
+turns a whole source into ordinary reviewed edits and intake assertions; it does
+not bypass review, acceptance or the release audit.
+
+- **Price schedules** are read whole: the CSV a spreadsheet exports from the
+  schedule, or an order-guide workbook's Price Schedule sheet. The list price
+  column is used (ST-D12) and must equal MSRP minus D/H. Base prices map to
+  configurations by model code, body and trim, with the destination charge
+  added. Option prices map to every priced option with that RPO; a code
+  listed once per model maps by model. Discounts and prices that depend on trim,
+  another option or a package are reported for hand mapping, never applied.
+- **Distribution updates** are prose, so they are interpreted into a
+  `source-proposals-v1` file under `intake/distribution-updates/`. Each
+  proposal quotes its entry, cites its page and line, lists the record edits it
+  implies (in steps, for example copy an option, then set its availability and
+  rules) and the values it was interpreted against. Entries checked and found
+  already reflected, outside the catalog, or needing an owner decision are
+  recorded as notes.
+
+A manual edit is any saved edit that a manufacturer intake did not make. Intake
+edits start their reason with `Manufacturer intake:` and the assertion they
+belong to. For prices, a fact whose current value differs from the last
+manufacturer value is treated as edited, which also covers values the baseline
+never matched. For proposals, a target record changed since interpretation, or
+touched by a manual edit, is a conflict. The review fingerprints the draft;
+any change before `apply` requires a new review. `apply` stops at the first
+edit the editor refuses, reporting what it saved. Rerunning it skips steps
+already in the draft.
+
 ## Reproduce and recover an authored release
 
 **Create release from accepted draft** runs the existing release builder in the
