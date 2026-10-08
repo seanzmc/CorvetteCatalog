@@ -101,7 +101,11 @@ not bypass review, acceptance or the release audit.
   `source-proposals-v1` file under `intake/distribution-updates/`. Each
   proposal quotes its entry, cites its page and line, lists the record edits it
   implies (in steps, for example copy an option, then set its availability and
-  rules) and the values it was interpreted against. Entries checked and found
+  rules) and the values it was interpreted against. Condition and rule IDs are
+  generated at import, so proposals name them by meaning: `{"always": true}`,
+  `{"present": OPTION_ID}` and `{"basis": OPTION_ID}` resolve in the reviewed
+  draft, and a rule delete can `match` rule columns plus the options and
+  interior codes in its condition. Entries checked and found
   already reflected, outside the catalog, or needing an owner decision are
   recorded as notes.
 
