@@ -193,5 +193,20 @@ class IntakeTests(unittest.TestCase):
         self.assertIn('acquisition_configuration', {s['table'] for s in steps[1:]})
 
 
+    def test_withdrawing_an_option_needs_its_dependents_withdrawn_too(self):
+        # NWI requires WUB. A manufacturer "not available at this time" for WUB alone
+        # would leave NWI unbuildable; withdrawing both proves the rule inapplicable.
+        def withdraw(*codes):
+            requests = [dict(table='option', key=dict(revision_id=self.rev, id=self.db.execute(
+                'SELECT id FROM option WHERE revision_id=? AND rpo=?', (self.rev, code)).fetchone()[0]),
+                values=dict(lifecycle='factory_unavailable')) for code in codes]
+            return r.preview(self.db, self.rev, database_hash(self.db), requests, 'Manufacturer constraint')
+        with self.assertRaisesRegex(ValueError, 'Cannot verify affected requirement rule_opt_nwi_001_requires_opt_wub_001'):
+            withdraw('WUB')
+        change = withdraw('WUB', 'NWI')
+        self.assertIn('Inapplicable: this edit makes an option it needs unavailable',
+                      {item.get('coverage') for item in change['connected_after']})
+
+
 if __name__ == '__main__':
     unittest.main()
