@@ -256,9 +256,12 @@ def operations(db, revision, requests):
         if action in ('clone','create'): allowed |= set(spec['keys'])-{'revision_id'}
         if not isinstance(values,dict) or set(values)-allowed:
             raise ValueError('Identity, source evidence and system fields are read-only')
+        # A new record's key is written too: SQLite would coerce a mistyped key
+        # and the recorded history would no longer replay.
+        checked=values|key if action=='create' else values
         for field in spec['fields']:
-            if field['name'] in values and values[field['name']] is not None:
-                value=values[field['name']]
+            if field['name'] in checked and checked[field['name']] is not None:
+                value=checked[field['name']]
                 if field['integer'] and type(value) is not int:
                     raise ValueError(field['name']+' requires an integer')
                 if not field['integer'] and not isinstance(value,str):

@@ -157,6 +157,12 @@ class IntakeTests(unittest.TestCase):
         si.apply(self.db, si.compare_proposals(self.db, proposals), take=['rename-ryt'])
         self.assertEqual(si.compare_proposals(self.db, proposals)['items'][0]['status'], 'already_current')
         reason = self.db.execute('SELECT reason FROM authoring_record_change ORDER BY edit_version DESC').fetchone()[0]
+        # Text keys stay text, so the recorded history replays exactly.
+        conflict = self.db.execute('SELECT id FROM conflict WHERE revision_id=? LIMIT 1', (self.rev,)).fetchone()[0]
+        member = dict(table='conflict_member', key=dict(revision_id=self.rev, conflict_id=conflict, member_id=99),
+                      action='create', values=dict(option_id=option['id']))
+        with self.assertRaisesRegex(ValueError, 'member_id requires text'):
+            r.operations(self.db, self.rev, [member])
         self.assertTrue(reason.startswith(si.INTAKE_REASON))
         self.assertIn('page 1, line 2', reason)
 
