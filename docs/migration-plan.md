@@ -44,7 +44,7 @@ Remaining tasks, each separately authorized:
 | R1 | Hide artwork | Done (PR #92); `--with-artwork` turns it back on |
 | R2 | Source intake with manual-edit conflicts | Price schedules and interpreted distribution updates done (`catalog.source_intake`, October 8): three-way compare, keep/take per conflict, edits cite their source lines. A new whole-guide export (availability matrices) is not read yet |
 | R3 | Bring the catalog current | Accepted October 8 (reviewer Sean): September 28 price schedule (+$300 on all 32 base prices) and 17 distribution-update proposals, including 5ZU and 5V7 not available (manufacturer constraint) ([sources](../sources/README.md#sources-received-october-8-2026)) |
-| R4 | Real dealer receipt proof (task 7, stage C) | Done October 8: a staging order (reference 243794) reached the owner's inbox with the build as sent ([dealer submission](dealer-submission.md#receipt-proof)) |
+| R4 | Real dealer receipt proof (task 7, stage C) | Done October 8: a staging order (receipt identifier redacted) reached the owner's inbox with the build as sent ([dealer submission](dealer-submission.md#receipt-proof)) |
 | R5 | Final workbook-vs-catalog comparison (audit §4.4) | Separates intentional manufacturer updates from defects |
 | R6 | Production upload and public beta (stage D) | Old form still primary; a week without errors |
 | R7 | Cutover (stage E) | Explicit owner approval and date |

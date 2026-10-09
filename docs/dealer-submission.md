@@ -119,7 +119,7 @@ cutover. The workbook remains canonical.
 On October 8, 2026 a static bundle built with `--enable-dealer-submissions`
 from release `11f2d01c…` was published to the WordPress staging site. A Stingray
 2LT coupe build ($89,475 total MSRP) marked as a test order was sent from the
-owner's Chrome. The endpoint answered with reference 243794, and the owner confirmed that
+owner's Chrome. The endpoint returned a receipt (identifier redacted), and the owner confirmed that
 the email arrived with the name, contact details, comment, option list and total
 as sent. The Turnstile widget already listed the staging hostname, and the
 endpoint's CORS response already allowed the staging origin. Production
