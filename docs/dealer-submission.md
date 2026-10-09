@@ -113,3 +113,18 @@ malformed responses, network failure, duplicate submission, receipt reopening,
 preview-only operation and responsive layout. They do not prove an actual
 WordPress receipt, a dealership notification, production deployment or canonical
 cutover. The workbook remains canonical.
+
+## Receipt proof
+
+On October 8, 2026 a static bundle built with `--enable-dealer-submissions`
+from release `11f2d01c…` was published to the WordPress staging site. A Stingray
+2LT coupe build ($89,475 total MSRP) marked as a test order was sent from the
+owner's Chrome. The endpoint returned a receipt (identifier redacted), and the owner confirmed that
+the email arrived with the name, contact details, comment, option list and total
+as sent. The Turnstile widget already listed the staging hostname, and the
+endpoint's CORS response already allowed the staging origin. Production
+(`stingraychevroletcorvette.com`) still needs to be added to the widget's
+hostnames before R6.
+
+Turnstile rejects automated browsers (error 600010), including the desktop app's
+built-in browser. Send test orders from an ordinary browser.
