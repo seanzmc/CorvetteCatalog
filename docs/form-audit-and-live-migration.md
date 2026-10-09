@@ -121,6 +121,7 @@ G26, GKZ). Recipes, export scripts and native comparisons live in
   is to inspect the existing PSBs for lower-trim layers before looking for
   other sources.
 - **Grand Sport X:** no source PSB in the folder. Nothing to bind.
+  Audit update: see the [GSX provenance finding](visualizer-asset-gaps.md#gsx-provenance-and-source-drift) for the newly inventoried Grand Sport derivative; it is not accepted native GSX coverage.
 - **Stingray:** 3 of 10 paints, and only with 5ZU. Stingray builds without 5ZU,
   or in the other 7 paints, show "unavailable".
 - **Components:** only paint and rear spoiler change. Wheels, calipers, stripes,

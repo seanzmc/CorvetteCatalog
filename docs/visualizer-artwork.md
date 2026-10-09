@@ -24,6 +24,7 @@ rear spoiler only. Convertible scenes retain the native raised/closed top and
 nacelle configuration. Other model/body/trim/view combinations show an explicit
 unavailable state. Grand Sport X has no corresponding source in the supplied
 folder. Equal option IDs or similar cars never justify borrowing another scene.
+Audit update: a GSX-named derivative exists; see the [GSX provenance finding](visualizer-asset-gaps.md#gsx-provenance-and-source-drift) before treating it as native GSX coverage.
 Internal S-number low-spoiler aliases and source no-spoiler decomposition references
 remain unbound; they do not establish an option identity or application default.
 
