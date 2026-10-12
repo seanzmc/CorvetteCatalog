@@ -104,9 +104,50 @@ Retired or renamed RPO identities invalidate the affected scene until reviewed;
 they do not borrow a different body's or model's images, hide an independently
 valid scene, or prevent an otherwise valid catalog edit from releasing.
 
+### Optional no-rear-spoiler state
+
+A scene may opt in with the same `no_spoiler` object in its application manifest
+and hash-pinned native proof. The existing v1 formats accept this optional extension:
+
+```json
+"no_spoiler": {
+  "group_id": "08154d57-e154-4712-ad8d-05589cbfab4c",
+  "excluded_option_ids": ["opt_z51_001"]
+}
+```
+
+This example names the pinned R3 Stingray rear group and excludes Z51 because a
+non-Z51 scene's fixed front does not qualify Z51 equipment. IDs must come from
+the scene model's own catalog revision: the group must cover the scene's body
+and trim, have minimum 0, and contain every bound spoiler choice. Every excluded
+option must exist in that model. A stale declaration returns the existing
+“Artwork bindings need review” result; unequal manifest/proof declarations fail
+package loading. No current scene declares this state; Stingray binding and native
+qualification remain batch 2a work.
+
+For a declared scene, exactly one supported paint with **no installed member of
+the entire catalog group** renders **back (0), foreground (30)**, labelled
+“No rear spoiler.” A single installed bound choice retains the three-plane
+composition. An installed unbound member, multiple members, an unsupported paint,
+or any installed excluded option makes artwork unavailable, including when a
+bound spoiler is present. Scenes without the declaration still require one
+bound spoiler; a paint-only Grand Sport does not acquire a bare-car fallback.
+
+The renderer reads resolved installed equipment, with no RPO-specific rules.
+ZF1 removes T0A through catalog resolution; ZF1 with TVS retains TVS as a rear
+group member and requires its qualified artwork. A non-Z51 scene excluding Z51
+refuses **Z51 + ZF1**, with or without TVS, until a dedicated scene exists. ZF1
+alone is never an instruction to hide all spoilers. The declaration must reflect
+native proof of the fixed front and rear planes, not just an empty rear group.
+
+`release_media()` and `asset_path()` need no change: the two-plane state reuses
+the same hash-pinned back and foreground assets and scene-qualified URLs.
+
+### Confirmed projection and packaging
+
 The consumer projects artwork from the same resolved state as prices and order
 output. Pending changes cannot replace the confirmed image. Cancel preserves it;
-confirm and revert select their resolved planes. All three images must decode
+confirm and revert select their resolved planes. All selected images must decode
 before display. Missing images hide the whole stack with a readable message;
 a later valid selection can recover. Async completions from older selections
 cannot replace a newer build's artwork.
@@ -131,6 +172,8 @@ or canonical authority changes in this artwork integration.
 Focused checks cover all 146 combinations against native proof identities and
 image hashes, foreign-model/body/trim fallback, paint-specific spoilers,
 overlapping scene/path rejection, stale per-body binding isolation,
+optional no-spoiler proof agreement, model-owned group scope and minimum,
+unbound members and fixed-plane exclusions,
 pending/cancel/confirm/revert behavior, stale identity refusal, image/evidence
 mutation, repeat completion and recovery. Browser checks cover paint changes,
 spoiler transactions, a blocked image, recovery and desktop/mobile layout. The PR

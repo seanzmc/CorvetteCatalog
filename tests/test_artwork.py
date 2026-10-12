@@ -1,5 +1,8 @@
 """Confirmed-state artwork ownership, complete release packaging and recovery."""
 import copy
+from contextlib import contextmanager
+from dataclasses import replace
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -12,6 +15,29 @@ from catalog import artwork
 from catalog.consumers import ConsumerCatalog, ConsumerSession, digest
 from catalog.consumer_server import Application, handler
 from catalog.releases import ReleaseStore, database_hash, write_json
+
+
+@contextmanager
+def no_spoiler_fixture(catalog):
+    """Synthetic opt-in proof only; never qualify or edit the bundled artwork."""
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        scene_root = root / 'stingray-coupe'
+        shutil.copytree(artwork.ROOT / 'stingray-coupe', scene_root)
+        write_json(root / 'index.json', dict(format='catalog-artwork-collection-v1', scenes=['stingray-coupe']))
+        manifest = artwork.load(scene_root)
+        # The imported test baseline and pinned R3 have different retained IDs.
+        # Resolve the actual fixture catalog's rear group, never borrow R3's ID.
+        group, = [g for g in catalog.ev.rows['choice_group']
+                  if {'opt_5zu_001', 'opt_t0a_001', 'opt_tvs_001'} <= catalog.ev.members[g['id']]]
+        manifest['no_spoiler'] = dict(group_id=group['id'], excluded_option_ids=['opt_z51_001'])
+        evidence_path = scene_root / manifest['evidence']['file']
+        evidence = json.loads(evidence_path.read_text())
+        evidence['no_spoiler'] = manifest['no_spoiler']
+        write_json(evidence_path, evidence)
+        manifest['evidence']['sha256'] = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
+        write_json(scene_root / 'manifest.json', manifest)
+        yield root, artwork.load_collection(root)[0]
 
 
 class ArtworkTests(unittest.TestCase):
@@ -112,6 +138,108 @@ class ArtworkTests(unittest.TestCase):
             self.assertEqual(result['assets'], [])
         finally:
             c.ev.options['opt_t0f_001'] = original
+
+    def test_declared_no_spoiler_uses_resolved_members_and_fixed_plane_exclusions(self):
+        cat = copy.copy(self.catalogs['stingray'])
+        with no_spoiler_fixture(cat) as (root, scene):
+            cat.artwork = artwork.catalog_contract(cat, scene)
+            session = ConsumerSession(cat, '3lt_c07', 'no-spoiler-test')
+            self.commit(session, 'select', 'opt_gba_001')
+            state = session._session.state
+            view = session.current()['build']['visualizer']
+            paint = next(p for p in scene['paints'] if p['rpo'] == 'GBA')
+            self.assertEqual(view['coverage'], 'component_preview')
+            self.assertEqual(view['label'], 'No rear spoiler')
+            self.assertIsNone(view['option_id'])
+            self.assertIsNone(view['rpo'])
+            self.assertEqual([a['id'] for a in view['assets']], [paint['base_asset_id'], paint['foreground_asset_id']])
+            self.assertEqual([a['stack_order'] for a in view['assets']], [0, 30])
+            self.assertEqual([a['url'] for a in view['assets']],
+                             ['/artwork/stingray-coupe/'+a['file'] for a in view['assets']])
+            for asset in view['assets']:
+                self.assertEqual(artwork.asset_path(asset['url'], root), root / 'stingray-coupe' / asset['file'])
+            self.commit(session, 'select', 'opt_5zu_001')
+            bound = artwork.project(cat, session._session.state)
+            legacy = dict(scene); del legacy['no_spoiler']
+            cat.artwork = artwork.catalog_contract(cat, legacy)
+            self.assertEqual(bound, artwork.project(cat, session._session.state))
+            self.assertEqual([a['stack_order'] for a in bound['assets']], [0, 20, 30])
+            cat.artwork = artwork.catalog_contract(cat, scene)
+            # Every rear group member counts, including unbound/paint-unmatched
+            # choices; an invalid mixed state must not select just its bound wing.
+            for extras in ({'opt_tvs_001'}, {'opt_z51_001'}, {'opt_5zu_001', 'opt_tvs_001'},
+                           {'opt_5zu_001', 'opt_z51_001'}):
+                with self.subTest(extras=extras):
+                    result = artwork.project(cat, replace(state, installed=state.installed | extras))
+                    self.assertEqual(result['coverage'], 'art_not_available')
+                    self.assertEqual(result['assets'], [])
+            for installed in (frozenset(), state.installed | {'opt_g8g_001'},
+                              state.installed - {'opt_gba_001'} | {'opt_gph_001', 'opt_5zu_001'}):
+                with self.subTest(installed=installed):
+                    self.assertEqual(artwork.project(cat, replace(state, installed=installed))['coverage'], 'art_not_available')
+            # Exercise actual catalog resolution, including ZF1 with replacement TVS.
+            session = ConsumerSession(cat, '3lt_c07', 'no-spoiler-test')
+            for oid in ('opt_gba_001', 'opt_z51_001', 'opt_zf1_001'):
+                self.commit(session, 'select', oid)
+            self.assertNotIn('opt_t0a_001', session._session.state.installed)
+            self.assertEqual(session.current()['build']['visualizer']['coverage'], 'art_not_available')
+            self.commit(session, 'select', 'opt_tvs_001')
+            self.assertIn('opt_tvs_001', session._session.state.installed)
+            self.assertEqual(session.current()['build']['visualizer']['coverage'], 'art_not_available')
+
+    def test_no_spoiler_declaration_must_match_hash_pinned_evidence(self):
+        with no_spoiler_fixture(self.catalogs['stingray']) as (root, scene):
+            path = root / 'stingray-coupe' / 'manifest.json'
+            for mutation in ('missing', 'group', 'exclusions', 'evidence_missing'):
+                changed = copy.deepcopy(scene)
+                if mutation == 'missing': del changed['no_spoiler']
+                elif mutation == 'group': changed['no_spoiler']['group_id'] = 'different-group'
+                elif mutation == 'exclusions': changed['no_spoiler']['excluded_option_ids'] = []
+                else:
+                    evidence_path = path.parent / scene['evidence']['file']
+                    evidence = json.loads(evidence_path.read_text())
+                    del evidence['no_spoiler']
+                    write_json(evidence_path, evidence)
+                    changed['evidence']['sha256'] = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
+                write_json(path, changed)
+                with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, 'no-spoiler binding mismatch'):
+                    artwork.load(path.parent)
+
+    def test_no_spoiler_contract_requires_model_owned_optional_scoped_group(self):
+        cat = copy.copy(self.catalogs['stingray'])
+        with no_spoiler_fixture(cat) as (_, scene):
+            gid = scene['no_spoiler']['group_id']
+            foreign = self.catalogs['grand_sport']
+            foreign_gid = next(g['id'] for g in foreign.ev.rows['choice_group'] if g['id'] not in cat.ev.members)
+            foreign_oid = next(oid for oid in foreign.ev.options if oid not in cat.ev.options)
+            for mutation in ('minimum', 'foreign_group', 'outside_group', 'scope', 'unknown_option', 'foreign_option'):
+                cat.ev = copy.deepcopy(self.catalogs['stingray'].ev)
+                changed = copy.deepcopy(scene)
+                if mutation == 'minimum':
+                    next(g for g in cat.ev.rows['choice_group'] if g['id'] == gid)['minimum'] = 1
+                elif mutation == 'foreign_group': changed['no_spoiler']['group_id'] = foreign_gid
+                elif mutation == 'outside_group': cat.ev.members[gid].remove('opt_5zu_001')
+                elif mutation == 'scope': cat.ev.scopes['choice_group'].remove((gid, '3lt_c07'))
+                else: changed['no_spoiler']['excluded_option_ids'] = [foreign_oid if mutation == 'foreign_option' else 'missing']
+                with self.subTest(mutation=mutation):
+                    self.assertEqual(artwork.catalog_contract(cat, changed), dict(assets=[], coverage='art_not_available',
+                                     reason='Artwork bindings need review for this catalog.'))
+
+    def test_no_spoiler_declaration_requires_ids_even_when_both_documents_agree(self):
+        with no_spoiler_fixture(self.catalogs['stingray']) as (root, scene):
+            scene_root = root / 'stingray-coupe'
+            evidence_path = scene_root / scene['evidence']['file']
+            evidence = json.loads(evidence_path.read_text())
+            for declaration in (None, {}, dict(group_id='', excluded_option_ids=[]),
+                                dict(group_id='group', excluded_option_ids='opt_z51_001'),
+                                dict(group_id='group', excluded_option_ids=[None])):
+                changed = copy.deepcopy(scene)
+                changed['no_spoiler'] = evidence['no_spoiler'] = declaration
+                write_json(evidence_path, evidence)
+                changed['evidence']['sha256'] = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
+                write_json(scene_root / 'manifest.json', changed)
+                with self.subTest(declaration=declaration), self.assertRaisesRegex(ValueError, 'Invalid no-spoiler declaration'):
+                    artwork.load(scene_root)
 
     def test_release_restores_art_and_rejects_rehashed_binding_declarations(self):
         with tempfile.TemporaryDirectory() as directory:
