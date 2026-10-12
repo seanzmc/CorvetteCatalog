@@ -212,11 +212,15 @@ class ArtworkTests(unittest.TestCase):
             foreign = self.catalogs['grand_sport']
             foreign_gid = next(g['id'] for g in foreign.ev.rows['choice_group'] if g['id'] not in cat.ev.members)
             foreign_oid = next(oid for oid in foreign.ev.options if oid not in cat.ev.options)
-            for mutation in ('minimum', 'foreign_group', 'outside_group', 'scope', 'unknown_option', 'foreign_option'):
+            for mutation in ('minimum', 'maximum_zero', 'maximum_two', 'foreign_group',
+                             'outside_group', 'scope', 'unknown_option', 'foreign_option'):
                 cat.ev = copy.deepcopy(self.catalogs['stingray'].ev)
                 changed = copy.deepcopy(scene)
                 if mutation == 'minimum':
                     next(g for g in cat.ev.rows['choice_group'] if g['id'] == gid)['minimum'] = 1
+                elif mutation in ('maximum_zero', 'maximum_two'):
+                    next(g for g in cat.ev.rows['choice_group'] if g['id'] == gid)['maximum'] = (
+                        0 if mutation == 'maximum_zero' else 2)
                 elif mutation == 'foreign_group': changed['no_spoiler']['group_id'] = foreign_gid
                 elif mutation == 'outside_group': cat.ev.members[gid].remove('opt_5zu_001')
                 elif mutation == 'scope': cat.ev.scopes['choice_group'].remove((gid, '3lt_c07'))

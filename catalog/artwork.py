@@ -145,7 +145,7 @@ def catalog_contract(catalog, manifest):
         group = next((g for g in catalog.ev.rows['choice_group'] if g['id'] == group_id), None)
         configs = [cid for cid, cfg in catalog.ev.configs.items()
                    if (cfg['body'], cfg['trim']) == (manifest['body'], manifest['trim'])]
-        if (not group or group['minimum'] != 0 or not configs or
+        if (not group or group['minimum'] != 0 or group['maximum'] != 1 or not configs or
                 any((group_id, cid) not in catalog.ev.scopes['choice_group'] for cid in configs) or
                 any(c['option_id'] not in catalog.ev.members[group_id] for c in manifest['choices']) or
                 any(oid not in catalog.ev.options for oid in declaration['excluded_option_ids'])):
