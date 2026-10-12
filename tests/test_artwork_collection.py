@@ -1,5 +1,6 @@
 """Native ownership and exact model/body/paint selection across scene packages."""
 import copy
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -10,6 +11,7 @@ import test_consumers as base
 from catalog import artwork
 from catalog.consumers import ConsumerSession
 from catalog.releases import write_json
+from test_artwork import no_spoiler_fixture
 
 
 class CollectionTests(unittest.TestCase):
@@ -19,7 +21,10 @@ class CollectionTests(unittest.TestCase):
 
     def test_every_native_combination_keeps_its_model_and_body_planes(self):
         count = 0
-        for scene in artwork.load_collection():
+        scenes = artwork.load_collection()
+        self.assertEqual(len(scenes), 10)
+        for scene in scenes:
+            self.assertNotIn('no_spoiler', scene)
             folder = scene.get('asset_prefix', '')
             proof = json.loads((artwork.ROOT / folder / 'source-proof.json').read_text())
             cat = self.catalogs[proof['catalogModelKey']]
@@ -41,8 +46,21 @@ class CollectionTests(unittest.TestCase):
                         self.assertEqual([a['url'] for a in view['assets']],
                             ['/artwork/'+folder+Path(a['path']).name for a in native])
                         self.assertEqual([a['sha256'] for a in view['assets']], [a['sha256'] for a in native])
+                        self.assertEqual([a['stack_order'] for a in view['assets']], [0, 20, 30])
                         count += 1
         self.assertEqual(count, 146)
+
+    def test_media_inventory_is_unchanged_by_optional_no_spoiler_support(self):
+        expected = artwork.release_media()
+        # Captured from origin/main before the renderer change: the complete
+        # ten-scene media contract, including every identity, path and hash.
+        self.assertEqual(hashlib.sha256(json.dumps(expected, sort_keys=True).encode()).hexdigest(),
+                         '06024b17060ffe23dd6329c68db6864d3ce502ea3652ad43348da8935f78aa43')
+        self.assertEqual(len(expected['assets']), 192)
+        with no_spoiler_fixture(self.catalogs['stingray']) as (root, scene):
+            expected['scenes'] = [s for s in expected['scenes'] if s['scene_id'] == scene['scene_id']]
+            expected['assets'] = [a for a in expected['assets'] if a['id'].startswith(scene['scene_id']+'/')]
+            self.assertEqual(artwork.release_media(root), expected)
 
     def test_paint_specific_wing_changes_all_three_planes_after_confirmation(self):
         session = ConsumerSession(self.catalogs['stingray'], '3lt_c07', 'multi-model-test')

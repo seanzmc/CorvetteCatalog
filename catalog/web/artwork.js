@@ -14,7 +14,7 @@ window.catalogArtwork = (() => {
       el('artworkStatus').textContent=view.reason || 'Artwork is not available for this build yet.';
       return;
     }
-    el('artworkStatus').textContent='Loading spoiler artwork…';
+    el('artworkStatus').textContent='Loading artwork…';
     for(const text of view.limitations) {
       const li=document.createElement('li');li.textContent=text;el('artworkLimitations').append(li);
     }
@@ -25,14 +25,15 @@ window.catalogArtwork = (() => {
         await image.decode(); return image;
       }));
       if(version!==generation) return;
-      stage.setAttribute('aria-label',`${view.rpo} ${view.label}. ${view.paint_label}. ${view.notice}`);
+      const choice=view.rpo ? `${view.rpo} — ${view.label}` : view.label;
+      stage.setAttribute('aria-label',`${view.rpo ? view.rpo+' ' : ''}${view.label}. ${view.paint_label}. ${view.notice}`);
       stage.replaceChildren(...images); stage.hidden=false;
-      el('artworkStatus').textContent=`${view.paint_label}. ${view.rpo} — ${view.label}. ${view.notice}`;
+      el('artworkStatus').textContent=`${view.paint_label}. ${choice}. ${view.notice}`;
     } catch (_) {
       if(version!==generation) return;
       signature='';
       stage.replaceChildren();stage.hidden=true;
-      el('artworkStatus').textContent='Spoiler artwork could not load. Your confirmed build is unchanged.';
+      el('artworkStatus').textContent='Artwork could not load. Your confirmed build is unchanged.';
     }
   }
   return {render};

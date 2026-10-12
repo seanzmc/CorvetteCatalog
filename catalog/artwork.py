@@ -51,6 +51,15 @@ def load(root=ROOT):
             foreground_asset_id='paint-'+p['rpo'].lower()+'-foreground') for p in evidence['paints']]
         if manifest['paints'] != expected_paints:
             raise ValueError('Artwork paint binding mismatch')
+        if ('no_spoiler' in manifest) != ('no_spoiler' in evidence) or manifest.get('no_spoiler') != evidence.get('no_spoiler'):
+            raise ValueError('Artwork no-spoiler binding mismatch')
+        if 'no_spoiler' in manifest:
+            declaration = manifest['no_spoiler']
+            if (not isinstance(declaration, dict) or set(declaration) != {'group_id', 'excluded_option_ids'} or
+                    not isinstance(declaration['group_id'], str) or not declaration['group_id'] or
+                    not isinstance(declaration['excluded_option_ids'], list) or
+                    any(not isinstance(oid, str) or not oid for oid in declaration['excluded_option_ids'])):
+                raise ValueError('Invalid no-spoiler declaration')
         if paint_specific:
             native_choices = [dict(c, assetId='spoiler-'+c['rpo'].lower()+'-'+p['rpo'].lower(), paintRpo=p['rpo'])
                               for p in evidence['paints'] for c in p['choices']]
@@ -130,12 +139,25 @@ def catalog_contract(catalog, manifest):
         option = catalog.ev.options.get(binding['option_id'])
         if not option or option['rpo'] != binding['rpo'] or option['lifecycle'] != 'active':
             return dict(assets=[], coverage='art_not_available', reason='Artwork bindings need review for this catalog.')
+    if 'no_spoiler' in manifest:
+        declaration = manifest['no_spoiler']
+        group_id = declaration['group_id']
+        group = next((g for g in catalog.ev.rows['choice_group'] if g['id'] == group_id), None)
+        configs = [cid for cid, cfg in catalog.ev.configs.items()
+                   if (cfg['body'], cfg['trim']) == (manifest['body'], manifest['trim'])]
+        if (not group or group['minimum'] != 0 or group['maximum'] != 1 or not configs or
+                any((group_id, cid) not in catalog.ev.scopes['choice_group'] for cid in configs) or
+                any(c['option_id'] not in catalog.ev.members[group_id] for c in manifest['choices']) or
+                any(oid not in catalog.ev.options for oid in declaration['excluded_option_ids'])):
+            return dict(assets=[], coverage='art_not_available', reason='Artwork bindings need review for this catalog.')
     result = dict(coverage='component_preview', scene_id=manifest['scene_id'], model_key=manifest['model_key'],
                 model_year=manifest['model_year'], body=manifest['body'], trim=manifest['trim'],
                 paints=manifest['paints'], choices=manifest['choices'], assets=manifest['assets'],
                 notice=manifest['notice'], limitations=manifest['limitations'], evidence=manifest['evidence'])
     if 'asset_prefix' in manifest:
         result['asset_prefix'] = manifest['asset_prefix']
+    if 'no_spoiler' in manifest:
+        result['no_spoiler'] = manifest['no_spoiler']
     return result
 
 
@@ -155,15 +177,23 @@ def project(catalog, state):
     paints = [p for p in contract['paints'] if p['option_id'] in state.installed]
     selected = [c for c in contract['choices'] if c['option_id'] in state.installed and
                 (not c.get('paint_rpo') or len(paints) == 1 and c['paint_rpo'] == paints[0]['rpo'])]
-    if not available or len(paints) != 1 or len(selected) != 1:
+    no_spoiler = False
+    if 'no_spoiler' in contract:
+        declaration = contract['no_spoiler']
+        installed = catalog.ev.members[declaration['group_id']].intersection(state.installed)
+        no_spoiler = not installed
+        available = (available and not set(declaration['excluded_option_ids']).intersection(state.installed) and
+                     (no_spoiler or len(selected) == 1 and installed == {selected[0]['option_id']}))
+    if not available or len(paints) != 1 or (not no_spoiler and len(selected) != 1):
         return dict(assets=[], coverage='art_not_available',
             reason='Artwork is not available for this body style, trim, paint and spoiler combination yet.')
-    choice, = selected
     paint, = paints
-    ids = [paint['base_asset_id'], choice['asset_id'], paint['foreground_asset_id']]
+    choice = selected[0] if selected else None
+    ids = [paint['base_asset_id'], *([choice['asset_id']] if choice else []), paint['foreground_asset_id']]
     assets = {a['id']: a for a in contract['assets']}
     return dict(coverage='component_preview', scene_id=contract['scene_id'], component='spoiler',
-        option_id=choice['option_id'], rpo=choice['rpo'], label=catalog.option(choice['option_id'])['label'],
+        option_id=choice['option_id'] if choice else None, rpo=choice['rpo'] if choice else None,
+        label=catalog.option(choice['option_id'])['label'] if choice else 'No rear spoiler',
         paint_rpo=paint['rpo'], paint_label=catalog.option(paint['option_id'])['label'],
         notice=contract['notice'], limitations=contract['limitations'],
         assets=[dict(assets[i], url='/artwork/' + contract.get('asset_prefix', '') + assets[i]['file']) for i in ids])
