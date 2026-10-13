@@ -1,6 +1,6 @@
 {
   "audit_date": "2026-10-09",
-  "scope": "Read-only saved exterior source inventory; no exports, bindings or regeneration baseline selected.",
+  "scope": "Read-only saved exterior source inventory plus October 12 S09 failed tint qualification evidence: 251 native exports in a separate local proof package and three tracked review-only WebP previews. No binding or regeneration baseline selected; original inventory records unchanged.",
   "source_root": "/Users/seandm/Library/Mobile Documents/com~apple~CloudDocs/C8-iCloud/27img/visualizer-studio_27/visual-studio",
   "catalog_release": ".local/authoring/releases/completed/11f2d01cdfd7c6e472b6f136ed75cbd7b5c634be30cb2647f04d098c72e09dac/catalog.sqlite",
   "catalog_sha256": "3b24fab82b23b4d3d4babebc7e19ef9b505fbac9d2f823badfa6fe227c94e1dc",
@@ -24,7 +24,7 @@
     "catalog_option": false,
     "solar_ray": false,
     "visible_interior_trim_differences_depicted": false,
-    "qualification": "Single masked fill qualifies structurally per source, pending pixel proof and the recorded cabin-only hide recipe. single_global_plane_qualified is a placement disposition, not an executed render or approved mask. Original native visibility is unchanged."
+    "qualification": "For untested sources, a single masked fill remains a structural candidate pending pixel proof and the recorded cabin-only hide recipe; single_global_plane_qualified is a placement disposition, not an executed render or approved mask. S09 was tested October 12 and is not qualified: exact cabin-root and backdrop checks fail, and S0122 #1366 leaves 72 quarter-window-rim pixels outside the candidate mask, so it cannot be treated as fully occluded. Preserve S0108 #338 and hidden S0104 #1367 as clear engine-cover-edge surfaces. The S09 result supersedes its earlier structural disposition and blocks binding/batch 2a. Original native visibility is unchanged; only the disposable S09 candidate hides Multimedia #372 and adds fill #1586."
   },
   "catalog_options": {
     "stingray": [
