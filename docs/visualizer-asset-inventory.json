@@ -1,6 +1,6 @@
 {
   "audit_date": "2026-10-09",
-  "scope": "Read-only saved exterior source inventory; no exports, bindings or regeneration baseline selected.",
+  "scope": "Read-only saved exterior source inventory plus S09 tint evidence: 251 original native exports and 16 supplemental untinted root toggles; qualified under the October 13 owner amendment. Three tracked review-only previews. No binding or regeneration baseline selected; original inventory records unchanged.",
   "source_root": "/Users/seandm/Library/Mobile Documents/com~apple~CloudDocs/C8-iCloud/27img/visualizer-studio_27/visual-studio",
   "catalog_release": ".local/authoring/releases/completed/11f2d01cdfd7c6e472b6f136ed75cbd7b5c634be30cb2647f04d098c72e09dac/catalog.sqlite",
   "catalog_sha256": "3b24fab82b23b4d3d4babebc7e19ef9b505fbac9d2f823badfa6fe227c94e1dc",
@@ -24,7 +24,7 @@
     "catalog_option": false,
     "solar_ray": false,
     "visible_interior_trim_differences_depicted": false,
-    "qualification": "Single masked fill qualifies structurally per source, pending pixel proof and the recorded cabin-only hide recipe. single_global_plane_qualified is a placement disposition, not an executed render or approved mask. Original native visibility is unchanged."
+    "qualification": "For untested sources, a single masked fill remains a structural candidate pending pixel proof and recorded cabin-only hide prerequisites. S09 is qualified under the October 13 owner criteria a-prime/b/c/d-prime/e; original a/d failures remain historical. Pre-existing exterior transparency is accepted, S0122 rim stays native with no cabin-root contribution, and engine-cover glass remains clear. Allow alpha increases only inside the mask, require unchanged alpha outside, no decreases anywhere and no backdrop dependency inside. Apply this standard to S07 onward. Tint no longer blocks batch 2a coupe; binding remains separate. Original native visibility is unchanged."
   },
   "catalog_options": {
     "stingray": [
@@ -28585,7 +28585,7 @@
             "surface_layer_ids": [290],
             "surface_paths": ["Windows / S0105"],
             "kind": "window-surface-candidate",
-            "native_target": "Retain only directly camera-visible reflection/defroster pixels above the shared aperture-masked fill. Transparent roof/quarter-window masks exclude opaque paint alternatives. Pixel proof pending.",
+            "native_target": "Retained native reflection over the candidate aperture-masked fill. Mask uses the nonzero-alpha union of native #290 and #305. Qualified under the October 13 amended criteria; binding remains separate batch 2a.",
             "placement_conflict": false,
             "root_above_main_cabin_cluster": true,
             "camera_disposition": "directly-visible-aperture-candidate",
@@ -28599,7 +28599,7 @@
             "surface_layer_ids": [305],
             "surface_paths": ["Windows / S0101_L"],
             "kind": "window-surface-candidate",
-            "native_target": "Retain only directly camera-visible reflection/defroster pixels above the shared aperture-masked fill. Transparent roof/quarter-window masks exclude opaque paint alternatives. Pixel proof pending.",
+            "native_target": "Retained native reflection over the candidate aperture-masked fill. Mask uses the nonzero-alpha union of native #290 and #305. Qualified under the October 13 amended criteria; binding remains separate batch 2a.",
             "placement_conflict": false,
             "root_above_main_cabin_cluster": true,
             "camera_disposition": "directly-visible-aperture-candidate",
@@ -28613,11 +28613,11 @@
             "surface_layer_ids": [338],
             "surface_paths": ["Windows / S0108"],
             "kind": "window-surface-candidate",
-            "native_target": "Retain only directly camera-visible reflection/defroster pixels above the shared aperture-masked fill. Transparent roof/quarter-window masks exclude opaque paint alternatives. Pixel proof pending.",
+            "native_target": "GBA/3LT diagnostic: S0108 #338 contributes 600 pixels at the engine-cover edge outside the aperture mask; identical contribution with/without tint. Preserve native visibility and order, with no tint.",
             "placement_conflict": false,
             "root_above_main_cabin_cluster": true,
-            "camera_disposition": "directly-visible-aperture-candidate",
-            "tint_required": true,
+            "camera_disposition": "engine-cover-edge-preserved",
+            "tint_required": false,
             "retain_reflection_or_defroster": true
           },
           {
@@ -28627,12 +28627,12 @@
             "surface_layer_ids": [408,409,410,411,412,413,414,415,416,417,418],
             "surface_paths": ["Roof / CF8&GBA","Roof / CF8&G8G","Roof / CF8&GKZ","Roof / CF8&GPH","Roof / CF8&G26","Roof / CF8&GBK","Roof / CF8&G4Z","Roof / CF8&GKA","Roof / CF8&GTR","Roof / CF8&GEC","Roof / CC3"],
             "kind": "transparent-roof-candidate",
-            "native_target": "Retain only directly camera-visible reflection/defroster pixels above the shared aperture-masked fill. Transparent roof/quarter-window masks exclude opaque paint alternatives. Pixel proof pending.",
+            "native_target": "Existing 3LT proof roof state: opaque S0243 and CF7 paint peers retained for each paint. Excluded from mask. CC3 and factory-unavailable CF8 remain separate roof follow-ups.",
             "placement_conflict": false,
             "root_above_main_cabin_cluster": true,
-            "camera_disposition": "directly-visible-aperture-candidate",
-            "tint_required": true,
-            "retain_reflection_or_defroster": true
+            "camera_disposition": "opaque-painted-roof-in-tested-recipe",
+            "tint_required": false,
+            "retain_reflection_or_defroster": false
           },
           {
             "root_id": 1364,
@@ -28641,12 +28641,16 @@
             "surface_layer_ids": [1366,1367],
             "surface_paths": ["Windows / S0122","Windows / S0104"],
             "kind": "window-surface-candidate",
-            "native_target": "Hidden behind opaque near-aperture fill; no separate tint, mask or retained reflection/defroster. Do not move this far surface above the fill.",
+            "native_target": "Do not move or alter this group. GBA/3LT diagnostic: S0122 #1366 contributes 5535 untinted pixels, of which 72 remain at the quarter-window rim outside the near mask. S0104 #1367 is a currently hidden engine-cover-edge alternative: forced-on comparison changes 591 pixels outside the mask equally before/after tint. Blanket fully-occluded classification corrected. Owner decision October 13: retain the 72-pixel S0122 rim natively; all 22 cabin-root toggles change zero pixels there.",
             "placement_conflict": false,
             "root_above_main_cabin_cluster": false,
-            "camera_disposition": "far-glass-occluded-by-near-fill",
+            "camera_disposition": "separate-children-with-different-glass-dispositions",
             "tint_required": false,
-            "retain_reflection_or_defroster": false
+            "retain_reflection_or_defroster": true,
+            "surface_dispositions": {
+              "1366": "rear cabin glass largely seen through the near side aperture; 72 residual quarter-window-rim pixels prevent a fully-occluded claim",
+              "1367": "engine-cover-edge alternative; native hidden flag retained, excluded from tint"
+            }
           },
           {
             "root_id": 1368,
@@ -28655,7 +28659,7 @@
             "surface_layer_ids": [1370],
             "surface_paths": ["Defroster / S0107"],
             "kind": "defroster-surface-candidate",
-            "native_target": "Hidden behind opaque near-aperture fill; no separate tint, mask or retained reflection/defroster. Do not move this far surface above the fill.",
+            "native_target": "Exact GBA/3LT native toggle: S0107 #1370 changes 759 untinted pixels and zero tinted pixels. Far cabin defroster hidden by near fill; visibility/order unchanged.",
             "placement_conflict": false,
             "root_above_main_cabin_cluster": false,
             "camera_disposition": "far-glass-occluded-by-near-fill",
@@ -28669,7 +28673,7 @@
             "surface_layer_ids": [1504],
             "surface_paths": ["Windows / S0101_R"],
             "kind": "window-surface-candidate",
-            "native_target": "Hidden behind opaque near-aperture fill; no separate tint, mask or retained reflection/defroster. Do not move this far surface above the fill.",
+            "native_target": "Exact GBA/3LT native toggle: S0101_R #1504 changes 97599 untinted pixels and zero tinted pixels. Far side glass hidden by near fill; visibility/order unchanged.",
             "placement_conflict": false,
             "root_above_main_cabin_cluster": false,
             "camera_disposition": "far-glass-occluded-by-near-fill",
@@ -28681,19 +28685,183 @@
         "occlude_cabin_layer_ids": [372,374,461,463,464,465,466,467,468,469,470,471,472,473,474,475,476,477,478,479,480,481,483,484,485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,559,560,561,562,563,564,565,566,568,569,571,572,573,574,575,576,577,578,579,580,581,582,583,584,585,586,587,588,589,590,591,592,593,594,595,596,597,598,599,600,601,602,603,604,605,606,607,608,609,610,611,612,613,614,615,616,617,618,619,620,621,622,623,624,625,626,628,629,630,631,632,633,634,635,636,637,638,639,640,641,642,643,644,645,646,647,648,649,650,651,652,653,654,655,656,657,658,659,660,661,663,664,665,666,667,668,669,670,671,672,673,674,675,676,677,678,679,680,681,682,683,684,685,686,687,688,689,690,691,693,694,695,696,697,698,699,700,701,702,703,704,705,706,707,708,709,710,711,712,713,714,715,716,717,718,719,720,721,722,723,724,725,726,727,728,729,730,731,732,733,734,735,736,737,738,739,740,741,742,743,744,745,746,747,748,749,750,751,752,753,754,755,756,757,758,759,760,761,762,763,764,765,766,767,768,769,771,772,773,774,775,776,777,778,779,780,781,782,783,784,785,786,787,788,789,790,791,792,793,794,795,796,797,798,799,800,801,802,803,804,805,806,807,808,810,811,812,813,814,815,816,817,818,819,820,821,822,823,824,825,826,827,828,829,830,832,833,834,835,836,837,838,839,840,841,842,843,844,845,846,847,848,849,850,851,852,853,854,855,856,857,858,859,860,861,862,863,864,865,866,867,868,869,870,871,872,873,874,875,876,877,878,879,880,881,882,883,884,885,886,887,888,889,890,891,892,893,894,895,896,897,898,899,900,901,902,903,904,905,906,907,908,909,910,911,912,913,914,915,916,917,918,919,920,921,922,923,924,925,926,927,928,929,930,931,932,933,934,935,936,937,938,939,940,941,942,943,944,945,946,947,948,949,950,951,952,953,954,955,956,957,958,959,960,961,962,963,964,965,966,967,968,969,970,971,972,973,974,975,976,977,978,979,980,981,982,983,984,985,986,987,988,989,990,991,992,993,994,996,997,998,999,1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016,1017,1018,1019,1020,1021,1022,1023,1024,1025,1026,1027,1028,1029,1030,1031,1032,1033,1035,1036,1037,1038,1039,1040,1041,1042,1043,1044,1045,1046,1047,1048,1049,1050,1051,1052,1053,1054,1055,1056,1057,1058,1059,1060,1061,1062,1063,1064,1065,1066,1067,1068,1069,1070,1071,1072,1073,1074,1075,1076,1077,1078,1079,1085,1087,1088,1090,1091,1092,1093,1095,1096,1098,1099,1100,1101,1102,1103,1104,1105,1106,1107,1108,1109,1110,1111,1112,1113,1114,1115,1116,1117,1118,1119,1120,1121,1122,1123,1124,1125,1126,1127,1128,1129,1130,1131,1132,1133,1134,1135,1136,1137,1138,1139,1140,1141,1142,1144,1145,1146,1147,1148,1149,1150,1151,1152,1153,1154,1155,1156,1157,1158,1159,1160,1161,1162,1163,1164,1165,1166,1167,1168,1169,1170,1171,1172,1173,1174,1175,1176,1177,1178,1179,1180,1181,1182,1183,1184,1185,1186,1188,1189,1190,1191,1192,1193,1194,1195,1196,1197,1198,1199,1200,1201,1202,1203,1204,1205,1206,1207,1208,1209,1210,1211,1212,1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224,1225,1226,1227,1228,1229,1230,1231,1232,1233,1234,1235,1236,1237,1238,1239,1240,1241,1242,1243,1244,1245,1246,1247,1248,1249,1250,1251,1252,1253,1254,1255,1256,1257,1258,1259,1260,1261,1262,1263,1264,1265,1266,1267,1268,1269,1270,1271,1272,1273,1274,1275,1276,1277,1278,1279,1280,1281,1282,1283,1284,1285,1286,1287,1288,1289,1290,1291,1292,1293,1294,1295,1296,1297,1298,1299,1300,1301,1302,1303,1304,1305,1306,1307,1308,1309,1310,1315,1317,1319,1320,1321,1322,1323,1324,1325,1326,1327,1328,1329,1330,1331,1332,1333,1334,1335,1336,1337,1338,1339,1340,1341,1342,1343,1344,1345,1346,1347,1348,1349,1350,1351,1352,1353,1354,1355,1356,1357,1358,1359,1360,1361,1362,1363,1576,1578,1579,1580,1581,1582,1583,1584],
         "split_depth_intervals": true,
         "single_global_plane_qualified": true,
-        "placement": "Single masked fill qualifies (pending pixel proof): insert below last directly visible glass/roof candidate @45, above main cabin cluster @46. Hide the recorded cabin-only roots ahead of the fill; retain only directly visible reflections/defrosters. Far glass needs no separate treatment.",
+        "placement": "Qualified fill authored after original Roof #375 @45, before Stitching #461 @46, as root fill #1586 at derived index 46. One #0b0b0c, 100% Normal solid-color fill; Multimedia #372 hidden. Qualified under the October 13 owner criteria a-prime/b/c/d-prime/e; original a/d failures retained.",
         "source_specific_gap": null,
         "main_cabin_cluster_root_index": 46,
         "fill_after_root_index": 45,
-        "near_glass_root_ids": [288,303,336,375],
-        "far_glass_root_ids": [1364,1368,1502],
+        "near_glass_root_ids": [288,303],
+        "far_glass_root_ids": [1368,1502],
         "hide_cabin_root_ids_for_exterior_recipe": [372],
-        "pixel_proof_complete": false,
-        "split_depth_intervals_note": "Native glass branches occupy multiple depths; this does not require multiple tint planes. Near surfaces share one fill after suppressing foreground cabin-only roots; far surfaces are occluded.",
+        "pixel_proof_complete": true,
+        "split_depth_intervals_note": "One root fill qualifies under the October 13 amended criteria. The 72-pixel S0122 rim remains native with zero cabin-root contribution; S0104/S0108 engine-cover edges are excluded and preserved.",
         "multimedia_disposition": {
           "root_ids": [372],
           "layer_ids": [374],
-          "action": "Hide in future exterior recipes; cabin infotainment is intentionally not depicted. No pixel-inside-aperture claim is needed for this suppression decision; Multimedia does not define the main cabin boundary."
+          "action": "Hidden on the derived copy only. Toggling #372 changes zero tinted pixels, and hiding it changes zero pixels outside the candidate mask in all eight states."
+        },
+        "engine_cover_glass_root_ids": [
+          336
+        ],
+        "mixed_disposition_glass_root_ids": [
+          1364
+        ],
+        "qualification": {
+          "date": "2026-10-13",
+          "status": "qualified",
+          "proof_package": "/Users/seandm/Library/Mobile Documents/com~apple~CloudDocs/C8-iCloud/27img/visualizer-studio_27/27vette-phase1/asset-proofs/2026-10-12-stingray-coupe-01-tint",
+          "parent_source_sha256": "16d97f2bc1fc980372be5a5d1e1f15332a899bb320e5dcb346478f0deeda1584",
+          "derived_file": "s09-tinted-root.psb",
+          "derived_sha256": "7a1cfd8f80d35d3891adcc708875cf31db12e0b5a0611dd21abbc5b49c63430d",
+          "fill": {
+            "layer_id": 1586,
+            "color": "#0b0b0c",
+            "opacity_percent": 100,
+            "blend_mode": "Normal",
+            "after_original_root_id": 375,
+            "before_original_root_id": 461
+          },
+          "mask": {
+            "file": "aperture-mask.png",
+            "sha256": "14afe225cb73208409e48583a5122235780b653fe22bd246c5e5a2687cb5d0bb",
+            "method": "Full-canvas boolean union of nonzero alpha from native isolated #290 and #305; no growth, feathering, crop or resampling. Saved native mask is pixel-identical.",
+            "engine_cover_excluded": true,
+            "engine_layer_contribution_preserved": true
+          },
+          "states": {
+            "trims": [
+              "3LT",
+              "2LT"
+            ],
+            "paints": [
+              "GBA",
+              "G8G",
+              "GKZ",
+              "GPH"
+            ],
+            "unbound_paint": "GPH",
+            "rear_and_aero": "All Spoiler groups/descendants, Air_Dam #84/#255 and Ground_Effects #259 off. Existing bound opaque roof state retained."
+          },
+          "checks": {
+            "a": {
+              "passed": false,
+              "method": "Each of 22 recorded cabin roots independently toggled in each of eight states (176 exact RGBA comparisons).",
+              "changed_pixels_by_paint_both_trims": {
+                "GBA": {
+                  "1096": 1,
+                  "1317": 34
+                },
+                "G8G": {
+                  "1096": 1,
+                  "1317": 37
+                },
+                "GKZ": {
+                  "1096": 1,
+                  "1317": 17
+                },
+                "GPH": {
+                  "1096": 1,
+                  "1317": 35
+                }
+              },
+              "other_20_roots_changed_pixels": 0
+            },
+            "b": {
+              "passed": true,
+              "outside_mask_changed_pixels_all_states": 0,
+              "hidden_multimedia_outside_mask_pixels_all_states": 0
+            },
+            "c": {
+              "passed": true,
+              "engine_changed_pixels_all_states": 0,
+              "visible_engine_pixels_by_paint_both_trims": {
+                "GBA": 26,
+                "G8G": 59,
+                "GKZ": 48,
+                "GPH": 40
+              }
+            },
+            "d": {
+              "passed": false,
+              "method": "Native black/white backdrop pair for all eight states; exact RGB difference, eight-connected regions not touching canvas boundary. Each region is listed and dispositioned in backdrop-region-disposition.json.",
+              "enclosed_changed_pixels_by_paint_both_trims": {
+                "GBA": 3276,
+                "G8G": 3329,
+                "GKZ": 3104,
+                "GPH": 3311
+              },
+              "non_wheel_changed_pixels_by_paint_both_trims": {
+                "GBA": 669,
+                "G8G": 722,
+                "GKZ": 497,
+                "GPH": 702
+              },
+              "inside_tint_mask_pixels_all_states": 0,
+              "changed_alpha_vs_untinted_pixels_all_states": 0
+            },
+            "e": {
+              "passed": true,
+              "method": "All states use the same native mask with unchanged hash; recipes alter visibility only. No trim-specific mask authored."
+            },
+            "a_prime": {
+              "passed": true,
+              "inside_mask_changed_pixels_all_roots_all_states": 0,
+              "requires_b": true,
+              "untinted_outside_support_and_signed_channel_changes_identical": true,
+              "outside_counts_by_root": "Original check a retains #1096=1 and #1317=34/37/17/35 (GBA/G8G/GKZ/GPH), both trims; other 20 roots=0. Full per-root/state counts in amended report.",
+              "effects_visible_child": {
+                "id": 1355,
+                "name": "S0121&HAG"
+              }
+            },
+            "d_prime": {
+              "passed": true,
+              "alpha_changed_outside_mask_all_states": 0,
+              "alpha_decreased_anywhere_all_states": 0,
+              "backdrop_dependent_inside_mask_all_states": 0,
+              "allowed_alpha_increases_inside_mask_by_paint_both_trims": {
+                "GBA": 103065,
+                "G8G": 103060,
+                "GKZ": 102948,
+                "GPH": 103061
+              },
+              "original_d_alpha_scope": "The original d alpha-equality count covers its enclosed backdrop-dependent exterior regions, not full-canvas alpha."
+            }
+          },
+          "integrity": {
+            "four_way_match": true,
+            "original_before": "16d97f2bc1fc980372be5a5d1e1f15332a899bb320e5dcb346478f0deeda1584",
+            "copy_before": "16d97f2bc1fc980372be5a5d1e1f15332a899bb320e5dcb346478f0deeda1584",
+            "original_after": "16d97f2bc1fc980372be5a5d1e1f15332a899bb320e5dcb346478f0deeda1584",
+            "copy_after": "16d97f2bc1fc980372be5a5d1e1f15332a899bb320e5dcb346478f0deeda1584"
+          },
+          "follow_ups": [
+            "Batch 2a coupe binding remains separate; tint qualification no longer blocks it.",
+            "CC3 transparent roof and factory-unavailable CF8 remain separate roof work; nothing authored.",
+            "S07 is the next source, not started; apply the October 13 amended criteria."
+          ],
+          "original_checks_date": "2026-10-12",
+          "owner_decision": {
+            "date": "2026-10-13",
+            "source": "Owner follow-up on PR #98 and explicit d-prime clarification in this chat",
+            "intent": "The tint hides the cabin and changes nothing else.",
+            "a_prime": "No cabin-root change inside the mask and check b passes. Record and preserve unchanged pre-existing exterior seam contributions outside the mask.",
+            "d_prime": "Allow opacity increases inside the mask; require unchanged alpha outside, no alpha decreases, and no backdrop dependency inside.",
+            "s0122": "Retain the native 72-pixel rim; no cabin-root contribution under it.",
+            "later_sources": "The same amended criteria apply to S07 onward."
+          },
+          "amended_report": {
+            "file": "amended-criteria-2026-10-13.json",
+            "sha256": "33ea59f0cbb40c6f665446d12c17f9bb1aa22c264a1ba04e51a87416f8eee4ae",
+            "supplemental_native_exports": 16,
+            "existing_outputs_preserved": true
+          },
+          "s0122_rim": {
+            "native_pixels_retained": 72,
+            "diagnostic": "GBA/3LT",
+            "cabin_root_changed_pixels_all_22_roots": 0,
+            "disposition": "Accepted unchanged by owner October 13."
+          },
+          "known_source_limitation": "Pre-existing wheel-opening and exterior-seam transparency is accepted as a source property shared with untinted bound art, outside tint scope. backdrop-region-disposition.json is preserved as original evidence; the amended report supersedes its acceptance disposition."
         }
       },
       "component_contracts": {
