@@ -123,8 +123,12 @@ owner's Chrome. The endpoint returned a receipt (identifier redacted), and the o
 the email arrived with the name, contact details, comment, option list and total
 as sent. The Turnstile widget already listed the staging hostname, and the
 endpoint's CORS response already allowed the staging origin. Production
-(`stingraychevroletcorvette.com`) still needs to be added to the widget's
-hostnames before R6.
+(`stingraychevroletcorvette.com`) was still missing from the widget's
+hostnames at that time. It was added on November 13 during launch preparation;
+the existing old-form and staging hostnames, Managed mode and no pre-clearance
+were retained. Read-only OPTIONS checks returned the matching allowed origin
+for both staging and production. This configuration check is not a new receipt
+proof or a production deployment.
 
 Turnstile rejects automated browsers (error 600010), including the desktop app's
 built-in browser. Send test orders from an ordinary browser.

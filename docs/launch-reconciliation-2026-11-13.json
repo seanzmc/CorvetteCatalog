@@ -1,0 +1,4656 @@
+{
+  "format": "launch-reconciliation-v1",
+  "date": "2026-11-13",
+  "status": "staging_verified_pending_production_rollout",
+  "scope": "All six current model lanes; migration parity separated from accepted owner corrections and manufacturer updates. No production cutover.",
+  "method": [
+    "Compare every cell value/formula and sheet/row/column membership in the current production workbook with the retained September 6 workbook; classify the only 32 changed cells as the previously approved September base-price dual edit.",
+    "Confirm the live data.js equals current 27vette/main and live app.js equals the frozen runtime; execute the retained harness with current live data, without sending requests.",
+    "Exact source-plus-accepted-history replay is required by release freeze. Retain model-owned accepted targets separately; do not claim these corrections are literal parity with known baseline defects.",
+    "For all 32 model/body/trim configurations, execute identical ordinary interiors with four paints in both engines: 128 completed builds. Require all total differences to equal source-derived base/paint changes and every dealer recap RPO/price pair to match after those changes.",
+    "Exercise newly available R88/CF8, prices, applicability, conflicts in both directions, confirmation/undo and complete dealer payloads on the actual updated draft.",
+    "Run the full six-model semantic inventory/overlap audit on the accepted frozen snapshot, then verify the static no-artwork bundle and browser flows."
+  ],
+  "production_reference": {
+    "production_commit": "c19f4baf1a398c521206f68043cddbceb707fb74",
+    "production_workbook_sha256": "ad371051cf95956599d2cb4418551bbc000b5d5b27129e388dd9cab06f269e60",
+    "baseline_workbook_sha256": "3127e663b1531e366ce86b989b6190914108d40dfd15a33a258307a05d608e3c",
+    "live_registry_equals_main": true,
+    "live_registry_sha256": "8876ecec0a46fd088c93a73b0e87d65ac601bc7435ab16f7df6fab13ce5e7ad9",
+    "sheets": [
+      {
+        "sheet": "model_master",
+        "rows": 7,
+        "changes": 0
+      },
+      {
+        "sheet": "model_registry_promotion",
+        "rows": 7,
+        "changes": 0
+      },
+      {
+        "sheet": "model_workbook_sources",
+        "rows": 67,
+        "changes": 0
+      },
+      {
+        "sheet": "model_variants",
+        "rows": 33,
+        "changes": 0
+      },
+      {
+        "sheet": "variant_master",
+        "rows": 33,
+        "changes": 32
+      },
+      {
+        "sheet": "section_master",
+        "rows": 49,
+        "changes": 0
+      },
+      {
+        "sheet": "context_section_master",
+        "rows": 13,
+        "changes": 0
+      },
+      {
+        "sheet": "section_presentation",
+        "rows": 60,
+        "changes": 0
+      },
+      {
+        "sheet": "runtime_steps",
+        "rows": 85,
+        "changes": 0
+      },
+      {
+        "sheet": "context_choice_copy",
+        "rows": 7,
+        "changes": 0
+      },
+      {
+        "sheet": "order_summary_sections",
+        "rows": 70,
+        "changes": 0
+      },
+      {
+        "sheet": "step_order_summary_map",
+        "rows": 82,
+        "changes": 0
+      },
+      {
+        "sheet": "default_selection_rules",
+        "rows": 29,
+        "changes": 0
+      },
+      {
+        "sheet": "runtime_rule_exceptions",
+        "rows": 1,
+        "changes": 0
+      },
+      {
+        "sheet": "stingray_variant_overrides",
+        "rows": 5,
+        "changes": 0
+      },
+      {
+        "sheet": "asset_map",
+        "rows": 384,
+        "changes": 0
+      },
+      {
+        "sheet": "PriceRef",
+        "rows": 22,
+        "changes": 0
+      },
+      {
+        "sheet": "lt_interiors",
+        "rows": 133,
+        "changes": 0
+      },
+      {
+        "sheet": "LZ_Interiors",
+        "rows": 131,
+        "changes": 0
+      },
+      {
+        "sheet": "model_interior_scope",
+        "rows": 705,
+        "changes": 0
+      },
+      {
+        "sheet": "interior_components",
+        "rows": 1045,
+        "changes": 0
+      },
+      {
+        "sheet": "color_overrides",
+        "rows": 551,
+        "changes": 0
+      },
+      {
+        "sheet": "stingray_options",
+        "rows": 243,
+        "changes": 0
+      },
+      {
+        "sheet": "stingray_ovs",
+        "rows": 1453,
+        "changes": 0
+      },
+      {
+        "sheet": "rule_mapping",
+        "rows": 179,
+        "changes": 0
+      },
+      {
+        "sheet": "rule_groups",
+        "rows": 28,
+        "changes": 0
+      },
+      {
+        "sheet": "rule_group_members",
+        "rows": 156,
+        "changes": 0
+      },
+      {
+        "sheet": "exclusive_groups",
+        "rows": 11,
+        "changes": 0
+      },
+      {
+        "sheet": "exclusive_group_members",
+        "rows": 37,
+        "changes": 0
+      },
+      {
+        "sheet": "price_rules",
+        "rows": 53,
+        "changes": 0
+      },
+      {
+        "sheet": "grandSport_options",
+        "rows": 242,
+        "changes": 0
+      },
+      {
+        "sheet": "grandSport_ovs",
+        "rows": 1453,
+        "changes": 0
+      },
+      {
+        "sheet": "grandSport_rule_mapping",
+        "rows": 158,
+        "changes": 0
+      },
+      {
+        "sheet": "grandSport_price_rules",
+        "rows": 56,
+        "changes": 0
+      },
+      {
+        "sheet": "grandSport_rule_groups",
+        "rows": 50,
+        "changes": 0
+      },
+      {
+        "sheet": "grandSport_rule_group_members",
+        "rows": 325,
+        "changes": 0
+      },
+      {
+        "sheet": "grandSport_exclusive_groups",
+        "rows": 13,
+        "changes": 0
+      },
+      {
+        "sheet": "grandSport_exclusive_members",
+        "rows": 38,
+        "changes": 0
+      },
+      {
+        "sheet": "grandSport_variant_overrides",
+        "rows": 5,
+        "changes": 0
+      },
+      {
+        "sheet": "z06_options",
+        "rows": 245,
+        "changes": 0
+      },
+      {
+        "sheet": "z06_ovs",
+        "rows": 1465,
+        "changes": 0
+      },
+      {
+        "sheet": "z06_rule_mapping",
+        "rows": 111,
+        "changes": 0
+      },
+      {
+        "sheet": "z06_price_rules",
+        "rows": 73,
+        "changes": 0
+      },
+      {
+        "sheet": "z06_rule_groups",
+        "rows": 36,
+        "changes": 0
+      },
+      {
+        "sheet": "z06_rule_group_members",
+        "rows": 179,
+        "changes": 0
+      },
+      {
+        "sheet": "z06_exclusive_groups",
+        "rows": 14,
+        "changes": 0
+      },
+      {
+        "sheet": "z06_exclusive_members",
+        "rows": 49,
+        "changes": 0
+      },
+      {
+        "sheet": "z06_variant_overrides",
+        "rows": 5,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1_options",
+        "rows": 208,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1_ovs",
+        "rows": 829,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1_price_rules",
+        "rows": 35,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1_rule_groups",
+        "rows": 6,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1_rule_group_members",
+        "rows": 45,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1_exclusive_groups",
+        "rows": 10,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1_exclusive_members",
+        "rows": 25,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1_variant_overrides",
+        "rows": 1,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1x_options",
+        "rows": 207,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1x_ovs",
+        "rows": 825,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1x_price_rules",
+        "rows": 34,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1x_rule_groups",
+        "rows": 5,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1x_rule_group_members",
+        "rows": 44,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1x_exclusive_groups",
+        "rows": 9,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1x_exclusive_members",
+        "rows": 23,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1x_variant_overrides",
+        "rows": 1,
+        "changes": 0
+      },
+      {
+        "sheet": "rule_phrase_map",
+        "rows": 7,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_color_overrides",
+        "rows": 282,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_exclusive_groups",
+        "rows": 10,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_exclusive_members",
+        "rows": 29,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_options",
+        "rows": 240,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_ovs",
+        "rows": 1435,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_price_rules",
+        "rows": 52,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_rule_groups",
+        "rows": 44,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_rule_mapping",
+        "rows": 145,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_rule_members",
+        "rows": 269,
+        "changes": 0
+      },
+      {
+        "sheet": "grand_sport_x_variant_overrides",
+        "rows": 5,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1_rule_mapping",
+        "rows": 99,
+        "changes": 0
+      },
+      {
+        "sheet": "zr1x_rule_mapping",
+        "rows": 97,
+        "changes": 0
+      }
+    ],
+    "changes": [
+      {
+        "sheet": "variant_master",
+        "cell": "F2",
+        "before": 73495,
+        "after": 73795
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F3",
+        "before": 80595,
+        "after": 80895
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F4",
+        "before": 85245,
+        "after": 85545
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F5",
+        "before": 80495,
+        "after": 80795
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F6",
+        "before": 87595,
+        "after": 87895
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F7",
+        "before": 92245,
+        "after": 92545
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F8",
+        "before": 88495,
+        "after": 88795
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F9",
+        "before": 95595,
+        "after": 95895
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F10",
+        "before": 100245,
+        "after": 100545
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F11",
+        "before": 95495,
+        "after": 95795
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F12",
+        "before": 102595,
+        "after": 102895
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F13",
+        "before": 107245,
+        "after": 107545
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F14",
+        "before": 112195,
+        "after": 112495
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F15",
+        "before": 117695,
+        "after": 117995
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F16",
+        "before": 122845,
+        "after": 123145
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F17",
+        "before": 119195,
+        "after": 119495
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F18",
+        "before": 124695,
+        "after": 124995
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F19",
+        "before": 129845,
+        "after": 130145
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F20",
+        "before": 121395,
+        "after": 121695
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F21",
+        "before": 130295,
+        "after": 130595
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F22",
+        "before": 134945,
+        "after": 135245
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F23",
+        "before": 128395,
+        "after": 128695
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F24",
+        "before": 137295,
+        "after": 137595
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F25",
+        "before": 141945,
+        "after": 142245
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F26",
+        "before": 197195,
+        "after": 197495
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F27",
+        "before": 208195,
+        "after": 208495
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F28",
+        "before": 207195,
+        "after": 207495
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F29",
+        "before": 218195,
+        "after": 218495
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F30",
+        "before": 227395,
+        "after": 227695
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F31",
+        "before": 238395,
+        "after": 238695
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F32",
+        "before": 237395,
+        "after": 237695
+      },
+      {
+        "sheet": "variant_master",
+        "cell": "F33",
+        "before": 248395,
+        "after": 248695
+      }
+    ]
+  },
+  "accepted_owner_targets": {
+    "grand_sport": {
+      "source": "docs/grand-sport-owner-decisions.json",
+      "sha256": "aac822632fc63fecd4e1e7473c8a4a5f91f2a303acdac47e665ecc8868e3bb35",
+      "accepted_decisions": [
+        "GS-D01",
+        "GS-D02",
+        "GS-D03",
+        "GS-D04",
+        "GS-D05",
+        "GS-D06",
+        "GS-D07",
+        "GS-D08",
+        "GS-D09",
+        "GS-D10",
+        "GS-D11",
+        "GS-D12",
+        "GS-D13",
+        "GS-D14",
+        "GS-D15",
+        "GS-D16"
+      ],
+      "unresolved_decisions": [],
+      "accepted_additions": [
+        {
+          "record_id": "grand_sport:proposed:DTC",
+          "rpo": "DTC",
+          "decision_id": "GS-D01",
+          "target_disposition": "add",
+          "configuration_ids": [
+            "1lt_e07",
+            "1lt_e67",
+            "2lt_e07",
+            "2lt_e67",
+            "3lt_e07",
+            "3lt_e67"
+          ],
+          "price": 1295,
+          "currency": "USD",
+          "price_anchor": "Price Schedule!E257",
+          "price_status": "accepted_owner_review_2026-09-09; owner answer 17",
+          "guide_anchor": "Exterior 2!A83:I83",
+          "guide_disclosure": "NEW!  Royal Blue Full Length Dual Racing Stripes\n1. Not available with exterior color (GTR) Admiral Blue Metallic.",
+          "legacy_option_id": null,
+          "conflict": null,
+          "related_guide_mentions": [
+            {
+              "guide_anchor": "Exterior 2!A27:I27",
+              "source_rpo": "PDA",
+              "guide_disclosure": "LPO, Jake C8.R Graphics Package, includes (SNE) Jake hood graphic, LPO and (VPW) Jake C8.R rear hash graphic, LPO, Genuine Corvette Accessories\n1. Not available with SHT, VPO, Z15 or with RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX)."
+            },
+            {
+              "guide_anchor": "Exterior 2!A33:I33",
+              "source_rpo": "SFZ",
+              "guide_disclosure": "LPO, Dark Stealth crossed flags emblems, front and rear on Z06 models, front and rear on Grand Sport, Grand Sport X, Z06, ZR1 and ZR1X models, Genuine Corvette Accessory\n1. Not available with (EYK) Chrome Exterior Badge Package or any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW) or Grand Sport Heritage Center Stripes (DMU, DMV, DMW, DMX, DMY). "
+            },
+            {
+              "guide_anchor": "Exterior 2!A34:I34",
+              "source_rpo": "R88",
+              "guide_disclosure": "LPO, Illuminated crossed flags emblem, front, Genuine Corvette Accessory\n1. Not available at this time. Not available with (SFZ) Dark Stealth crossed flags emblems, LPO, (EYK) Chrome Exterior Badge Package, any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW) or Grand Sport Heritage Center Stripes (DMU, DMV, DMW, DMX, DMY)."
+            },
+            {
+              "guide_anchor": "Exterior 2!A47:I47",
+              "source_rpo": "VPW",
+              "guide_disclosure": "LPO, Jake C8.R rear hash graphic, Genuine Corvette Accessory\n1. Not available with SHT, VPO, Z15 or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PDA) Jake C8.R Graphics Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 2!A48:I48",
+              "source_rpo": "VPO",
+              "guide_disclosure": "LPO, Jake C8.R rear hash graphic with Tech Bronze accent, Genuine Corvette Accessory\n1. Not available with PDA, SNE, VPW, Z15 or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX)."
+            },
+            {
+              "guide_anchor": "Exterior 2!A49:I49",
+              "source_rpo": "SNE",
+              "guide_disclosure": "LPO, Jake hood graphic\n1. Not available with SHT, VPO, Z15 or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PDA) Jake C8.R Graphics Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 2!A50:I50",
+              "source_rpo": "SHT",
+              "guide_disclosure": "LPO, Jake hood graphic with Tech Bronze accent, Genuine Corvette Accessory\n1. Not available with PDA, SNE, VPW, Z15 or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX)."
+            },
+            {
+              "guide_anchor": "Exterior 2!A65:I65",
+              "source_rpo": "CF8",
+              "guide_disclosure": "Roof panel, electrochromic dimming, removable\n1. Not available at start of production. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW) or Grand Sport Heritage Center Stripes (DMU, DMV, DMW, DMX, DMY)."
+            }
+          ]
+        },
+        {
+          "record_id": "grand_sport:proposed:SAI",
+          "rpo": "SAI",
+          "decision_id": "GS-D02",
+          "target_disposition": "add",
+          "configuration_ids": [
+            "1lt_e07",
+            "1lt_e67",
+            "2lt_e07",
+            "2lt_e67",
+            "3lt_e07",
+            "3lt_e67"
+          ],
+          "price": 295,
+          "currency": "USD",
+          "price_anchor": "Price Schedule!E128",
+          "price_status": "accepted_owner_review_2026-09-09; owner answer 17",
+          "guide_anchor": "Interior 2!A40:I40",
+          "guide_disclosure": "NEW!  LPO, Stainless steel dark sill plates, Genuine Corvette Accessory\n1. Not available with (V8X) visible Carbon Fiber sill plates LPO.",
+          "legacy_option_id": null,
+          "conflict": null,
+          "related_guide_mentions": []
+        }
+      ]
+    },
+    "grand_sport_x": {
+      "source": "docs/grand-sport-x-owner-decisions.json",
+      "sha256": "d801cf2a51af2ae88db20aa11f40f974895c1cdfe20257931c9dfe92347650b2",
+      "accepted_decisions": [
+        "GSX-D01",
+        "GSX-D02",
+        "GSX-D03",
+        "GSX-D04",
+        "GSX-D05",
+        "GSX-D06",
+        "GSX-D07",
+        "GSX-D08",
+        "GSX-D09",
+        "GSX-D10",
+        "GSX-D11",
+        "GSX-D12",
+        "GSX-D13",
+        "GSX-D14"
+      ],
+      "unresolved_decisions": [],
+      "accepted_additions": [
+        {
+          "record_id": "grand_sport_x:proposed:SAI",
+          "rpo": "SAI",
+          "decision_id": "GSX-D07",
+          "target_disposition": "add",
+          "configuration_ids": [
+            "1lt_g07",
+            "1lt_g67",
+            "2lt_g07",
+            "2lt_g67",
+            "3lt_g07",
+            "3lt_g67"
+          ],
+          "price": 295,
+          "currency": "USD",
+          "price_anchor": "Price Schedule!E128",
+          "price_status": "accepted_owner_review_2026-09-10",
+          "guide_anchor": "Interior 3!A40:I40",
+          "guide_disclosure": "NEW!  LPO, Stainless steel dark sill plates, Genuine Corvette Accessory\n1. Not available with (V8X) visible Carbon Fiber sill plates LPO.",
+          "legacy_option_id": null,
+          "conflict": {
+            "rpo": "V8X",
+            "trim": "3LT"
+          },
+          "related_guide_mentions": []
+        }
+      ]
+    },
+    "stingray": {
+      "source": "docs/stingray-owner-decisions.json",
+      "sha256": "6c3e9e9da7542f46ff2f96d3e0fbb2addb754704f4a7a0756c18d43658f7a5d8",
+      "accepted_decisions": [
+        "ST-D01",
+        "ST-D02",
+        "ST-D03",
+        "ST-D04",
+        "ST-D05",
+        "ST-D06",
+        "ST-D07",
+        "ST-D08",
+        "ST-D09",
+        "ST-D10",
+        "ST-D11",
+        "ST-D12"
+      ],
+      "unresolved_decisions": [],
+      "accepted_additions": [
+        {
+          "record_id": "stingray:proposed:DTC",
+          "rpo": "DTC",
+          "decision_id": "ST-D01",
+          "target_disposition": "add",
+          "configuration_ids": [
+            "1lt_c07",
+            "1lt_c67",
+            "2lt_c07",
+            "2lt_c67",
+            "3lt_c07",
+            "3lt_c67"
+          ],
+          "price": 1295,
+          "currency": "USD",
+          "price_anchor": "Price Schedule!E257",
+          "price_status": "accepted_owner_review_2026-09-09; owner answer 17",
+          "guide_anchor": "Exterior 1!A83:I83",
+          "guide_disclosure": "NEW!  Royal Blue Full Length Dual Racing Stripes\n1. Not available with exterior color (GTR) Admiral Blue Metallic.",
+          "legacy_option_id": null,
+          "conflict": null,
+          "related_guide_mentions": [
+            {
+              "guide_anchor": "Exterior 1!A24:I24",
+              "source_rpo": "PDV",
+              "guide_disclosure": "LPO, Stingray R Appearance Package, includes (SB7) Corvette Racing Themed Graphics Package with Jake and Stingray R logos and (VWD) Stingray R logo wheel center caps, Genuine Corvette Accessory\n1. Not available with RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW, DZU, DZV, DZX)."
+            },
+            {
+              "guide_anchor": "Exterior 1!A25:I25",
+              "source_rpo": "PCX",
+              "guide_disclosure": "LPO, Tech Bronze Accent Package, includes (5DG) 19\" front/20\" rear 20-spoke Tech Bronze aluminum wheels LPO, (SFZ) Dark Stealth crossed flags emblem LPO, (SHT) Jake hood graphic with Tech Bronze accent LPO and (SNG) Carbon Flash Metallic with Tech Bronze accent fender hash stripes LPO, Genuine Corvette Accessories\n1. Not available with R8C, SPZ, SFE, SPY, S47, EYK, PDV, SB7 or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW, DZU, DZV, DZX)."
+            },
+            {
+              "guide_anchor": "Exterior 1!A33:I33",
+              "source_rpo": "SFZ",
+              "guide_disclosure": "LPO, Dark Stealth crossed flags emblem, front on Stingray models, Genuine Corvette Accessory\n1. Not available with (EYK) Chrome Exterior Badge Package or any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW). Included with (PCX) Tech Bronze Accent Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 1!A34:I34",
+              "source_rpo": "R88",
+              "guide_disclosure": "LPO, Illuminated crossed flags emblem, front, Genuine Corvette Accessory\n1. Not available at this time. Not available with (SFZ) Dark Stealth crossed flags emblems, LPO, (EYK) Chrome Exterior Badge Package or any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW)."
+            },
+            {
+              "guide_anchor": "Exterior 1!A55:I55",
+              "source_rpo": "SHT",
+              "guide_disclosure": "LPO, Jake hood graphic with Tech Bronze accent, Genuine Corvette Accessory\n1. Not available with PDV, SB7 or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PCX) Tech Bronze Accent Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 1!A56:I56",
+              "source_rpo": "SB7",
+              "guide_disclosure": "LPO, Corvette Racing Themed Graphics Package with Jake and Stingray R logos, Genuine Corvette Accessory\n1. Not available with (SHT) Jack hood graphic with Tech Bronze accent LPO or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PDV) Stingray R Appearance Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 1!A75:I75",
+              "source_rpo": "CF8",
+              "guide_disclosure": "Roof panel, electrochromic dimming, removable\n1. Not available at start of production. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW)."
+            }
+          ]
+        },
+        {
+          "record_id": "stingray:proposed:SAI",
+          "rpo": "SAI",
+          "decision_id": "ST-D02",
+          "target_disposition": "add",
+          "configuration_ids": [
+            "1lt_c07",
+            "1lt_c67",
+            "2lt_c07",
+            "2lt_c67",
+            "3lt_c07",
+            "3lt_c67"
+          ],
+          "price": 295,
+          "currency": "USD",
+          "price_anchor": "Price Schedule!E128",
+          "price_status": "accepted_owner_review_2026-09-09; owner answer 17",
+          "guide_anchor": "Interior 1!A40:I40",
+          "guide_disclosure": "NEW!  LPO, Stainless steel dark sill plates, Genuine Corvette Accessory\n1. Not available with (V8X) visible Carbon Fiber sill plates LPO.",
+          "legacy_option_id": null,
+          "conflict": null,
+          "related_guide_mentions": []
+        }
+      ]
+    },
+    "z06": {
+      "source": "docs/z06-owner-decisions.json",
+      "sha256": "003eb2f8e8cc8a4b25dc5b9810655dcf021624fdca40be7cc94cc72b5ee70d8a",
+      "accepted_decisions": [
+        "Z06-D01",
+        "Z06-D02",
+        "Z06-D03",
+        "Z06-D04",
+        "Z06-D05",
+        "Z06-D06",
+        "Z06-D07",
+        "Z06-D08",
+        "Z06-D09",
+        "Z06-D10",
+        "Z06-D11",
+        "Z06-D12"
+      ],
+      "unresolved_decisions": [],
+      "accepted_additions": [
+        {
+          "record_id": "z06:proposed:DTC",
+          "rpo": "DTC",
+          "decision_id": "Z06-D09",
+          "target_disposition": "add",
+          "configuration_ids": [
+            "1lz_h07",
+            "1lz_h67",
+            "2lz_h07",
+            "2lz_h67",
+            "3lz_h07",
+            "3lz_h67"
+          ],
+          "price": 1295,
+          "currency": "USD",
+          "price_anchor": "Price Schedule!E257",
+          "price_status": "accepted_owner_review_2026-09-10",
+          "guide_anchor": "Exterior 4!A80:I80",
+          "guide_disclosure": "NEW!  Royal Blue Full Length Dual Racing Stripes\n1. Not available with exterior color (GTR) Admiral Blue Metallic.",
+          "legacy_option_id": null,
+          "conflict": {
+            "rpo": "GTR",
+            "trim": null
+          },
+          "related_guide_mentions": [
+            {
+              "guide_anchor": "Exterior 4!A31:I31",
+              "guide_disclosure": "LPO, Jake C8.R Graphics Package, includes (SNE) Jake hood graphic, LPO and (VPW) Jake C8.R rear hash graphic, LPO, Genuine Corvette Accessories\n1. Not available with PCZ, SHT, VPO or with RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX)."
+            },
+            {
+              "guide_anchor": "Exterior 4!A32:I32",
+              "guide_disclosure": "LPO, Tech Bronze Accent Package, includes (5DK) 20\" front/21\" rear Spider design, Tech Bronze forged aluminum wheels LPO, (SFZ) Dark Stealth crossed flags emblem LPO, (SHT) Jake hood graphic with Tech Bronze accent LPO and (VPO) Jake C8.R rear hash graphic with Tech Bronze accent LPO , Genuine Corvette Accessories\n1. Not available with R8C, SPZ, SFE, SPY, S47, ROY, ROZ, STZ, EYK, PDA, SNE, VPW or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX)."
+            },
+            {
+              "guide_anchor": "Exterior 4!A40:I40",
+              "guide_disclosure": "LPO, Dark Stealth crossed flags emblems, front and rear on Z06 models, front and rear on Grand Sport, Grand Sport X, Z06, ZR1 and ZR1X models, Genuine Corvette Accessory\n1. Not available with (EYK) Chrome Exterior Badge Package or any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW). Included with (PCZ) Tech Bronze Accent Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 4!A41:I41",
+              "guide_disclosure": "LPO, Illuminated crossed flags emblem, front, Genuine Corvette Accessory\n1. Not available at this time. Not available with (SFZ) Dark Stealth crossed flags emblems, LPO, (EYK) Chrome Exterior Badge Package or any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW)."
+            },
+            {
+              "guide_anchor": "Exterior 4!A54:I54",
+              "guide_disclosure": "LPO, Jake C8.R rear hash graphic, Genuine Corvette Accessory\n1. Not available with PCZ, SHT, VPO or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PDA) Jake C8.R Graphics Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 4!A55:I55",
+              "guide_disclosure": "LPO, Jake C8.R rear hash graphic with Tech Bronze accent, Genuine Corvette Accessory\n1. Not available with EYK, PDA, SNE, VPW or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PCZ) Tech Bronze Accent Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 4!A56:I56",
+              "guide_disclosure": "LPO, Jake hood graphic\n1. Not available with PCZ, SGT, VPO or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PDA) Jake C8.R Graphics Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 4!A57:I57",
+              "guide_disclosure": "LPO, Jake hood graphic with Tech Bronze accent, Genuine Corvette Accessory\n1. Not available with PDA, SNE, VPW or RPO stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DZU, DZV, DZX). Included with (PCZ) Tech Bronze Accent Package, LPO."
+            },
+            {
+              "guide_anchor": "Exterior 4!A73:I73",
+              "guide_disclosure": "Roof panel, electrochromic dimming, removable\n1. Not available at start of production. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW)."
+            }
+          ]
+        },
+        {
+          "record_id": "z06:proposed:SAI",
+          "rpo": "SAI",
+          "decision_id": "Z06-D09",
+          "target_disposition": "add",
+          "configuration_ids": [
+            "1lz_h07",
+            "1lz_h67",
+            "2lz_h07",
+            "2lz_h67",
+            "3lz_h07",
+            "3lz_h67"
+          ],
+          "price": 295,
+          "currency": "USD",
+          "price_anchor": "Price Schedule!E128",
+          "price_status": "accepted_owner_review_2026-09-10",
+          "guide_anchor": "Interior 4!A41:I41",
+          "guide_disclosure": "NEW!  LPO, Stainless steel dark sill plates, Genuine Corvette Accessory\n1. Not available with (V8X) visible Carbon Fiber sill plates LPO.",
+          "legacy_option_id": null,
+          "conflict": {
+            "rpo": "V8X",
+            "trim": "3LZ"
+          },
+          "related_guide_mentions": []
+        }
+      ]
+    },
+    "zr1": {
+      "source": "docs/zr1-owner-decisions.json",
+      "sha256": "b16d0baac93b45875bb60cb808d974cc4d985bfc583045257cfc6fd4e4b36aa4",
+      "accepted_decisions": [
+        "ZR1-D01",
+        "ZR1-D02",
+        "ZR1-D03",
+        "ZR1-D04",
+        "ZR1-D05",
+        "ZR1-D06",
+        "ZR1-D07",
+        "ZR1-D08",
+        "ZR1-D09"
+      ],
+      "unresolved_decisions": [],
+      "accepted_additions": [
+        {
+          "record_id": "zr1:proposed:SAI",
+          "rpo": "SAI",
+          "decision_id": "ZR1-D07",
+          "target_disposition": "add",
+          "configuration_ids": [
+            "1lz_r07",
+            "3lz_r07",
+            "1lz_r67",
+            "3lz_r67"
+          ],
+          "price": 295,
+          "currency": "USD",
+          "price_anchor": "Price Schedule!E128",
+          "price_status": "accepted_owner_review_2026-09-11; amount per zr1-behavior.md \u00a77 (Interior 5!41; Price Schedule!128, column E)",
+          "guide_anchor": "Interior 5!A41:G41",
+          "guide_disclosure": "NEW!  LPO, Stainless steel dark sill plates, Genuine Corvette Accessory\n1. Not available with (V8X) visible Carbon Fiber sill plates LPO.",
+          "legacy_option_id": null,
+          "conflict": {
+            "rpo": "V8X",
+            "trim": "3LZ"
+          },
+          "related_guide_mentions": []
+        }
+      ]
+    },
+    "zr1x": {
+      "source": "docs/zr1x-owner-decisions.json",
+      "sha256": "59d23e17bfe4a415f2961a3433690aad59abb9ee984446b0ad7b8ab713b7d4b3",
+      "accepted_decisions": [
+        "ZR1X-D01",
+        "ZR1X-D02",
+        "ZR1X-D03",
+        "ZR1X-D04",
+        "ZR1X-D05",
+        "ZR1X-D06",
+        "ZR1X-D07",
+        "ZR1X-D08",
+        "ZR1X-D09"
+      ],
+      "unresolved_decisions": [],
+      "accepted_additions": [
+        {
+          "record_id": "zr1x:proposed:SAI",
+          "rpo": "SAI",
+          "decision_id": "ZR1X-D07",
+          "target_disposition": "add",
+          "configuration_ids": [
+            "1lz_s07",
+            "3lz_s07",
+            "1lz_s67",
+            "3lz_s67"
+          ],
+          "price": 295,
+          "currency": "USD",
+          "price_anchor": "Price Schedule!E128",
+          "price_status": "Accepted 295 USD under reconciled ZR1X-D07/D08; amount source-verified at Price Schedule!E128; not implemented",
+          "guide_anchor": "Interior 5!A41:K41",
+          "guide_disclosure": "NEW!  LPO, Stainless steel dark sill plates, Genuine Corvette Accessory\n1. Not available with (V8X) visible Carbon Fiber sill plates LPO.",
+          "legacy_option_id": null,
+          "conflict": {
+            "rpo": "V8X",
+            "trim": "3LZ"
+          },
+          "related_guide_mentions": []
+        }
+      ]
+    }
+  },
+  "manufacturer_sources": {
+    "prices": {
+      "effective": "EFFECTIVE November 09, 2026",
+      "name": "27 Corvette Pricing 9-28 - november4.csv",
+      "path": "sources/raw/d6f14318934569565650a32d3a4233a613b005d5577ad6ea0a885c3ace30da29/27 Corvette Pricing 9-28 - november4.csv",
+      "revised": "Revised November 04, 2026",
+      "sha256": "d6f14318934569565650a32d3a4233a613b005d5577ad6ea0a885c3ace30da29"
+    },
+    "previous_prices": {
+      "effective": "EFFECTIVE September 28, 2026",
+      "name": "27 Corvette Pricing 9-28 - Sheet1.csv",
+      "path": "sources/raw/2846d11295c408efc4c7dea748e9aebc0189ed4b8e4748d95b073fc287defe04/27 Corvette Pricing 9-28 - Sheet1.csv",
+      "revised": "Revised September 09, 2026",
+      "sha256": "2846d11295c408efc4c7dea748e9aebc0189ed4b8e4748d95b073fc287defe04"
+    },
+    "distribution": {
+      "name": "dist-updates-11-9.pdf",
+      "path": "sources/raw/22bc26e122cc075cf238a0369bfed3e8f554c4d7f61627e8ea836fada27f7ea1/dist-updates-11-9.pdf",
+      "sha256": "22bc26e122cc075cf238a0369bfed3e8f554c4d7f61627e8ea836fada27f7ea1",
+      "title": "Distribution Updates, USA 2027 Chevrolet Car Corvette, week of 11/9/2026",
+      "locators": "Page 1, lines in pypdf extract_text order; visually checked against the single-page original",
+      "precedence": "Effective November 9, 2026. Removes only the stated production holds; existing applicability and compatibility remain."
+    },
+    "previous_distribution": {
+      "name": "27-dist-updates.pdf",
+      "path": "sources/raw/5fc087a23daaddfdb0b803108575dae39ff9b261889bb9d88fd44502e804a63b/27-dist-updates.pdf",
+      "sha256": "5fc087a23daaddfdb0b803108575dae39ff9b261889bb9d88fd44502e804a63b",
+      "title": "Distribution Updates, USA 2027 Chevrolet Car Corvette, weeks of 5/11/2026 to 10/5/2026",
+      "locators": "Page and line in the PDF text layer (macOS PDFKit order)",
+      "precedence": "Newer weekly notes override older entries for the same item (owner, October 8)"
+    }
+  },
+  "price_changes": [
+    {
+      "id": "7b5e58ee9847",
+      "model_key": "stingray",
+      "table": "configuration",
+      "key": {
+        "id": "1lt_c07",
+        "revision_id": "2452d1bf-9b69-42e7-98d6-291eb892124a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Stingray Coupe 1LT",
+      "last": 7379500,
+      "current": 7379500,
+      "new": 7459500,
+      "locator": "line 12",
+      "previous_locator": "line 12",
+      "code": "1YC07",
+      "status": "update"
+    },
+    {
+      "id": "fc1b4cdbf7a1",
+      "model_key": "stingray",
+      "table": "configuration",
+      "key": {
+        "id": "1lt_c67",
+        "revision_id": "2452d1bf-9b69-42e7-98d6-291eb892124a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Stingray Convertible 1LT",
+      "last": 8079500,
+      "current": 8079500,
+      "new": 8159500,
+      "locator": "line 13",
+      "previous_locator": "line 13",
+      "code": "1YC67",
+      "status": "update"
+    },
+    {
+      "id": "fd39b418e981",
+      "model_key": "stingray",
+      "table": "configuration",
+      "key": {
+        "id": "2lt_c07",
+        "revision_id": "2452d1bf-9b69-42e7-98d6-291eb892124a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Stingray Coupe 2LT",
+      "last": 8089500,
+      "current": 8089500,
+      "new": 8179500,
+      "locator": "line 14",
+      "previous_locator": "line 14",
+      "code": "1YC07",
+      "status": "update"
+    },
+    {
+      "id": "fe177e10c22c",
+      "model_key": "stingray",
+      "table": "configuration",
+      "key": {
+        "id": "3lt_c07",
+        "revision_id": "2452d1bf-9b69-42e7-98d6-291eb892124a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Stingray Coupe 3LT",
+      "last": 8554500,
+      "current": 8554500,
+      "new": 8644500,
+      "locator": "line 15",
+      "previous_locator": "line 15",
+      "code": "1YC07",
+      "status": "update"
+    },
+    {
+      "id": "0e7d17ad67eb",
+      "model_key": "stingray",
+      "table": "configuration",
+      "key": {
+        "id": "2lt_c67",
+        "revision_id": "2452d1bf-9b69-42e7-98d6-291eb892124a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Stingray Convertible 2LT",
+      "last": 8789500,
+      "current": 8789500,
+      "new": 8879500,
+      "locator": "line 16",
+      "previous_locator": "line 16",
+      "code": "1YC67",
+      "status": "update"
+    },
+    {
+      "id": "800d3797c22d",
+      "model_key": "grand_sport",
+      "table": "configuration",
+      "key": {
+        "id": "1lt_e07",
+        "revision_id": "6cd8f529-5c8c-4978-94c6-e647c0d9bc17"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport Coupe 1LT",
+      "last": 8879500,
+      "current": 8879500,
+      "new": 8989500,
+      "locator": "line 17",
+      "previous_locator": "line 17",
+      "code": "1YE07",
+      "status": "update"
+    },
+    {
+      "id": "a01e81b54136",
+      "model_key": "stingray",
+      "table": "configuration",
+      "key": {
+        "id": "3lt_c67",
+        "revision_id": "2452d1bf-9b69-42e7-98d6-291eb892124a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Stingray Convertible 3LT",
+      "last": 9254500,
+      "current": 9254500,
+      "new": 9344500,
+      "locator": "line 18",
+      "previous_locator": "line 18",
+      "code": "1YC67",
+      "status": "update"
+    },
+    {
+      "id": "3eab3add106e",
+      "model_key": "grand_sport",
+      "table": "configuration",
+      "key": {
+        "id": "1lt_e67",
+        "revision_id": "6cd8f529-5c8c-4978-94c6-e647c0d9bc17"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport Convertible 1LT",
+      "last": 9579500,
+      "current": 9579500,
+      "new": 9689500,
+      "locator": "line 19",
+      "previous_locator": "line 19",
+      "code": "1YE67",
+      "status": "update"
+    },
+    {
+      "id": "f0bb4f819aab",
+      "model_key": "grand_sport",
+      "table": "configuration",
+      "key": {
+        "id": "2lt_e07",
+        "revision_id": "6cd8f529-5c8c-4978-94c6-e647c0d9bc17"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport Coupe 2LT",
+      "last": 9589500,
+      "current": 9589500,
+      "new": 9699500,
+      "locator": "line 20",
+      "previous_locator": "line 20",
+      "code": "1YE07",
+      "status": "update"
+    },
+    {
+      "id": "e01564f2afc9",
+      "model_key": "grand_sport",
+      "table": "configuration",
+      "key": {
+        "id": "3lt_e07",
+        "revision_id": "6cd8f529-5c8c-4978-94c6-e647c0d9bc17"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport Coupe 3LT",
+      "last": 10054500,
+      "current": 10054500,
+      "new": 10174500,
+      "locator": "line 21",
+      "previous_locator": "line 21",
+      "code": "1YE07",
+      "status": "update"
+    },
+    {
+      "id": "8ba742457a9a",
+      "model_key": "grand_sport",
+      "table": "configuration",
+      "key": {
+        "id": "2lt_e67",
+        "revision_id": "6cd8f529-5c8c-4978-94c6-e647c0d9bc17"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport Convertible 2LT",
+      "last": 10289500,
+      "current": 10289500,
+      "new": 10399500,
+      "locator": "line 22",
+      "previous_locator": "line 22",
+      "code": "1YE67",
+      "status": "update"
+    },
+    {
+      "id": "a255d1af4299",
+      "model_key": "grand_sport",
+      "table": "configuration",
+      "key": {
+        "id": "3lt_e67",
+        "revision_id": "6cd8f529-5c8c-4978-94c6-e647c0d9bc17"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport Convertible 3LT",
+      "last": 10754500,
+      "current": 10754500,
+      "new": 10874500,
+      "locator": "line 23",
+      "previous_locator": "line 23",
+      "code": "1YE67",
+      "status": "update"
+    },
+    {
+      "id": "0807f6c7360d",
+      "model_key": "grand_sport_x",
+      "table": "configuration",
+      "key": {
+        "id": "1lt_g07",
+        "revision_id": "bc04b3e6-1151-4d09-ba18-6b48dd3c8eeb"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport X Coupe 1LT",
+      "last": 11249500,
+      "current": 11249500,
+      "new": 11379500,
+      "locator": "line 24",
+      "previous_locator": "line 24",
+      "code": "1YG07",
+      "status": "update"
+    },
+    {
+      "id": "993fa99f24a2",
+      "model_key": "grand_sport_x",
+      "table": "configuration",
+      "key": {
+        "id": "2lt_g07",
+        "revision_id": "bc04b3e6-1151-4d09-ba18-6b48dd3c8eeb"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport X Coupe 2LT",
+      "last": 11799500,
+      "current": 11799500,
+      "new": 11929500,
+      "locator": "line 25",
+      "previous_locator": "line 25",
+      "code": "1YG07",
+      "status": "update"
+    },
+    {
+      "id": "aa6b2094044b",
+      "model_key": "grand_sport_x",
+      "table": "configuration",
+      "key": {
+        "id": "1lt_g67",
+        "revision_id": "bc04b3e6-1151-4d09-ba18-6b48dd3c8eeb"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport X Convertible 1LT",
+      "last": 11949500,
+      "current": 11949500,
+      "new": 12079500,
+      "locator": "line 26",
+      "previous_locator": "line 26",
+      "code": "1YG67",
+      "status": "update"
+    },
+    {
+      "id": "71a7a985a210",
+      "model_key": "z06",
+      "table": "configuration",
+      "key": {
+        "id": "1lz_h07",
+        "revision_id": "40a68b87-c4c0-4502-be92-e9b4e4524e7a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Z06 Coupe 1LZ",
+      "last": 12169500,
+      "current": 12169500,
+      "new": 12269500,
+      "locator": "line 27",
+      "previous_locator": "line 27",
+      "code": "1YH07",
+      "status": "update"
+    },
+    {
+      "id": "99bd14dff58a",
+      "model_key": "grand_sport_x",
+      "table": "configuration",
+      "key": {
+        "id": "3lt_g07",
+        "revision_id": "bc04b3e6-1151-4d09-ba18-6b48dd3c8eeb"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport X Coupe 3LT",
+      "last": 12314500,
+      "current": 12314500,
+      "new": 12454500,
+      "locator": "line 28",
+      "previous_locator": "line 28",
+      "code": "1YG07",
+      "status": "update"
+    },
+    {
+      "id": "7591ce8e7404",
+      "model_key": "grand_sport_x",
+      "table": "configuration",
+      "key": {
+        "id": "2lt_g67",
+        "revision_id": "bc04b3e6-1151-4d09-ba18-6b48dd3c8eeb"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport X Convertible 2LT",
+      "last": 12499500,
+      "current": 12499500,
+      "new": 12629500,
+      "locator": "line 29",
+      "previous_locator": "line 29",
+      "code": "1YG67",
+      "status": "update"
+    },
+    {
+      "id": "bbd3aeedc0fc",
+      "model_key": "z06",
+      "table": "configuration",
+      "key": {
+        "id": "1lz_h67",
+        "revision_id": "40a68b87-c4c0-4502-be92-e9b4e4524e7a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Z06 Convertible 1LZ",
+      "last": 12869500,
+      "current": 12869500,
+      "new": 12969500,
+      "locator": "line 30",
+      "previous_locator": "line 30",
+      "code": "1YH67",
+      "status": "update"
+    },
+    {
+      "id": "f4238ba91d8b",
+      "model_key": "grand_sport_x",
+      "table": "configuration",
+      "key": {
+        "id": "3lt_g67",
+        "revision_id": "bc04b3e6-1151-4d09-ba18-6b48dd3c8eeb"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Grand Sport X Convertible 3LT",
+      "last": 13014500,
+      "current": 13014500,
+      "new": 13154500,
+      "locator": "line 31",
+      "previous_locator": "line 31",
+      "code": "1YG67",
+      "status": "update"
+    },
+    {
+      "id": "5a10344fd0e8",
+      "model_key": "z06",
+      "table": "configuration",
+      "key": {
+        "id": "2lz_h07",
+        "revision_id": "40a68b87-c4c0-4502-be92-e9b4e4524e7a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Z06 Coupe 2LZ",
+      "last": 13059500,
+      "current": 13059500,
+      "new": 13159500,
+      "locator": "line 32",
+      "previous_locator": "line 32",
+      "code": "1YH07",
+      "status": "update"
+    },
+    {
+      "id": "cb0bb6cfe4c9",
+      "model_key": "z06",
+      "table": "configuration",
+      "key": {
+        "id": "3lz_h07",
+        "revision_id": "40a68b87-c4c0-4502-be92-e9b4e4524e7a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Z06 Coupe 3LZ",
+      "last": 13524500,
+      "current": 13524500,
+      "new": 13634500,
+      "locator": "line 33",
+      "previous_locator": "line 33",
+      "code": "1YH07",
+      "status": "update"
+    },
+    {
+      "id": "ca32cf97c671",
+      "model_key": "z06",
+      "table": "configuration",
+      "key": {
+        "id": "2lz_h67",
+        "revision_id": "40a68b87-c4c0-4502-be92-e9b4e4524e7a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Z06 Convertible 2LZ",
+      "last": 13759500,
+      "current": 13759500,
+      "new": 13859500,
+      "locator": "line 34",
+      "previous_locator": "line 34",
+      "code": "1YH67",
+      "status": "update"
+    },
+    {
+      "id": "44b694c5cdef",
+      "model_key": "z06",
+      "table": "configuration",
+      "key": {
+        "id": "3lz_h67",
+        "revision_id": "40a68b87-c4c0-4502-be92-e9b4e4524e7a"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette Z06 Convertible 3LZ",
+      "last": 14224500,
+      "current": 14224500,
+      "new": 14334500,
+      "locator": "line 35",
+      "previous_locator": "line 35",
+      "code": "1YH67",
+      "status": "update"
+    },
+    {
+      "id": "16287fac6b35",
+      "model_key": "zr1",
+      "table": "configuration",
+      "key": {
+        "id": "1lz_r07",
+        "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette ZR1 Coupe 1LZ",
+      "last": 19749500,
+      "current": 19749500,
+      "new": 20019500,
+      "locator": "line 36",
+      "previous_locator": "line 36",
+      "code": "1YR07",
+      "status": "update"
+    },
+    {
+      "id": "1c7e8693bb4d",
+      "model_key": "zr1",
+      "table": "configuration",
+      "key": {
+        "id": "1lz_r67",
+        "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette ZR1 Convertible 1LZ",
+      "last": 20749500,
+      "current": 20749500,
+      "new": 21019500,
+      "locator": "line 37",
+      "previous_locator": "line 37",
+      "code": "1YR67",
+      "status": "update"
+    },
+    {
+      "id": "d30d9c5fedb2",
+      "model_key": "zr1",
+      "table": "configuration",
+      "key": {
+        "id": "3lz_r07",
+        "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette ZR1 Coupe 3LZ",
+      "last": 20849500,
+      "current": 20849500,
+      "new": 21139500,
+      "locator": "line 38",
+      "previous_locator": "line 38",
+      "code": "1YR07",
+      "status": "update"
+    },
+    {
+      "id": "ed56601ead6b",
+      "model_key": "zr1",
+      "table": "configuration",
+      "key": {
+        "id": "3lz_r67",
+        "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette ZR1 Convertible 3LZ",
+      "last": 21849500,
+      "current": 21849500,
+      "new": 22139500,
+      "locator": "line 39",
+      "previous_locator": "line 39",
+      "code": "1YR67",
+      "status": "update"
+    },
+    {
+      "id": "525dbdd364d1",
+      "model_key": "zr1x",
+      "table": "configuration",
+      "key": {
+        "id": "1lz_s07",
+        "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette ZR1X Coupe 1LZ",
+      "last": 22769500,
+      "current": 22769500,
+      "new": 23099500,
+      "locator": "line 40",
+      "previous_locator": "line 40",
+      "code": "1YS07",
+      "status": "update"
+    },
+    {
+      "id": "7ad3e739521a",
+      "model_key": "zr1x",
+      "table": "configuration",
+      "key": {
+        "id": "1lz_s67",
+        "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette ZR1X Convertible 1LZ",
+      "last": 23769500,
+      "current": 23769500,
+      "new": 24099500,
+      "locator": "line 41",
+      "previous_locator": "line 41",
+      "code": "1YS67",
+      "status": "update"
+    },
+    {
+      "id": "ad60eb0931e0",
+      "model_key": "zr1x",
+      "table": "configuration",
+      "key": {
+        "id": "3lz_s07",
+        "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette ZR1X Coupe 3LZ",
+      "last": 23869500,
+      "current": 23869500,
+      "new": 24219500,
+      "locator": "line 42",
+      "previous_locator": "line 42",
+      "code": "1YS07",
+      "status": "update"
+    },
+    {
+      "id": "0dfb93a4bbd3",
+      "model_key": "zr1x",
+      "table": "configuration",
+      "key": {
+        "id": "3lz_s67",
+        "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e"
+      },
+      "field": "starting_amount_minor",
+      "label": "Corvette ZR1X Convertible 3LZ",
+      "last": 24869500,
+      "current": 24869500,
+      "new": 25219500,
+      "locator": "line 43",
+      "previous_locator": "line 43",
+      "code": "1YS67",
+      "status": "update"
+    },
+    {
+      "id": "2201c1e6a8b1",
+      "model_key": "grand_sport",
+      "table": "option",
+      "key": {
+        "id": "opt_gec_001",
+        "revision_id": "6cd8f529-5c8c-4978-94c6-e647c0d9bc17"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GEC Pitch Gray Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 230",
+      "previous_locator": null,
+      "code": "GEC",
+      "status": "update"
+    },
+    {
+      "id": "8956c9660d5b",
+      "model_key": "grand_sport_x",
+      "table": "option",
+      "key": {
+        "id": "opt_gec_001",
+        "revision_id": "bc04b3e6-1151-4d09-ba18-6b48dd3c8eeb"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GEC Pitch Gray Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 230",
+      "previous_locator": null,
+      "code": "GEC",
+      "status": "update"
+    },
+    {
+      "id": "e3d2142273bc",
+      "model_key": "stingray",
+      "table": "option",
+      "key": {
+        "id": "opt_gec_001",
+        "revision_id": "2452d1bf-9b69-42e7-98d6-291eb892124a"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GEC Pitch Gray Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 230",
+      "previous_locator": null,
+      "code": "GEC",
+      "status": "update"
+    },
+    {
+      "id": "088a52ff624d",
+      "model_key": "z06",
+      "table": "option",
+      "key": {
+        "id": "opt_gec_001",
+        "revision_id": "40a68b87-c4c0-4502-be92-e9b4e4524e7a"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GEC Pitch Gray Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 230",
+      "previous_locator": null,
+      "code": "GEC",
+      "status": "update"
+    },
+    {
+      "id": "45c0d9b9678a",
+      "model_key": "zr1",
+      "table": "option",
+      "key": {
+        "id": "opt_gec_001",
+        "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GEC Pitch Gray Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 230",
+      "previous_locator": null,
+      "code": "GEC",
+      "status": "update"
+    },
+    {
+      "id": "6f40e0bae60d",
+      "model_key": "zr1x",
+      "table": "option",
+      "key": {
+        "id": "opt_gec_001",
+        "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GEC Pitch Gray Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 230",
+      "previous_locator": null,
+      "code": "GEC",
+      "status": "update"
+    },
+    {
+      "id": "5283e2217092",
+      "model_key": "grand_sport",
+      "table": "option",
+      "key": {
+        "id": "opt_gka_001",
+        "revision_id": "6cd8f529-5c8c-4978-94c6-e647c0d9bc17"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKA Blade Silver Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 231",
+      "previous_locator": null,
+      "code": "GKA",
+      "status": "update"
+    },
+    {
+      "id": "9e311be7f1f4",
+      "model_key": "grand_sport_x",
+      "table": "option",
+      "key": {
+        "id": "opt_gka_001",
+        "revision_id": "bc04b3e6-1151-4d09-ba18-6b48dd3c8eeb"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKA Blade Silver Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 231",
+      "previous_locator": null,
+      "code": "GKA",
+      "status": "update"
+    },
+    {
+      "id": "6955031706d2",
+      "model_key": "stingray",
+      "table": "option",
+      "key": {
+        "id": "opt_gka_001",
+        "revision_id": "2452d1bf-9b69-42e7-98d6-291eb892124a"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKA Blade Silver Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 231",
+      "previous_locator": null,
+      "code": "GKA",
+      "status": "update"
+    },
+    {
+      "id": "035cadba541a",
+      "model_key": "z06",
+      "table": "option",
+      "key": {
+        "id": "opt_gka_001",
+        "revision_id": "40a68b87-c4c0-4502-be92-e9b4e4524e7a"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKA Blade Silver Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 231",
+      "previous_locator": null,
+      "code": "GKA",
+      "status": "update"
+    },
+    {
+      "id": "e36990b10f0d",
+      "model_key": "zr1",
+      "table": "option",
+      "key": {
+        "id": "opt_gka_001",
+        "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKA Blade Silver Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 231",
+      "previous_locator": null,
+      "code": "GKA",
+      "status": "update"
+    },
+    {
+      "id": "b491ce1e2771",
+      "model_key": "zr1x",
+      "table": "option",
+      "key": {
+        "id": "opt_gka_001",
+        "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKA Blade Silver Metallic",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 231",
+      "previous_locator": null,
+      "code": "GKA",
+      "status": "update"
+    },
+    {
+      "id": "90092dba4f2f",
+      "model_key": "grand_sport",
+      "table": "option",
+      "key": {
+        "id": "opt_gkz_001",
+        "revision_id": "6cd8f529-5c8c-4978-94c6-e647c0d9bc17"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKZ Torch Red",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 232",
+      "previous_locator": null,
+      "code": "GKZ",
+      "status": "update"
+    },
+    {
+      "id": "daf66e7986dc",
+      "model_key": "grand_sport_x",
+      "table": "option",
+      "key": {
+        "id": "opt_gkz_001",
+        "revision_id": "bc04b3e6-1151-4d09-ba18-6b48dd3c8eeb"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKZ Torch Red",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 232",
+      "previous_locator": null,
+      "code": "GKZ",
+      "status": "update"
+    },
+    {
+      "id": "2a3e8e1ecd6a",
+      "model_key": "stingray",
+      "table": "option",
+      "key": {
+        "id": "opt_gkz_001",
+        "revision_id": "2452d1bf-9b69-42e7-98d6-291eb892124a"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKZ Torch Red",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 232",
+      "previous_locator": null,
+      "code": "GKZ",
+      "status": "update"
+    },
+    {
+      "id": "c4b5f533ff4b",
+      "model_key": "z06",
+      "table": "option",
+      "key": {
+        "id": "opt_gkz_001",
+        "revision_id": "40a68b87-c4c0-4502-be92-e9b4e4524e7a"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKZ Torch Red",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 232",
+      "previous_locator": null,
+      "code": "GKZ",
+      "status": "update"
+    },
+    {
+      "id": "300f65ade972",
+      "model_key": "zr1",
+      "table": "option",
+      "key": {
+        "id": "opt_gkz_001",
+        "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKZ Torch Red",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 232",
+      "previous_locator": null,
+      "code": "GKZ",
+      "status": "update"
+    },
+    {
+      "id": "94cba7b5cd0d",
+      "model_key": "zr1x",
+      "table": "option",
+      "key": {
+        "id": "opt_gkz_001",
+        "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e"
+      },
+      "field": "purchase_amount_minor",
+      "label": "GKZ Torch Red",
+      "last": null,
+      "current": 0,
+      "new": 50000,
+      "locator": "line 232",
+      "previous_locator": null,
+      "code": "GKZ",
+      "status": "update"
+    }
+  ],
+  "price_schedule_coverage": {
+    "previous_priced_rows": 268,
+    "new_priced_rows": 271,
+    "base_rows_changed": 32,
+    "new_price_rows": [
+      "GEC",
+      "GKA",
+      "GKZ"
+    ],
+    "existing_option_rows_changed": 0,
+    "rows_removed": 0,
+    "destination_minor": 249500,
+    "manual_conflicts": 0,
+    "unmapped_changed_rows": 0
+  },
+  "distribution_changes": [
+    {
+      "id": "2026-11-09-stingray-r88",
+      "model_key": "stingray",
+      "locator": "page 1, lines 5-6",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained"
+    },
+    {
+      "id": "2026-11-09-stingray-cf8",
+      "model_key": "stingray",
+      "locator": "page 1, lines 7-8",
+      "summary": "CF8 production hold removed; existing price, body/trim applicability and compatibility retained"
+    },
+    {
+      "id": "2026-11-09-grand-sport-r88",
+      "model_key": "grand_sport",
+      "locator": "page 1, lines 5-6",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained"
+    },
+    {
+      "id": "2026-11-09-grand-sport-cf8",
+      "model_key": "grand_sport",
+      "locator": "page 1, lines 9-10",
+      "summary": "CF8 production hold removed; existing price, body/trim applicability and compatibility retained"
+    },
+    {
+      "id": "2026-11-09-grand-sport-x-r88",
+      "model_key": "grand_sport_x",
+      "locator": "page 1, lines 5-6",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained"
+    },
+    {
+      "id": "2026-11-09-grand-sport-x-cf8",
+      "model_key": "grand_sport_x",
+      "locator": "page 1, lines 11-12",
+      "summary": "CF8 production hold removed; existing price, body/trim applicability and compatibility retained"
+    },
+    {
+      "id": "2026-11-09-z06-r88",
+      "model_key": "z06",
+      "locator": "page 1, lines 5-6",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained"
+    },
+    {
+      "id": "2026-11-09-z06-cf8",
+      "model_key": "z06",
+      "locator": "page 1, lines 13-14",
+      "summary": "CF8 production hold removed; existing price, body/trim applicability and compatibility retained"
+    },
+    {
+      "id": "2026-11-09-zr1-r88",
+      "model_key": "zr1",
+      "locator": "page 1, lines 5-6",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained"
+    },
+    {
+      "id": "2026-11-09-zr1x-r88",
+      "model_key": "zr1x",
+      "locator": "page 1, lines 5-6",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained"
+    }
+  ],
+  "previous_distribution_dispositions": {
+    "source": "intake/distribution-updates/2027-through-2026-10-05.json",
+    "accepted_proposals": [
+      "2026-10-05-stingray-5zu",
+      "2026-10-05-grand-sport-x-hp1",
+      "2026-09-28-zr1-5js",
+      "2026-09-28-zr1x-5js",
+      "2026-09-28-z06-5js",
+      "2026-09-28-grand-sport-x-5js",
+      "2026-09-28-stingray-5js",
+      "2026-09-28-grand-sport-5js",
+      "2026-09-21-z06-sne",
+      "2026-09-21-grand-sport-gph-el9",
+      "2026-09-21-grand-sport-x-gph-el9",
+      "2026-09-14-zr1-5wn",
+      "2026-09-14-zr1-pcr",
+      "2026-09-14-zr1x-5wn",
+      "2026-09-14-zr1x-pcr",
+      "2026-08-03-grand-sport-x-5zb",
+      "2026-06-08-stingray-due"
+    ],
+    "superseded_holds": [
+      "R88 (six models)",
+      "CF8 (Stingray, Grand Sport, Grand Sport X, Z06)"
+    ],
+    "retained": "All other October 8 accepted changes remain, including 5ZU/5V7 unavailability and DUE Royal Blue naming."
+  },
+  "acceptances": [
+    {
+      "acceptance_id": "06649e70-dfe1-470d-8669-dd3b11293e11",
+      "accepted_at": "2026-10-08T18:42:58.312739+00:00",
+      "reviewer": "Sean",
+      "reason": "Accept the September 28 price schedule and the MY2027 distribution updates through the week of 10/5/2026, including 5ZU and 5V7 not available as a manufacturer constraint and the DUE name Royal Blue (owner decisions, October 8)",
+      "history_sha256": "4bec872694e5023c02eb8dad0234566be13c260c549d1dbf6dfdba2e5a4ab361",
+      "product_sha256": "ad48283849232d58b594a93411c1eb0431bc24f16a6bd38376c6b932d9a815f1"
+    },
+    {
+      "acceptance_id": "0b45e8c2-ce31-4cdf-9a9d-904500f334c0",
+      "accepted_at": "2026-11-13T16:29:21.382456+00:00",
+      "reviewer": "Codex",
+      "reason": "Apply the November 9 effective price schedule and November 9 distribution notice at Sean\u2019s explicit November 13 request; 50 price facts and 10 production-hold removals reviewed with no manual-edit conflicts; existing applicability and compatibility preserved.",
+      "history_sha256": "0ba1d0922150b3719deaa5a6a52a95f27224d36d8fcf6dd73b0da0bfe4497f3f",
+      "product_sha256": "cd59ebc5fdba78c10f98d6e93495f594484b2d7efdf42599ccec0274e1998fb3"
+    }
+  ],
+  "targeted_checks": {
+    "source": "sources/raw/d6f14318934569565650a32d3a4233a613b005d5577ad6ea0a885c3ace30da29/27 Corvette Pricing 9-28 - november4.csv",
+    "models": {
+      "stingray": [
+        {
+          "configuration": "1lt_c67",
+          "starting_amount_minor": 8159500,
+          "order_msrp": "$84,580",
+          "interior": "1LT_AE4_HTJ_N26",
+          "dealer_base_price": 81595.0
+        },
+        {
+          "configuration": "2lt_c67",
+          "starting_amount_minor": 8879500,
+          "order_msrp": "$92,085",
+          "interior": "2LT_AE4_HTM",
+          "dealer_base_price": 88795.0
+        },
+        {
+          "configuration": "3lt_c67",
+          "starting_amount_minor": 9344500,
+          "order_msrp": "$95,235",
+          "interior": "3LT_AE4_EJH",
+          "dealer_base_price": 93445.0
+        },
+        {
+          "configuration": "1lt_c07",
+          "starting_amount_minor": 7459500,
+          "order_msrp": "$77,580",
+          "interior": "1LT_AE4_HTJ_N26",
+          "dealer_base_price": 74595.0
+        },
+        {
+          "configuration": "2lt_c07",
+          "starting_amount_minor": 8179500,
+          "order_msrp": "$85,085",
+          "interior": "2LT_AE4_HTM",
+          "dealer_base_price": 81795.0
+        },
+        {
+          "configuration": "3lt_c07",
+          "starting_amount_minor": 8644500,
+          "order_msrp": "$88,235",
+          "interior": "3LT_AE4_EJH",
+          "dealer_base_price": 86445.0
+        }
+      ],
+      "grand_sport": [
+        {
+          "configuration": "1lt_e67",
+          "starting_amount_minor": 9689500,
+          "order_msrp": "$99,880",
+          "interior": "1LT_AE4_HTJ_N26",
+          "dealer_base_price": 96895.0
+        },
+        {
+          "configuration": "2lt_e67",
+          "starting_amount_minor": 10399500,
+          "order_msrp": "$107,285",
+          "interior": "2LT_AE4_HTM",
+          "dealer_base_price": 103995.0
+        },
+        {
+          "configuration": "3lt_e67",
+          "starting_amount_minor": 10874500,
+          "order_msrp": "$110,535",
+          "interior": "3LT_AE4_EJH",
+          "dealer_base_price": 108745.0
+        },
+        {
+          "configuration": "1lt_e07",
+          "starting_amount_minor": 8989500,
+          "order_msrp": "$92,880",
+          "interior": "1LT_AE4_HTJ_N26",
+          "dealer_base_price": 89895.0
+        },
+        {
+          "configuration": "2lt_e07",
+          "starting_amount_minor": 9699500,
+          "order_msrp": "$100,285",
+          "interior": "2LT_AE4_HTM",
+          "dealer_base_price": 96995.0
+        },
+        {
+          "configuration": "3lt_e07",
+          "starting_amount_minor": 10174500,
+          "order_msrp": "$103,535",
+          "interior": "3LT_AE4_EJH",
+          "dealer_base_price": 101745.0
+        }
+      ],
+      "grand_sport_x": [
+        {
+          "configuration": "1lt_g67",
+          "starting_amount_minor": 12079500,
+          "order_msrp": "$123,780",
+          "interior": "1LT_AE4_HTJ_N26",
+          "dealer_base_price": 120795.0
+        },
+        {
+          "configuration": "2lt_g67",
+          "starting_amount_minor": 12629500,
+          "order_msrp": "$129,585",
+          "interior": "2LT_AE4_HTM",
+          "dealer_base_price": 126295.0
+        },
+        {
+          "configuration": "3lt_g67",
+          "starting_amount_minor": 13154500,
+          "order_msrp": "$133,335",
+          "interior": "3LT_AE4_EJH",
+          "dealer_base_price": 131545.0
+        },
+        {
+          "configuration": "1lt_g07",
+          "starting_amount_minor": 11379500,
+          "order_msrp": "$116,780",
+          "interior": "1LT_AE4_HTJ_N26",
+          "dealer_base_price": 113795.0
+        },
+        {
+          "configuration": "2lt_g07",
+          "starting_amount_minor": 11929500,
+          "order_msrp": "$122,585",
+          "interior": "2LT_AE4_HTM",
+          "dealer_base_price": 119295.0
+        },
+        {
+          "configuration": "3lt_g07",
+          "starting_amount_minor": 12454500,
+          "order_msrp": "$126,335",
+          "interior": "3LT_AE4_EJH",
+          "dealer_base_price": 124545.0
+        }
+      ],
+      "z06": [
+        {
+          "configuration": "1lz_h67",
+          "starting_amount_minor": 12969500,
+          "order_msrp": "$135,280",
+          "interior": "1LZ_AE4_HTJ_N26",
+          "dealer_base_price": 129695.0
+        },
+        {
+          "configuration": "2lz_h67",
+          "starting_amount_minor": 13859500,
+          "order_msrp": "$143,485",
+          "interior": "2LZ_AE4_HTM",
+          "dealer_base_price": 138595.0
+        },
+        {
+          "configuration": "3lz_h67",
+          "starting_amount_minor": 14334500,
+          "order_msrp": "$147,735",
+          "interior": "3LZ_AE4_EJH",
+          "dealer_base_price": 143345.0
+        },
+        {
+          "configuration": "1lz_h07",
+          "starting_amount_minor": 12269500,
+          "order_msrp": "$128,280",
+          "interior": "1LZ_AE4_HTJ_N26",
+          "dealer_base_price": 122695.0
+        },
+        {
+          "configuration": "2lz_h07",
+          "starting_amount_minor": 13159500,
+          "order_msrp": "$136,485",
+          "interior": "2LZ_AE4_HTM",
+          "dealer_base_price": 131595.0
+        },
+        {
+          "configuration": "3lz_h07",
+          "starting_amount_minor": 13634500,
+          "order_msrp": "$140,735",
+          "interior": "3LZ_AE4_EJH",
+          "dealer_base_price": 136345.0
+        }
+      ],
+      "zr1": [
+        {
+          "configuration": "1lz_r67",
+          "starting_amount_minor": 21019500,
+          "order_msrp": "$216,180",
+          "interior": "1LZ_AE4_HTJ_N26",
+          "dealer_base_price": 210195.0
+        },
+        {
+          "configuration": "3lz_r67",
+          "starting_amount_minor": 22139500,
+          "order_msrp": "$226,185",
+          "interior": "3LZ_AE4_EJH",
+          "dealer_base_price": 221395.0
+        },
+        {
+          "configuration": "1lz_r07",
+          "starting_amount_minor": 20019500,
+          "order_msrp": "$206,180",
+          "interior": "1LZ_AE4_HTJ_N26",
+          "dealer_base_price": 200195.0
+        },
+        {
+          "configuration": "3lz_r07",
+          "starting_amount_minor": 21139500,
+          "order_msrp": "$216,185",
+          "interior": "3LZ_AE4_EJH",
+          "dealer_base_price": 211395.0
+        }
+      ],
+      "zr1x": [
+        {
+          "configuration": "1lz_s67",
+          "starting_amount_minor": 24099500,
+          "order_msrp": "$246,580",
+          "interior": "1LZ_AE4_HTJ_N26",
+          "dealer_base_price": 240995.0
+        },
+        {
+          "configuration": "3lz_s67",
+          "starting_amount_minor": 25219500,
+          "order_msrp": "$256,585",
+          "interior": "3LZ_AE4_EJH",
+          "dealer_base_price": 252195.0
+        },
+        {
+          "configuration": "1lz_s07",
+          "starting_amount_minor": 23099500,
+          "order_msrp": "$236,580",
+          "interior": "1LZ_AE4_HTJ_N26",
+          "dealer_base_price": 230995.0
+        },
+        {
+          "configuration": "3lz_s07",
+          "starting_amount_minor": 24219500,
+          "order_msrp": "$246,585",
+          "interior": "3LZ_AE4_EJH",
+          "dealer_base_price": 242195.0
+        }
+      ]
+    },
+    "checks": {
+      "base_price_and_consumer_mapping": 32,
+      "paint_price_select_undo": 96,
+      "r88_select_price_undo": 32,
+      "r88_sfz_conflict_direction": 64,
+      "cf8_inapplicable_refused": 16,
+      "complete_order_and_dealer_payload": 32,
+      "cf8_stripe_conflict_direction": 16,
+      "cf8_select_price_undo": 8,
+      "cf8_absent_from_zr1_families": 8
+    },
+    "passed": true
+  },
+  "live_build_comparison": {
+    "builds": [
+      {
+        "model": "stingray",
+        "configuration": "1lt_c07",
+        "paint": "G8G",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 7379500,
+        "new_total_minor": 7459500,
+        "expected_delta_minor": 80000,
+        "actual_delta_minor": 80000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "1lt_c07",
+        "paint": "GEC",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 7379500,
+        "new_total_minor": 7509500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "1lt_c07",
+        "paint": "GKA",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 7379500,
+        "new_total_minor": 7509500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "1lt_c07",
+        "paint": "GKZ",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 7379500,
+        "new_total_minor": 7509500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "2lt_c07",
+        "paint": "G8G",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 8089500,
+        "new_total_minor": 8179500,
+        "expected_delta_minor": 90000,
+        "actual_delta_minor": 90000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "2lt_c07",
+        "paint": "GEC",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 8089500,
+        "new_total_minor": 8229500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "2lt_c07",
+        "paint": "GKA",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 8089500,
+        "new_total_minor": 8229500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "2lt_c07",
+        "paint": "GKZ",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 8089500,
+        "new_total_minor": 8229500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "3lt_c07",
+        "paint": "G8G",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 8554500,
+        "new_total_minor": 8644500,
+        "expected_delta_minor": 90000,
+        "actual_delta_minor": 90000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "3lt_c07",
+        "paint": "GEC",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 8554500,
+        "new_total_minor": 8694500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "3lt_c07",
+        "paint": "GKA",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 8554500,
+        "new_total_minor": 8694500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "3lt_c07",
+        "paint": "GKZ",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 8554500,
+        "new_total_minor": 8694500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "1lt_c67",
+        "paint": "G8G",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 8079500,
+        "new_total_minor": 8159500,
+        "expected_delta_minor": 80000,
+        "actual_delta_minor": 80000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "1lt_c67",
+        "paint": "GEC",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 8079500,
+        "new_total_minor": 8209500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "1lt_c67",
+        "paint": "GKA",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 8079500,
+        "new_total_minor": 8209500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "1lt_c67",
+        "paint": "GKZ",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 8079500,
+        "new_total_minor": 8209500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "2lt_c67",
+        "paint": "G8G",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 8789500,
+        "new_total_minor": 8879500,
+        "expected_delta_minor": 90000,
+        "actual_delta_minor": 90000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "2lt_c67",
+        "paint": "GEC",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 8789500,
+        "new_total_minor": 8929500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "2lt_c67",
+        "paint": "GKA",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 8789500,
+        "new_total_minor": 8929500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "2lt_c67",
+        "paint": "GKZ",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 8789500,
+        "new_total_minor": 8929500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "3lt_c67",
+        "paint": "G8G",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 9254500,
+        "new_total_minor": 9344500,
+        "expected_delta_minor": 90000,
+        "actual_delta_minor": 90000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "3lt_c67",
+        "paint": "GEC",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 9254500,
+        "new_total_minor": 9394500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "3lt_c67",
+        "paint": "GKA",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 9254500,
+        "new_total_minor": 9394500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "stingray",
+        "configuration": "3lt_c67",
+        "paint": "GKZ",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 9254500,
+        "new_total_minor": 9394500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "1lt_e07",
+        "paint": "G8G",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 8879500,
+        "new_total_minor": 8989500,
+        "expected_delta_minor": 110000,
+        "actual_delta_minor": 110000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "1lt_e07",
+        "paint": "GEC",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 8879500,
+        "new_total_minor": 9039500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "1lt_e07",
+        "paint": "GKA",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 8879500,
+        "new_total_minor": 9039500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "1lt_e07",
+        "paint": "GKZ",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 8879500,
+        "new_total_minor": 9039500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "2lt_e07",
+        "paint": "G8G",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 9589500,
+        "new_total_minor": 9699500,
+        "expected_delta_minor": 110000,
+        "actual_delta_minor": 110000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "2lt_e07",
+        "paint": "GEC",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 9589500,
+        "new_total_minor": 9749500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "2lt_e07",
+        "paint": "GKA",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 9589500,
+        "new_total_minor": 9749500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "2lt_e07",
+        "paint": "GKZ",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 9589500,
+        "new_total_minor": 9749500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "3lt_e07",
+        "paint": "G8G",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 10054500,
+        "new_total_minor": 10174500,
+        "expected_delta_minor": 120000,
+        "actual_delta_minor": 120000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "3lt_e07",
+        "paint": "GEC",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 10054500,
+        "new_total_minor": 10224500,
+        "expected_delta_minor": 170000,
+        "actual_delta_minor": 170000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "3lt_e07",
+        "paint": "GKA",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 10054500,
+        "new_total_minor": 10224500,
+        "expected_delta_minor": 170000,
+        "actual_delta_minor": 170000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "3lt_e07",
+        "paint": "GKZ",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 10054500,
+        "new_total_minor": 10224500,
+        "expected_delta_minor": 170000,
+        "actual_delta_minor": 170000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "1lt_e67",
+        "paint": "G8G",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 9579500,
+        "new_total_minor": 9689500,
+        "expected_delta_minor": 110000,
+        "actual_delta_minor": 110000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "1lt_e67",
+        "paint": "GEC",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 9579500,
+        "new_total_minor": 9739500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "1lt_e67",
+        "paint": "GKA",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 9579500,
+        "new_total_minor": 9739500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "1lt_e67",
+        "paint": "GKZ",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 9579500,
+        "new_total_minor": 9739500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "2lt_e67",
+        "paint": "G8G",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 10289500,
+        "new_total_minor": 10399500,
+        "expected_delta_minor": 110000,
+        "actual_delta_minor": 110000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "2lt_e67",
+        "paint": "GEC",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 10289500,
+        "new_total_minor": 10449500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "2lt_e67",
+        "paint": "GKA",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 10289500,
+        "new_total_minor": 10449500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "2lt_e67",
+        "paint": "GKZ",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 10289500,
+        "new_total_minor": 10449500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "3lt_e67",
+        "paint": "G8G",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 10754500,
+        "new_total_minor": 10874500,
+        "expected_delta_minor": 120000,
+        "actual_delta_minor": 120000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "3lt_e67",
+        "paint": "GEC",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 10754500,
+        "new_total_minor": 10924500,
+        "expected_delta_minor": 170000,
+        "actual_delta_minor": 170000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "3lt_e67",
+        "paint": "GKA",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 10754500,
+        "new_total_minor": 10924500,
+        "expected_delta_minor": 170000,
+        "actual_delta_minor": 170000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport",
+        "configuration": "3lt_e67",
+        "paint": "GKZ",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 10754500,
+        "new_total_minor": 10924500,
+        "expected_delta_minor": 170000,
+        "actual_delta_minor": 170000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "1lt_g07",
+        "paint": "G8G",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 11249500,
+        "new_total_minor": 11379500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "1lt_g07",
+        "paint": "GEC",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 11249500,
+        "new_total_minor": 11429500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "1lt_g07",
+        "paint": "GKA",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 11249500,
+        "new_total_minor": 11429500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "1lt_g07",
+        "paint": "GKZ",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 11249500,
+        "new_total_minor": 11429500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "2lt_g07",
+        "paint": "G8G",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 11799500,
+        "new_total_minor": 11929500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "2lt_g07",
+        "paint": "GEC",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 11799500,
+        "new_total_minor": 11979500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "2lt_g07",
+        "paint": "GKA",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 11799500,
+        "new_total_minor": 11979500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "2lt_g07",
+        "paint": "GKZ",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 11799500,
+        "new_total_minor": 11979500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "3lt_g07",
+        "paint": "G8G",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 12314500,
+        "new_total_minor": 12454500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "3lt_g07",
+        "paint": "GEC",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 12314500,
+        "new_total_minor": 12504500,
+        "expected_delta_minor": 190000,
+        "actual_delta_minor": 190000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "3lt_g07",
+        "paint": "GKA",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 12314500,
+        "new_total_minor": 12504500,
+        "expected_delta_minor": 190000,
+        "actual_delta_minor": 190000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "3lt_g07",
+        "paint": "GKZ",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 12314500,
+        "new_total_minor": 12504500,
+        "expected_delta_minor": 190000,
+        "actual_delta_minor": 190000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "1lt_g67",
+        "paint": "G8G",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 11949500,
+        "new_total_minor": 12079500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "1lt_g67",
+        "paint": "GEC",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 11949500,
+        "new_total_minor": 12129500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "1lt_g67",
+        "paint": "GKA",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 11949500,
+        "new_total_minor": 12129500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "1lt_g67",
+        "paint": "GKZ",
+        "interior": "1LT_AQ9_HTA",
+        "old_total_minor": 11949500,
+        "new_total_minor": 12129500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "2lt_g67",
+        "paint": "G8G",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 12499500,
+        "new_total_minor": 12629500,
+        "expected_delta_minor": 130000,
+        "actual_delta_minor": 130000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "2lt_g67",
+        "paint": "GEC",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 12499500,
+        "new_total_minor": 12679500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "2lt_g67",
+        "paint": "GKA",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 12499500,
+        "new_total_minor": 12679500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "2lt_g67",
+        "paint": "GKZ",
+        "interior": "2LT_AQ9_H1Y",
+        "old_total_minor": 12499500,
+        "new_total_minor": 12679500,
+        "expected_delta_minor": 180000,
+        "actual_delta_minor": 180000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "3lt_g67",
+        "paint": "G8G",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 13014500,
+        "new_total_minor": 13154500,
+        "expected_delta_minor": 140000,
+        "actual_delta_minor": 140000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "3lt_g67",
+        "paint": "GEC",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 13014500,
+        "new_total_minor": 13204500,
+        "expected_delta_minor": 190000,
+        "actual_delta_minor": 190000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "3lt_g67",
+        "paint": "GKA",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 13014500,
+        "new_total_minor": 13204500,
+        "expected_delta_minor": 190000,
+        "actual_delta_minor": 190000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "grand_sport_x",
+        "configuration": "3lt_g67",
+        "paint": "GKZ",
+        "interior": "3LT_AH2_HTE",
+        "old_total_minor": 13014500,
+        "new_total_minor": 13204500,
+        "expected_delta_minor": 190000,
+        "actual_delta_minor": 190000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "1lz_h07",
+        "paint": "G8G",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 12429500,
+        "new_total_minor": 12529500,
+        "expected_delta_minor": 100000,
+        "actual_delta_minor": 100000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "1lz_h07",
+        "paint": "GEC",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 12429500,
+        "new_total_minor": 12579500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "1lz_h07",
+        "paint": "GKA",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 12429500,
+        "new_total_minor": 12579500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "1lz_h07",
+        "paint": "GKZ",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 12429500,
+        "new_total_minor": 12579500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "2lz_h07",
+        "paint": "G8G",
+        "interior": "2LZ_AQ9_H1Y",
+        "old_total_minor": 13319500,
+        "new_total_minor": 13419500,
+        "expected_delta_minor": 100000,
+        "actual_delta_minor": 100000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "2lz_h07",
+        "paint": "GEC",
+        "interior": "2LZ_AQ9_H1Y",
+        "old_total_minor": 13319500,
+        "new_total_minor": 13469500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "2lz_h07",
+        "paint": "GKA",
+        "interior": "2LZ_AQ9_H1Y",
+        "old_total_minor": 13319500,
+        "new_total_minor": 13469500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "2lz_h07",
+        "paint": "GKZ",
+        "interior": "2LZ_AQ9_H1Y",
+        "old_total_minor": 13319500,
+        "new_total_minor": 13469500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "3lz_h07",
+        "paint": "G8G",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 13784500,
+        "new_total_minor": 13894500,
+        "expected_delta_minor": 110000,
+        "actual_delta_minor": 110000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "3lz_h07",
+        "paint": "GEC",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 13784500,
+        "new_total_minor": 13944500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "3lz_h07",
+        "paint": "GKA",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 13784500,
+        "new_total_minor": 13944500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "3lz_h07",
+        "paint": "GKZ",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 13784500,
+        "new_total_minor": 13944500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "1lz_h67",
+        "paint": "G8G",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 13129500,
+        "new_total_minor": 13229500,
+        "expected_delta_minor": 100000,
+        "actual_delta_minor": 100000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "1lz_h67",
+        "paint": "GEC",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 13129500,
+        "new_total_minor": 13279500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "1lz_h67",
+        "paint": "GKA",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 13129500,
+        "new_total_minor": 13279500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "1lz_h67",
+        "paint": "GKZ",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 13129500,
+        "new_total_minor": 13279500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "2lz_h67",
+        "paint": "G8G",
+        "interior": "2LZ_AQ9_H1Y",
+        "old_total_minor": 14019500,
+        "new_total_minor": 14119500,
+        "expected_delta_minor": 100000,
+        "actual_delta_minor": 100000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "2lz_h67",
+        "paint": "GEC",
+        "interior": "2LZ_AQ9_H1Y",
+        "old_total_minor": 14019500,
+        "new_total_minor": 14169500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "2lz_h67",
+        "paint": "GKA",
+        "interior": "2LZ_AQ9_H1Y",
+        "old_total_minor": 14019500,
+        "new_total_minor": 14169500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "2lz_h67",
+        "paint": "GKZ",
+        "interior": "2LZ_AQ9_H1Y",
+        "old_total_minor": 14019500,
+        "new_total_minor": 14169500,
+        "expected_delta_minor": 150000,
+        "actual_delta_minor": 150000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "3lz_h67",
+        "paint": "G8G",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 14484500,
+        "new_total_minor": 14594500,
+        "expected_delta_minor": 110000,
+        "actual_delta_minor": 110000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "3lz_h67",
+        "paint": "GEC",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 14484500,
+        "new_total_minor": 14644500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "3lz_h67",
+        "paint": "GKA",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 14484500,
+        "new_total_minor": 14644500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "z06",
+        "configuration": "3lz_h67",
+        "paint": "GKZ",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 14484500,
+        "new_total_minor": 14644500,
+        "expected_delta_minor": 160000,
+        "actual_delta_minor": 160000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "1lz_r07",
+        "paint": "G8G",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 20049500,
+        "new_total_minor": 20319500,
+        "expected_delta_minor": 270000,
+        "actual_delta_minor": 270000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "1lz_r07",
+        "paint": "GEC",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 20049500,
+        "new_total_minor": 20369500,
+        "expected_delta_minor": 320000,
+        "actual_delta_minor": 320000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "1lz_r07",
+        "paint": "GKA",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 20049500,
+        "new_total_minor": 20369500,
+        "expected_delta_minor": 320000,
+        "actual_delta_minor": 320000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "1lz_r07",
+        "paint": "GKZ",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 20049500,
+        "new_total_minor": 20369500,
+        "expected_delta_minor": 320000,
+        "actual_delta_minor": 320000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r07",
+        "paint": "G8G",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 21149500,
+        "new_total_minor": 21439500,
+        "expected_delta_minor": 290000,
+        "actual_delta_minor": 290000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r07",
+        "paint": "GEC",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 21149500,
+        "new_total_minor": 21489500,
+        "expected_delta_minor": 340000,
+        "actual_delta_minor": 340000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r07",
+        "paint": "GKA",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 21149500,
+        "new_total_minor": 21489500,
+        "expected_delta_minor": 340000,
+        "actual_delta_minor": 340000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r07",
+        "paint": "GKZ",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 21149500,
+        "new_total_minor": 21489500,
+        "expected_delta_minor": 340000,
+        "actual_delta_minor": 340000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "1lz_r67",
+        "paint": "G8G",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 21049500,
+        "new_total_minor": 21319500,
+        "expected_delta_minor": 270000,
+        "actual_delta_minor": 270000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "1lz_r67",
+        "paint": "GEC",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 21049500,
+        "new_total_minor": 21369500,
+        "expected_delta_minor": 320000,
+        "actual_delta_minor": 320000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "1lz_r67",
+        "paint": "GKA",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 21049500,
+        "new_total_minor": 21369500,
+        "expected_delta_minor": 320000,
+        "actual_delta_minor": 320000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "1lz_r67",
+        "paint": "GKZ",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 21049500,
+        "new_total_minor": 21369500,
+        "expected_delta_minor": 320000,
+        "actual_delta_minor": 320000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r67",
+        "paint": "G8G",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 22149500,
+        "new_total_minor": 22439500,
+        "expected_delta_minor": 290000,
+        "actual_delta_minor": 290000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r67",
+        "paint": "GEC",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 22149500,
+        "new_total_minor": 22489500,
+        "expected_delta_minor": 340000,
+        "actual_delta_minor": 340000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r67",
+        "paint": "GKA",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 22149500,
+        "new_total_minor": 22489500,
+        "expected_delta_minor": 340000,
+        "actual_delta_minor": 340000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r67",
+        "paint": "GKZ",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 22149500,
+        "new_total_minor": 22489500,
+        "expected_delta_minor": 340000,
+        "actual_delta_minor": 340000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s07",
+        "paint": "G8G",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 23029500,
+        "new_total_minor": 23359500,
+        "expected_delta_minor": 330000,
+        "actual_delta_minor": 330000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s07",
+        "paint": "GEC",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 23029500,
+        "new_total_minor": 23409500,
+        "expected_delta_minor": 380000,
+        "actual_delta_minor": 380000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s07",
+        "paint": "GKA",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 23029500,
+        "new_total_minor": 23409500,
+        "expected_delta_minor": 380000,
+        "actual_delta_minor": 380000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s07",
+        "paint": "GKZ",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 23029500,
+        "new_total_minor": 23409500,
+        "expected_delta_minor": 380000,
+        "actual_delta_minor": 380000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s07",
+        "paint": "G8G",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 24129500,
+        "new_total_minor": 24479500,
+        "expected_delta_minor": 350000,
+        "actual_delta_minor": 350000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s07",
+        "paint": "GEC",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 24129500,
+        "new_total_minor": 24529500,
+        "expected_delta_minor": 400000,
+        "actual_delta_minor": 400000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s07",
+        "paint": "GKA",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 24129500,
+        "new_total_minor": 24529500,
+        "expected_delta_minor": 400000,
+        "actual_delta_minor": 400000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s07",
+        "paint": "GKZ",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 24129500,
+        "new_total_minor": 24529500,
+        "expected_delta_minor": 400000,
+        "actual_delta_minor": 400000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s67",
+        "paint": "G8G",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 24029500,
+        "new_total_minor": 24359500,
+        "expected_delta_minor": 330000,
+        "actual_delta_minor": 330000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s67",
+        "paint": "GEC",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 24029500,
+        "new_total_minor": 24409500,
+        "expected_delta_minor": 380000,
+        "actual_delta_minor": 380000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s67",
+        "paint": "GKA",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 24029500,
+        "new_total_minor": 24409500,
+        "expected_delta_minor": 380000,
+        "actual_delta_minor": 380000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s67",
+        "paint": "GKZ",
+        "interior": "1LZ_AQ9_HTA",
+        "old_total_minor": 24029500,
+        "new_total_minor": 24409500,
+        "expected_delta_minor": 380000,
+        "actual_delta_minor": 380000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s67",
+        "paint": "G8G",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 25129500,
+        "new_total_minor": 25479500,
+        "expected_delta_minor": 350000,
+        "actual_delta_minor": 350000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s67",
+        "paint": "GEC",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 25129500,
+        "new_total_minor": 25529500,
+        "expected_delta_minor": 400000,
+        "actual_delta_minor": 400000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s67",
+        "paint": "GKA",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 25129500,
+        "new_total_minor": 25529500,
+        "expected_delta_minor": 400000,
+        "actual_delta_minor": 400000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s67",
+        "paint": "GKZ",
+        "interior": "3LZ_AH2_HTE",
+        "old_total_minor": 25129500,
+        "new_total_minor": 25529500,
+        "expected_delta_minor": 400000,
+        "actual_delta_minor": 400000,
+        "total_matches": true,
+        "required_selections": [],
+        "recap_prices_match": true,
+        "recap_removed": [],
+        "recap_added": []
+      }
+    ],
+    "counts": {
+      "stingray": 24,
+      "grand_sport": 24,
+      "grand_sport_x": 24,
+      "z06": 24,
+      "zr1": 16,
+      "zr1x": 16
+    },
+    "unexpected_totals": [],
+    "recap_differences": []
+  },
+  "limitations": [
+    "The new PDF covers only the week of November 9; it is not a cumulative whole-guide revision. No unprovided intervening bulletin is assumed.",
+    "128 build comparisons and the full rule inventory are finite checks, not an enumeration of every possible configuration combination.",
+    "No live dealer order was sent during this work. October 8 receipt proof remains separate from production-domain delivery proof.",
+    "No visualizer coverage is claimed; visualizer assets are omitted from the launch bundle."
+  ],
+  "runtime_corrections": {
+    "pull_request": "https://github.com/seanzmc/CorvetteCatalog/pull/99",
+    "head": "f42e351deeb9fbbfaa5daba1551967fe85253a21",
+    "scope": [
+      "Prevent model selection while a saved build is restoring.",
+      "Refresh setup starting MSRP for the restored trim.",
+      "Exclude Finder .DS_Store metadata from release inventory at every directory depth; WordPress refused these non-application files with 403."
+    ],
+    "regression_check": {
+      "command": "python3 -m unittest discover -s tests -p test_form_startup.py",
+      "scenarios": [
+        "fresh",
+        "restored",
+        "stale",
+        "outage"
+      ],
+      "status": "passed",
+      "negative_controls": [
+        "origin/main fails the delayed-restore check",
+        "ef89d95 fails the restored higher-trim price check"
+      ]
+    },
+    "packaging_regression_check": {
+      "command": "python3 -m unittest tests.test_releases.RuntimeFilesTests tests.test_form_startup",
+      "status": "passed",
+      "tests": 2,
+      "startup_scenarios": 4,
+      "seconds": 0.455
+    },
+    "superseded_staging_check": {
+      "release_id": "ce1b1396a53d953aff883e93ae7c0a844454b65b1eb5bc3845e1db443dc48fb4",
+      "application_files_matching": 110,
+      "failed_metadata_files": [
+        ".DS_Store",
+        "swatches/.DS_Store"
+      ],
+      "pointer": "Initial mismatch resolved after propagation; canonical current.json subsequently matched SFTP and served index."
+    },
+    "continuous_integration": {
+      "commit": "f42e351deeb9fbbfaa5daba1551967fe85253a21",
+      "run_url": "https://github.com/seanzmc/CorvetteCatalog/actions/runs/43486722938",
+      "routine_jobs": 16,
+      "status": "passed",
+      "manual_six_model_job": "not requested in CI; full six-model audit passed on the actual accepted local draft during final release freeze"
+    }
+  },
+  "hosting_prerequisites": {
+    "turnstile": {
+      "status": "configured_and_confirmed_in_dashboard",
+      "widget_site_key": "0x4AAAAAADQDIWu6RmhF8_wH",
+      "added_hostname": "stingraychevroletcorvette.com",
+      "retained_hostnames": [
+        "order.stingraychevroletcorvette.com",
+        "staging-427b-stingraychevroletcorvette.wpcomstaging.com"
+      ],
+      "widget_mode": "Managed",
+      "pre_clearance": false,
+      "secret_rotated": false
+    },
+    "cors_preflights": [
+      {
+        "origin": "https://staging-427b-stingraychevroletcorvette.wpcomstaging.com",
+        "status": 200,
+        "allow_origin": "https://staging-427b-stingraychevroletcorvette.wpcomstaging.com",
+        "allow_methods": "OPTIONS, GET, POST, PUT, PATCH, DELETE",
+        "allow_headers": "Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type"
+      },
+      {
+        "origin": "https://stingraychevroletcorvette.com",
+        "status": 200,
+        "allow_origin": "https://stingraychevroletcorvette.com",
+        "allow_methods": "OPTIONS, GET, POST, PUT, PATCH, DELETE",
+        "allow_headers": "Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type"
+      }
+    ],
+    "dealer_delivery": "Existing October 8 receipt proof retained; no new order was sent."
+  },
+  "browser_verification": {
+    "browser": "Chrome",
+    "scope": "local static bundle with final startup correction",
+    "model_configuration_smokes": [
+      {
+        "model": "stingray",
+        "body": "coupe",
+        "trim": "2lt",
+        "base_minor": 8179500,
+        "initial_total_minor": 8179500
+      },
+      {
+        "model": "grand_sport",
+        "body": "coupe",
+        "trim": "3lt",
+        "base_minor": 10174500,
+        "initial_total_minor": 10174500
+      },
+      {
+        "model": "grand_sport_x",
+        "body": "coupe",
+        "trim": "3lt",
+        "base_minor": 12454500,
+        "initial_total_minor": 12454500
+      },
+      {
+        "model": "z06",
+        "body": "coupe",
+        "trim": "3lz",
+        "base_minor": 13634500,
+        "initial_total_minor": 13894500
+      },
+      {
+        "model": "zr1",
+        "body": "coupe",
+        "trim": "3lz",
+        "base_minor": 21139500,
+        "initial_total_minor": 21439500
+      },
+      {
+        "model": "zr1x",
+        "body": "coupe",
+        "trim": "3lz",
+        "base_minor": 24219500,
+        "initial_total_minor": 24479500
+      }
+    ],
+    "complete_build": {
+      "model": "stingray",
+      "configuration": "coupe_2lt",
+      "selected": [
+        "GEC",
+        "CF8",
+        "R88",
+        "AQ9/HUN"
+      ],
+      "base_minor": 8179500,
+      "options_minor": 469500,
+      "total_minor": 8649000,
+      "result": "expected visible recap and ready-to-review state"
+    },
+    "restoration": [
+      "Grand Sport 3LT restored the same model and price without setup being interactive during startup.",
+      "Stingray 2LT restored, then Start over displayed 2LT and $81,795."
+    ],
+    "console_errors_after_fix": [],
+    "download": "Click returned without application error. File-save inspection is unverified: download-event tool stalled, and browser security policy blocked chrome://downloads. No bypass attempted.",
+    "mobile": {
+      "status": "passed",
+      "viewport_width": 390,
+      "viewport_height": 844,
+      "document_width": 375,
+      "flow": "Stingray 2LT: GEC, CF8, R88, GT1/Sky Cool Gray, review",
+      "total_minor": 8649000,
+      "ready_to_review": true,
+      "horizontal_overflow": false,
+      "artwork_hidden": true,
+      "physical_phone_test": false,
+      "note": "Initial viewport attempts affected the hosting tab; verified by actual DOM viewport measurements after navigating that tab to the form. Override reset."
+    },
+    "hosted": {
+      "url": "https://staging-427b-stingraychevroletcorvette.wpcomstaging.com/order-form/",
+      "tested_release_id": "ce1b1396a53d953aff883e93ae7c0a844454b65b1eb5bc3845e1db443dc48fb4",
+      "same_form_code_as_final_runtime_commit": "f42e351deeb9fbbfaa5daba1551967fe85253a21",
+      "saved_build_update": "Previously saved Stingray 1LT restored at current price with a catalog-update notice.",
+      "new_build": "Stingray 2LT with GEC, CF8, R88 and AQ9/HUN completed; correct recap, $86,490 and Ready to review.",
+      "dealer_review": "Review dealer submission dialog opened with same model and $86,490, contact fields empty; closed without submitting.",
+      "console_errors": [],
+      "final_clean_bundle_check": {
+        "status": "passed",
+        "release_id": "5f63dd7ea5a2bcb44a7365dfce758ece97f9053e6d2ab6d5047b5d4772cc34cc",
+        "observed_base_href": "releases/7fe1f761603de13c/",
+        "restoration": "Saved complete Stingray 2LT restored with all selections and the same $86,490 total; Ready to review.",
+        "console_errors": [],
+        "viewport_width": 1783,
+        "document_width": 1768,
+        "horizontal_overflow": false
+      }
+    }
+  },
+  "release_verification": {
+    "release_id": "5f63dd7ea5a2bcb44a7365dfce758ece97f9053e6d2ab6d5047b5d4772cc34cc",
+    "frozen_id": "2f51ac6654a3bedde4708bc10c7a2ea142763884b8ac79be2b1a915f6a9f9c0e",
+    "validation": {
+      "mappings": "complete",
+      "semantic": {
+        "grand_sport": {
+          "checks": {
+            "active": 1427,
+            "inactive": 1406,
+            "inapplicable": 246,
+            "passed": 11501,
+            "refused": 1029
+          },
+          "findings": [],
+          "inventory": 1296,
+          "live_overlaps": 558
+        },
+        "grand_sport_x": {
+          "checks": {
+            "active": 1371,
+            "inactive": 1210,
+            "inapplicable": 264,
+            "passed": 11103,
+            "refused": 465
+          },
+          "findings": [],
+          "inventory": 1290,
+          "live_overlaps": 558
+        },
+        "stingray": {
+          "checks": {
+            "active": 1352,
+            "inactive": 1308,
+            "inapplicable": 542,
+            "passed": 8629,
+            "refused": 469
+          },
+          "findings": [],
+          "inventory": 1258,
+          "live_overlaps": 538
+        },
+        "z06": {
+          "checks": {
+            "active": 1614,
+            "inactive": 1514,
+            "inapplicable": 267,
+            "passed": 11393,
+            "refused": 914
+          },
+          "findings": [],
+          "inventory": 1320,
+          "live_overlaps": 574
+        },
+        "zr1": {
+          "checks": {
+            "active": 882,
+            "inactive": 760,
+            "inapplicable": 218,
+            "passed": 4110,
+            "refused": 146
+          },
+          "findings": [],
+          "inventory": 885,
+          "live_overlaps": 342
+        },
+        "zr1x": {
+          "checks": {
+            "active": 880,
+            "inactive": 738,
+            "inapplicable": 222,
+            "passed": 4094,
+            "refused": 142
+          },
+          "findings": [],
+          "inventory": 886,
+          "live_overlaps": 346
+        }
+      },
+      "translation": "pinned_source_plus_accepted_edits"
+    },
+    "runtime_commit": "f42e351deeb9fbbfaa5daba1551967fe85253a21",
+    "static_bundle": {
+      "folder": "7fe1f761603de13c",
+      "files": 110,
+      "artwork": false,
+      "dealer_submissions": true
+    },
+    "backup_restore": "passed"
+  },
+  "staging_verification": {
+    "page": {
+      "url": "https://staging-427b-stingraychevroletcorvette.wpcomstaging.com/order-form/",
+      "cache_control": null
+    },
+    "release_folder": "https://staging-427b-stingraychevroletcorvette.wpcomstaging.com/order-form/releases/7fe1f761603de13c/",
+    "release_id": "5f63dd7ea5a2bcb44a7365dfce758ece97f9053e6d2ab6d5047b5d4772cc34cc",
+    "dealer_submissions": true,
+    "current": {
+      "dealer_submissions": true,
+      "folder": "7fe1f761603de13c",
+      "release_id": "5f63dd7ea5a2bcb44a7365dfce758ece97f9053e6d2ab6d5047b5d4772cc34cc"
+    },
+    "problems": [],
+    "files": 110,
+    "failed": [],
+    "kinds": {
+      ".js": {
+        "status": 200,
+        "content_type": "application/javascript",
+        "content_encoding": null,
+        "cache_control": "max-age=31536000"
+      },
+      ".json": {
+        "status": 200,
+        "content_type": "application/json",
+        "content_encoding": null,
+        "cache_control": null
+      },
+      ".png": {
+        "status": 200,
+        "content_type": "image/png",
+        "content_encoding": null,
+        "cache_control": "max-age=31536000"
+      },
+      ".gz": {
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "content_encoding": null,
+        "cache_control": null
+      },
+      ".py": {
+        "status": 200,
+        "content_type": "application/octet-stream",
+        "content_encoding": null,
+        "cache_control": null
+      },
+      ".html": {
+        "status": 200,
+        "content_type": "text/html",
+        "content_encoding": null,
+        "cache_control": null
+      },
+      ".css": {
+        "status": 200,
+        "content_type": "text/css",
+        "content_encoding": null,
+        "cache_control": "max-age=31536000"
+      },
+      ".webp": {
+        "status": 200,
+        "content_type": "image/webp",
+        "content_encoding": null,
+        "cache_control": "max-age=31536000"
+      }
+    },
+    "prior_release_retained": {
+      "release_id": "11f2d01cdfd7c6e472b6f136ed75cbd7b5c634be30cb2647f04d098c72e09dac",
+      "folder": "5a6ab1aebe8cef37"
+    },
+    "propagation": "The immediate post-upload check observed stale pointer content. A subsequent canonical-URL check matched the final release, both pointers and all 110 files, without cache-busting URLs."
+  },
+  "remaining_rollout": [
+    "Review and merge runtime PR #99 and the separate manufacturer-update/evidence PR.",
+    "Publish the verified no-artwork bundle to the production /order-form/ path and run the production-domain smoke/receipt check as part of rollout.",
+    "Run the planned public beta with the old form primary for a week of error-free use.",
+    "Approve the cutover date and old-URL switch; keep the old form available for rollback."
+  ]
+}

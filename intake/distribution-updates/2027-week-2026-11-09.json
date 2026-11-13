@@ -1,0 +1,403 @@
+{
+  "format": "source-proposals-v1",
+  "source": {
+    "name": "dist-updates-11-9.pdf",
+    "path": "sources/raw/22bc26e122cc075cf238a0369bfed3e8f554c4d7f61627e8ea836fada27f7ea1/dist-updates-11-9.pdf",
+    "sha256": "22bc26e122cc075cf238a0369bfed3e8f554c4d7f61627e8ea836fada27f7ea1",
+    "title": "Distribution Updates, USA 2027 Chevrolet Car Corvette, week of 11/9/2026",
+    "locators": "Page 1, lines in pypdf extract_text order; visually checked against the single-page original",
+    "precedence": "Effective November 9, 2026. Removes only the stated production holds; existing applicability and compatibility remain."
+  },
+  "proposals": [
+    {
+      "id": "2026-11-09-stingray-r88",
+      "model_key": "stingray",
+      "locator": "page 1, lines 5-6",
+      "quote": "ALL Exterior sections-(R88) LPO, Illuminated crossed flags emblem, updated footnote 1 by removing \"Not available at this time.\"",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_r88_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_r88_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-11-09-stingray-cf8",
+      "model_key": "stingray",
+      "locator": "page 1, lines 7-8",
+      "quote": "Stingray Exterior section-(CF8) Roof panel, electrochromic dimming, updated footnote 1 by removing \"Not available at start of production.\"",
+      "summary": "CF8 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_cf8_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_cf8_001"
+            },
+            "values": {
+              "presentation": "{\"description\":null,\"detail_raw\":\"1. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTH, DUB, DUE, DUK, DUW).\",\"display_behavior\":null,\"display_order\":13,\"emit_code\":true,\"name\":\"Electrochromic Dimming Removable Roof Panel\",\"projection\":\"resolved_selection\",\"rpo\":\"CF8\",\"section_id\":\"sec_roof_001\"}"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_cf8_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        },
+        {
+          "table": "consumer_option",
+          "key": {
+            "option_id": "opt_cf8_001"
+          },
+          "values": {
+            "presentation": "{\"description\":null,\"detail_raw\":\"1. Not available at start of production. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTH, DUB, DUE, DUK, DUW).\",\"display_behavior\":null,\"display_order\":13,\"emit_code\":true,\"name\":\"Electrochromic Dimming Removable Roof Panel\",\"projection\":\"resolved_selection\",\"rpo\":\"CF8\",\"section_id\":\"sec_roof_001\"}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-11-09-grand-sport-r88",
+      "model_key": "grand_sport",
+      "locator": "page 1, lines 5-6",
+      "quote": "ALL Exterior sections-(R88) LPO, Illuminated crossed flags emblem, updated footnote 1 by removing \"Not available at this time.\"",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_r88_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_r88_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-11-09-grand-sport-cf8",
+      "model_key": "grand_sport",
+      "locator": "page 1, lines 9-10",
+      "quote": "Grand Sport Exterior section-(CF8) Roof panel, electrochromic dimming, updated footnote 1 by removing \"Not available at start of production.\"",
+      "summary": "CF8 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_cf8_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_cf8_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"Removable\",\"detail_raw\":\"1. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTH, DUB, DUE, DUK, DUW) or Grand Sport Heritage Center Stripes (DMU, DMV, DMW, DMX, DMY).\",\"display_behavior\":null,\"display_order\":50,\"emit_code\":true,\"name\":\"Electrochromic Dimming Roof Panel\",\"projection\":\"resolved_selection\",\"rpo\":\"CF8\",\"section_id\":\"sec_roof_001\"}"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_cf8_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        },
+        {
+          "table": "consumer_option",
+          "key": {
+            "option_id": "opt_cf8_001"
+          },
+          "values": {
+            "presentation": "{\"description\":\"Removable\",\"detail_raw\":\"1. Not available at start of production. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTH, DUB, DUE, DUK, DUW) or Grand Sport Heritage Center Stripes (DMU, DMV, DMW, DMX, DMY).\",\"display_behavior\":null,\"display_order\":50,\"emit_code\":true,\"name\":\"Electrochromic Dimming Roof Panel\",\"projection\":\"resolved_selection\",\"rpo\":\"CF8\",\"section_id\":\"sec_roof_001\"}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-11-09-grand-sport-x-r88",
+      "model_key": "grand_sport_x",
+      "locator": "page 1, lines 5-6",
+      "quote": "ALL Exterior sections-(R88) LPO, Illuminated crossed flags emblem, updated footnote 1 by removing \"Not available at this time.\"",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_r88_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_r88_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-11-09-grand-sport-x-cf8",
+      "model_key": "grand_sport_x",
+      "locator": "page 1, lines 11-12",
+      "quote": "Grand Sport X Exterior section-(CF8) Roof panel, electrochromic dimming, updated footnote 1 by removing \"Not available at start of production.\"",
+      "summary": "CF8 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_cf8_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_cf8_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"Removable\",\"detail_raw\":\"1. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW) or Grand Sport Heritage Center Stripes (DMU, DMV, DMW, DMX, DMY).\",\"display_behavior\":null,\"display_order\":50,\"emit_code\":true,\"name\":\"Electrochromic Dimming Roof Panel\",\"projection\":\"resolved_selection\",\"rpo\":\"CF8\",\"section_id\":\"sec_roof_001\"}"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_cf8_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        },
+        {
+          "table": "consumer_option",
+          "key": {
+            "option_id": "opt_cf8_001"
+          },
+          "values": {
+            "presentation": "{\"description\":\"Removable\",\"detail_raw\":\"1. Not available at start of production. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTC, DTH, DUB, DUE, DUK, DUW) or Grand Sport Heritage Center Stripes (DMU, DMV, DMW, DMX, DMY).\",\"display_behavior\":null,\"display_order\":50,\"emit_code\":true,\"name\":\"Electrochromic Dimming Roof Panel\",\"projection\":\"resolved_selection\",\"rpo\":\"CF8\",\"section_id\":\"sec_roof_001\"}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-11-09-z06-r88",
+      "model_key": "z06",
+      "locator": "page 1, lines 5-6",
+      "quote": "ALL Exterior sections-(R88) LPO, Illuminated crossed flags emblem, updated footnote 1 by removing \"Not available at this time.\"",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_r88_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_r88_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-11-09-z06-cf8",
+      "model_key": "z06",
+      "locator": "page 1, lines 13-14",
+      "quote": "Z06 Exterior section-(CF8) Roof panel, electrochromic dimming, updated footnote 1 by removing \"Not available at start of production.\"",
+      "summary": "CF8 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_cf8_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          },
+          {
+            "table": "consumer_option",
+            "key": {
+              "option_id": "opt_cf8_001"
+            },
+            "values": {
+              "presentation": "{\"description\":\"Removable\",\"detail_raw\":\"Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTH, DUB, DUE, DUK, DUW).\",\"display_behavior\":null,\"display_order\":50,\"emit_code\":true,\"name\":\"Electrochromic Dimming Roof Panel\",\"projection\":\"resolved_selection\",\"rpo\":\"CF8\",\"section_id\":\"sec_roof_001\"}"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_cf8_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        },
+        {
+          "table": "consumer_option",
+          "key": {
+            "option_id": "opt_cf8_001"
+          },
+          "values": {
+            "presentation": "{\"description\":\"Removable\",\"detail_raw\":\"Not available at start of production. Not available with any Full Length Dual Racing Stripes (DPB, DPC, DPG, DPL, DPT, DSY, DSZ, DT0, DTH, DUB, DUE, DUK, DUW).\",\"display_behavior\":null,\"display_order\":50,\"emit_code\":true,\"name\":\"Electrochromic Dimming Roof Panel\",\"projection\":\"resolved_selection\",\"rpo\":\"CF8\",\"section_id\":\"sec_roof_001\"}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-11-09-zr1-r88",
+      "model_key": "zr1",
+      "locator": "page 1, lines 5-6",
+      "quote": "ALL Exterior sections-(R88) LPO, Illuminated crossed flags emblem, updated footnote 1 by removing \"Not available at this time.\"",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_r88_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_r88_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-11-09-zr1x-r88",
+      "model_key": "zr1x",
+      "locator": "page 1, lines 5-6",
+      "quote": "ALL Exterior sections-(R88) LPO, Illuminated crossed flags emblem, updated footnote 1 by removing \"Not available at this time.\"",
+      "summary": "R88 production hold removed; existing price, body/trim applicability and compatibility retained",
+      "steps": [
+        [
+          {
+            "table": "option",
+            "key": {
+              "id": "opt_r88_001"
+            },
+            "values": {
+              "lifecycle": "active"
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "table": "option",
+          "key": {
+            "id": "opt_r88_001"
+          },
+          "values": {
+            "lifecycle": "factory_unavailable"
+          }
+        }
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "kind": "scope_preserved",
+      "locator": "page 1, lines 7-14",
+      "code": "CF8",
+      "detail": "The notice names only Stingray, Grand Sport, Grand Sport X and Z06. No CF8 is added to ZR1 or ZR1X."
+    }
+  ]
+}

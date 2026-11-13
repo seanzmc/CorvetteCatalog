@@ -217,3 +217,47 @@ either. The owner decided on October 8 to apply this as a manufacturer
 constraint, stated in 5V7's footnote. The owner also confirmed the DUE name
 Royal Blue, although the price schedule still says Santorini Blue. Locators
 refer to the PDF's text layer as macOS PDFKit orders it.
+
+## Sources received November 13, 2026
+
+Sean supplied these files and explicitly requested their application to the
+catalog, the final six-model comparison, and launch preparation without artwork.
+Original bytes are preserved under Git-ignored `sources/raw/<sha256>/`.
+
+| Source | SHA-256 | Size | Identity |
+| --- | --- | --- | --- |
+| `27 Corvette Pricing 9-28 - november4.csv` | `d6f14318934569565650a32d3a4233a613b005d5577ad6ea0a885c3ace30da29` | 32,443 bytes | MY2027 price schedule, **effective November 9, 2026**, revised November 4. The supplied filename retains an older date; the schedule's own dates govern |
+| `dist-updates-11-9.pdf` | `22bc26e122cc075cf238a0369bfed3e8f554c4d7f61627e8ea836fada27f7ea1` | 20,334 bytes | One-page distribution notice, week of and effective November 9, 2026 |
+
+The price schedule contains 271 priced rows, compared with 268 in the previously
+accepted schedule. All 32 base prices change; destination remains $2,495.
+Three newly listed paint-price rows make the existing GEC Pitch Gray, GKA Blade
+Silver and GKZ Torch Red options $500 each in every model. All other existing
+option-price rows are unchanged; no price rows were removed. The 50 mapped price
+facts (32 configurations and 18 model-owned paints) had no manual-edit conflicts.
+
+| Model | Base-price increase over the September 28 schedule |
+| --- | --- |
+| Stingray | $800 for 1LT; $900 for 2LT/3LT |
+| Grand Sport | $1,100 for 1LT/2LT; $1,200 for 3LT |
+| Grand Sport X | $1,300 for 1LT/2LT; $1,400 for 3LT |
+| Z06 | $1,000 for 1LZ/2LZ; $1,100 for 3LZ |
+| ZR1 | $2,700 for 1LZ; $2,900 for 3LZ |
+| ZR1X | $3,300 for 1LZ; $3,500 for 3LZ |
+
+The [ten interpreted distribution proposals](../intake/distribution-updates/2027-week-2026-11-09.json)
+remove R88's production hold in all six models and CF8's hold in Stingray,
+Grand Sport, Grand Sport X and Z06. CF8 remains limited to the existing 2LT/3LT
+or 2LZ/3LZ coupe applicability; ZR1/ZR1X do not acquire CF8. Existing prices,
+stripe/emblem conflicts and other restrictions are preserved. The single-page
+PDF was rendered and visually checked against its numbered text extraction.
+It covers this week only; it does not establish the contents of any unprovided
+intervening distribution notices.
+
+The updates were applied through `catalog.source_intake` and accepted by Codex
+under Sean's explicit instruction, acceptance
+`0b45e8c2-ce31-4cdf-9a9d-904500f334c0`. Earlier accepted intake remains in the
+history, including the 5ZU/5V7 constraint and DUE Royal Blue naming. The
+[launch comparison](../docs/launch-reconciliation-2026-11-13.json) records exact
+old/new values, source locators, current-production drift and executed build
+checks. Acceptance does not change the live workbook or deploy production.
