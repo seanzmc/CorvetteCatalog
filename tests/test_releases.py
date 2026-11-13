@@ -9,8 +9,23 @@ from unittest.mock import patch
 from catalog import foundation as f
 from catalog.behavior_sources import import_behavior
 from catalog.consumers import import_mappings, ConsumerCatalog
-from catalog.releases import ReleaseStore, database_hash, membership, validate_translation, digest, write_json
+from catalog.releases import ReleaseStore, database_hash, membership, validate_translation, digest, write_json, pins
 from catalog.consumer_server import Application
+
+
+class RuntimeFilesTests(unittest.TestCase):
+    def test_runtime_pins_exclude_finder_metadata_at_every_depth(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            files = ('catalog/releases.py', 'catalog/web/app.js',
+                     'catalog/web/swatches/paint.webp', 'catalog/web/.DS_Store',
+                     'catalog/web/swatches/.DS_Store')
+            for name in files:
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'fixture')
+            with patch('catalog.releases.__file__', str(root / files[0])), patch.object(f, 'ROOT', root):
+                self.assertEqual(set(pins()), set(files[:3]))
 
 
 class ReleaseTests(unittest.TestCase):
