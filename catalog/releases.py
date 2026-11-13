@@ -123,7 +123,8 @@ def check_id(identifier):
 
 
 def runtime_files():
-    return sorted([*Path(__file__).parent.glob('*.py'), *Path(__file__).with_name('web').rglob('*')])
+    return sorted(p for p in [*Path(__file__).parent.glob('*.py'), *Path(__file__).with_name('web').rglob('*')]
+                  if p.name != '.DS_Store')
 
 
 def pins():
