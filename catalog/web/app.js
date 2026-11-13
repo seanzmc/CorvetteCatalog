@@ -493,7 +493,9 @@ function swatch(source) {
     let r;
     try { r=await catalogEngine.call('/api/catalog');catalog=r.result; } catch { throw new Error(UNAVAILABLE); }
     if(r.status!==200)throw new Error(r.status>=500?UNAVAILABLE:catalog.error);
-    el('release').textContent=`Release ${catalog.release_id}`;el('deliveryMode').textContent=catalog.dealer.enabled?'Build requests are sent to Stingray Chevrolet.':'Preview mode · Build requests are not sent to the dealership.';Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>option(el('model'),key,c.presentation.model_master[0].model_label));el('model').value=catalog.default_model;configurations();el('start').disabled=false;
+    el('release').textContent=`Release ${catalog.release_id}`;el('deliveryMode').textContent=catalog.dealer.enabled?'Build requests are sent to Stingray Chevrolet.':'Preview mode · Build requests are not sent to the dealership.';Object.entries(catalog.models).sort((a,b)=>a[1].display_order-b[1].display_order).forEach(([key,c])=>option(el('model'),key,c.presentation.model_master[0].model_label));el('model').value=catalog.default_model;configurations();
     await restore();
+    // Reopening a saved build owns model selection until it finishes.
+    el('setup').inert=false;el('start').disabled=false;
   }catch(e){el('error').textContent=e.message;}
 })();
