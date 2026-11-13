@@ -466,7 +466,7 @@ async function restore() {
   buildToken=saved.get(); if(!buildToken) return;
   try {
     activeStep=null;const r=await api('/api/restore',{});
-    el('model').value=r.model;configurations();el('bodyStyle').value=model.configurations[r.configuration_id].body_style;trims();setupCards();el('configuration').value=r.configuration_id;
+    el('model').value=r.model;configurations();el('bodyStyle').value=model.configurations[r.configuration_id].body_style;trims();setupCards();el('configuration').value=r.configuration_id;startingPrice();
     await openBuild(r);render();
     if(r.notice)showNotice(r.notice);
   } catch(e) {
