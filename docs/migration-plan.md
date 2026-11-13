@@ -1,6 +1,54 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — October 7 remaining work before the new form replaces the old one
+## Current direction — November 13 launch preparation without the visualizer
+
+Sean authorized applying the two supplied November sources, completing the
+six-model comparison, and preparing the replacement form without the visualizer.
+The [source record](../sources/README.md#sources-received-november-13-2026) and
+[reconciliation evidence](launch-reconciliation-2026-11-13.json) retain the exact
+changes and their provenance.
+
+- **R3: supplied updates applied.** The November 9 effective price schedule
+  changes 32 base prices and prices GEC/GKA/GKZ at $500 in all six models
+  (50 mapped facts). The November 9 distribution notice removes the R88 hold
+  in six models and the CF8 hold in four. Existing applicability and conflicts
+  remain; the new notice does not add CF8 to ZR1/ZR1X. There were no manual-edit
+  conflicts. No unprovided intervening distribution notices are assumed.
+- **R5: six-model comparison completed.** The actual production workbook at
+  `seanzmc/27vette@c19f4baf…` was compared with the frozen baseline across all
+  77 sheets. Its only differences are the 32 recorded October base-price edits.
+  The live site's `data.js` matches that workbook's generated revision, and its
+  `app.js` matches the retained baseline runtime. Across 128 complete builds
+  (32 configurations, each with four paints), totals and recap code/price rows
+  differ only by the new manufacturer prices. The release audit also checks
+  all six models against the accepted owner targets and intake history.
+  No unexplained catalog differences were found in this coverage.
+- **Launch behavior remains without artwork.** Static bundles omit the visualizer
+  and retain interior swatches and option photos. Browser verification exposed
+  a saved-build startup race and an incorrect setup price after restoring a
+  higher trim. [PR #99](https://github.com/seanzmc/CorvetteCatalog/pull/99) fixes
+  both and excludes Finder metadata that WordPress refuses to serve. Prices,
+  rules, storage and dealer payloads retain their existing contracts.
+- **Production prerequisites checked.** The production website hostname was added
+  to the existing Turnstile widget, retaining the old/staging hosts, Managed mode
+  and no pre-clearance. Read-only CORS preflights passed for staging and production.
+  The October 8 real dealer receipt remains the delivery proof; no new order was sent.
+- **Staging verified.** [The hosted form](https://staging-427b-stingraychevroletcorvette.wpcomstaging.com/order-form/)
+  serves release `5f63dd7e…`, with all six model audits passing, no findings,
+  and all 110 served files and both publication pointers verified. The release
+  passed independent backup/restore. Chrome restored a complete Stingray 2LT
+  GEC/CF8/R88 build at $86,490; the dealer review showed the same total.
+  Desktop and an emulated 390 px mobile flow passed. Physical-phone testing and
+  actual browser download-file saving remain unverified.
+
+R6 still consists of the production upload and the planned public beta, with the
+old form primary for a week of error-free use. R7 is the approved cutover date and
+old-URL switch. Neither is performed by this preparation task. Review and merge
+of the launch changes precede production publication. The live workbook and old
+form have not received these November changes and remain the current production
+path until that transition.
+
+## Prior direction — October 7 remaining work before the new form replaces the old one
 
 Tasks 1–6 below are done; task 8's interior swatches and option photos are
 merged (#86–#90). Owner decisions, October 7:
