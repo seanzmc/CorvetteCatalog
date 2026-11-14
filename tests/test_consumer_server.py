@@ -104,7 +104,7 @@ class ServerTests(unittest.TestCase):
         port = self.serve(None)
         with redirect_stderr(io.StringIO()):
             self.assertEqual(self.call(port, '/photos/corrections.json')[1], index)
-            for code, mime in [('379', 'image/png'), ('WKR', 'image/jpeg')]:
+            for code, mime in [('379', 'image/png'), ('WKR', 'image/png'), ('CM9', 'image/jpeg')]:
                 path = index['models']['stingray'][code]['image_url']
                 with urlopen(f'http://127.0.0.1:{port}/'+path, timeout=10) as response:
                     self.assertEqual(response.headers['Content-Type'], mime)

@@ -31,6 +31,8 @@ class PhotoRuleTests(unittest.TestCase):
         for model in ('grand_sport', 'grand_sport_x', 'z06'):
             self.assertIn('EDU', corrections[model])
             self.assertIn('CM9', corrections[model])
+        self.assertIn('SL9', corrections['grand_sport_x'])
+        self.assertFalse(any('SL9' in photos for model, photos in corrections.items() if model != 'grand_sport_x'))
 
     def test_rules_follow_the_existing_sync_order(self):
         media = Media([SITE + p for p in (

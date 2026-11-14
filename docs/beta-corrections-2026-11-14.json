@@ -5,12 +5,13 @@
   "scope": "Secondary production beta only; visualizer off; current form remains primary during the November 13-20 beta.",
   "owner_clarifications": {
     "VWT": "Owner supplied the existing e-g-h-vwt.jpg URL for ZR1 and ZR1X.",
-    "PCB": "Interpreted as PBC Engine Build Program, the catalog option matching the reported issue; no PCB option exists."
+    "PCB": "Interpreted as PBC Engine Build Program, the catalog option matching the reported issue; no PCB option exists.",
+    "additional_images": "Owner supplied WKR.png and 5JS.png for their shared accessories, and g-sl9.jpeg showing the Grand Sport X-specific engine plaque; added November 14 before publication."
   },
   "photo_policy": "Reviewed model/RPO corrections take priority over baseline and discovered images. Images are bundled without modifying shared primary-form assets. Shared illustrations are identified below; these are option photos, not configured vehicle renderings.",
   "photo_count": {
-    "model_rpo_pairs": 137,
-    "unique_files": 63
+    "model_rpo_pairs": 138,
+    "unique_files": 60
   },
   "photos": [
     {
@@ -72,16 +73,6 @@
       "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
       "source_model": "shared",
       "note": "Existing owner image library; visually checked against option identity."
-    },
-    {
-      "model": "z06",
-      "rpo": "5JS",
-      "label": "Torch Red Mirror Caps",
-      "file": "photos/cards/5js-e529f5eb6e90.jpg",
-      "sha256": "e529f5eb6e90be9a6789ffd8d9f59475d10a6e1dc3f54905efaad34f7d2d50f9",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/5JS.jpg",
-      "source_model": "z06",
-      "note": "Current Chevrolet model-specific option photo."
     },
     {
       "model": "z06",
@@ -235,16 +226,6 @@
     },
     {
       "model": "z06",
-      "rpo": "WKR",
-      "label": "GT3.R Premium Indoor Car Cover",
-      "file": "photos/cards/wkr-239e1f5df096.jpg",
-      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/WKR.jpg",
-      "source_model": "z06",
-      "note": "Current Chevrolet model-specific option photo."
-    },
-    {
-      "model": "z06",
       "rpo": "ZZ3",
       "label": "Convertible Engine Appearance Package",
       "file": "photos/cards/zz3-06a02aa541cf.jpg",
@@ -302,16 +283,6 @@
       "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
       "source_model": "shared",
       "note": "Existing owner image library; visually checked against option identity."
-    },
-    {
-      "model": "grand_sport_x",
-      "rpo": "5JS",
-      "label": "Torch Red Mirror Caps",
-      "file": "photos/cards/5js-e529f5eb6e90.jpg",
-      "sha256": "e529f5eb6e90be9a6789ffd8d9f59475d10a6e1dc3f54905efaad34f7d2d50f9",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/5JS.jpg",
-      "source_model": "grand_sport_x",
-      "note": "Current Chevrolet model-specific option photo."
     },
     {
       "model": "grand_sport_x",
@@ -465,16 +436,6 @@
     },
     {
       "model": "grand_sport_x",
-      "rpo": "WKR",
-      "label": "GT3.R Premium Indoor Car Cover",
-      "file": "photos/cards/wkr-239e1f5df096.jpg",
-      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/WKR.jpg",
-      "source_model": "grand_sport_x",
-      "note": "Current Chevrolet model-specific option photo."
-    },
-    {
-      "model": "grand_sport_x",
       "rpo": "ZZ3",
       "label": "Convertible Engine Appearance Package",
       "file": "photos/cards/zz3-9fea5f06c190.jpg",
@@ -542,16 +503,6 @@
       "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
       "source_model": "shared",
       "note": "Existing owner image library; visually checked against option identity."
-    },
-    {
-      "model": "stingray",
-      "rpo": "5JS",
-      "label": "Torch Red Mirror Caps",
-      "file": "photos/cards/5js-f827a8a638c0.jpg",
-      "sha256": "f827a8a638c05d04af0c9cbed04c943cec82aa069386fa9f2d744720da29e247",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/5JS.jpg",
-      "source_model": "stingray",
-      "note": "Current Chevrolet model-specific option photo."
     },
     {
       "model": "stingray",
@@ -675,16 +626,6 @@
     },
     {
       "model": "stingray",
-      "rpo": "WKR",
-      "label": "GT3.R Premium Indoor Car Cover",
-      "file": "photos/cards/wkr-239e1f5df096.jpg",
-      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/WKR.jpg",
-      "source_model": "stingray",
-      "note": "Current Chevrolet model-specific option photo."
-    },
-    {
-      "model": "stingray",
       "rpo": "ZZ3",
       "label": "Convertible Engine Appearance Package",
       "file": "photos/cards/zz3-926dd2e3cee0.jpg",
@@ -742,16 +683,6 @@
       "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
       "source_model": "shared",
       "note": "Existing owner image library; visually checked against option identity."
-    },
-    {
-      "model": "zr1",
-      "rpo": "5JS",
-      "label": "Torch Red Mirror Caps",
-      "file": "photos/cards/5js-2af241d361a7.jpg",
-      "sha256": "2af241d361a73aab90b5c26028b2d850db944d54a15beeaa086a4890050dec74",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/5JS.jpg",
-      "source_model": "zr1",
-      "note": "Current Chevrolet model-specific option photo."
     },
     {
       "model": "zr1",
@@ -905,16 +836,6 @@
     },
     {
       "model": "zr1",
-      "rpo": "WKR",
-      "label": "GT3.R Premium Indoor Car Cover",
-      "file": "photos/cards/wkr-239e1f5df096.jpg",
-      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/WKR.jpg",
-      "source_model": "zr1",
-      "note": "Current Chevrolet model-specific option photo."
-    },
-    {
-      "model": "zr1",
       "rpo": "ZZ3",
       "label": "Convertible Engine Appearance Package",
       "file": "photos/cards/zz3-06a02aa541cf.jpg",
@@ -982,16 +903,6 @@
       "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
       "source_model": "shared",
       "note": "Existing owner image library; visually checked against option identity."
-    },
-    {
-      "model": "grand_sport",
-      "rpo": "5JS",
-      "label": "Torch Red Mirror Caps",
-      "file": "photos/cards/5js-5efc33208275.jpg",
-      "sha256": "5efc33208275de47224b69a6f42e70874d09d6b5b78cc18fcd5dfebd4b21a2b6",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/5JS.jpg",
-      "source_model": "grand_sport",
-      "note": "Current Chevrolet model-specific option photo."
     },
     {
       "model": "grand_sport",
@@ -1135,16 +1046,6 @@
     },
     {
       "model": "grand_sport",
-      "rpo": "WKR",
-      "label": "GT3.R Premium Indoor Car Cover",
-      "file": "photos/cards/wkr-239e1f5df096.jpg",
-      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/WKR.jpg",
-      "source_model": "grand_sport",
-      "note": "Current Chevrolet model-specific option photo."
-    },
-    {
-      "model": "grand_sport",
       "rpo": "ZZ3",
       "label": "Convertible Engine Appearance Package",
       "file": "photos/cards/zz3-2bf3ef311946.jpg",
@@ -1202,16 +1103,6 @@
       "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
       "source_model": "shared",
       "note": "Existing owner image library; visually checked against option identity."
-    },
-    {
-      "model": "zr1x",
-      "rpo": "5JS",
-      "label": "Torch Red Mirror Caps",
-      "file": "photos/cards/5js-d01f9c046a66.jpg",
-      "sha256": "d01f9c046a663cfe2ced3d8b21abb2adb29d0e2a78fe571d380e781921adfe51",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/5JS.jpg",
-      "source_model": "zr1x",
-      "note": "Current Chevrolet model-specific option photo."
     },
     {
       "model": "zr1x",
@@ -1365,16 +1256,6 @@
     },
     {
       "model": "zr1x",
-      "rpo": "WKR",
-      "label": "GT3.R Premium Indoor Car Cover",
-      "file": "photos/cards/wkr-239e1f5df096.jpg",
-      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
-      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/WKR.jpg",
-      "source_model": "zr1x",
-      "note": "Current Chevrolet model-specific option photo."
-    },
-    {
-      "model": "zr1x",
       "rpo": "ZZ3",
       "label": "Convertible Engine Appearance Package",
       "file": "photos/cards/zz3-06a02aa541cf.jpg",
@@ -1382,6 +1263,149 @@
       "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/ZZ3.jpg",
       "source_model": "z06",
       "note": "Shared option illustration from Chevrolet z06; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-fa98f3e83865.png",
+      "sha256": "fa98f3e83865327ec4d3165b0e26c3cf94d89deb82c6ca0976365be964f14b45",
+      "source_url": null,
+      "source_file": "WKR.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-fa98f3e83865.png",
+      "sha256": "fa98f3e83865327ec4d3165b0e26c3cf94d89deb82c6ca0976365be964f14b45",
+      "source_url": null,
+      "source_file": "WKR.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "stingray",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-fa98f3e83865.png",
+      "sha256": "fa98f3e83865327ec4d3165b0e26c3cf94d89deb82c6ca0976365be964f14b45",
+      "source_url": null,
+      "source_file": "WKR.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "z06",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-fa98f3e83865.png",
+      "sha256": "fa98f3e83865327ec4d3165b0e26c3cf94d89deb82c6ca0976365be964f14b45",
+      "source_url": null,
+      "source_file": "WKR.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "zr1",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-fa98f3e83865.png",
+      "sha256": "fa98f3e83865327ec4d3165b0e26c3cf94d89deb82c6ca0976365be964f14b45",
+      "source_url": null,
+      "source_file": "WKR.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-fa98f3e83865.png",
+      "sha256": "fa98f3e83865327ec4d3165b0e26c3cf94d89deb82c6ca0976365be964f14b45",
+      "source_url": null,
+      "source_file": "WKR.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-5a3a808447e0.png",
+      "sha256": "5a3a808447e00f3e7fd337cd51301ae9ebe8e0956b6fae9fa22a0cb6bb709e62",
+      "source_url": null,
+      "source_file": "5JS.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-5a3a808447e0.png",
+      "sha256": "5a3a808447e00f3e7fd337cd51301ae9ebe8e0956b6fae9fa22a0cb6bb709e62",
+      "source_url": null,
+      "source_file": "5JS.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "stingray",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-5a3a808447e0.png",
+      "sha256": "5a3a808447e00f3e7fd337cd51301ae9ebe8e0956b6fae9fa22a0cb6bb709e62",
+      "source_url": null,
+      "source_file": "5JS.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "z06",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-5a3a808447e0.png",
+      "sha256": "5a3a808447e00f3e7fd337cd51301ae9ebe8e0956b6fae9fa22a0cb6bb709e62",
+      "source_url": null,
+      "source_file": "5JS.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "zr1",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-5a3a808447e0.png",
+      "sha256": "5a3a808447e00f3e7fd337cd51301ae9ebe8e0956b6fae9fa22a0cb6bb709e62",
+      "source_url": null,
+      "source_file": "5JS.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-5a3a808447e0.png",
+      "sha256": "5a3a808447e00f3e7fd337cd51301ae9ebe8e0956b6fae9fa22a0cb6bb709e62",
+      "source_url": null,
+      "source_file": "5JS.png",
+      "source_model": "shared",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Shared illustration of this accessory."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "SL9",
+      "label": "Grand Sport X Engine Specification Plaque",
+      "file": "photos/cards/sl9-d2857e414c84.jpg",
+      "sha256": "d2857e414c844ec44e452a04a94ea4e6859507e8d8f4c3c6ab14d77387d5e36f",
+      "source_url": null,
+      "source_file": "g-sl9.jpeg",
+      "source_model": "grand_sport_x",
+      "note": "Owner supplied November 14; visually checked and copied unmodified. Grand Sport X-specific plaque."
     }
   ],
   "authoring": {
