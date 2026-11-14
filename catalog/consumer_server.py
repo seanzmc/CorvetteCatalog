@@ -159,8 +159,13 @@ def handler(app, origins=None):
                 if path is not None:
                     return self.send(200, path.read_bytes(), 'image/webp')
                 return self.send(404, {'error':'Artwork not found'})
-            if self.path == '/photos/index.json':
-                return self.send(200, (Path(__file__).with_name('web') / 'photos/index.json').read_bytes(), 'application/json')
+            photo = re.fullmatch(r'/photos/(index\.json|corrections\.json|cards/[a-z0-9]+-[a-f0-9]{12}\.(?:jpg|png))', self.path)
+            if photo:
+                path = Path(__file__).with_name('web') / 'photos' / photo[1]
+                if path.is_file():
+                    mime = {'.json': 'application/json', '.jpg': 'image/jpeg', '.png': 'image/png'}[path.suffix]
+                    return self.send(200, path.read_bytes(), mime)
+                return self.send(404, {'error':'Photo not found'})
             swatch = re.fullmatch(r'/swatches/interior/([A-Z0-9]+(?:-[A-Z0-9]+)*\.webp|index\.json)', self.path)
             if swatch:
                 path = Path(__file__).with_name('web') / 'swatches/interior' / swatch[1]

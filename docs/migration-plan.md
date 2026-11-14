@@ -1,6 +1,35 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — November 13 launch preparation without the visualizer
+## Current direction — November 14 beta corrections
+
+PRs #99 and #100 merged and the production beta launched November 13 at
+[the secondary order form](https://stingraychevroletcorvette.com/order-form/).
+The owner confirmed submission, customer email and dealership receipt. The
+existing form remains primary during the November 13–20 beta; no automatic
+cutover is scheduled. The visualizer remains off.
+
+The owner's November 14 corrections cover missing/wrong option photos, the
+ZR1 J59 brake display, hiding standard ZR1X EFR, paid interior charges in the
+review, and base MSRP in the download. The
+[correction record](beta-corrections-2026-11-14.json) preserves every image's
+source and hash, the accepted presentation edits, and verification evidence.
+Reviewed images ship inside the beta release so the current form's shared
+image library is unchanged. Some common-option photos are shared manufacturer
+illustrations; the record identifies their source models. The owner supplied
+the VWT image for ZR1/ZR1X.
+
+The corrected beta is deployed as release `9899ce36…` (folder
+`189acc100b9fcbd6`), including the owner's WKR and 5JS images and Grand Sport X
+SL9 plaque. All six semantic audits passed without findings; backup/restore,
+the implementation's CI run, and all 171 files on both staging and production
+passed. The live saved Grand Sport Convertible 3LT build retained its $115,610
+total and now shows its $595 two-tone and $695 suede charges separately. The
+390 px browser check showed those charges without horizontal overflow. The
+current form's HTML/scripts, five primary links and old-form redirect match
+the pre-update checks. [PR #101](https://github.com/seanzmc/CorvetteCatalog/pull/101)
+is open and unmerged; this deployment does not switch the primary form.
+
+## Prior direction — November 13 launch preparation without the visualizer
 
 Sean authorized applying the two supplied November sources, completing the
 six-model comparison, and preparing the replacement form without the visualizer.

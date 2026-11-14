@@ -49,14 +49,17 @@ async function run(action) {
 // An option without its own baseline photo uses the photo of another option
 // with the same RPO, then the site photo the photo step found for it
 // (catalog.photos, photos/index.json).
-let sitePhotos={};
-fetch('photos/index.json').then(r=>r.ok?r.json():null).then(d=>{sitePhotos=d?.models||{};if(current)render();}).catch(()=>{});
+// Reviewed model/RPO corrections take precedence and ship with this release;
+// refreshing the discovery index cannot restore an old, incorrect photo.
+let sitePhotos={}, correctedPhotos={};
+for(const [file,apply] of [['index',d=>sitePhotos=d?.models||{}],['corrections',d=>correctedPhotos=d?.models||{}]])
+  fetch(`photos/${file}.json`).then(r=>r.ok?r.json():null).then(d=>{apply(d);if(current)render();}).catch(()=>{});
 function assetsFor(m) {
   const rows=m.presentation.asset_map||[], key=Object.keys(catalog.models).find(k=>catalog.models[k]===m);
   const own=new Map(rows.filter(r=>r.target_type==='option').map(r=>[r.target_id,r]));
   const byRpo=new Map([...own].map(([id,r])=>[m.options[id]?.rpo,r]).filter(([rpo])=>rpo));
   const rpo=id=>m.options[id]?.rpo;
-  return {option:{get:id=>own.get(id)||byRpo.get(rpo(id))||sitePhotos[key]?.[rpo(id)?.toUpperCase()]},
+  return {option:{get:id=>correctedPhotos[key]?.[rpo(id)?.toUpperCase()]||own.get(id)||byRpo.get(rpo(id))||sitePhotos[key]?.[rpo(id)?.toUpperCase()]},
           context:new Map(rows.filter(r=>r.target_type==='context_choice').map(r=>[r.target_id,r])),
           model:rows.find(r=>r.target_type==='model')};
 }
@@ -123,7 +126,7 @@ function trims() {
   startingPrice();
 }
 function startingPrice() { el('startingPrice').textContent=`Starting MSRP ${money(model.configurations[el('configuration').value].base_price*100)}`; }
-function choiceCards() { return current.cards.options.filter(c=>model.options[c.option_id].customer_selectable); }
+function choiceCards() { return current.cards.options.filter(c=>model.options[c.option_id].customer_selectable || c.display_behavior==='display_only'); }
 function steps() {
   // Every step with cards is known without pricing them (card_steps, in card order).
   const result=[], seen=new Set(), present=new Map(current.card_steps.map(s=>[s.step_key,s.section_label]));
@@ -183,7 +186,9 @@ function renderOptions() {
     if(!groups.has(c.section_id)){const section=node('section','',parent);section.className='option-section';node('h3',c.section_label,section);const grid=node('div','',section);grid.className='cards';groups.set(c.section_id,grid);}
     const card=node('article','',groups.get(c.section_id));card.className=`choice-card ${c.selected?'selected':''}`;card.dataset.choice=c.option_id;
     media(photos.get(c.option_id),c.label,card);node('span',c.rpo||'Option',card).className='rpo';node('h4',c.label,card);
-    if(c.selected)node('p','Selected',card).className='selected-label';
+    const displayOnly=c.display_behavior==='display_only'&&!model.options[c.option_id].customer_selectable;
+    if(c.selected)node('p',displayOnly?'Included':'Selected',card).className='selected-label';
+    if(displayOnly){node('p',c.description||'Automatically included when applicable.',card);return;}
     if(c.selectable)priceLine(card,c.selected,c.delta_minor);
     // Another trim's options, options another choice unlocks and factory-unavailable
     // ones say so on the card itself.
@@ -308,7 +313,7 @@ function renderSummary() {
   // then the rest of the standard equipment, collapsed.
   const b=current.build, recap=el('recap'), cfg=model.configurations[b.configuration_id];recap.replaceChildren();
   const price=new Map(b.charges.filter(c=>c.owner_kind==='option').map(c=>[c.owner_id,c.amount_minor]));
-  const line=(item,parent)=>{const li=node('li','',parent);node('span',`${item.rpo?item.rpo+' ':''}${item.label}`,li);const m=price.get(item.option_id);if(m)node('span',money(m),li).className='recap-price';};
+  const line=(item,parent)=>{const li=node('li','',parent);node('span',`${item.rpo?item.rpo+' ':''}${item.label}`,li);const m=item.amount_minor??price.get(item.option_id);if(m)node('span',money(m),li).className='recap-price';};
   const group=(title,items,parent=recap)=>{if(!items.length)return;node('h4',title,parent);const ul=node('ul','',parent);ul.className='recap-list';items.forEach(i=>line(i,ul));};
   const chosen=b.summary_items.filter(i=>i.step_key!=='standard_equipment');
   // Z06/ZR1/ZR1X map their standard equipment into the summary bucket; the
@@ -323,7 +328,8 @@ function renderSummary() {
     const items=chosen.filter(i=>i.summary_section_id===section.section_key);
     if(section.section_key==='seats_interior' && b.selected_interior) {
       const levels=JSON.parse(model.interiors[b.interior_id].hierarchy.interior_hierarchy_levels).slice(1);
-      group(section.section_label,[{label:`Interior: ${[...new Set(levels)].join(' · ')}`,rpo:null,option_id:null},...items]);
+      const components=interiorCharges(b);
+      group(section.section_label,[{label:`Interior: ${[...new Set(levels)].join(' · ')}`,rpo:null,option_id:null},...components,...items]);
     } else group(section.section_label,items);
   }
   const shown=new Set(chosen.map(i=>i.option_id));
@@ -333,6 +339,16 @@ function renderSummary() {
   if(rest.length){const d=node('details','',recap);node('summary',`Standard equipment (${rest.length})`,d);const ul=node('ul','',d);ul.className='recap-list';rest.forEach(i=>line(i,ul));}
   el('requirements').replaceChildren();b.missing_requirements.forEach(text=>node('li',text,el('requirements')));el('requirementsPanel').hidden=!b.missing_requirements.length;
   el('exportHint').textContent=b.missing_requirements.length?'Complete the required selections above to download your build or continue to the dealer form.':'Download saves a build file. The dealer form lets you review your request before sending.';
+}
+function interiorCharges(build) {
+  const interior=build.selected_interior;
+  if(!interior)return [];
+  return build.charges.filter(c=>c.owner_kind==='component'&&c.amount_minor).map(charge=>{
+    const part=interior.configured_components.find(p=>p.component?.id===charge.owner_id);
+    const code=part?.component.code;
+    const label=interior.components.find(c=>c.component_type===part?.role&&c.rpo===code)?.label||charge.label;
+    return {rpo:code,label,amount_minor:charge.amount_minor};
+  });
 }
 // Each option's section and step in the chosen configuration.
 function contexts() {
@@ -453,7 +469,7 @@ function buildMarkdown(order, master) {
     for(const item of section.items)lines.push(`- ${item.rpo?`${item.rpo} `:''}${item.label||''}: ${dollars(item.price)}`);
     lines.push('');
   }
-  lines.push('### MSRP','',`- Total MSRP: ${order.msrp}`,'');
+  lines.push('### MSRP','',`- Model base MSRP: ${dollars(order.vehicle.base_price)}`,`- Total MSRP: ${order.msrp}`,'');
   return lines.join('\n').replace(/\n{3,}/g,'\n\n');
 }
 el('export').addEventListener('click',()=>run(async()=>{

@@ -98,6 +98,19 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(self.call(port, '/swatches/interior/NONE.webp')[0], 404)
             self.assertEqual(self.call(port, '/swatches/interior/..%2Fapp.js')[0], 404)
 
+    def test_reviewed_photo_index_and_local_images_are_served(self):
+        web = Path(__file__).resolve().parents[1] / 'catalog/web'
+        index = json.loads((web / 'photos/corrections.json').read_text())
+        port = self.serve(None)
+        with redirect_stderr(io.StringIO()):
+            self.assertEqual(self.call(port, '/photos/corrections.json')[1], index)
+            for code, mime in [('379', 'image/png'), ('WKR', 'image/png'), ('CM9', 'image/jpeg')]:
+                path = index['models']['stingray'][code]['image_url']
+                with urlopen(f'http://127.0.0.1:{port}/'+path, timeout=10) as response:
+                    self.assertEqual(response.headers['Content-Type'], mime)
+                    self.assertEqual(response.read(), (web / path).read_bytes())
+            self.assertEqual(self.call(port, '/photos/cards/..%2Fapp.js')[0], 404)
+
     def test_default_allows_only_this_loopback_port(self):
         port = self.serve(None)
         with redirect_stderr(io.StringIO()):
