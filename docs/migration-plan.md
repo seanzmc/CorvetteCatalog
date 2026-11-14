@@ -18,6 +18,17 @@ image library is unchanged. Some common-option photos are shared manufacturer
 illustrations; the record identifies their source models. The owner supplied
 the VWT image for ZR1/ZR1X.
 
+The corrected beta is deployed as release `9899ce36…` (folder
+`189acc100b9fcbd6`), including the owner's WKR and 5JS images and Grand Sport X
+SL9 plaque. All six semantic audits passed without findings; backup/restore,
+the implementation's CI run, and all 171 files on both staging and production
+passed. The live saved Grand Sport Convertible 3LT build retained its $115,610
+total and now shows its $595 two-tone and $695 suede charges separately. The
+390 px browser check showed those charges without horizontal overflow. The
+current form's HTML/scripts, five primary links and old-form redirect match
+the pre-update checks. [PR #101](https://github.com/seanzmc/CorvetteCatalog/pull/101)
+is open and unmerged; this deployment does not switch the primary form.
+
 ## Prior direction — November 13 launch preparation without the visualizer
 
 Sean authorized applying the two supplied November sources, completing the

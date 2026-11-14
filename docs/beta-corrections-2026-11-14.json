@@ -1605,6 +1605,271 @@
     "final_photo_startup_review": "6 tests passed (13.062 s), including real page JavaScript against paid-interior builds across all 32 body/trim configurations.",
     "consumer_server": "9 tests passed (3.444 s), including bundled JPEG/PNG/index serving and rejected traversal.",
     "accepted_draft": "Nine target checks passed; only two presentation tables changed. See data_verification.",
-    "qualified_release": "Pending final qualification and hosted checks."
+    "qualified_release": {
+      "release_id": "9899ce36e714eb5e50c6958531118f69f697ec431cbd397dc4150bacafcbf9f2",
+      "frozen_id": "ff451010e045f82624f5f7e9d17983f9ded3b641bb7e3f8f4636167fdf46e6a6",
+      "validation": {
+        "mappings": "complete",
+        "semantic": {
+          "grand_sport": {
+            "checks": {
+              "active": 1427,
+              "inactive": 1406,
+              "inapplicable": 246,
+              "passed": 11501,
+              "refused": 1029
+            },
+            "findings": [],
+            "inventory": 1296,
+            "live_overlaps": 558
+          },
+          "grand_sport_x": {
+            "checks": {
+              "active": 1371,
+              "inactive": 1210,
+              "inapplicable": 264,
+              "passed": 11103,
+              "refused": 465
+            },
+            "findings": [],
+            "inventory": 1290,
+            "live_overlaps": 558
+          },
+          "stingray": {
+            "checks": {
+              "active": 1352,
+              "inactive": 1308,
+              "inapplicable": 542,
+              "passed": 8629,
+              "refused": 469
+            },
+            "findings": [],
+            "inventory": 1258,
+            "live_overlaps": 538
+          },
+          "z06": {
+            "checks": {
+              "active": 1614,
+              "inactive": 1514,
+              "inapplicable": 267,
+              "passed": 11393,
+              "refused": 914
+            },
+            "findings": [],
+            "inventory": 1320,
+            "live_overlaps": 574
+          },
+          "zr1": {
+            "checks": {
+              "active": 882,
+              "inactive": 760,
+              "inapplicable": 218,
+              "passed": 4110,
+              "refused": 146
+            },
+            "findings": [],
+            "inventory": 885,
+            "live_overlaps": 342
+          },
+          "zr1x": {
+            "checks": {
+              "active": 880,
+              "inactive": 738,
+              "inapplicable": 222,
+              "passed": 4094,
+              "refused": 142
+            },
+            "findings": [],
+            "inventory": 886,
+            "live_overlaps": 346
+          }
+        },
+        "translation": "pinned_source_plus_accepted_edits"
+      },
+      "bundle": {
+        "folder": "189acc100b9fcbd6",
+        "files": 171,
+        "artwork": false,
+        "dealer_submissions": true
+      },
+      "backup_restore": "passed"
+    },
+    "owner_images": "13 photo and server tests passed (3.513 s) after replacing WKR/5JS and adding the GSX plaque.",
+    "final_review": "Actual page review/download test passed again (12.778 s).",
+    "ci": {
+      "implementation_commit": "122cd644b26c3532f0c8d9ca6c17a94fd17c6e42",
+      "url": "https://github.com/seanzmc/CorvetteCatalog/actions/runs/43616852255",
+      "result": "success",
+      "note": "16 routine jobs passed; optional hosted six-model audit skipped. All six semantic audits ran locally against the accepted release."
+    },
+    "browser_preview": {
+      "catalog": "accepted authoring draft, no dealer submission",
+      "grand_sport_convertible_3lt": {
+        "base_msrp": 108745,
+        "suede_component": 695,
+        "competition_seats": 595,
+        "total": 110035,
+        "charged_rows_once": true
+      },
+      "zr1_j59": "Visible in Performance Brakes before selecting ZTK; marked Included afterward; no independent select/remove button.",
+      "zr1x_efr": "Absent from exterior cards and customer recap.",
+      "images_loaded": [
+        "WKR",
+        "5JS",
+        "VWT",
+        "719",
+        "3N9",
+        "379",
+        "3A9",
+        "3F9",
+        "3M9",
+        "SL9 (Grand Sport X)",
+        "DPB",
+        "DPG",
+        "DPL",
+        "DPT",
+        "DPC",
+        "EDU (Grand Sport X)",
+        "CM9 (Grand Sport X convertible)",
+        "ZZ3 (Grand Sport X convertible)"
+      ],
+      "mobile": {
+        "viewport_width": 390,
+        "document_width": 375,
+        "charged_row_width": 323,
+        "viewport_reset": true
+      },
+      "visualizer_visible": false
+    },
+    "primary_before": [
+      {
+        "url": "https://stingraychevroletcorvette.com/",
+        "status": 200,
+        "sha256": "1c4197ef945799caae3b51ef89154cf579d77b7e060286275c00253ca6c71990",
+        "primary_links": 5,
+        "beta_link_present": true
+      },
+      {
+        "url": "https://order.stingraychevroletcorvette.com/",
+        "status": 200,
+        "sha256": "6da63a393e755e2cadd46c4f2692ff03158e6a055a4f14febe4c354b24ad5301",
+        "matches_before": true
+      },
+      {
+        "url": "https://order.stingraychevroletcorvette.com/data.js?v=38",
+        "status": 200,
+        "sha256": "8876ecec0a46fd088c93a73b0e87d65ac601bc7435ab16f7df6fab13ce5e7ad9",
+        "matches_before": true
+      },
+      {
+        "url": "https://order.stingraychevroletcorvette.com/app.js?v=29",
+        "status": 200,
+        "sha256": "f607658b3aad5d312dcdad9601f9d5a0e451220f54f60a33f762c4eea6151a7e",
+        "matches_before": true
+      },
+      {
+        "primary_redirect": "https://order.stingraychevroletcorvette.com/",
+        "status": 200
+      }
+    ],
+    "staging": {
+      "url": "https://staging-427b-stingraychevroletcorvette.wpcomstaging.com/order-form/",
+      "release_folder": "https://staging-427b-stingraychevroletcorvette.wpcomstaging.com/order-form/releases/189acc100b9fcbd6/",
+      "release_id": "9899ce36e714eb5e50c6958531118f69f697ec431cbd397dc4150bacafcbf9f2",
+      "dealer_submissions": true,
+      "files": 171,
+      "failed": [],
+      "problems": [],
+      "pointers_match": true
+    },
+    "staging_browser": {
+      "release_folder": "189acc100b9fcbd6",
+      "old_saved_build_restored": {
+        "model": "Stingray Coupe 2LT",
+        "base": 81795,
+        "options": 4695,
+        "total": 86490
+      },
+      "owner_wkr_loaded": true,
+      "console_errors": []
+    },
+    "staging_cache": "Initial read served an older cached page/pointer. A subsequent normal request and browser loaded the new release; all 171 files and both pointers matched. No cache-busting URL used.",
+    "production": {
+      "url": "https://stingraychevroletcorvette.com/order-form/",
+      "release_folder": "https://stingraychevroletcorvette.com/order-form/releases/189acc100b9fcbd6/",
+      "release_id": "9899ce36e714eb5e50c6958531118f69f697ec431cbd397dc4150bacafcbf9f2",
+      "dealer_submissions": true,
+      "files": 171,
+      "failed": [],
+      "problems": [],
+      "pointers_match": true
+    },
+    "primary_after": [
+      {
+        "url": "https://stingraychevroletcorvette.com/",
+        "status": 200,
+        "sha256": "4f77e41955d2b4ed02145fa504f0b3fec8060de019ac39f2820a25a69ca7b70e",
+        "primary_links": 5,
+        "beta_link_present": true
+      },
+      {
+        "url": "https://order.stingraychevroletcorvette.com/",
+        "status": 200,
+        "sha256": "6da63a393e755e2cadd46c4f2692ff03158e6a055a4f14febe4c354b24ad5301",
+        "matches_before": true
+      },
+      {
+        "url": "https://order.stingraychevroletcorvette.com/data.js?v=38",
+        "status": 200,
+        "sha256": "8876ecec0a46fd088c93a73b0e87d65ac601bc7435ab16f7df6fab13ce5e7ad9",
+        "matches_before": true
+      },
+      {
+        "url": "https://order.stingraychevroletcorvette.com/app.js?v=29",
+        "status": 200,
+        "sha256": "f607658b3aad5d312dcdad9601f9d5a0e451220f54f60a33f762c4eea6151a7e",
+        "matches_before": true
+      },
+      {
+        "primary_redirect": "https://order.stingraychevroletcorvette.com/",
+        "status": 200
+      }
+    ],
+    "production_cache": "First read briefly returned the prior coherent release. Subsequent normal page and pointer reads named the new release, then all files were checked again.",
+    "production_browser": {
+      "release_folder": "189acc100b9fcbd6",
+      "saved_build_restored": true,
+      "model": "Grand Sport Convertible 3LT",
+      "base": 108745,
+      "options": 6865,
+      "total": 115610,
+      "two_tone": 595,
+      "suede": 695,
+      "owner_wkr_loaded": true,
+      "visualizer_visible": false,
+      "mobile_width": 390,
+      "mobile_document_width": 375,
+      "mobile_charges_visible": true,
+      "viewport_reset": true,
+      "console_errors": [],
+      "submitted_order": false
+    }
+  },
+  "limitations": [
+    "Some common-option images are shared manufacturer illustrations; source models are recorded per image.",
+    "Actual browser download-file saving and physical-phone use are not part of this verification; generated Markdown is tested directly.",
+    "No new dealer request or email was sent; owner confirmed production delivery November 13."
+  ],
+  "delivery": {
+    "beta_url": "https://stingraychevroletcorvette.com/order-form/",
+    "release_id": "9899ce36e714eb5e50c6958531118f69f697ec431cbd397dc4150bacafcbf9f2",
+    "release_folder": "189acc100b9fcbd6",
+    "production_files_verified": 171,
+    "primary_form_unchanged": true,
+    "visualizer": false,
+    "dealer_submissions": true,
+    "pr": "https://github.com/seanzmc/CorvetteCatalog/pull/101",
+    "merge_status": "open and unmerged",
+    "automatic_cutover": false
   }
 }
