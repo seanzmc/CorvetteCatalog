@@ -9,6 +9,29 @@ SITE = 'https://stingraychevroletcorvette.com' + PATH_FILTER
 
 
 class PhotoRuleTests(unittest.TestCase):
+    def test_reported_beta_images_are_bundled_for_each_applicable_model(self):
+        web = f.ROOT / 'catalog/web'
+        corrections = json.loads((web / 'photos/corrections.json').read_text())['models']
+        common = set('379 3A9 3F9 3M9 3N9 719 5JS DPB DPC DPG DPL DPT DTC DUE DUK NWI R88 V8X WKR ZZ3'.split())
+        self.assertEqual(set(corrections), set(LANES))
+        files = set()
+        for model, photos in corrections.items():
+            self.assertTrue(common <= photos.keys(), model)
+            for code, photo in photos.items():
+                path = web / photo['image_url']
+                self.assertTrue(path.resolve().is_relative_to((web / 'photos/cards').resolve()))
+                raw = path.read_bytes()
+                self.assertTrue(raw.startswith((b'\xff\xd8\xff', b'\x89PNG\r\n\x1a\n')), (model, code))
+                self.assertEqual(photo['image_fit'], 'contain')  # keep the full stripe/roof illustration visible
+                files.add(path)
+        self.assertEqual(files, set((web / 'photos/cards').iterdir()), 'no unused bundled images')
+        for model in ('zr1', 'zr1x'):
+            self.assertIn('PBC', corrections[model])
+            self.assertIn('VWT', corrections[model])
+        for model in ('grand_sport', 'grand_sport_x', 'z06'):
+            self.assertIn('EDU', corrections[model])
+            self.assertIn('CM9', corrections[model])
+
     def test_rules_follow_the_existing_sync_order(self):
         media = Media([SITE + p for p in (
             'lpo/h-vk3.png', 'ext/r-s-etv.jpg', 'ext/e-g-h-r-s-etv.jpg', 'ext/e-cfl.png', 'ext/cf8.png',

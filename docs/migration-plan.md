@@ -1,6 +1,24 @@
 # CorvetteCatalog migration and manufacturer-intake plan
 
-## Current direction — November 13 launch preparation without the visualizer
+## Current direction — November 14 beta corrections
+
+PRs #99 and #100 merged and the production beta launched November 13 at
+[the secondary order form](https://stingraychevroletcorvette.com/order-form/).
+The owner confirmed submission, customer email and dealership receipt. The
+existing form remains primary during the November 13–20 beta; no automatic
+cutover is scheduled. The visualizer remains off.
+
+The owner's November 14 corrections cover missing/wrong option photos, the
+ZR1 J59 brake display, hiding standard ZR1X EFR, paid interior charges in the
+review, and base MSRP in the download. The
+[correction record](beta-corrections-2026-11-14.json) preserves every image's
+source and hash, the accepted presentation edits, and verification evidence.
+Reviewed images ship inside the beta release so the current form's shared
+image library is unchanged. Some common-option photos are shared manufacturer
+illustrations; the record identifies their source models. The owner supplied
+the VWT image for ZR1/ZR1X.
+
+## Prior direction — November 13 launch preparation without the visualizer
 
 Sean authorized applying the two supplied November sources, completing the
 six-model comparison, and preparing the replacement form without the visualizer.

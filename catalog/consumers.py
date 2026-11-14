@@ -314,10 +314,11 @@ class ConsumerCatalog:
                 self.maps['option'][oid]['display_order'] or 0, self.maps['option'][oid]['key'])
 
     def card_steps(self, configuration):
-        """Steps holding customer-selectable cards, in card order, with the first
+        """Steps holding selectable or explicitly display-only cards, with the first
         card's section label; known without pricing any card."""
         steps = {}
-        for oid in sorted((o for o in self._shown(configuration) if self.ev.options[o]['customer_selectable']),
+        for oid in sorted((o for o in self._shown(configuration) if self.ev.options[o]['customer_selectable']
+                           or self.contexts[o, configuration]['display_behavior'] == 'display_only'),
                           key=lambda o: self._card_order(o, configuration)):
             context = self.contexts[oid, configuration]
             steps.setdefault(context['step_key'], context['section_label'])

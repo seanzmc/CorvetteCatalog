@@ -1,0 +1,1586 @@
+{
+  "task": "November 14 owner beta corrections",
+  "baseline_commit": "c5b2c0d30dc96bce8650ae603f2b24a332c2a43a",
+  "prior_beta_release": "5f63dd7ea5a2bcb44a7365dfce758ece97f9053e6d2ab6d5047b5d4772cc34cc",
+  "scope": "Secondary production beta only; visualizer off; current form remains primary during the November 13-20 beta.",
+  "owner_clarifications": {
+    "VWT": "Owner supplied the existing e-g-h-vwt.jpg URL for ZR1 and ZR1X.",
+    "PCB": "Interpreted as PBC Engine Build Program, the catalog option matching the reported issue; no PCB option exists."
+  },
+  "photo_policy": "Reviewed model/RPO corrections take priority over baseline and discovered images. Images are bundled without modifying shared primary-form assets. Shared illustrations are identified below; these are option photos, not configured vehicle renderings.",
+  "photo_count": {
+    "model_rpo_pairs": 137,
+    "unique_files": 63
+  },
+  "photos": [
+    {
+      "model": "z06",
+      "rpo": "DTC",
+      "label": "Royal Blue Full Length Dual Racing Stripes",
+      "file": "photos/cards/dtc-4659b7e4f432.jpg",
+      "sha256": "4659b7e4f432961db0ed8bac9f2b5a60735608ea1567fc673885355b7491f62e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DTC.jpg",
+      "source_model": "grand_sport",
+      "note": "Shared option illustration from Chevrolet grand sport; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "z06",
+      "rpo": "379",
+      "label": "Orange Seat Belt Color",
+      "file": "photos/cards/379-45f8b967d79f.png",
+      "sha256": "45f8b967d79f2e3ccde6512e9ec2ce969510171729abfa498e5d1c474a50d3dc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_379.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "z06",
+      "rpo": "3A9",
+      "label": "Santorini Blue Seat Belt Color",
+      "file": "photos/cards/3a9-0147f3b35705.png",
+      "sha256": "0147f3b35705bc2d1910670c78fa64eba446a6fd3f882033224942f5ddd23dbc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3a9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "z06",
+      "rpo": "3F9",
+      "label": "Torch Red Seat Belt Color",
+      "file": "photos/cards/3f9-cd31f5a50afe.png",
+      "sha256": "cd31f5a50afe3448ffa58bc45ffcfa143163d128035b88e8ac032c0d986d8938",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3f9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "z06",
+      "rpo": "3M9",
+      "label": "Yellow Seat Belt Color",
+      "file": "photos/cards/3m9-d05a4d21cd9b.png",
+      "sha256": "d05a4d21cd9b9f6fcf17cbf5c73c9d2958646fd9fccb4f8488301343d95bdc79",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3m9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "z06",
+      "rpo": "3N9",
+      "label": "Natural Seat Belt Color",
+      "file": "photos/cards/3n9-1990ae822b7b.png",
+      "sha256": "1990ae822b7be5500d304c3b87f9c0a42b03eb8549f9315a3260b95f8074b117",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "z06",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-e529f5eb6e90.jpg",
+      "sha256": "e529f5eb6e90be9a6789ffd8d9f59475d10a6e1dc3f54905efaad34f7d2d50f9",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/5JS.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "719",
+      "label": "Black Seat Belt Color",
+      "file": "photos/cards/719-5621c9c31980.png",
+      "sha256": "5621c9c319808ec4839b39abcbf01a980ed92709baf5f2fe000225a8c9b6908d",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_719.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "z06",
+      "rpo": "CM9",
+      "label": "Body-Color Power Convertible Hardtop",
+      "file": "photos/cards/cm9-2ef7ce82215d.jpg",
+      "sha256": "2ef7ce82215d968ad5ca65b31efcace8215068f9b53a5ea99ee0c3f302e0d415",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-cm9.jpg",
+      "source_model": "z06",
+      "note": "Body-color convertible hardtop illustration, Z06 shown."
+    },
+    {
+      "model": "z06",
+      "rpo": "DPB",
+      "label": "Carbon Flash/Blue Racing Stripes",
+      "file": "photos/cards/dpb-8948949e2995.jpg",
+      "sha256": "8948949e2995c381cc48f4afacd1b69a5865d69a767115ae3219b8a32db579ed",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/DPB.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "DPC",
+      "label": "Carbon Flash/Yellow Racing Stripes",
+      "file": "photos/cards/dpc-a7ecae94b1b1.jpg",
+      "sha256": "a7ecae94b1b125c98bb601f621a8729ec297d6577f1be99e62cb53ccedb31fa2",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/DPC.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "DPG",
+      "label": "Carbon Flash/Orange Racing Stripes",
+      "file": "photos/cards/dpg-29bafd7a2cb4.jpg",
+      "sha256": "29bafd7a2cb405b0a30c66d4c84439507f9de86ca223319290efd5403e34d6d9",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/DPG.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "DPL",
+      "label": "Carbon Flash/Red Racing Stripes",
+      "file": "photos/cards/dpl-b0e05400e599.jpg",
+      "sha256": "b0e05400e5997ee81fd33cf99ed7b834f7d3a1cae5639a724b3c48604bf9b6c6",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/DPL.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "DPT",
+      "label": "Carbon Flash/Silver Racing Stripes",
+      "file": "photos/cards/dpt-d1a0844686f3.jpg",
+      "sha256": "d1a0844686f3380c4e37ccd2ebe054da051c1a9a45cea2fb28dab32dcf0b2ba7",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/DPT.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "DUE",
+      "label": "Royal Blue/Carbon Flash Racing Stripes",
+      "file": "photos/cards/due-c02f53efbf2d.jpg",
+      "sha256": "c02f53efbf2d039e2fb3c10e7cfd536d12912bc8fc198dbe22f598ae8ef86b43",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/DUE.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "DUK",
+      "label": "Edge Red/Carbon Flash Racing Stripes",
+      "file": "photos/cards/duk-fa0017ad845a.jpg",
+      "sha256": "fa0017ad845a449b3bc25046413dfd19f707beaeb5e906a054d6b7af8c30040e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/DUK.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "EDU",
+      "label": "Body-Color and Carbon Flash Accents",
+      "file": "photos/cards/edu-aeeac4b20b81.jpg",
+      "sha256": "aeeac4b20b81961f949a486def95384b70925e9fc85fb59261678e8ec59ca061",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/EDU.jpg",
+      "source_model": "grand_sport",
+      "note": "Shared option illustration from Chevrolet grand sport; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "z06",
+      "rpo": "NWI",
+      "label": "Bright Chrome Exhaust Tips",
+      "file": "photos/cards/nwi-3c74dbf484ce.jpg",
+      "sha256": "3c74dbf484ce9e2550b1d4ae6a5fcafaa2dc8fb754d20076f37f025321c1030b",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/NWI.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "PBC",
+      "label": "Customer Engine Build Program",
+      "file": "photos/cards/pbc-27f46f1a4b0f.jpg",
+      "sha256": "27f46f1a4b0fe988f93d95ccb538e7f26689466e326394703252a6c8f53d5057",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/PBC.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "R88",
+      "label": "Front Illuminated Crossed Flags Emblem",
+      "file": "photos/cards/r88-ad49e546d2cc.jpg",
+      "sha256": "ad49e546d2cc7a826c86a9b1c2a7b8186d19ad2ecc1641b03e0a0ceb811bf93e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/R88.jpg",
+      "source_model": "grand_sport",
+      "note": "Shared option illustration from Chevrolet grand sport; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "z06",
+      "rpo": "T0E",
+      "label": "Low Rear Spoiler",
+      "file": "photos/cards/t0e-5a28aa924fa2.jpg",
+      "sha256": "5a28aa924fa27ad3ce6a9214bfba0317e150b481ac518d3f8f8d54f3329b0966",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/t0e.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "z06",
+      "rpo": "V8X",
+      "label": "Visible Carbon Fiber Sill Plates",
+      "file": "photos/cards/v8x-844172c774af.jpg",
+      "sha256": "844172c774afc60cd089a3f123a1d2ddd8e5bc99dd9420abcde90006d110ad52",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/accessories/v8x22.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "z06",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-239e1f5df096.jpg",
+      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/WKR.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "z06",
+      "rpo": "ZZ3",
+      "label": "Convertible Engine Appearance Package",
+      "file": "photos/cards/zz3-06a02aa541cf.jpg",
+      "sha256": "06a02aa541cfaac54d63fcf180f8b1465cff899a93fc4c4009e8c5439ddd0c7c",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/ZZ3.jpg",
+      "source_model": "z06",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "379",
+      "label": "Orange Seat Belt Color",
+      "file": "photos/cards/379-45f8b967d79f.png",
+      "sha256": "45f8b967d79f2e3ccde6512e9ec2ce969510171729abfa498e5d1c474a50d3dc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_379.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "3A9",
+      "label": "Santorini Blue Seat Belt Color",
+      "file": "photos/cards/3a9-0147f3b35705.png",
+      "sha256": "0147f3b35705bc2d1910670c78fa64eba446a6fd3f882033224942f5ddd23dbc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3a9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "3F9",
+      "label": "Torch Red Seat Belt Color",
+      "file": "photos/cards/3f9-cd31f5a50afe.png",
+      "sha256": "cd31f5a50afe3448ffa58bc45ffcfa143163d128035b88e8ac032c0d986d8938",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3f9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "3M9",
+      "label": "Yellow Seat Belt Color",
+      "file": "photos/cards/3m9-d05a4d21cd9b.png",
+      "sha256": "d05a4d21cd9b9f6fcf17cbf5c73c9d2958646fd9fccb4f8488301343d95bdc79",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3m9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "3N9",
+      "label": "Natural Seat Belt Color",
+      "file": "photos/cards/3n9-1990ae822b7b.png",
+      "sha256": "1990ae822b7be5500d304c3b87f9c0a42b03eb8549f9315a3260b95f8074b117",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-e529f5eb6e90.jpg",
+      "sha256": "e529f5eb6e90be9a6789ffd8d9f59475d10a6e1dc3f54905efaad34f7d2d50f9",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/5JS.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "719",
+      "label": "Black Seat Belt Color",
+      "file": "photos/cards/719-5621c9c31980.png",
+      "sha256": "5621c9c319808ec4839b39abcbf01a980ed92709baf5f2fe000225a8c9b6908d",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_719.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "CM9",
+      "label": "Body-Color Power Convertible Hardtop",
+      "file": "photos/cards/cm9-2ef7ce82215d.jpg",
+      "sha256": "2ef7ce82215d968ad5ca65b31efcace8215068f9b53a5ea99ee0c3f302e0d415",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-cm9.jpg",
+      "source_model": "z06",
+      "note": "Body-color convertible hardtop illustration, Z06 shown."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "DPB",
+      "label": "Carbon Flash/Blue Racing Stripes",
+      "file": "photos/cards/dpb-6f544f2dd1ca.jpg",
+      "sha256": "6f544f2dd1ca38f31b91b44d9ca75da4c92771b863ad7d39a7803899a1a63878",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/DPB.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "DPC",
+      "label": "Carbon Flash/Yellow Racing Stripes",
+      "file": "photos/cards/dpc-fe6d0bc672ea.jpg",
+      "sha256": "fe6d0bc672ea9e4bb351c39a452c5cfd70e578886b0998e4bca8208cf144e49a",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/DPC.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "DPG",
+      "label": "Carbon Flash/Orange Racing Stripes",
+      "file": "photos/cards/dpg-1894d8837512.jpg",
+      "sha256": "1894d8837512f2ff8e38ccd41a3e1a058ccecb2d1d3cbec6cf3f99175b375b79",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/DPG.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "DPL",
+      "label": "Carbon Flash/Red Racing Stripes",
+      "file": "photos/cards/dpl-8fabd34bf3b3.jpg",
+      "sha256": "8fabd34bf3b3e1578d799afa4d1b640eaca84e6f4cc239a510e01346fe116c02",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/DPL.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "DPT",
+      "label": "Carbon Flash/Silver Racing Stripes",
+      "file": "photos/cards/dpt-5980c73eae8e.jpg",
+      "sha256": "5980c73eae8e0bcdb5001ab5f33d6801414d407d13862a9f1753494b8150d404",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/DPT.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "DTC",
+      "label": "Royal Blue Racing Stripes",
+      "file": "photos/cards/dtc-4659b7e4f432.jpg",
+      "sha256": "4659b7e4f432961db0ed8bac9f2b5a60735608ea1567fc673885355b7491f62e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/DTC.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "DUE",
+      "label": "Royal Blue/Carbon Flash Racing Stripes",
+      "file": "photos/cards/due-008f122631de.jpg",
+      "sha256": "008f122631de91c9016f3f7ef691353bde9bf4a2efeaa6014b2c81ddcd28b4c3",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/DUE.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "DUK",
+      "label": "Edge Red/Carbon Flash Racing Stripes",
+      "file": "photos/cards/duk-7083dde01696.jpg",
+      "sha256": "7083dde016968fa882b9bd2e76743666984411b5904075e76d85f898a1ff6c37",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/DUK.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "EDU",
+      "label": "Body-Color and Carbon Flash Accents",
+      "file": "photos/cards/edu-aeeac4b20b81.jpg",
+      "sha256": "aeeac4b20b81961f949a486def95384b70925e9fc85fb59261678e8ec59ca061",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/EDU.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "NWI",
+      "label": "Bright Chrome Exhaust Tips",
+      "file": "photos/cards/nwi-2b7f43d8a80f.jpg",
+      "sha256": "2b7f43d8a80f94951c38298e9caf921faa89a25c0950579ca6d6db3dfb4945f0",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/NWI.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "R88",
+      "label": "Front Illuminated Crossed Flags Emblem",
+      "file": "photos/cards/r88-1e93a3c8ae62.jpg",
+      "sha256": "1e93a3c8ae6249b05a3b0db5632019c5739557b074da9a14d7cbe3a42a4a418f",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/R88.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "T0E",
+      "label": "Low Rear Spoiler",
+      "file": "photos/cards/t0e-5a28aa924fa2.jpg",
+      "sha256": "5a28aa924fa27ad3ce6a9214bfba0317e150b481ac518d3f8f8d54f3329b0966",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/t0e.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "V8X",
+      "label": "Visible Carbon Fiber Sill Plates",
+      "file": "photos/cards/v8x-844172c774af.jpg",
+      "sha256": "844172c774afc60cd089a3f123a1d2ddd8e5bc99dd9420abcde90006d110ad52",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/accessories/v8x22.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-239e1f5df096.jpg",
+      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/WKR.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport_x",
+      "rpo": "ZZ3",
+      "label": "Convertible Engine Appearance Package",
+      "file": "photos/cards/zz3-9fea5f06c190.jpg",
+      "sha256": "9fea5f06c19013a6a76a3937c9ca3fe6e92436caacf381fa1dd8d52c394229df",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gsx/small_byo3/ZZ3.jpg",
+      "source_model": "grand_sport_x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "DTC",
+      "label": "Royal Blue Full Length Dual Racing Stripes",
+      "file": "photos/cards/dtc-4659b7e4f432.jpg",
+      "sha256": "4659b7e4f432961db0ed8bac9f2b5a60735608ea1567fc673885355b7491f62e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DTC.jpg",
+      "source_model": "grand_sport",
+      "note": "Shared option illustration from Chevrolet grand sport; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "stingray",
+      "rpo": "379",
+      "label": "Orange Seat Belt Color",
+      "file": "photos/cards/379-45f8b967d79f.png",
+      "sha256": "45f8b967d79f2e3ccde6512e9ec2ce969510171729abfa498e5d1c474a50d3dc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_379.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "stingray",
+      "rpo": "3A9",
+      "label": "Santorini Blue Seat Belt Color",
+      "file": "photos/cards/3a9-0147f3b35705.png",
+      "sha256": "0147f3b35705bc2d1910670c78fa64eba446a6fd3f882033224942f5ddd23dbc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3a9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "stingray",
+      "rpo": "3F9",
+      "label": "Torch Red Seat Belt Color",
+      "file": "photos/cards/3f9-cd31f5a50afe.png",
+      "sha256": "cd31f5a50afe3448ffa58bc45ffcfa143163d128035b88e8ac032c0d986d8938",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3f9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "stingray",
+      "rpo": "3M9",
+      "label": "Yellow Seat Belt Color",
+      "file": "photos/cards/3m9-d05a4d21cd9b.png",
+      "sha256": "d05a4d21cd9b9f6fcf17cbf5c73c9d2958646fd9fccb4f8488301343d95bdc79",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3m9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "stingray",
+      "rpo": "3N9",
+      "label": "Natural Seat Belt Color",
+      "file": "photos/cards/3n9-1990ae822b7b.png",
+      "sha256": "1990ae822b7be5500d304c3b87f9c0a42b03eb8549f9315a3260b95f8074b117",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "stingray",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-f827a8a638c0.jpg",
+      "sha256": "f827a8a638c05d04af0c9cbed04c943cec82aa069386fa9f2d744720da29e247",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/5JS.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "719",
+      "label": "Black Seat Belt Color",
+      "file": "photos/cards/719-5621c9c31980.png",
+      "sha256": "5621c9c319808ec4839b39abcbf01a980ed92709baf5f2fe000225a8c9b6908d",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_719.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "stingray",
+      "rpo": "CM9",
+      "label": "Body-Color Power Convertible Hardtop",
+      "file": "photos/cards/cm9-67213555c08c.jpg",
+      "sha256": "67213555c08cc2bf464c445f5a2b8f3b7c8e3bb39e1b8dea4aa504f07335098d",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/old/cm9.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "stingray",
+      "rpo": "DPB",
+      "label": "Carbon Flash/Blue Racing Stripes",
+      "file": "photos/cards/dpb-12e9a2ac5e34.jpg",
+      "sha256": "12e9a2ac5e349065452388e99b857b119fb43221730149ec98ad1be9380ae469",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/DPB.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "DPC",
+      "label": "Carbon Flash/Yellow Racing Stripes",
+      "file": "photos/cards/dpc-8c37f4c9d5b8.jpg",
+      "sha256": "8c37f4c9d5b8c2535fe74c53e2ecf2503742c8a7cf033296e64ebd266e133381",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/DPC.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "DPG",
+      "label": "Carbon Flash/Orange Racing Stripes",
+      "file": "photos/cards/dpg-146db7e6bfae.jpg",
+      "sha256": "146db7e6bfaea8b9a56cbfbba834d73f785ba6d5a4aea64d7dc11e05c6504643",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/DPG.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "DPL",
+      "label": "Carbon Flash/Red Racing Stripes",
+      "file": "photos/cards/dpl-277d2a98eb5e.jpg",
+      "sha256": "277d2a98eb5ebeeff557308046f94faf95fd571cb1896b39cb4f642048e6a013",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/DPL.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "DPT",
+      "label": "Carbon Flash/Silver Racing Stripes",
+      "file": "photos/cards/dpt-9edbb7c791e8.jpg",
+      "sha256": "9edbb7c791e85be049f18837caca32fda838e639ca0888fa2394b40f01303837",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/DPT.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "DUE",
+      "label": "Royal Blue/Carbon Flash Racing Stripes",
+      "file": "photos/cards/due-9ba378d16165.jpg",
+      "sha256": "9ba378d161658e352d6d0f1aa4fc9542426faa30e42d46efb89faf133ecb89c7",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/DUE.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "DUK",
+      "label": "Edge Red/Carbon Flash Racing Stripes",
+      "file": "photos/cards/duk-bca6d5e49983.jpg",
+      "sha256": "bca6d5e499835020d7d726b7add0bc5dbf0644c7c0358556e4be93e0f176a4a0",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/DUK.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "NWI",
+      "label": "Bright Chrome Exhaust Tips",
+      "file": "photos/cards/nwi-d6a2bce57cfb.jpg",
+      "sha256": "d6a2bce57cfb7765c386c18755f8109ee078596bf9398f2cacb17881c1553ff6",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/NWI.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "R88",
+      "label": "Front Illuminated Crossed Flags Emblem",
+      "file": "photos/cards/r88-ad49e546d2cc.jpg",
+      "sha256": "ad49e546d2cc7a826c86a9b1c2a7b8186d19ad2ecc1641b03e0a0ceb811bf93e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/R88.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "V8X",
+      "label": "Visible Carbon Fiber Sill Plates",
+      "file": "photos/cards/v8x-844172c774af.jpg",
+      "sha256": "844172c774afc60cd089a3f123a1d2ddd8e5bc99dd9420abcde90006d110ad52",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/accessories/v8x22.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "stingray",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-239e1f5df096.jpg",
+      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/WKR.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "stingray",
+      "rpo": "ZZ3",
+      "label": "Convertible Engine Appearance Package",
+      "file": "photos/cards/zz3-926dd2e3cee0.jpg",
+      "sha256": "926dd2e3cee0fa92723258b86544ffbe354198031076a5cd4d10007d0e777e11",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette/small_byo3/ZZ3.jpg",
+      "source_model": "stingray",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1",
+      "rpo": "379",
+      "label": "Orange Seat Belt Color",
+      "file": "photos/cards/379-45f8b967d79f.png",
+      "sha256": "45f8b967d79f2e3ccde6512e9ec2ce969510171729abfa498e5d1c474a50d3dc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_379.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1",
+      "rpo": "3A9",
+      "label": "Santorini Blue Seat Belt Color",
+      "file": "photos/cards/3a9-0147f3b35705.png",
+      "sha256": "0147f3b35705bc2d1910670c78fa64eba446a6fd3f882033224942f5ddd23dbc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3a9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1",
+      "rpo": "3F9",
+      "label": "Torch Red Seat Belt Color",
+      "file": "photos/cards/3f9-cd31f5a50afe.png",
+      "sha256": "cd31f5a50afe3448ffa58bc45ffcfa143163d128035b88e8ac032c0d986d8938",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3f9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1",
+      "rpo": "3M9",
+      "label": "Yellow Seat Belt Color",
+      "file": "photos/cards/3m9-d05a4d21cd9b.png",
+      "sha256": "d05a4d21cd9b9f6fcf17cbf5c73c9d2958646fd9fccb4f8488301343d95bdc79",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3m9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1",
+      "rpo": "3N9",
+      "label": "Natural Seat Belt Color",
+      "file": "photos/cards/3n9-1990ae822b7b.png",
+      "sha256": "1990ae822b7be5500d304c3b87f9c0a42b03eb8549f9315a3260b95f8074b117",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-2af241d361a7.jpg",
+      "sha256": "2af241d361a73aab90b5c26028b2d850db944d54a15beeaa086a4890050dec74",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/5JS.jpg",
+      "source_model": "zr1",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1",
+      "rpo": "719",
+      "label": "Black Seat Belt Color",
+      "file": "photos/cards/719-5621c9c31980.png",
+      "sha256": "5621c9c319808ec4839b39abcbf01a980ed92709baf5f2fe000225a8c9b6908d",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_719.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1",
+      "rpo": "DPB",
+      "label": "Carbon Flash/Blue Racing Stripes",
+      "file": "photos/cards/dpb-e7c1d08e73ad.jpg",
+      "sha256": "e7c1d08e73adaac455d384cb8fe21f2818a80d44bf9534dcc0f41ed8e8038ccc",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/DPB.jpg",
+      "source_model": "zr1",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1",
+      "rpo": "DPC",
+      "label": "Carbon Flash/Yellow Racing Stripes",
+      "file": "photos/cards/dpc-23d0ec2dd607.jpg",
+      "sha256": "23d0ec2dd607fc8372b5359133b831ef03b7b479fb5ea8a57e31269f90dff3ac",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/DPC.jpg",
+      "source_model": "zr1",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1",
+      "rpo": "DPG",
+      "label": "Carbon Flash/Orange Racing Stripes",
+      "file": "photos/cards/dpg-1f922c1caf13.jpg",
+      "sha256": "1f922c1caf13e35d6cfb956d1305b21b5535ed1b55effead1455ee470203c21a",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/DPG.jpg",
+      "source_model": "zr1",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1",
+      "rpo": "DPL",
+      "label": "Carbon Flash/Red Racing Stripes",
+      "file": "photos/cards/dpl-a02d4a99616e.jpg",
+      "sha256": "a02d4a99616ef872301fe9d404e5fa61346166f46d7fe350da14f211f7757d8b",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/DPL.jpg",
+      "source_model": "zr1",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1",
+      "rpo": "DPT",
+      "label": "Carbon Flash/Silver Racing Stripes",
+      "file": "photos/cards/dpt-9ef966b5bcd6.jpg",
+      "sha256": "9ef966b5bcd6e4e54fc6d0cde0bc54829aca1abdf4e724c22ebed5647ee8fa62",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/DPT.jpg",
+      "source_model": "zr1",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1",
+      "rpo": "DTC",
+      "label": "Royal Blue Full-Length Dual Racing Stripes",
+      "file": "photos/cards/dtc-4659b7e4f432.jpg",
+      "sha256": "4659b7e4f432961db0ed8bac9f2b5a60735608ea1567fc673885355b7491f62e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DTC.jpg",
+      "source_model": "grand_sport",
+      "note": "Shared option illustration from Chevrolet grand sport; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "zr1",
+      "rpo": "DUE",
+      "label": "Royal Blue/Carbon Flash Racing Stripes",
+      "file": "photos/cards/due-c02f53efbf2d.jpg",
+      "sha256": "c02f53efbf2d039e2fb3c10e7cfd536d12912bc8fc198dbe22f598ae8ef86b43",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/DUE.jpg",
+      "source_model": "z06",
+      "note": "Shared option illustration from Chevrolet z06; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "zr1",
+      "rpo": "DUK",
+      "label": "Edge Red/Carbon Flash Racing Stripes",
+      "file": "photos/cards/duk-aafe8c7f1527.jpg",
+      "sha256": "aafe8c7f152798b4021137c5225a2afb06708ffd2bba811a8c8f6614e1663a8a",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/DUK.jpg",
+      "source_model": "zr1x",
+      "note": "Shared option illustration from Chevrolet zr1x; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "zr1",
+      "rpo": "NWI",
+      "label": "Bright Chrome Exhaust Tips",
+      "file": "photos/cards/nwi-3c74dbf484ce.jpg",
+      "sha256": "3c74dbf484ce9e2550b1d4ae6a5fcafaa2dc8fb754d20076f37f025321c1030b",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/NWI.jpg",
+      "source_model": "z06",
+      "note": "Shared option illustration from Chevrolet z06; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "zr1",
+      "rpo": "PBC",
+      "label": "Customer Engine Build Program",
+      "file": "photos/cards/pbc-ca48b5ef3aad.jpg",
+      "sha256": "ca48b5ef3aad0d55d22a8d94d010a5dd5560908204b4a81c5f9f87e51008faa7",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/PBC.jpg",
+      "source_model": "zr1",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1",
+      "rpo": "R88",
+      "label": "Front Illuminated Crossed Flags Emblem",
+      "file": "photos/cards/r88-ad49e546d2cc.jpg",
+      "sha256": "ad49e546d2cc7a826c86a9b1c2a7b8186d19ad2ecc1641b03e0a0ceb811bf93e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/R88.jpg",
+      "source_model": "grand_sport",
+      "note": "Shared option illustration from Chevrolet grand sport; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "zr1",
+      "rpo": "T0E",
+      "label": "Low Rear Spoiler",
+      "file": "photos/cards/t0e-5a28aa924fa2.jpg",
+      "sha256": "5a28aa924fa27ad3ce6a9214bfba0317e150b481ac518d3f8f8d54f3329b0966",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/t0e.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1",
+      "rpo": "V8X",
+      "label": "Visible Carbon Fiber Sill Plates",
+      "file": "photos/cards/v8x-844172c774af.jpg",
+      "sha256": "844172c774afc60cd089a3f123a1d2ddd8e5bc99dd9420abcde90006d110ad52",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/accessories/v8x22.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1",
+      "rpo": "VWT",
+      "label": "Insect Protection Grille Screen",
+      "file": "photos/cards/vwt-2405d7185be2.jpg",
+      "sha256": "2405d7185be2934cbb0bd4b66c6a20f18647bf075e6de596491bfaede3794ffd",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/e-g-h-vwt.jpg",
+      "source_model": "shared",
+      "note": "Owner explicitly supplied and approved this exact image for ZR1/ZR1X on November 14."
+    },
+    {
+      "model": "zr1",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-239e1f5df096.jpg",
+      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1/small_byo3/WKR.jpg",
+      "source_model": "zr1",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1",
+      "rpo": "ZZ3",
+      "label": "Convertible Engine Appearance Package",
+      "file": "photos/cards/zz3-06a02aa541cf.jpg",
+      "sha256": "06a02aa541cfaac54d63fcf180f8b1465cff899a93fc4c4009e8c5439ddd0c7c",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/ZZ3.jpg",
+      "source_model": "z06",
+      "note": "Shared option illustration from Chevrolet z06; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "DTC",
+      "label": "Royal Blue Full Length Dual Racing Stripes",
+      "file": "photos/cards/dtc-4659b7e4f432.jpg",
+      "sha256": "4659b7e4f432961db0ed8bac9f2b5a60735608ea1567fc673885355b7491f62e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DTC.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "379",
+      "label": "Orange Seat Belt Color",
+      "file": "photos/cards/379-45f8b967d79f.png",
+      "sha256": "45f8b967d79f2e3ccde6512e9ec2ce969510171729abfa498e5d1c474a50d3dc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_379.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "3A9",
+      "label": "Santorini Blue Seat Belt Color",
+      "file": "photos/cards/3a9-0147f3b35705.png",
+      "sha256": "0147f3b35705bc2d1910670c78fa64eba446a6fd3f882033224942f5ddd23dbc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3a9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "3F9",
+      "label": "Torch Red Seat Belt Color",
+      "file": "photos/cards/3f9-cd31f5a50afe.png",
+      "sha256": "cd31f5a50afe3448ffa58bc45ffcfa143163d128035b88e8ac032c0d986d8938",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3f9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "3M9",
+      "label": "Yellow Seat Belt Color",
+      "file": "photos/cards/3m9-d05a4d21cd9b.png",
+      "sha256": "d05a4d21cd9b9f6fcf17cbf5c73c9d2958646fd9fccb4f8488301343d95bdc79",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3m9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "3N9",
+      "label": "Natural Seat Belt Color",
+      "file": "photos/cards/3n9-1990ae822b7b.png",
+      "sha256": "1990ae822b7be5500d304c3b87f9c0a42b03eb8549f9315a3260b95f8074b117",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-5efc33208275.jpg",
+      "sha256": "5efc33208275de47224b69a6f42e70874d09d6b5b78cc18fcd5dfebd4b21a2b6",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/5JS.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "719",
+      "label": "Black Seat Belt Color",
+      "file": "photos/cards/719-5621c9c31980.png",
+      "sha256": "5621c9c319808ec4839b39abcbf01a980ed92709baf5f2fe000225a8c9b6908d",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_719.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "CM9",
+      "label": "Body-Color Power Convertible Hardtop",
+      "file": "photos/cards/cm9-2ef7ce82215d.jpg",
+      "sha256": "2ef7ce82215d968ad5ca65b31efcace8215068f9b53a5ea99ee0c3f302e0d415",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/h-cm9.jpg",
+      "source_model": "z06",
+      "note": "Body-color convertible hardtop illustration, Z06 shown."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "DPB",
+      "label": "Carbon Flash/Blue Racing Stripes",
+      "file": "photos/cards/dpb-6f544f2dd1ca.jpg",
+      "sha256": "6f544f2dd1ca38f31b91b44d9ca75da4c92771b863ad7d39a7803899a1a63878",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DPB.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "DPC",
+      "label": "Carbon Flash/Yellow Racing Stripes",
+      "file": "photos/cards/dpc-fe6d0bc672ea.jpg",
+      "sha256": "fe6d0bc672ea9e4bb351c39a452c5cfd70e578886b0998e4bca8208cf144e49a",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DPC.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "DPG",
+      "label": "Carbon Flash/Orange Racing Stripes",
+      "file": "photos/cards/dpg-1894d8837512.jpg",
+      "sha256": "1894d8837512f2ff8e38ccd41a3e1a058ccecb2d1d3cbec6cf3f99175b375b79",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DPG.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "DPL",
+      "label": "Carbon Flash/Red Racing Stripes",
+      "file": "photos/cards/dpl-8fabd34bf3b3.jpg",
+      "sha256": "8fabd34bf3b3e1578d799afa4d1b640eaca84e6f4cc239a510e01346fe116c02",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DPL.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "DPT",
+      "label": "Carbon Flash/Silver Racing Stripes",
+      "file": "photos/cards/dpt-5980c73eae8e.jpg",
+      "sha256": "5980c73eae8e0bcdb5001ab5f33d6801414d407d13862a9f1753494b8150d404",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DPT.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "DUE",
+      "label": "Royal Blue/Carbon Flash Racing Stripes",
+      "file": "photos/cards/due-008f122631de.jpg",
+      "sha256": "008f122631de91c9016f3f7ef691353bde9bf4a2efeaa6014b2c81ddcd28b4c3",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DUE.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "DUK",
+      "label": "Edge Red/Carbon Flash Racing Stripes",
+      "file": "photos/cards/duk-7083dde01696.jpg",
+      "sha256": "7083dde016968fa882b9bd2e76743666984411b5904075e76d85f898a1ff6c37",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DUK.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "EDU",
+      "label": "Body-Color and Carbon Flash Accents",
+      "file": "photos/cards/edu-aeeac4b20b81.jpg",
+      "sha256": "aeeac4b20b81961f949a486def95384b70925e9fc85fb59261678e8ec59ca061",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/EDU.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "NWI",
+      "label": "Bright Chrome Exhaust Tips",
+      "file": "photos/cards/nwi-384fa3ebe2b9.jpg",
+      "sha256": "384fa3ebe2b9c712c57fa6b69dc772a2a0dec5687ae42333721a5f9079051499",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/NWI.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "R88",
+      "label": "Front Illuminated Crossed Flags Emblem",
+      "file": "photos/cards/r88-ad49e546d2cc.jpg",
+      "sha256": "ad49e546d2cc7a826c86a9b1c2a7b8186d19ad2ecc1641b03e0a0ceb811bf93e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/R88.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "T0E",
+      "label": "Low Rear Spoiler",
+      "file": "photos/cards/t0e-5a28aa924fa2.jpg",
+      "sha256": "5a28aa924fa27ad3ce6a9214bfba0317e150b481ac518d3f8f8d54f3329b0966",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/t0e.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "V8X",
+      "label": "Visible Carbon Fiber Sill Plates",
+      "file": "photos/cards/v8x-844172c774af.jpg",
+      "sha256": "844172c774afc60cd089a3f123a1d2ddd8e5bc99dd9420abcde90006d110ad52",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/accessories/v8x22.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-239e1f5df096.jpg",
+      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/WKR.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "grand_sport",
+      "rpo": "ZZ3",
+      "label": "Convertible Engine Appearance Package",
+      "file": "photos/cards/zz3-2bf3ef311946.jpg",
+      "sha256": "2bf3ef31194699d1c7535fa17dee4a10a63a823eef432a0b74f9065adfe6158d",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/ZZ3.jpg",
+      "source_model": "grand_sport",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "379",
+      "label": "Orange Seat Belt Color",
+      "file": "photos/cards/379-45f8b967d79f.png",
+      "sha256": "45f8b967d79f2e3ccde6512e9ec2ce969510171729abfa498e5d1c474a50d3dc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_379.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "3A9",
+      "label": "Santorini Blue Seat Belt Color",
+      "file": "photos/cards/3a9-0147f3b35705.png",
+      "sha256": "0147f3b35705bc2d1910670c78fa64eba446a6fd3f882033224942f5ddd23dbc",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3a9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "3F9",
+      "label": "Torch Red Seat Belt Color",
+      "file": "photos/cards/3f9-cd31f5a50afe.png",
+      "sha256": "cd31f5a50afe3448ffa58bc45ffcfa143163d128035b88e8ac032c0d986d8938",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3f9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "3M9",
+      "label": "Yellow Seat Belt Color",
+      "file": "photos/cards/3m9-d05a4d21cd9b.png",
+      "sha256": "d05a4d21cd9b9f6fcf17cbf5c73c9d2958646fd9fccb4f8488301343d95bdc79",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3m9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "3N9",
+      "label": "Natural Seat Belt Color",
+      "file": "photos/cards/3n9-1990ae822b7b.png",
+      "sha256": "1990ae822b7be5500d304c3b87f9c0a42b03eb8549f9315a3260b95f8074b117",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_3n9.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "5JS",
+      "label": "Torch Red Mirror Caps",
+      "file": "photos/cards/5js-d01f9c046a66.jpg",
+      "sha256": "d01f9c046a663cfe2ced3d8b21abb2adb29d0e2a78fe571d380e781921adfe51",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/5JS.jpg",
+      "source_model": "zr1x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "719",
+      "label": "Black Seat Belt Color",
+      "file": "photos/cards/719-5621c9c31980.png",
+      "sha256": "5621c9c319808ec4839b39abcbf01a980ed92709baf5f2fe000225a8c9b6908d",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/imgi_47_719.png",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "DPB",
+      "label": "Carbon Flash/Blue Racing Stripes",
+      "file": "photos/cards/dpb-5c754edd8eb1.jpg",
+      "sha256": "5c754edd8eb14d95e20d1666ca7db190344db7704f45879d8ad3adf91e6cd0aa",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/DPB.jpg",
+      "source_model": "zr1x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "DPC",
+      "label": "Carbon Flash/Yellow Racing Stripes",
+      "file": "photos/cards/dpc-0fc65114ac85.jpg",
+      "sha256": "0fc65114ac850723cf4fe7c038582e441df30b9205f6cff9ae2e24887d36acd2",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/DPC.jpg",
+      "source_model": "zr1x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "DPG",
+      "label": "Carbon Flash/Orange Racing Stripes",
+      "file": "photos/cards/dpg-0eedd0255af9.jpg",
+      "sha256": "0eedd0255af932b488d857a9b6f0e11d03b4b440ea04a4516b8e6931a1530157",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/DPG.jpg",
+      "source_model": "zr1x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "DPL",
+      "label": "Carbon Flash/Red Racing Stripes",
+      "file": "photos/cards/dpl-336631efa024.jpg",
+      "sha256": "336631efa024f71593050fe796400f158424a2b529f8efb3595e0b4ae7ab9ecc",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/DPL.jpg",
+      "source_model": "zr1x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "DPT",
+      "label": "Carbon Flash/Silver Racing Stripes",
+      "file": "photos/cards/dpt-e2ac0fca8bc9.jpg",
+      "sha256": "e2ac0fca8bc9bd6f02a05f3ff092c08cf82824a0e0eea41984e84c10b5a2f26a",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/DPT.jpg",
+      "source_model": "zr1x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "DTC",
+      "label": "Royal Blue Full-Length Dual Racing Stripes",
+      "file": "photos/cards/dtc-4659b7e4f432.jpg",
+      "sha256": "4659b7e4f432961db0ed8bac9f2b5a60735608ea1567fc673885355b7491f62e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/DTC.jpg",
+      "source_model": "grand_sport",
+      "note": "Shared option illustration from Chevrolet grand sport; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "DUE",
+      "label": "Asymmetrical Royal Blue/Carbon Flash Full Length Dual Racing Stripes",
+      "file": "photos/cards/due-c02f53efbf2d.jpg",
+      "sha256": "c02f53efbf2d039e2fb3c10e7cfd536d12912bc8fc198dbe22f598ae8ef86b43",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/DUE.jpg",
+      "source_model": "z06",
+      "note": "Shared option illustration from Chevrolet z06; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "DUK",
+      "label": "Edge Red/Carbon Flash Racing Stripes",
+      "file": "photos/cards/duk-aafe8c7f1527.jpg",
+      "sha256": "aafe8c7f152798b4021137c5225a2afb06708ffd2bba811a8c8f6614e1663a8a",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/DUK.jpg",
+      "source_model": "zr1x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "NWI",
+      "label": "Bright Chrome Exhaust Tips",
+      "file": "photos/cards/nwi-3c74dbf484ce.jpg",
+      "sha256": "3c74dbf484ce9e2550b1d4ae6a5fcafaa2dc8fb754d20076f37f025321c1030b",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/NWI.jpg",
+      "source_model": "z06",
+      "note": "Shared option illustration from Chevrolet z06; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "PBC",
+      "label": "Customer Engine Build Program",
+      "file": "photos/cards/pbc-ca48b5ef3aad.jpg",
+      "sha256": "ca48b5ef3aad0d55d22a8d94d010a5dd5560908204b4a81c5f9f87e51008faa7",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/PBC.jpg",
+      "source_model": "zr1x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "R88",
+      "label": "Front Illuminated Crossed Flags Emblem",
+      "file": "photos/cards/r88-ad49e546d2cc.jpg",
+      "sha256": "ad49e546d2cc7a826c86a9b1c2a7b8186d19ad2ecc1641b03e0a0ceb811bf93e",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-gs/small_byo3/R88.jpg",
+      "source_model": "grand_sport",
+      "note": "Shared option illustration from Chevrolet grand sport; same named feature/design, not a live configured vehicle rendering."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "T0E",
+      "label": "Low Rear Spoiler",
+      "file": "photos/cards/t0e-5a28aa924fa2.jpg",
+      "sha256": "5a28aa924fa27ad3ce6a9214bfba0317e150b481ac518d3f8f8d54f3329b0966",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/ext/t0e.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "V8X",
+      "label": "Visible Carbon Fiber Sill Plates",
+      "file": "photos/cards/v8x-844172c774af.jpg",
+      "sha256": "844172c774afc60cd089a3f123a1d2ddd8e5bc99dd9420abcde90006d110ad52",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/accessories/v8x22.jpg",
+      "source_model": "shared",
+      "note": "Existing owner image library; visually checked against option identity."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "VWT",
+      "label": "Insect Protection Grille Screen",
+      "file": "photos/cards/vwt-2405d7185be2.jpg",
+      "sha256": "2405d7185be2934cbb0bd4b66c6a20f18647bf075e6de596491bfaede3794ffd",
+      "source_url": "https://stingraychevroletcorvette.com/wp-content/uploads/pictures/27vette/lpo/e-g-h-vwt.jpg",
+      "source_model": "shared",
+      "note": "Owner explicitly supplied and approved this exact image for ZR1/ZR1X on November 14."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "WKR",
+      "label": "GT3.R Premium Indoor Car Cover",
+      "file": "photos/cards/wkr-239e1f5df096.jpg",
+      "sha256": "239e1f5df0962533fdf298507dc95b32151fa19e8feb823b491b8a78adfa7bf1",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-zr1x/small_byo3/WKR.jpg",
+      "source_model": "zr1x",
+      "note": "Current Chevrolet model-specific option photo."
+    },
+    {
+      "model": "zr1x",
+      "rpo": "ZZ3",
+      "label": "Convertible Engine Appearance Package",
+      "file": "photos/cards/zz3-06a02aa541cf.jpg",
+      "sha256": "06a02aa541cfaac54d63fcf180f8b1465cff899a93fc4c4009e8c5439ddd0c7c",
+      "source_url": "https://www.chevrolet.com/bypass/master_tools/ddp/gmna/assets/US/chevrolet/2027/corvette/corvette-z06/small_byo3/ZZ3.jpg",
+      "source_model": "z06",
+      "note": "Shared option illustration from Chevrolet z06; same named feature/design, not a live configured vehicle rendering."
+    }
+  ],
+  "authoring": {
+    "changes": [
+      {
+        "model": "zr1x",
+        "operations": [
+          {
+            "table": "consumer_option_context",
+            "key": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "1lz_s07"
+            },
+            "before": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "1lz_s07",
+              "presentation": "{\"display_behavior\":\"default_selected\",\"section_id\":\"sec_exte_001\",\"section_label\":\"Exterior Accents\",\"section_order\":20,\"standard_equipment_group_type\":null,\"step_key\":\"exterior_appearance\",\"summary_section_id\":\"exterior_appearance\"}"
+            },
+            "after": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "1lz_s07",
+              "presentation": "{\"display_behavior\":\"hidden\",\"section_id\":\"sec_exte_001\",\"section_label\":\"Exterior Accents\",\"section_order\":20,\"standard_equipment_group_type\":null,\"step_key\":\"exterior_appearance\",\"summary_section_id\":null}"
+            }
+          },
+          {
+            "table": "consumer_option_context",
+            "key": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "1lz_s67"
+            },
+            "before": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "1lz_s67",
+              "presentation": "{\"display_behavior\":\"default_selected\",\"section_id\":\"sec_exte_001\",\"section_label\":\"Exterior Accents\",\"section_order\":20,\"standard_equipment_group_type\":null,\"step_key\":\"exterior_appearance\",\"summary_section_id\":\"exterior_appearance\"}"
+            },
+            "after": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "1lz_s67",
+              "presentation": "{\"display_behavior\":\"hidden\",\"section_id\":\"sec_exte_001\",\"section_label\":\"Exterior Accents\",\"section_order\":20,\"standard_equipment_group_type\":null,\"step_key\":\"exterior_appearance\",\"summary_section_id\":null}"
+            }
+          },
+          {
+            "table": "consumer_option_context",
+            "key": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "3lz_s07"
+            },
+            "before": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "3lz_s07",
+              "presentation": "{\"display_behavior\":\"default_selected\",\"section_id\":\"sec_exte_001\",\"section_label\":\"Exterior Accents\",\"section_order\":20,\"standard_equipment_group_type\":null,\"step_key\":\"exterior_appearance\",\"summary_section_id\":\"exterior_appearance\"}"
+            },
+            "after": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "3lz_s07",
+              "presentation": "{\"display_behavior\":\"hidden\",\"section_id\":\"sec_exte_001\",\"section_label\":\"Exterior Accents\",\"section_order\":20,\"standard_equipment_group_type\":null,\"step_key\":\"exterior_appearance\",\"summary_section_id\":null}"
+            }
+          },
+          {
+            "table": "consumer_option_context",
+            "key": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "3lz_s67"
+            },
+            "before": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "3lz_s67",
+              "presentation": "{\"display_behavior\":\"default_selected\",\"section_id\":\"sec_exte_001\",\"section_label\":\"Exterior Accents\",\"section_order\":20,\"standard_equipment_group_type\":null,\"step_key\":\"exterior_appearance\",\"summary_section_id\":\"exterior_appearance\"}"
+            },
+            "after": {
+              "revision_id": "9f0852fe-5689-4066-b18d-543bbe5e0d6e",
+              "option_id": "opt_efr_001",
+              "configuration_id": "3lz_s67",
+              "presentation": "{\"display_behavior\":\"hidden\",\"section_id\":\"sec_exte_001\",\"section_label\":\"Exterior Accents\",\"section_order\":20,\"standard_equipment_group_type\":null,\"step_key\":\"exterior_appearance\",\"summary_section_id\":null}"
+            }
+          }
+        ],
+        "reason": "Owner beta feedback November 14: hide standard ZR1X EFR from choices and review; retain installed equipment and price.",
+        "result": {
+          "saved": true,
+          "edit_version": 11,
+          "etag": "ca844b420f127bc995b75e63ca7a9bc9191573ed08df6424ee86365d0a206418"
+        }
+      },
+      {
+        "model": "zr1",
+        "operations": [
+          {
+            "table": "consumer_option",
+            "key": {
+              "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc",
+              "option_id": "opt_j59_002"
+            },
+            "before": {
+              "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc",
+              "option_id": "opt_j59_002",
+              "consumer_key": "opt_j59_002",
+              "presentation": "{\"description\":\"4-wheel antilock disc\",\"detail_raw\":\"Included with (ZTK) ZTK Track Performance Package.\",\"display_behavior\":\"display_only\",\"display_order\":20,\"emit_code\":true,\"name\":\"10-Piston Front / 6-Piston Rear Carbon Ceramic Brakes\",\"projection\":\"installed_equipment\",\"rpo\":\"J59\",\"section_id\":\"sec_perf_brake_001\"}",
+              "source_locator": "baseline_rows/zr1_options/_row=112"
+            },
+            "after": {
+              "revision_id": "05f542bd-0cc2-4ec8-b78c-b45c35a733bc",
+              "option_id": "opt_j59_002",
+              "consumer_key": "opt_j59_002",
+              "presentation": "{\"description\":\"Included automatically with the ZTK Track Performance Package. Select or remove ZTK to change this brake equipment.\",\"detail_raw\":\"Included with (ZTK) ZTK Track Performance Package.\",\"display_behavior\":\"display_only\",\"display_order\":20,\"emit_code\":true,\"name\":\"10-Piston Front / 6-Piston Rear Carbon Ceramic Brakes\",\"projection\":\"installed_equipment\",\"rpo\":\"J59\",\"section_id\":\"sec_perf_brake_001\"}",
+              "source_locator": "baseline_rows/zr1_options/_row=112"
+            }
+          }
+        ],
+        "reason": "Owner beta feedback November 14: explain display-only ZR1 J59 in Performance Brakes, already acquired by ZTK.",
+        "result": {
+          "saved": true,
+          "edit_version": 11,
+          "etag": "fdb2727c7bcb3ed7f5030ff66aefa670368bab7df929935149489fb103e9fcd9"
+        }
+      }
+    ],
+    "acceptance": {
+      "accepted": true,
+      "acceptance_id": "fc631f89-ed5a-4012-8014-ff63d92a69ef",
+      "etag": "14351e0a82582dfdd121c661aa1ca46c6471bebf93559b2eb680414dd1069aeb"
+    }
+  },
+  "data_verification": {
+    "changed_product_tables": [
+      "consumer_option",
+      "consumer_option_context"
+    ],
+    "preserved": "All prices, rules, availability, configurations, identities, interiors and assets in draft unchanged.",
+    "checks": [
+      {
+        "model": "zr1",
+        "configuration": "1lz_r67",
+        "J59": "Display only in Performance Brakes; ZTK adds and removes it automatically."
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r67",
+        "J59": "Display only in Performance Brakes; ZTK adds and removes it automatically."
+      },
+      {
+        "model": "zr1",
+        "configuration": "1lz_r07",
+        "J59": "Display only in Performance Brakes; ZTK adds and removes it automatically."
+      },
+      {
+        "model": "zr1",
+        "configuration": "3lz_r07",
+        "J59": "Display only in Performance Brakes; ZTK adds and removes it automatically."
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s67",
+        "EFR": "Installed standard equipment, absent from option cards and review; total unchanged."
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s67",
+        "EFR": "Installed standard equipment, absent from option cards and review; total unchanged."
+      },
+      {
+        "model": "zr1x",
+        "configuration": "1lz_s07",
+        "EFR": "Installed standard equipment, absent from option cards and review; total unchanged."
+      },
+      {
+        "model": "zr1x",
+        "configuration": "3lz_s07",
+        "EFR": "Installed standard equipment, absent from option cards and review; total unchanged."
+      },
+      {
+        "model": "grandSport",
+        "configuration": "3lt_e67",
+        "base_price": 108745
+      }
+    ]
+  },
+  "behavior_changes": [
+    "Render authored display_only cards without select/remove controls, including J59 in Performance Brakes. Existing ZTK inclusion/removal rules are unchanged.",
+    "Hide standard ZR1X EFR from option cards and customer recap while preserving installed equipment and pricing.",
+    "Add actual paid interior component charges once to the Seats/Interior review section.",
+    "Add vehicle.base_price to the Markdown download; Grand Sport Convertible 3LT is $108,745."
+  ],
+  "validation": {
+    "focused_consumer_dealer_ui": "31 tests passed (125.189 s).",
+    "final_photo_startup_review": "6 tests passed (13.062 s), including real page JavaScript against paid-interior builds across all 32 body/trim configurations.",
+    "consumer_server": "9 tests passed (3.444 s), including bundled JPEG/PNG/index serving and rejected traversal.",
+    "accepted_draft": "Nine target checks passed; only two presentation tables changed. See data_verification.",
+    "qualified_release": "Pending final qualification and hosted checks."
+  }
+}
